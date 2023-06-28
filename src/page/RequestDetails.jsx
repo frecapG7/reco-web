@@ -2,6 +2,7 @@ import { Box, Container, Grid, Paper, Typography } from "@mui/material";
 import { useGetRequest } from "../api/requests";
 import { useParams } from "react-router-dom";
 import { Enum } from "../utils/Enum";
+import { Recommendations } from "../recommendation/Recommendations";
 
 
 export const RequestDetails = () => {
@@ -37,6 +38,8 @@ export const RequestDetails = () => {
                     {request.description}
                 </Typography>
             </Paper>
+
+            <Recommendations request={request} />
 
 
         </Container>
