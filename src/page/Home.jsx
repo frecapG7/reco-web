@@ -1,13 +1,14 @@
 
 import { Container, Typography } from "@mui/material";
+import { Layout } from "../layout/Layout";
 const Home = () => {
 
     return (
-        <Container>
+        <Layout>
             <Typography variant="h2" align="center" color="textPrimary" gutterBottom>
                 Home
             </Typography>
-        </Container>
+        </Layout>
     )
 
 }

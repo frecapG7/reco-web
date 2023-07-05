@@ -2,10 +2,12 @@ import logo from './logo.svg';
 import './App.css';
 import CssBaseline from '@mui/material/CssBaseline';
 import { QueryClient, QueryClientProvider } from 'react-query';
-import {ReactQueryDevtools} from "react-query/devtools";
-import {createBrowserRouter, RouterProvider} from 'react-router-dom';
+import { ReactQueryDevtools } from "react-query/devtools";
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { routes } from './routes';
-import { Layout } from './Layout';
+import { Layout } from './layout/Layout';
+import { ThemeProvider } from '@emotion/react';
+import theme from './theme';
 
 
 
@@ -31,13 +33,14 @@ const router = createBrowserRouter(routes, {
 
 function App() {
   return (
-    <QueryClientProvider client={queryClient}>
-      <ReactQueryDevtools initialIsOpen={false}/>
-      <CssBaseline />
-      <Layout>
+    <ThemeProvider theme={theme}>
+      <QueryClientProvider client={queryClient}>
+        <ReactQueryDevtools initialIsOpen={false} />
+        <CssBaseline />
         <RouterProvider router={router} />
-      </Layout>  
-    </QueryClientProvider>
+      </QueryClientProvider>
+    </ThemeProvider>
+
   );
 }
 

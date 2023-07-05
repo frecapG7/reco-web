@@ -18,7 +18,6 @@ export const FormSelect = ({ name, label, control, options, rules, ...rest }) =>
     });
 
     const formatLabel = getFormatLabel(label, rules?.required);
-    debugger
 
     return (
         <FormControl fullWidth>
