@@ -2,10 +2,10 @@ import logo from './logo.svg';
 import './App.css';
 import CssBaseline from '@mui/material/CssBaseline';
 import { QueryClient, QueryClientProvider } from 'react-query';
-import {ReactQueryDevtools} from "react-query/devtools";
-import {createBrowserRouter, RouterProvider} from 'react-router-dom';
+import { ReactQueryDevtools } from "react-query/devtools";
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { routes } from './routes';
-import { Layout } from './Layout';
+import { Layout } from './layout/Layout';
 
 
 
@@ -32,11 +32,9 @@ const router = createBrowserRouter(routes, {
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <ReactQueryDevtools initialIsOpen={false}/>
+      <ReactQueryDevtools initialIsOpen={false} />
       <CssBaseline />
-      <Layout>
-        <RouterProvider router={router} />
-      </Layout>  
+      <RouterProvider router={router} />
     </QueryClientProvider>
   );
 }

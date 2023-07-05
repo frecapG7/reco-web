@@ -5,6 +5,7 @@ import { useSearchRequests } from '../api/search';
 import { useNavigate } from 'react-router-dom';
 import { CustomProgress } from '../layout/CustomProgress';
 import { CustomError } from '../layout/CustomError';
+import { Layout } from '../layout/Layout';
 
 
 const Content = ({ requests }) => {
@@ -61,7 +62,7 @@ export const Requests = () => {
 
 
     return (
-        <Container>
+        <Layout>
             <Typography variant="h2" align="center" color="textPrimary" gutterBottom>
                 Requests
             </Typography>
@@ -106,12 +107,7 @@ export const Requests = () => {
 
                 </Table>
             </TableContainer>
-
-
-
-
-
-        </Container>
+        </Layout>
     )
 
 }
