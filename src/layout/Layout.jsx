@@ -14,7 +14,10 @@ export const Layout = ({ children }) => {
 
     return (
         <div>
-            <AppBar position="fixed">
+            <AppBar position="fixed" sx={{
+                bgColor:'background.default',
+                color:'primary'
+            }} enableColorOnDark>
                 <Toolbar>
                     <IconButton
                         aria-label="open drawer"

@@ -6,6 +6,8 @@ import { ReactQueryDevtools } from "react-query/devtools";
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { routes } from './routes';
 import { Layout } from './layout/Layout';
+import { ThemeProvider } from '@emotion/react';
+import theme from './theme';
 
 
 
@@ -31,11 +33,14 @@ const router = createBrowserRouter(routes, {
 
 function App() {
   return (
-    <QueryClientProvider client={queryClient}>
-      <ReactQueryDevtools initialIsOpen={false} />
-      <CssBaseline />
-      <RouterProvider router={router} />
-    </QueryClientProvider>
+    <ThemeProvider theme={theme}>
+      <QueryClientProvider client={queryClient}>
+        <ReactQueryDevtools initialIsOpen={false} />
+        <CssBaseline />
+        <RouterProvider router={router} />
+      </QueryClientProvider>
+    </ThemeProvider>
+
   );
 }
 
