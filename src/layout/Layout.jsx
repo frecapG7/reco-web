@@ -3,6 +3,8 @@ import MenuIcon from '@mui/icons-material/Menu';
 import { NavigationBar } from "./NavigationBar";
 import { useState } from "react";
 import { Box } from "@mui/system";
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import PowerSettingsNewIcon from '@mui/icons-material/PowerSettingsNew';
 
 export const Layout = ({ children }) => {
 
@@ -25,10 +27,10 @@ export const Layout = ({ children }) => {
                         Recoco
                     </Typography>
                     <IconButton color="inherit">
-                        user
+                        <AccountCircleIcon />
                     </IconButton>
                     <IconButton color="inherit">
-                        logout
+                        <PowerSettingsNewIcon />
                     </IconButton>
                 </Toolbar>
             </AppBar>
