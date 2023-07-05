@@ -32,7 +32,7 @@ export const BookRecommendationForm = ({ control }) => {
 
 
     return (
-        <Grid container>
+        <Grid container spacing={2}>
             {/* Test field for field1 is Title */}
             <Grid item xs={12}>
                 <FormText name="field1"
@@ -49,7 +49,16 @@ export const BookRecommendationForm = ({ control }) => {
                     rules={{ required: true }}
                 />
             </Grid>
-
+            {/* Test field for field3 is an optionnal text area */}
+            <Grid item xs={12}>
+                <FormText name="field3"
+                    label="Description"
+                    control={control}
+                    placeholder="Make me wanna try it"
+                    multiline
+                    rows={4}
+                />
+            </Grid>
         </Grid>
     );
 

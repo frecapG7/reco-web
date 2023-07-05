@@ -5,7 +5,7 @@ import { REQUEST_TYPE } from '../constants';
 
 
 const RequestTypeEnum = ({value}) => {
-    return _.find(REQUEST_TYPE, {value}).label;
+    return _.find(REQUEST_TYPE, {value})?.label;
 }
 
 

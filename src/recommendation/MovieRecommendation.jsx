@@ -39,7 +39,7 @@ export const MovieRecommendation = ({ recommendation }) => {
 export const MovieRecommendationForm = ({ control }) => {
 
     return (
-        <Grid container>
+        <Grid container spacing={2}>
 
             {/* Test field for field1 is Title */}
             <Grid item xs={12}>

@@ -1,8 +1,9 @@
-import { Box, Container, Grid, Paper, Typography } from "@mui/material";
+import { Accordion, AccordionDetails, AccordionSummary, Box, Container, Grid, Paper, Typography } from "@mui/material";
 import { useGetRequest } from "../api/requests";
 import { useParams } from "react-router-dom";
 import { Enum } from "../utils/Enum";
 import { Recommendations } from "../recommendation/Recommendations";
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 
 export const RequestDetails = () => {
@@ -18,28 +19,47 @@ export const RequestDetails = () => {
     if (error) return <div>{error.message}</div>
 
     return (
-        <Container>
+        <Container spacing={2}>
             <Paper elevation={2}
                 square>
-                    <Grid container>
-                        <Grid item xs={12}>
-                            <Typography variant="title">
-                                TODO: user is looking for a <Enum value={request.requestType} enumName="REQUEST_TYPE" />
+                <Box justifyContent="center"
+                    alignItems="center">
+                    <Typography variant="title">
+                        <Enum value={request.requestType} enumName="REQUEST_TYPE" />
+                    </Typography>
+                </Box>
+
+
+                <Accordion>
+                    <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                        <Typography variant="subtitle1">
+                            Description
+                        </Typography>
+                    </AccordionSummary>
+                    <AccordionDetails>
+                        <Paper>
+                            <Typography variant="body" paragraph>
+                                {request.description}
                             </Typography>
-                        </Grid>
-                        <Grid item xs={12}>
-                            <Typography variant="subtitle1">
-                                {request.title}
-                            </Typography>
-                        </Grid>
-                    </Grid>
-                <Typography variant="body"
-                    paragraph>
-                    {request.description}
-                </Typography>
+                        </Paper>
+                    </AccordionDetails>
+
+                </Accordion>
+
+
+
             </Paper>
 
-            <Recommendations request={request} />
+            <Paper elevation={2} sx={{
+                mt:5
+            }}>
+                <Typography variant="title">
+                    Previous responses
+                </Typography>
+                <Recommendations request={request} />
+
+            </Paper>
+
 
 
         </Container>

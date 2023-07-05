@@ -1,8 +1,53 @@
-import { Box, Container, Grid, Paper, Table, TableBody, TableCell, TableContainer, TableFooter, TableHead, TablePagination, TableRow, Typography } from '@mui/material';
+import { Box, Container, Paper, Table, TableBody, TableCell, TableContainer, TableFooter, TableHead, TablePagination, TableRow, Typography } from '@mui/material';
 
 import { useState } from 'react';
 import { useSearchRequests } from '../api/search';
 import { useNavigate } from 'react-router-dom';
+import { CustomProgress } from '../layout/CustomProgress';
+import { CustomError } from '../layout/CustomError';
+
+
+const Content = ({ requests }) => {
+
+    const navigate = useNavigate();
+
+
+    if (requests?.length === 0) return (
+        <TableBody>
+            <TableRow>
+                <TableCell>
+                    <Typography variant='body1'>No requests</Typography>
+                </TableCell>
+            </TableRow>
+        </TableBody>
+    );
+
+    return (
+        <TableBody spacing={5}>
+            {requests?.map((result) => (
+                <TableRow key={result._id}
+                    hover
+                    component={Paper}
+                    sx={{ cursor: 'pointer', my:3 }}
+                    onClick={() => navigate(result._id)}>
+                    <TableCell>
+                        <Typography variant='body1'>{result.requestType}</Typography>
+                    </TableCell>
+                    <TableCell>
+                        <Typography variant='body1'>{result.description}</Typography>
+                    </TableCell>
+                    <TableCell>
+                        <Typography variant='body1'>{result.status}</Typography>
+                    </TableCell>
+                    <TableCell>
+                        <Typography variant='body1'>{result.author}</Typography>
+                    </TableCell>
+                </TableRow>
+            ))
+            }
+        </TableBody>
+    );
+}
 
 
 export const Requests = () => {
@@ -12,10 +57,7 @@ export const Requests = () => {
     const [pageSize, setPageSize] = useState(10);
     const [pageNumber, setPageNumber] = useState(0);
 
-    const { data: resultSet, error, isLoading, isFetching } = useSearchRequests({}, pageNumber, pageSize);
-
-
-
+    const { data: resultSet, error, isLoading, } = useSearchRequests({}, pageNumber, pageSize);
 
 
     return (
@@ -30,79 +72,24 @@ export const Requests = () => {
                 <Table>
                     <TableHead>
                         <TableRow>
-                            <Grid container>
-                                <Grid item xs={12} sm={6} md={4} lg={3}>
-                                    <TableCell>
-                                        <Typography variant='h6'>Request Type</Typography>
-                                    </TableCell>
-                                </Grid>
-                                <Grid item xs={12} sm={6} md={4} lg={3}>
-                                    <TableCell>
-                                        <Typography variant='h6'>Description</Typography>
-                                    </TableCell>
-                                </Grid>
-                                <Grid item xs={12} sm={6} md={4} lg={3}>
-                                    <TableCell>
-                                        <Typography variant='h6'>Status</Typography>
-                                    </TableCell>
-                                </Grid>
-                                <Grid item xs={12} sm={6} md={4} lg={3}>
-                                    <TableCell>
-                                        <Typography variant='h6'>Author</Typography>
-                                    </TableCell>
-                                </Grid>
-                            </Grid>
+                            <TableCell>
+                                <Typography variant='h6'>Request Type</Typography>
+                            </TableCell>
+                            <TableCell>
+                                <Typography variant='h6'>Description</Typography>
+                            </TableCell>
+                            <TableCell>
+                                <Typography variant='h6'>Status</Typography>
+                            </TableCell>
+                            <TableCell>
+                                <Typography variant='h6'>Author</Typography>
+                            </TableCell>
                         </TableRow>
                     </TableHead>
 
-                    <TableBody>
-
-                        {resultSet?.results.length === 0 && (
-                            <TableRow>
-                                <Paper>
-                                    <TableCell>
-                                        <Typography variant='body1'>No results found</Typography>
-                                    </TableCell>
-                                </Paper>
-                            </TableRow>
-                        )
-                        }
-
-                        {resultSet?.results.length !== 0 &&
-                            (resultSet?.results.map((result) => (
-                                <TableRow key={result._id}
-                                    hover
-                                    sx={{ cursor: 'pointer' }}
-                                    onClick={() => navigate(result._id)}>
-                                    <Paper>
-                                        <Grid container>
-                                            <Grid item xs={12} sm={6} md={4} lg={3}>
-                                                <TableCell>
-                                                    <Typography variant='body1'>{result.requestType}</Typography>
-                                                </TableCell>
-                                            </Grid>
-                                            <Grid item xs={12} sm={6} md={4} lg={3}>
-                                                <TableCell>
-                                                    <Typography variant='body1'>{result.description}</Typography>
-                                                </TableCell>
-                                            </Grid>
-                                            <Grid item xs={12} sm={6} md={4} lg={3}>
-                                                <TableCell>
-                                                    <Typography variant='body1'>{result.status}</Typography>
-                                                </TableCell>
-                                            </Grid>
-                                            <Grid item xs={12} sm={6} md={4} lg={3}>
-                                                <TableCell>
-                                                    <Typography variant='body1'>{result.author}</Typography>
-                                                </TableCell>
-                                            </Grid>
-                                        </Grid>
-                                    </Paper>
-                                </TableRow>
-                            ))
-                            )
-                        }
-                    </TableBody>
+                    {isLoading && <CustomProgress variant="table-body" />}
+                    {error && <CustomError variant="table-body" />}
+                    {!isLoading && !error && <Content requests={resultSet?.results} />}
 
                     <TableFooter>
                         <TableRow>

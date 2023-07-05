@@ -6,8 +6,6 @@ import { useRef } from "react";
 
 export const CreateRequest = () => {
 
-
-
     const formRef = useRef();
 
     const onSubmit = (data) => {
