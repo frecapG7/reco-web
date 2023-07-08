@@ -9,15 +9,17 @@ import PowerSettingsNewIcon from '@mui/icons-material/PowerSettingsNew';
 export const Layout = ({ children }) => {
 
 
+    const drawerWidth = 240;
     const [openDrawer, setOpenDrawer] = useState(false);
 
 
     return (
         <div>
-            <AppBar position="fixed" sx={{
-                bgColor:'background.default',
-                color:'primary'
-            }} enableColorOnDark>
+            <AppBar position="fixed"
+                sx={{
+                    bgColor: 'background.default',
+                    color: 'primary'
+                }} enableColorOnDark>
                 <Toolbar>
                     <IconButton
                         aria-label="open drawer"
@@ -41,8 +43,12 @@ export const Layout = ({ children }) => {
                 sx={{
                     width: 200,
                     flexShrink: 0,
+                    '& .MuiDrawer-paper': {
+                        width: drawerWidth,
+                        boxSizing: 'border-box',
+                    },
                 }}
-                variant="persistenr"
+                variant="persistent"
                 anchor="left"
                 open={openDrawer}>
                 <NavigationBar onClose={() => setOpenDrawer(false)} />
@@ -50,6 +56,7 @@ export const Layout = ({ children }) => {
             <Box component="main"
                 sx={{
                     flexGrow: 1,
+                    marginLeft: openDrawer ? `${drawerWidth}px` : '0px',
                 }}>
                 <Toolbar />
                 {children}
