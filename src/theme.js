@@ -3,7 +3,7 @@ import { createTheme } from "@mui/material";
 
 let theme = createTheme({
     palette: {
-        mode:'light',
+        mode: 'light',
         primary: {
             main: '#1a73e8',
             contrastText: '#fff'
@@ -21,7 +21,7 @@ let theme = createTheme({
 
 
 
-const {breakpoints, typography: {pxToRem}} = theme;
+const { breakpoints, typography: { pxToRem } } = theme;
 theme = createTheme(theme, {
     typography: {
         h1: {
@@ -52,6 +52,23 @@ theme = createTheme(theme, {
             },
         },
     },
+});
+
+
+theme = createTheme(theme, {
+    components: {
+        MuiButton: {
+            styleOverrides: {
+                root: {
+
+                },
+                outlined: {
+                    boxShadow: "none",
+                    borderRadius: 20,
+                }
+            }
+        }
+    }
 });
 
 

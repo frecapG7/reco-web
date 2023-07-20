@@ -38,21 +38,22 @@ export const Layout = ({ children }) => {
                         <PowerSettingsNewIcon />
                     </IconButton>
                 </Toolbar>
+                <Drawer
+                    sx={{
+                        width: 200,
+                        flexShrink: 0,
+                        '& .MuiDrawer-paper': {
+                            width: drawerWidth,
+                            boxSizing: 'border-box',
+                        },
+                    }}
+                    variant="persistent"
+                    anchor="left"
+                    open={openDrawer}>
+                    <NavigationBar onClose={() => setOpenDrawer(false)} />
+                </Drawer>
             </AppBar>
-            <Drawer
-                sx={{
-                    width: 200,
-                    flexShrink: 0,
-                    '& .MuiDrawer-paper': {
-                        width: drawerWidth,
-                        boxSizing: 'border-box',
-                    },
-                }}
-                variant="persistent"
-                anchor="left"
-                open={openDrawer}>
-                <NavigationBar onClose={() => setOpenDrawer(false)} />
-            </Drawer>
+
             <Box component="main"
                 sx={{
                     flexGrow: 1,
