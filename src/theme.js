@@ -67,6 +67,21 @@ theme = createTheme(theme, {
                     borderRadius: 20,
                 }
             }
+        },
+        MuiPaper: {
+            variants: [
+                {
+                    props: { variant: "outlined" },
+                    style: {
+                        borderRadius: 20,
+                        boxShadow: "none",
+                        border: "1px solid #e0e0e0",
+                        borderColor: "#1a73e8",
+                        padding: 20,
+                        
+                    }
+                },
+            ],
         }
     }
 });

@@ -4,7 +4,6 @@ import { useParams } from "react-router-dom";
 import { Enum } from "../utils/Enum";
 import { Recommendations } from "../recommendation/Recommendations";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { Layout } from "../layout/Layout";
 
 
 export const RequestDetails = () => {
@@ -20,7 +19,7 @@ export const RequestDetails = () => {
     if (error) return <div>{error.message}</div>
 
     return (
-        <Layout>
+        <Container>
             <Paper elevation={2}
                 square>
                 <Box justifyContent="center"
@@ -52,7 +51,7 @@ export const RequestDetails = () => {
             </Paper>
 
             <Paper elevation={2} sx={{
-                mt:5
+                mt: 5
             }}>
                 <Typography variant="title">
                     Previous responses
@@ -63,7 +62,7 @@ export const RequestDetails = () => {
 
 
 
-        </Layout>
+        </Container>
     );
 
 

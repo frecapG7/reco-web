@@ -3,6 +3,8 @@ import Home from "./page/Home";
 import { ManageAccount } from "./page/ManageAccount";
 import { RequestDetails } from "./page/RequestDetails";
 import { Requests } from "./page/Requests";
+import { Login } from "./page/Login";
+import { AuthLayout } from "./layout/AuthLayout";
 
 export const routes = [
     {
@@ -14,28 +16,42 @@ export const routes = [
         children: [
             {
                 path: "",
-                element: <Requests />,
+                element: <AuthLayout>
+                    <Requests />
+                </AuthLayout>,
             },
             {
                 path: ":id",
-                element: <RequestDetails />,
+                element:
+                    <AuthLayout>
+                        <RequestDetails />
+                    </AuthLayout>,
             },
             {
                 path: "new",
-                element: <CreateRequest />
+                element: <AuthLayout>
+                    <CreateRequest />
+                </AuthLayout>
             }
         ],
     },
     {
-        path : "my",
-        children : [
-            {   
-                path : "requests",
+        path: "my",
+        children: [
+            {
+                path: "requests",
             },
             {
                 path: "settings",
-                element: <ManageAccount />
+                element:
+                    <AuthLayout>
+                        <ManageAccount />
+                    </AuthLayout>
             }
         ]
+    },
+    {
+        path: "login",
+        element: <Login />
     }
 ];

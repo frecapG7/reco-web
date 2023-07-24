@@ -6,7 +6,7 @@ import { Box } from "@mui/system";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import PowerSettingsNewIcon from '@mui/icons-material/PowerSettingsNew';
 
-export const Layout = ({ children }) => {
+export const AuthLayout = ({ children }) => {
 
 
     const drawerWidth = 240;
