@@ -5,6 +5,7 @@ import { RequestDetails } from "./page/RequestDetails";
 import { Requests } from "./page/Requests";
 import { Login } from "./page/Login";
 import { AuthLayout } from "./layout/AuthLayout";
+import { StandardLayout } from "./layout/StandardLayout";
 
 export const routes = [
     {
@@ -52,6 +53,8 @@ export const routes = [
     },
     {
         path: "login",
-        element: <Login />
+        element: <StandardLayout>
+            <Login />
+        </StandardLayout>
     }
 ];
