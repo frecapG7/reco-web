@@ -1,5 +1,5 @@
 
-import { Container, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import { Layout } from "../layout/Layout";
 const Home = () => {
 

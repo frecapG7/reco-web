@@ -1,4 +1,4 @@
-import { Box, Container, Paper, Table, TableBody, TableCell, TableContainer, TableFooter, TableHead, TablePagination, TableRow, Typography } from '@mui/material';
+import { Box, Paper, Table, TableBody, TableCell, TableContainer, TableFooter, TableHead, TablePagination, TableRow, Typography } from '@mui/material';
 
 import { useState } from 'react';
 import { useSearchRequests } from '../api/search';

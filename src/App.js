@@ -1,11 +1,9 @@
-import logo from './logo.svg';
 import './App.css';
 import CssBaseline from '@mui/material/CssBaseline';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from "react-query/devtools";
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { routes } from './routes';
-import { Layout } from './layout/Layout';
 import { ThemeProvider } from '@emotion/react';
 import theme from './theme';
 

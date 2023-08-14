@@ -1,4 +1,4 @@
-import { Accordion, AccordionDetails, AccordionSummary, Box, Container, Grid, Paper, Typography } from "@mui/material";
+import { Accordion, AccordionDetails, AccordionSummary, Box, Paper, Typography } from "@mui/material";
 import { useGetRequest } from "../api/requests";
 import { useParams } from "react-router-dom";
 import { Enum } from "../utils/Enum";
@@ -52,7 +52,7 @@ export const RequestDetails = () => {
             </Paper>
 
             <Paper elevation={2} sx={{
-                mt:5
+                mt: 5
             }}>
                 <Typography variant="title">
                     Previous responses
