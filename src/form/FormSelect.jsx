@@ -29,7 +29,7 @@ export const FormSelect = ({ name, label, control, options, rules, ...rest }) =>
                 onBlur={onBlur}
                 inputRef={ref}>
                 {options.map((item, index) => (
-                    <MenuItem key={index.value}
+                    <MenuItem key={index}
                         value={item.value}>
                         {item.label}
                     </MenuItem>

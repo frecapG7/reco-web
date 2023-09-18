@@ -3,9 +3,10 @@ import Home from "./page/Home";
 import { ManageAccount } from "./page/ManageAccount";
 import { RequestDetails } from "./page/RequestDetails";
 import { Requests } from "./page/Requests";
-import { Login } from "./page/Login";
+import { LoginScreen } from "./page/LoginScreen";
 import { AuthLayout } from "./layout/AuthLayout";
 import { StandardLayout } from "./layout/StandardLayout";
+import { MyRequests } from "./page/MyRequests";
 
 export const routes = [
     {
@@ -41,6 +42,9 @@ export const routes = [
         children: [
             {
                 path: "requests",
+                element: <AuthLayout>
+                    <MyRequests />
+                </AuthLayout>
             },
             {
                 path: "settings",
@@ -54,7 +58,7 @@ export const routes = [
     {
         path: "login",
         element: <StandardLayout>
-            <Login />
+            <LoginScreen />
         </StandardLayout>
     }
 ];

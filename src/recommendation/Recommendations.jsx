@@ -6,8 +6,10 @@ import {CreateRecommendation} from "./CreateRecommendation";
 
 const Content = ({ recommendations }) => {
 
+    debugger
 
-    if (recommendations.length === 0) return (
+
+    if (recommendations?.length === 0) return (
         <TableBody>
             <TableRow>
                 <TableCell colSpan={2}>
@@ -19,9 +21,9 @@ const Content = ({ recommendations }) => {
 
     return (
         <TableBody>
-            {recommendations.map((recommendation) => (
+            {recommendations?.map((recommendation) => (
                 <TableRow component="Paper"
-                    key={recommendation._id}>
+                    key={recommendation.id}>
                     <TableCell component="th" scope="row">
                         {recommendation.field1}
                     </TableCell>

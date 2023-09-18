@@ -5,15 +5,16 @@ let theme = createTheme({
     palette: {
         mode: 'light',
         primary: {
-            main: '#1a73e8',
+            main: '#a7c957',
             contrastText: '#fff'
         },
         secondary: {
-            main: '#fff',
+            main: '#f2e8cf',
             contrastText: '#1a73e8'
         },
         background: {
-            default: '#fff'
+            default: '#bc4749',
+            contrastText: '#fff'
         }
     },
 

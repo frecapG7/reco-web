@@ -12,8 +12,8 @@ export const REQUEST_TYPE = [
 
 
 export const DURATION = [
-    { value: "1D", label: "1 Day" },
-    { value: "2D", label: "2 Days" },
-    { value: "1W", label: "1 Week" },
+    { value: '1D', label: '1 Day' },
+    { value: '2D', label: '2 Days' },
+    { value: '1W', label: '1 Week' },
 ];
 

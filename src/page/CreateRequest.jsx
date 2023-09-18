@@ -1,22 +1,33 @@
-import { Box, Button, Container } from "@mui/material"
+import { Alert, Box, Button, CircularProgress, Container, Snackbar, Typography } from "@mui/material"
 import { RequestForm } from "../request/RequestForm"
-import { useRef } from "react";
-import { Layout } from "../layout/AuthLayout";
+import { useRef, useState } from "react";
+import { usePostRequest } from "../api/requests";
 
 
 
 export const CreateRequest = () => {
 
+    const [message, setMessage] = useState(null);
     const formRef = useRef();
 
+
+    const postRequest = usePostRequest();
     const onSubmit = (data) => {
-        console.log(data);
+        postRequest.mutate(data, {
+            onSuccess: () => {
+                setMessage('Request created successfully');
+                formRef.current?.reset();
+            },
+            onError: (error) => {
+                setMessage(error.message);
+            }
+        });
     }
 
 
     return (
         <Container>
-            <h1>Create Request</h1>
+            <Typography variant="h2">Create a new request</Typography>
             <RequestForm onSubmit={onSubmit}
                 ref={formRef} />
             <Box sx={{
@@ -25,13 +36,28 @@ export const CreateRequest = () => {
                 justifyContent: 'center',
                 alignItems: 'center'
             }}>
-                <Button variant="contained"
-                    color="primary"
-                    onClick={() => formRef.current.submit()}>
-                    Submit
-                </Button>
+                {postRequest.isLoading && <CircularProgress />}
+                {!postRequest.isLoading &&
+                    <Button variant="contained"
+                        color="primary"
+                        onClick={() => formRef.current.submit()}>
+                        Submit
+                    </Button>
+                }
+
 
             </Box>
+
+
+            <Snackbar open={Boolean(message)}
+                autoHideDuration={6000}
+                onClose={() => setMessage(null)}>
+                <Alert onClose={() => setMessage(null)}
+                    severity="success"
+                    sx={{ width: '100%' }}>
+                    {message}
+                </Alert>
+            </Snackbar>
         </Container>
     )
 

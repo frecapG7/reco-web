@@ -25,11 +25,11 @@ const Content = ({ requests }) => {
     return (
         <TableBody spacing={5}>
             {requests?.map((result) => (
-                <TableRow key={result._id}
+                <TableRow key={result.id}
                     hover
                     component={Paper}
                     sx={{ cursor: 'pointer', my:3 }}
-                    onClick={() => navigate(result._id)}>
+                    onClick={() => navigate(result.id)}>
                     <TableCell>
                         <Typography variant='body1'>{result.requestType}</Typography>
                     </TableCell>
