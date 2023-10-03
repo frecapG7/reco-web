@@ -1,18 +1,17 @@
-import { Collapse, Divider, IconButton, List, ListItem, ListItemButton, ListItemIcon, ListItemText } from "@mui/material"
-import { Box } from "@mui/system"
+import { Collapse, Divider, IconButton, List, ListItem, ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
+import { Box } from "@mui/system";
 
-import WhatshotIcon from '@mui/icons-material/Whatshot';
 import AddIcon from '@mui/icons-material/Add';
-import { NavLink, useNavigate } from "react-router-dom";
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
+import WhatshotIcon from '@mui/icons-material/Whatshot';
 import { useState } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
 
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
-import SettingsIcon from '@mui/icons-material/Settings';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import PowerSettingsNewIcon from '@mui/icons-material/PowerSettingsNew';
-import { Logout } from "@mui/icons-material";
+import SettingsIcon from '@mui/icons-material/Settings';
 
 const AccountMenuItem = () => {
 

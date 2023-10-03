@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { Enum } from "../utils/Enum";
 import { Recommendations } from "../recommendation/Recommendations";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { Container } from "@mui/system";
 
 
 export const RequestDetails = () => {

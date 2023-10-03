@@ -1,6 +1,5 @@
-import { LastPage } from "@mui/icons-material";
-import { post } from "./api"
-import { useInfiniteQuery, useQuery } from "react-query";
+import { useInfiniteQuery } from "react-query";
+import { post } from "./api";
 
 
 const searchRequests = async (search, pageNumber, pageSize) => {

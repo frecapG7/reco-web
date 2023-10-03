@@ -1,6 +1,6 @@
-import { Box, Card, Container, Table, TableBody, TableCell, TableContainer, TableRow, Typography } from "@mui/material"
-import { useGetRecommendations } from "../api/recommendations"
-import {CreateRecommendation} from "./CreateRecommendation";
+import { Box, Card, Container, Table, TableBody, TableCell, TableContainer, TableRow } from "@mui/material";
+import { useGetRecommendations } from "../api/recommendations";
+import { CreateRecommendation } from "./CreateRecommendation";
 
 
 

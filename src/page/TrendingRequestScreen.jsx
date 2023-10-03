@@ -1,12 +1,12 @@
 import { Box, Button, Card, CardActionArea, CardActions, CardContent, Container, Stack, Typography } from '@mui/material';
 
-import { Fragment, useState } from 'react';
-import { useSearchRequests } from '../api/search';
-import { useNavigate } from 'react-router-dom';
-import { CustomProgress } from '../layout/CustomProgress';
-import { CustomError } from '../layout/CustomError';
-import { Request } from '../component/Request';
+import { Fragment } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
+import { useNavigate } from 'react-router-dom';
+import { useSearchRequests } from '../api/search';
+import { Request } from '../component/Request';
+import { CustomError } from '../layout/CustomError';
+import { CustomProgress } from '../layout/CustomProgress';
 
 
 const Content = ({ requests }) => {

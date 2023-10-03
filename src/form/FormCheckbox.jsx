@@ -1,13 +1,7 @@
-import { Checkbox, FormControlLabel, Typography } from "@mui/material"
+import { Checkbox, Typography } from "@mui/material"
 import { Controller } from "react-hook-form"
 
-
-
-
-
 export const FormCheckbox = ({ name, label, control, ...props }) => {
-
-
 
     return (
         <Controller
