@@ -5,12 +5,25 @@ import { useState } from "react";
 import { Box } from "@mui/system";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import PowerSettingsNewIcon from '@mui/icons-material/PowerSettingsNew';
+import { useAuth } from "../hooks/useAuth";
+import { Navigate, useNavigate } from "react-router-dom";
 
-export const Layout = ({ children }) => {
+export const AuthLayout = ({ children }) => {
 
 
     const drawerWidth = 240;
     const [openDrawer, setOpenDrawer] = useState(false);
+    const navigate = useNavigate();
+
+    const {user, logout} = useAuth();
+
+    const handleLogout = () => {
+        logout();
+        navigate('/login');
+    }
+
+    if(!user)
+        return <Navigate to="/login" />;
 
 
     return (
@@ -34,25 +47,26 @@ export const Layout = ({ children }) => {
                     <IconButton color="inherit">
                         <AccountCircleIcon />
                     </IconButton>
-                    <IconButton color="inherit">
+                    <IconButton color="inherit" onClick={handleLogout}>
                         <PowerSettingsNewIcon />
                     </IconButton>
                 </Toolbar>
+                <Drawer
+                    sx={{
+                        width: 200,
+                        flexShrink: 0,
+                        '& .MuiDrawer-paper': {
+                            width: drawerWidth,
+                            boxSizing: 'border-box',
+                        },
+                    }}
+                    variant="persistent"
+                    anchor="left"
+                    open={openDrawer}>
+                    <NavigationBar onClose={() => setOpenDrawer(false)} />
+                </Drawer>
             </AppBar>
-            <Drawer
-                sx={{
-                    width: 200,
-                    flexShrink: 0,
-                    '& .MuiDrawer-paper': {
-                        width: drawerWidth,
-                        boxSizing: 'border-box',
-                    },
-                }}
-                variant="persistent"
-                anchor="left"
-                open={openDrawer}>
-                <NavigationBar onClose={() => setOpenDrawer(false)} />
-            </Drawer>
+
             <Box component="main"
                 sx={{
                     flexGrow: 1,

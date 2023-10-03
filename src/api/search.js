@@ -1,5 +1,6 @@
+import { LastPage } from "@mui/icons-material";
 import { post } from "./api"
-import { useQuery } from "react-query";
+import { useInfiniteQuery, useQuery } from "react-query";
 
 
 const searchRequests = async (search, pageNumber, pageSize) => {
@@ -7,8 +8,18 @@ const searchRequests = async (search, pageNumber, pageSize) => {
     return response;
 }
 
-export const useSearchRequests = (search, pageNumber, pageSize, options) => {
-    return useQuery(['search', 'requests', search, pageNumber, pageSize],
-        () => searchRequests(search, pageNumber, pageSize),
-        options);
-}
+export const useSearchRequests = (search, options) => {
+    // return useQuery(['search', 'requests', search, pageNumber, pageSize],
+    //     () => searchRequests(search, pageNumber, pageSize),
+    //     options);
+
+    return useInfiniteQuery(['search', 'requests', search],
+        ({ pageParam = 1 }) => searchRequests(search, pageParam, 4),
+        {
+            getNextPageParam: (lastPage, pages) => {
+                const currentPage = lastPage.pagination.currentPage;
+                return currentPage < lastPage.pagination.totalPages ? currentPage + 1 : undefined;
+            }
+        },
+    )
+};

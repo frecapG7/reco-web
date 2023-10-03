@@ -1,23 +1,34 @@
-import { Box, Button, Container } from "@mui/material"
+import { Alert, Box, Button, CircularProgress, Container, Paper, Snackbar, Typography } from "@mui/material"
 import { RequestForm } from "../request/RequestForm"
-import { useRef } from "react";
-import { Layout } from "../layout/Layout";
+import { useRef, useState } from "react";
+import { usePostRequest } from "../api/requests";
 
 
 
 export const CreateRequest = () => {
 
+    const [message, setMessage] = useState(null);
     const formRef = useRef();
 
+
+    const postRequest = usePostRequest();
     const onSubmit = (data) => {
-        console.log(data);
+        postRequest.mutate(data, {
+            onSuccess: () => {
+                setMessage('Request created successfully');
+                formRef.current?.reset();
+            },
+            onError: (error) => {
+                setMessage(error.message);
+            }
+        });
     }
 
 
     return (
-        <Layout>
-            <Container>
-                <h1>Create Request</h1>
+        <Container>
+            <Typography variant="h2">Create a new request</Typography>
+            <Paper>
                 <RequestForm onSubmit={onSubmit}
                     ref={formRef} />
                 <Box sx={{
@@ -26,15 +37,31 @@ export const CreateRequest = () => {
                     justifyContent: 'center',
                     alignItems: 'center'
                 }}>
-                    <Button variant="contained"
-                        color="primary"
-                        onClick={() => formRef.current.submit()}>
-                        Submit
-                    </Button>
+                    {postRequest.isLoading && <CircularProgress />}
+                    {!postRequest.isLoading &&
+                        <Button variant="contained"
+                            color="primary"
+                            onClick={() => formRef.current.submit()}>
+                            Submit
+                        </Button>
+                    }
+
 
                 </Box>
-            </Container>
-        </Layout>
+
+            </Paper>
+
+
+            <Snackbar open={Boolean(message)}
+                autoHideDuration={6000}
+                onClose={() => setMessage(null)}>
+                <Alert onClose={() => setMessage(null)}
+                    severity="success"
+                    sx={{ width: '100%' }}>
+                    {message}
+                </Alert>
+            </Snackbar>
+        </Container>
     )
 
 }
