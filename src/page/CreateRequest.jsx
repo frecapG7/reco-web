@@ -1,4 +1,4 @@
-import { Alert, Box, Button, CircularProgress, Container, Snackbar, Typography } from "@mui/material"
+import { Alert, Box, Button, CircularProgress, Container, Paper, Snackbar, Typography } from "@mui/material"
 import { RequestForm } from "../request/RequestForm"
 import { useRef, useState } from "react";
 import { usePostRequest } from "../api/requests";
@@ -28,25 +28,28 @@ export const CreateRequest = () => {
     return (
         <Container>
             <Typography variant="h2">Create a new request</Typography>
-            <RequestForm onSubmit={onSubmit}
-                ref={formRef} />
-            <Box sx={{
-                my: 5,
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center'
-            }}>
-                {postRequest.isLoading && <CircularProgress />}
-                {!postRequest.isLoading &&
-                    <Button variant="contained"
-                        color="primary"
-                        onClick={() => formRef.current.submit()}>
-                        Submit
-                    </Button>
-                }
+            <Paper>
+                <RequestForm onSubmit={onSubmit}
+                    ref={formRef} />
+                <Box sx={{
+                    my: 5,
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center'
+                }}>
+                    {postRequest.isLoading && <CircularProgress />}
+                    {!postRequest.isLoading &&
+                        <Button variant="contained"
+                            color="primary"
+                            onClick={() => formRef.current.submit()}>
+                            Submit
+                        </Button>
+                    }
 
 
-            </Box>
+                </Box>
+
+            </Paper>
 
 
             <Snackbar open={Boolean(message)}

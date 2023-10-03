@@ -15,7 +15,8 @@ export const RequestForm = forwardRef(({ request, onSubmit }, ref) => {
     const { control, reset, watch, handleSubmit } = useForm();
 
     useImperativeHandle(ref, () => ({
-        submit: handleSubmit(onSubmit)
+        submit: handleSubmit(onSubmit),
+        reset: reset
     }));
 
 

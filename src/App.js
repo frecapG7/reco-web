@@ -7,6 +7,8 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { routes } from './routes';
 import { ThemeProvider } from '@emotion/react';
 import theme from './theme';
+import { AuthContext, AuthContextProvider } from './context/AuthContext';
+import { useAuth } from './hooks/useAuth';
 
 
 
@@ -30,14 +32,18 @@ const router = createBrowserRouter(routes, {
 });
 
 
-function App() {
+
+const App = () => {
+
   return (
     <ThemeProvider theme={theme}>
-      <QueryClientProvider client={queryClient}>
-        <ReactQueryDevtools initialIsOpen={false} />
-        <CssBaseline />
-        <RouterProvider router={router} />
-      </QueryClientProvider>
+      <AuthContextProvider>
+        <QueryClientProvider client={queryClient}>
+          <ReactQueryDevtools initialIsOpen={false} />
+          <CssBaseline />  
+          <RouterProvider router={router} />
+        </QueryClientProvider>
+      </AuthContextProvider>
     </ThemeProvider>
 
   );

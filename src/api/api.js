@@ -15,6 +15,24 @@ export const post = async (url, data) => {
     }
 }
 
+export const put = async (url, data) => {
+    try {
+        const response = await fetch("http://localhost:3000" + url,
+            {
+                method: 'PUT',
+                headers: headers(),
+                credentials: 'include',
+                body: JSON.stringify(data),
+
+            });
+        return await response.json();
+    } catch (e) {
+        console.error(e);
+        throw e;
+    }
+}
+
+
 
 export const get = async (url) => {
     try {

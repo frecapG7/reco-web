@@ -2,11 +2,11 @@ import { CreateRequest } from "./page/CreateRequest";
 import Home from "./page/Home";
 import { ManageAccount } from "./page/ManageAccount";
 import { RequestDetails } from "./page/RequestDetails";
-import { Requests } from "./page/Requests";
 import { LoginScreen } from "./page/LoginScreen";
 import { AuthLayout } from "./layout/AuthLayout";
 import { StandardLayout } from "./layout/StandardLayout";
 import { MyRequests } from "./page/MyRequests";
+import { TrendingRequestScreen } from "./page/TrendingRequestScreen";
 
 export const routes = [
     {
@@ -19,7 +19,7 @@ export const routes = [
             {
                 path: "",
                 element: <AuthLayout>
-                    <Requests />
+                    <TrendingRequestScreen />
                 </AuthLayout>,
             },
             {

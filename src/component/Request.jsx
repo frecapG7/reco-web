@@ -2,6 +2,7 @@ import { Box, Stack, Typography } from "@mui/material"
 import { Enum } from "../utils/Enum"
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import PersonIcon from '@mui/icons-material/Person';
+import { useAuth } from "../hooks/useAuth";
 
 const Status = ({ request }) => {
 
@@ -31,6 +32,13 @@ const Status = ({ request }) => {
 
 export const Request = ({ request }) => {
 
+
+    const {user} = useAuth();
+
+
+
+    if(request)
+
     return (
         <Box>
             <Box justifyContent="space-between" display="flex">
@@ -41,12 +49,12 @@ export const Request = ({ request }) => {
                 ml={5}
                 direction={{ md: 'row' }}>
                 <Typography variant="body2">
-                    Created {request?.created_at.toLocaleString()} <AccessTimeIcon />
+                    Created {request?.created?.toLocaleString()} <AccessTimeIcon />
                 </Typography>
                 <Typography variant='body'
                     paragraph
                     alignItems="center">
-                    {request.recommendationCount} <PersonIcon />
+                    {request.recommendationsCount} <PersonIcon />
                 </Typography>
             </Stack>
         </Box>

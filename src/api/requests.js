@@ -18,30 +18,6 @@ export const useGetRequest = (id, options) => {
 
 
 const getMyRequests = async (pageSize, pageNumber, status) => {
-    // return [
-    //     {
-    //         id: '1',
-    //         requestType: 'BOOK',
-    //         duration: '1W',
-    //         description: 'Lorem Ipsum ...',
-    //         status: 'PENDING',
-    //         // Ideas
-    //         recommendationCount: 3,
-    //         unseenRecommendationCount: 2,
-    //         created_at: new Date()
-    //     },
-    //     {
-    //         id: '2',
-    //         requestType: 'BOOK',
-    //         duration: '1W',
-    //         description: 'Lorem Ipsum ...',
-    //         status: 'CLOSED',
-    //         // Ideas
-    //         recommendationCount: 3,
-    //         unseenRecommendationCount: 2,
-    //         created_at: new Date()
-    //     }
-    // ]
     const response = await get(`/requests/me?pageSize=${pageSize}&pageNumber=${pageNumber}`);
     return response;
 }

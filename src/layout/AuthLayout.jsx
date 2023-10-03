@@ -5,12 +5,25 @@ import { useState } from "react";
 import { Box } from "@mui/system";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import PowerSettingsNewIcon from '@mui/icons-material/PowerSettingsNew';
+import { useAuth } from "../hooks/useAuth";
+import { Navigate, useNavigate } from "react-router-dom";
 
 export const AuthLayout = ({ children }) => {
 
 
     const drawerWidth = 240;
     const [openDrawer, setOpenDrawer] = useState(false);
+    const navigate = useNavigate();
+
+    const {user, logout} = useAuth();
+
+    const handleLogout = () => {
+        logout();
+        navigate('/login');
+    }
+
+    if(!user)
+        return <Navigate to="/login" />;
 
 
     return (
@@ -34,7 +47,7 @@ export const AuthLayout = ({ children }) => {
                     <IconButton color="inherit">
                         <AccountCircleIcon />
                     </IconButton>
-                    <IconButton color="inherit">
+                    <IconButton color="inherit" onClick={handleLogout}>
                         <PowerSettingsNewIcon />
                     </IconButton>
                 </Toolbar>
