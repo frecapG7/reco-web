@@ -1,18 +1,23 @@
-import { Box, Button, Card, CardActionArea, CardActions, CardContent, Container, Stack, Typography } from '@mui/material';
+import { Avatar, Button, Card, CardActionArea, CardActions, CardContent, CardHeader, Container, Stack, Typography } from '@mui/material';
 
+import CommentIcon from '@mui/icons-material/Comment';
+import ShareIcon from '@mui/icons-material/Share';
 import { Fragment } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { useNavigate } from 'react-router-dom';
 import { useSearchRequests } from '../api/search';
-import { Request } from '../component/Request';
 import { CustomError } from '../layout/CustomError';
 import { CustomProgress } from '../layout/CustomProgress';
-
 
 const Content = ({ requests }) => {
 
 
     const navigate = useNavigate();
+
+    const handleCommentClick = (request, e) => {
+        e.stopPropagation()
+        console.log(request.id);
+    }
 
 
     if (requests?.length === 0)
@@ -24,22 +29,33 @@ const Content = ({ requests }) => {
         <Stack spacing={5}>
             {requests?.map((request) => (
                 <Card key={request.id}>
-                    <CardActionArea>
-                        <CardContent>
-                            <Request request={request} />
-                        </CardContent>
-                    </CardActionArea>
-                    <CardActions>
-                        <Button>
+                    <CardActionArea onClick={() => navigate(`${request.id}`)}>
+                        <CardHeader avatar={
+                            <Avatar sx={{ bgcolor: 'primary.main' }} aria-label="author">
+                                TODO
+                            </Avatar>
+                        }
+                            action={<Typography>status</Typography>}
+                            title={request.requestType}
+                            subheader={request.created?.toLocaleString()}
+                        >
                             TODO
-                        </Button>
-                        <Button>
-                            TODO 2
-                        </Button>
-                    </CardActions>
+                        </CardHeader>
+                        <CardContent>
+                            <Typography>
+                                {request.description}
+                            </Typography>
+                        </CardContent>
+                        <CardActions>
+                            <Button variant="contained" onClick={(e) => handleCommentClick(request, e)}>
+                                <CommentIcon /> {request.recommendationsCount}
+                            </Button>
+                            <Button variant="contained" onClick={() => console.log('comment')}>
+                                <ShareIcon /> share
+                            </Button>
+                        </CardActions>
+                    </CardActionArea>
                 </Card>
-
-
             ))
             }
         </Stack>
@@ -70,12 +86,11 @@ export const TrendingRequestScreen = () => {
 
     return (
         <Container>
-            <Typography variant="h2" align="center" color="textPrimary" gutterBottom>
-                Requests
-            </Typography>
-            <Box>
-                Search
-            </Box>
+            <Container>
+                <form>
+                    <input type="text" placeholder="Search" />
+                </form>
+            </Container>
             <Container>
                 {/* {results.pages.map(page =>
                     <Content requests={page.results} />)
@@ -89,17 +104,12 @@ export const TrendingRequestScreen = () => {
                     }}
                     loader={<CustomProgress />}
                 >
-                    {results.pages.map((page, index) =>
-                        <Fragment key={index}>
-                            <Content requests={page.results} />
-                        </Fragment>
-                    )}
+                    <Content requests={results.pages.flatMap((page) => page.results)} />
 
                     {hasNextPage &&
                         <Button variant="contained" onClick={fetchNextPage} >
                             Load more
                         </Button>
-
                     }
 
                     {isFetching && <CustomProgress />}

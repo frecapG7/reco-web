@@ -7,7 +7,7 @@ import { useRef, useState } from "react";
 export const CreateRecommendation = ({ request }) => {
 
     const [openCreate, setOpenCreate] = useState(false);
-    const postRecommendation = usePostRecommendation(request._id);
+    const postRecommendation = usePostRecommendation(request.id);
 
 
     const formRef = useRef();
@@ -47,7 +47,6 @@ export const CreateRecommendation = ({ request }) => {
                 <DialogActions>
                     {postRecommendation.isLoading ?
                         <CircularProgress /> :
-
                         <>
                             <Button variant="contained"
                                 color="success"

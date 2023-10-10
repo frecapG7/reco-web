@@ -5,7 +5,6 @@ import { FormText } from "../form/FormText";
 
 export const BookRecommendation = ({ recommendation }) => {
 
-
     return (
         <Box>
             <Grid container>

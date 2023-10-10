@@ -1,46 +1,15 @@
-import { Box, Card, Container, Table, TableBody, TableCell, TableContainer, TableRow } from "@mui/material";
+import AddBoxIcon from '@mui/icons-material/AddBox';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import { Avatar, Box, Card, CardActions, CardContent, CardHeader, Container, IconButton, Tooltip } from "@mui/material";
 import { useGetRecommendations } from "../api/recommendations";
 import { CreateRecommendation } from "./CreateRecommendation";
-
-
-
-const Content = ({ recommendations }) => {
-
-    debugger
-
-
-    if (recommendations?.length === 0) return (
-        <TableBody>
-            <TableRow>
-                <TableCell colSpan={2}>
-
-                    No recommendations
-                </TableCell>
-            </TableRow>
-        </TableBody>)
-
-    return (
-        <TableBody>
-            {recommendations?.map((recommendation) => (
-                <TableRow component="Paper"
-                    key={recommendation.id}>
-                    <TableCell component="th" scope="row">
-                        {recommendation.field1}
-                    </TableCell>
-                    <TableCell component="th" scope="row">
-                        {recommendation.field2}
-                    </TableCell>
-                </TableRow>
-            ))}
-        </TableBody>
-    );
-}
+import { Recommendation } from "./Recommendation";
 
 
 export const Recommendations = ({ request }) => {
 
 
-    const { data, isLoading, isError } = useGetRecommendations(request._id);
+    const { data: recommendations, isLoading, isError } = useGetRecommendations(request.id);
 
 
 
@@ -49,17 +18,8 @@ export const Recommendations = ({ request }) => {
     if (isError) return (<div>Error...</div>)
 
 
-
-
-    return (
+    if (recommendations?.length === 0) return (
         <Container>
-
-            <TableContainer component={Card}>
-                <Table>
-                    <Content recommendations={data} />
-                </Table>
-            </TableContainer>
-
             <Box sx={{
                 display: 'flex',
                 justifyContent: 'center',
@@ -68,11 +28,38 @@ export const Recommendations = ({ request }) => {
             }}>
                 <CreateRecommendation request={request} />
             </Box>
+        </Container>
+    );
 
 
+    return (
+        <Container>
+            {recommendations.map((recommendation) => (
+                <Card key={recommendation.id} >
+                    <CardHeader avatar={<Avatar />}
+                        title={"author name"}
+                        subheader={recommendation.created_at?.toLocaleString()}>
+                    </CardHeader>
+                    <CardContent>
+                        <Recommendation requestType={request.requestType} recommendation={recommendation} />
+                    </CardContent>
+                    <CardActions>
+                        <Tooltip title="Like">
+                            <IconButton>
+                                <FavoriteBorderIcon />
+                            </IconButton>
+                        </Tooltip>
+                        <Tooltip title="Add to list">
+                            <IconButton>
+                                <AddBoxIcon />
+                            </IconButton>
+                        </Tooltip>
+                    </CardActions>
 
-
-
+                </Card>
+            )
+            )}
         </Container>
     )
+
 }
