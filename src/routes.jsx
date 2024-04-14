@@ -7,11 +7,17 @@ import { AuthLayout } from "./layout/AuthLayout";
 import { StandardLayout } from "./layout/StandardLayout";
 import { MyRequests } from "./page/MyRequests";
 import { TrendingRequestScreen } from "./page/TrendingRequestScreen";
+import { Outlet } from "react-router-dom";
 
 export const routes = [
     {
         path: "/",
-        element: <Home />,
+        element: <StandardLayout>
+            <Outlet />
+        </StandardLayout>,
+        childre: [
+            
+        ]
     },
     {
         path: "/requests",
@@ -24,16 +30,11 @@ export const routes = [
             },
             {
                 path: ":id",
-                element:
-                    <AuthLayout>
-                        <RequestDetails />
-                    </AuthLayout>,
+                element: <RequestDetails />
             },
             {
                 path: "new",
-                element: <AuthLayout>
-                    <CreateRequest />
-                </AuthLayout>
+                element: <CreateRequest />
             }
         ],
     },
@@ -42,16 +43,11 @@ export const routes = [
         children: [
             {
                 path: "requests",
-                element: <AuthLayout>
-                    <MyRequests />
-                </AuthLayout>
+                element: <MyRequests />
             },
             {
                 path: "settings",
-                element:
-                    <AuthLayout>
-                        <ManageAccount />
-                    </AuthLayout>
+                element:<ManageAccount />
             }
         ]
     },
