@@ -1,4 +1,4 @@
-import { useMutation, useQuery, useQueryClient } from "react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { get, post } from "./api";
 
 
@@ -8,9 +8,11 @@ const getRecommendations = async (requestId) => {
 }
 
 export const useGetRecommendations = (requestId, options) => {
-    return useQuery(['requests', requestId, 'recommendations'],
-        () => getRecommendations(requestId),
-        options);
+    return useQuery({
+        queryKey: ['requests', requestId, 'recommendations'],
+        queryFn: () => getRecommendations(requestId),
+        ...options
+    });
 }
 
 
@@ -23,9 +25,10 @@ const postRecommendation = async (requestId, recommendation) => {
 
 export const usePostRecommendation = (requestId, options) => {
     const queryClient = useQueryClient();
-    return useMutation((recommendation) => postRecommendation(requestId, recommendation), {
+    return useMutation({
+        mutationFn: (recommendation) => postRecommendation(requestId, recommendation), 
         onSuccess: () => {
-            queryClient.invalidateQueries(['requests', requestId, 'recommendations']);
+            queryClient.invalidateQueries({queryKey: ['requests', requestId, 'recommendations']});
         },
     });
 }
