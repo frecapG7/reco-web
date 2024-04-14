@@ -1,76 +1,77 @@
-import { Accordion, AccordionDetails, AccordionSummary, Stack, Typography } from "@mui/material";
+import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
+  Stack,
+  Typography,
+} from "@mui/material";
 import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
 import { useForm } from "react-hook-form";
-import { FormSelect } from "../form/FormSelect";
-import { FormText } from "../form/FormText";
+import { FormSelect } from "../components/form/FormSelect";
+import { FormText } from "../components/form/FormText";
 import { DURATION, REQUEST_TYPE } from "../constants";
 import { Recommendation } from "../recommendation/Recommendation";
 
-
-
-
 export const RequestForm = forwardRef(({ request, onSubmit }, ref) => {
+  const { control, reset, watch, handleSubmit } = useForm();
 
-    const { control, reset, watch, handleSubmit } = useForm();
+  useImperativeHandle(ref, () => ({
+    submit: handleSubmit(onSubmit),
+    reset: reset,
+  }));
 
-    useImperativeHandle(ref, () => ({
-        submit: handleSubmit(onSubmit),
-        reset: reset
-    }));
+  useEffect(() => {
+    reset(request);
+  }, [request, reset]);
 
+  const [viewTemplate, setViewTemplate] = useState(true);
+  const requestType = watch("requestType");
 
-
-    useEffect(() => {
-        reset(request);
-    }, [request, reset]);
-
-    const [viewTemplate, setViewTemplate] = useState(true);
-    const requestType = watch("requestType");
-
-
-    return (
-        <form>
-            <Stack spacing={2}>
-                <FormSelect name="requestType"
-                    label="Request type"
-                    control={control}
-                    options={REQUEST_TYPE}
-                    rules={{ required: true }} />
-                <FormSelect name="duration"
-                    label="Duration"
-                    control={control}
-                    options={DURATION}
-                    rules={{ required: true }} />
-                <FormText name="description"
-                    control={control}
-                    label="Description"
-                    multiline
-                    rows={5}
-                    rules={{
-                        required: false
-                    }} />
-                {requestType &&
-                    <Accordion expanded={viewTemplate}>
-                        <AccordionSummary onClick={() => setViewTemplate(!viewTemplate)}>
-                            <Typography variant="title">
-                                Recommendation template
-                            </Typography>
-                        </AccordionSummary>
-                        <AccordionDetails>
-                            <Recommendation
-                                requestType={requestType}
-                                recommendation={{
-                                    field1: "Title",
-                                    field2: "Author",
-                                    field3: "Description"
-                                }} />
-                        </AccordionDetails>
-                    </Accordion>
-                }
-
-            </Stack>
-
-
-        </form>
-    )
+  return (
+    <form>
+      <Stack spacing={2}>
+        <FormSelect
+          name="requestType"
+          label="Request type"
+          control={control}
+          options={REQUEST_TYPE}
+          rules={{ required: true }}
+        />
+        <FormSelect
+          name="duration"
+          label="Duration"
+          control={control}
+          options={DURATION}
+          rules={{ required: true }}
+        />
+        <FormText
+          name="description"
+          control={control}
+          label="Description"
+          multiline
+          rows={5}
+          rules={{
+            required: false,
+          }}
+        />
+        {requestType && (
+          <Accordion expanded={viewTemplate}>
+            <AccordionSummary onClick={() => setViewTemplate(!viewTemplate)}>
+              <Typography variant="title">Recommendation template</Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <Recommendation
+                requestType={requestType}
+                recommendation={{
+                  field1: "Title",
+                  field2: "Author",
+                  field3: "Description",
+                }}
+              />
+            </AccordionDetails>
+          </Accordion>
+        )}
+      </Stack>
+    </form>
+  );
 });
