@@ -92,9 +92,6 @@ export const TrendingRequestScreen = () => {
                 </form>
             </Container>
             <Container>
-                {/* {results.pages.map(page =>
-                    <Content requests={page.results} />)
-                } */}
                 <InfiniteScroll
                     dataLength={() => results.pages.reduces((total, page) => total + page.length, 0)}
                     next={fetchNextPage}

@@ -4,6 +4,7 @@ import { Avatar, Box, Card, CardActions, CardContent, CardHeader, Container, Ico
 import { useGetRecommendations } from "../api/recommendations";
 import { CreateRecommendation } from "./CreateRecommendation";
 import { Recommendation } from "./Recommendation";
+import { Fragment } from 'react';
 
 
 export const Recommendations = ({ request }) => {
@@ -35,28 +36,9 @@ export const Recommendations = ({ request }) => {
     return (
         <Container>
             {recommendations.map((recommendation) => (
-                <Card key={recommendation.id} >
-                    <CardHeader avatar={<Avatar />}
-                        title={"author name"}
-                        subheader={recommendation.created_at?.toLocaleString()}>
-                    </CardHeader>
-                    <CardContent>
-                        <Recommendation requestType={request.requestType} recommendation={recommendation} />
-                    </CardContent>
-                    <CardActions>
-                        <Tooltip title="Like">
-                            <IconButton>
-                                <FavoriteBorderIcon />
-                            </IconButton>
-                        </Tooltip>
-                        <Tooltip title="Add to list">
-                            <IconButton>
-                                <AddBoxIcon />
-                            </IconButton>
-                        </Tooltip>
-                    </CardActions>
-
-                </Card>
+               <Fragment key={recommendation.id}>
+                    <Recommendation request={request} recommendation={recommendation} />
+                </Fragment>
             )
             )}
         </Container>
