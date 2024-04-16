@@ -1,4 +1,4 @@
-import { useInfiniteQuery } from "react-query";
+import { useInfiniteQuery } from "@tanstack/react-query";
 import { post } from "./api";
 
 
@@ -12,13 +12,15 @@ export const useSearchRequests = (search, options) => {
     //     () => searchRequests(search, pageNumber, pageSize),
     //     options);
 
-    return useInfiniteQuery(['search', 'requests', search],
-        ({ pageParam = 1 }) => searchRequests(search, pageParam, 4),
-        {
-            getNextPageParam: (lastPage, pages) => {
-                const currentPage = lastPage.pagination.currentPage;
-                return currentPage < lastPage.pagination.totalPages ? currentPage + 1 : undefined;
-            }
-        },
-    )
+    // return useInfiniteQuery(['search', 'requests', search],
+    //     ({ pageParam = 1 }) => searchRequests(search, pageParam, 4),
+    //     {
+    //         getNextPageParam: (lastPage, pages) => {
+    //             const currentPage = lastPage.pagination.currentPage;
+    //             return currentPage < lastPage.pagination.totalPages ? currentPage + 1 : undefined;
+    //         }
+    //     },
+    // );
+
+    return ({});
 };

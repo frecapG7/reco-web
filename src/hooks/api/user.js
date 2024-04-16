@@ -1,4 +1,4 @@
-import { useMutation, useQuery, useQueryClient } from "react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { get, put } from "../../api/api";
 
 
@@ -9,9 +9,11 @@ const getUser = async (id) => {
 }
 
 export const useGetUser = (id, options) => {
-    return useQuery(['users', id],
-        () => getUser(id),
-        options);
+    return useQuery({
+        queryKey: ['users', id],
+        queryFn: () => getUser(id),
+        ...options
+    });
 }
 
 
@@ -24,10 +26,11 @@ const updateUser = async (user) => {
 
 export const useUpdateUser = (id, options) => {
     const queryClient = useQueryClient();
-    return useMutation((user) => updateUser(user), {
+    return useMutation({
+        mutationFn: (user) => updateUser(user),
         onSuccess: (data) => {
             queryClient.setQueryData(['users', id], data)
         },
-    },
-        options);
+        ...options
+    });
 }

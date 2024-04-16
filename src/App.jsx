@@ -1,13 +1,12 @@
 import './App.css';
 import CssBaseline from '@mui/material/CssBaseline';
-import { QueryClient, QueryClientProvider } from 'react-query';
-import { ReactQueryDevtools } from "react-query/devtools";
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { routes } from './routes';
 import { ThemeProvider } from '@emotion/react';
 import theme from './theme';
-import { AuthContext, AuthContextProvider } from './context/AuthContext';
-import { useAuth } from './hooks/useAuth';
+import {  AuthContextProvider } from './context/AuthContext';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 
 
