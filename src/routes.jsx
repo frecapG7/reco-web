@@ -8,7 +8,7 @@ import { MyRequests } from "./page/MyRequests";
 import { TrendingRequestScreen } from "./page/TrendingRequestScreen";
 import { Outlet } from "react-router-dom";
 import { Home } from "./home/Home";
-import { UserAdministration } from "./admin/UserAdministration";
+import { UsersAdministration } from "./admin/users/UsersAdministration";
 
 export const routes = [
   {
@@ -28,7 +28,7 @@ export const routes = [
         children: [
           {
             path: "users",
-            element: <UserAdministration />,
+            element: <UsersAdministration />,
           },
         ],
       },

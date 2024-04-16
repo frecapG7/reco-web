@@ -66,6 +66,11 @@ theme = createTheme(theme, {
       },
     },
     MuiPaper: {
+      styleOverrides: {
+        root: {
+          padding: 5,
+        },
+      },
       variants: [
         {
           props: { variant: "outlined" },
