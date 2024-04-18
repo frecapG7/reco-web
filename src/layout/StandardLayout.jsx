@@ -17,7 +17,7 @@ import { NavigationBar } from "./NavigationBar";
 
 const Header = ({ toggleDrawer }) => {
   return (
-    <AppBar>
+    <AppBar position="static">
       <Toolbar>
         <Box display="flex" justifyContent="space-between" alignItems="center">
           <Box component="img" src={icon} sx={{ width: "40px" }} alt="logo" />
@@ -51,31 +51,29 @@ export const StandardLayout = ({ children }) => {
   return (
     <Box component="main" sx={{ flexGrow: 1 }}>
       <Header toggleDrawer={setToggleDrawer} />
-      <Container
+      <Drawer
+        variant="persistent"
+        anchor="left"
         sx={{
+          width: 200,
+          flexShrink: 0,
+        }}
+        open={toggleDrawer}
+        onClose={() => setToggleDrawer(false)}
+      >
+        <NavigationBar onClose={() => setToggleDrawer(false)} />
+      </Drawer>
+      <Box
+        sx={{
+          mb: 10,
           flexGrow: 1,
+          overflow: "auto",
+          display: "flex",
+          justifyContent: "center",
         }}
       >
-        <Drawer
-          variant="persistent"
-          anchor="left"
-          sx={{
-            width: 200,
-            flexShrink: 0,
-          }}
-          open={toggleDrawer}
-          onClose={() => setToggleDrawer(false)}
-        >
-          <NavigationBar onClose={() => setToggleDrawer(false)} />
-        </Drawer>
-        <Box
-          sx={{
-            my: 10,
-          }}
-        >
-          {children}
-        </Box>
-      </Container>
+        {children}
+      </Box>
       <Footer />
     </Box>
   );

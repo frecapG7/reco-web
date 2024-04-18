@@ -5,14 +5,18 @@ let theme = createTheme({
     mode: "light",
     primary: {
       main: "#ddb5e3",
+      light: "#f1d4f5",
+      dark: "#a48cb8",
       contrastText: "#fff",
     },
     secondary: {
       main: "#fccfd8",
+      light: "#ffe3ea",
+      dark: "#c99ba6",
       contrastText: "#1a73e8",
     },
     background: {
-      default: "#bc4749",
+      default: "#ffe3ea",
       contrastText: "#fff",
     },
   },
@@ -51,6 +55,15 @@ theme = createTheme(theme, {
         fontSize: pxToRem(40),
       },
     },
+    title: {
+      fontSize: pxToRem(24),
+      [breakpoints.up("sm")]: {
+        fontSize: pxToRem(28),
+      },
+    },
+    button: {
+      fontSize: pxToRem(16),
+    },
   },
 });
 
@@ -62,13 +75,22 @@ theme = createTheme(theme, {
         outlined: {
           boxShadow: "none",
           borderRadius: 20,
+          padding: 5,
+        },
+        contained: {
+          boxShadow: "none",
+          borderRadius: 20,
+          padding: 5,
+          ...theme.typography.button,
         },
       },
     },
     MuiPaper: {
       styleOverrides: {
         root: {
-          padding: 5,
+          padding: 20,
+          backgroundColor: theme.palette.secondary.main,
+          borderRadius: 20,
         },
       },
       variants: [
@@ -91,6 +113,41 @@ theme = createTheme(theme, {
           backgroundColor: theme.palette.primary.main,
           boxSizing: "border-box",
         },
+      },
+    },
+    MuiDialog: {
+      styleOverrides: {
+        paper: {
+          borderRadius: 20,
+          padding: 15,
+          boxShadow: theme.shadows[5],
+          borderColor: theme.palette.secondary.main,
+          backgroundColor: theme.palette.background.default,
+        },
+      },
+    },
+    MuiDialogContent: {
+      styleOverrides: {
+        root: {
+          padding: 20,
+          minHeight: 200,
+          marginBottom: 20,
+          backgroundColor: theme.palette.background.default,
+        },
+      },
+    },
+    MuiDialogTitle: {
+      styleOverrides: {
+        root: {
+          ...theme.typography.h4,
+          backgroundColor: theme.palette.primary.default,
+          padding: 20,
+        },
+      },
+    },
+    MuiDialogActions: {
+      styleOverrides: {
+        root: {},
       },
     },
   },

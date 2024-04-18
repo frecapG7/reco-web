@@ -9,6 +9,7 @@ import { TrendingRequestScreen } from "./page/TrendingRequestScreen";
 import { Outlet } from "react-router-dom";
 import { Home } from "./home/Home";
 import { UsersAdministration } from "./admin/users/UsersAdministration";
+import { UserDetails } from "./admin/users/UserDetails";
 
 export const routes = [
   {
@@ -28,7 +29,16 @@ export const routes = [
         children: [
           {
             path: "users",
-            element: <UsersAdministration />,
+            children: [
+              {
+                path: "",
+                element: <UsersAdministration />,
+              },
+              {
+                path: ":id",
+                element: <UserDetails />,
+              },
+            ],
           },
         ],
       },
