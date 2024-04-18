@@ -43,7 +43,7 @@ export const UserDetails = () => {
     );
 
   return (
-    <Container maxWidth="xl">
+    <Container maxWidth="lg">
       <Paper
         elevation={0}
         sx={{

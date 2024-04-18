@@ -10,6 +10,9 @@ import { Outlet } from "react-router-dom";
 import { Home } from "./home/Home";
 import { UsersAdministration } from "./admin/users/UsersAdministration";
 import { UserDetails } from "./admin/users/UserDetails";
+import { MarketItemsAdministration } from "./admin/market/MarketItemsAdministration";
+import { MarketItemDetails } from "./admin/market/MarketItemDetails";
+import { AddMarketItem } from "./admin/market/AddMarketItem";
 
 export const routes = [
   {
@@ -37,6 +40,23 @@ export const routes = [
               {
                 path: ":id",
                 element: <UserDetails />,
+              },
+            ],
+          },
+          {
+            path: "market",
+            children: [
+              {
+                path: "new",
+                element: <AddMarketItem />,
+              },
+              {
+                path: ":id",
+                element: <MarketItemDetails />,
+              },
+              {
+                path: "",
+                element: <MarketItemsAdministration />,
               },
             ],
           },

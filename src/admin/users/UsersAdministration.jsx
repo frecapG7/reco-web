@@ -58,7 +58,7 @@ export const UsersAdministration = () => {
   const [openDialog, setOpenDialog] = useState(false);
 
   const {
-    data: result,
+    data: results,
     isLoading,
     isError,
     error,
@@ -96,14 +96,14 @@ export const UsersAdministration = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              <Content users={result} />
+              <Content users={results} />
             </TableBody>
           </Table>
         </TableContainer>
         <TablePagination
           rowsPerPageOptions={[5, 10, 25]}
           component="div"
-          count={result?.length || 0}
+          count={results?.length || 0}
           rowsPerPage={pageSize}
           page={pageNumber}
           onPageChange={(event, newPage) => setPageNumber(newPage)}

@@ -5,20 +5,27 @@ let theme = createTheme({
     mode: "light",
     primary: {
       main: "#ddb5e3",
-      light: "#f1d4f5",
+      light: "#EFE5F5",
       dark: "#a48cb8",
       contrastText: "#fff",
     },
     secondary: {
-      main: "#fccfd8",
-      light: "#ffe3ea",
-      dark: "#c99ba6",
+      main: "#80B484",
+      light: "#91B4AA",
+      dark: "#2CB419",
       contrastText: "#1a73e8",
     },
+    tertiary: {
+      main: "#f1f1f1",
+      light: "#f8f8f8",
+      dark: "#e0e0e0",
+      contrastText: "#333",
+    },
     background: {
-      default: "#ffe3ea",
+      default: "#EFE5F5",
       contrastText: "#fff",
     },
+    white: "#fff",
   },
 });
 
@@ -29,6 +36,8 @@ const {
 theme = createTheme(theme, {
   typography: {
     h1: {
+      fontWeight: 600,
+      fontFamily: "Poppins",
       fontSize: pxToRem(40),
       [breakpoints.up("sm")]: {
         fontSize: pxToRem(48),
@@ -38,6 +47,8 @@ theme = createTheme(theme, {
       },
     },
     h2: {
+      fontWeight: 600,
+      fontFamily: "Poppins",
       fontSize: pxToRem(32),
       [breakpoints.up("sm")]: {
         fontSize: pxToRem(40),
@@ -47,6 +58,8 @@ theme = createTheme(theme, {
       },
     },
     h3: {
+      fontWeight: 600,
+      fontFamily: "Roboto, Arial",
       fontSize: pxToRem(28),
       [breakpoints.up("sm")]: {
         fontSize: pxToRem(32),
@@ -56,13 +69,21 @@ theme = createTheme(theme, {
       },
     },
     title: {
-      fontSize: pxToRem(24),
+      fontWeight: 600,
+      fontFamily: "Roboto, Arial",
+      fontSize: pxToRem(28),
       [breakpoints.up("sm")]: {
         fontSize: pxToRem(28),
       },
     },
     button: {
+      fontWeight: 600,
+      fontFamily: "Roboto, Arial",
       fontSize: pxToRem(16),
+      [breakpoints.up("sm")]: {
+        fontSize: pxToRem(18),
+      },
+      color: theme.palette.text.primary,
     },
   },
 });
@@ -71,7 +92,9 @@ theme = createTheme(theme, {
   components: {
     MuiButton: {
       styleOverrides: {
-        root: {},
+        root: {
+          minWidth: 200,
+        },
         outlined: {
           boxShadow: "none",
           borderRadius: 20,
@@ -89,7 +112,7 @@ theme = createTheme(theme, {
       styleOverrides: {
         root: {
           padding: 20,
-          backgroundColor: theme.palette.secondary.main,
+          backgroundColor: theme.palette.secondary.white,
           borderRadius: 20,
         },
       },
@@ -148,6 +171,16 @@ theme = createTheme(theme, {
     MuiDialogActions: {
       styleOverrides: {
         root: {},
+      },
+    },
+    MuiOutlinedInput: {
+      styleOverrides: {
+        input: {
+          padding: 10,
+          // borderRadius: 50,
+          // border: `1px solid ${theme.palette.primary.main}`,
+          backgroundColor: theme.palette.white,
+        },
       },
     },
   },
