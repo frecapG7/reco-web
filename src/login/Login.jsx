@@ -10,18 +10,26 @@ import { LoginForm } from "../components/user/LoginForm";
 import { useRef } from "react";
 import icon from "../../public/icon.png";
 import { useLogin } from "../hooks/api/auth/useLogin";
+import { useAuthSession } from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 export const Login = () => {
-  const login = useLogin();
+  const navigate = useNavigate();
+  const signIn = useLogin();
 
   const onSubmit = (data) => {
-    login.mutate(data, {
-      onSuccess: () => console.log("success"),
+    signIn.mutate(data, {
+      onSuccess: (session) => {
+        login(session);
+        navigate("/", { replace: true });
+      },
       onError: (error) => console.log(error),
     });
   };
 
   const formRef = useRef();
+
+  const { session, login } = useAuthSession();
 
   return (
     <Container>
@@ -55,6 +63,8 @@ export const Login = () => {
           )}
         </Box>
       </Paper>
+
+      <pre>{JSON.stringify(session)}</pre>
     </Container>
   );
 };
