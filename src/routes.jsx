@@ -1,7 +1,6 @@
 import { CreateRequest } from "./page/CreateRequest";
 import { ManageAccount } from "./page/ManageAccount";
 import { RequestDetails } from "./page/RequestDetails";
-import { LoginScreen } from "./page/LoginScreen";
 import { AuthLayout } from "./layout/AuthLayout";
 import { StandardLayout } from "./layout/StandardLayout";
 import { MyRequests } from "./page/MyRequests";
@@ -13,6 +12,7 @@ import { UserDetails } from "./admin/users/UserDetails";
 import { MarketItemsAdministration } from "./admin/market/MarketItemsAdministration";
 import { MarketItemDetails } from "./admin/market/MarketItemDetails";
 import { AddMarketItem } from "./admin/market/AddMarketItem";
+import { Login } from "./login/Login";
 
 export const routes = [
   {
@@ -62,6 +62,10 @@ export const routes = [
           },
         ],
       },
+      {
+        path: "login",
+        element: <Login />,
+      },
     ],
   },
   {
@@ -97,13 +101,5 @@ export const routes = [
         element: <ManageAccount />,
       },
     ],
-  },
-  {
-    path: "login",
-    element: (
-      <StandardLayout>
-        <LoginScreen />
-      </StandardLayout>
-    ),
   },
 ];

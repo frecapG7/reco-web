@@ -1,5 +1,6 @@
 import { FormControl, TextField } from "@mui/material";
 import { useController } from "react-hook-form";
+import { i18nFormError } from "../../utils/i18n";
 
 export const FormText = ({
   name,
@@ -33,7 +34,7 @@ export const FormText = ({
         onChange={onChange}
         onBlur={onBlur}
         error={!!error}
-        helperText={error?.message || ""}
+        helperText={i18nFormError(error)}
         required={required}
         multiline={multiline}
         rows={rows}
