@@ -14,7 +14,8 @@ export const UserCard = ({ user, disabled }) => {
         title={user.name}
         subheader={user.title}
       />
-      <CardContent></CardContent>
+      <CardContent>
+      </CardContent>
     </Card>
   );
 };
