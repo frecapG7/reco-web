@@ -18,6 +18,6 @@ export const i18nFormError = (error) => {
     case "pattern":
       return "This field is invalid";
     default:
-      return "An error occured";
+      return "";
   }
 };

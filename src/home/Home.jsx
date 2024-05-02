@@ -35,7 +35,7 @@ export const Home = () => {
 
       <Box sx={{ my: 5 }}>
         <InfiniteScroll
-          dataLength={results?.total}
+          dataLength={results?.total || 0}
           next={() => console.log("next")}
           hasMore={false}
           loader={<CircularProgress />}
@@ -58,7 +58,7 @@ export const Home = () => {
           }
           refreshFunction={() => console.log("refresh")}
         >
-          {results?.resultSet.map((result) => (
+          {results?.results.map((result) => (
             <Paper
               key={result.id}
               sx={{

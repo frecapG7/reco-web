@@ -154,6 +154,7 @@ theme = createTheme(theme, {
         root: {
           padding: 20,
           minHeight: 200,
+          marginTop: 20,
           marginBottom: 20,
           backgroundColor: theme.palette.background.default,
         },
@@ -162,7 +163,7 @@ theme = createTheme(theme, {
     MuiDialogTitle: {
       styleOverrides: {
         root: {
-          ...theme.typography.h4,
+          ...theme.typography.title,
           backgroundColor: theme.palette.primary.default,
           padding: 20,
         },
@@ -173,11 +174,18 @@ theme = createTheme(theme, {
         root: {},
       },
     },
+    MuiFormControl: {
+      styleOverrides: {
+        root: {
+          marginY: 5,
+        },
+      },
+    },
     MuiOutlinedInput: {
       styleOverrides: {
-        input: {
-          padding: 10,
-          // borderRadius: 50,
+        root: {
+          // padding: 5,
+          borderRadius: 10,
           // border: `1px solid ${theme.palette.primary.main}`,
           backgroundColor: theme.palette.white,
         },

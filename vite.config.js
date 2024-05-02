@@ -29,8 +29,10 @@ export default defineConfig({
     port: 3001,
     proxy: {
       "/api": {
-        target: "https://reco-back-979f321211cf.herokuapp.com",
+        // target: "https://reco-back-979f321211cf.herokuapp.com",
+        target: "http://localhost:3000",
         changeOrigin: true,
+        secure: false,
         rewrite: (path) => path.replace(/^\/api/, ""),
       },
     },

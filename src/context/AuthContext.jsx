@@ -10,21 +10,21 @@ export const useAuthSession = () => {
   const [session, setSession] = useState(null);
 
   useEffect(() => {
-    const session = localStorage.getItem("sessions");
+    const session = sessionStorage.getItem("session");
     if (session) {
-      session(JSON.parse(session));
+      setSession(JSON.parse(session));
     }
   }, []);
 
   const login = (session) => {
     setSession(session);
 
-    localStorage.setItem("session", JSON.stringify(session));
+    sessionStorage.setItem("token", session.access_token);
   };
 
   const logout = () => {
     setSession(null);
-    localStorage.removeItem("session");
+    sessionStorage.removeItem("token");
   };
 
   return { session, login, logout };

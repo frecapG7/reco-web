@@ -1,7 +1,6 @@
 import { CreateRequest } from "./page/CreateRequest";
 import { ManageAccount } from "./page/ManageAccount";
 import { RequestDetails } from "./page/RequestDetails";
-import { AuthLayout } from "./layout/AuthLayout";
 import { StandardLayout } from "./layout/StandardLayout";
 import { MyRequests } from "./page/MyRequests";
 import { TrendingRequestScreen } from "./page/TrendingRequestScreen";
@@ -73,11 +72,7 @@ export const routes = [
     children: [
       {
         path: "",
-        element: (
-          <AuthLayout>
-            <TrendingRequestScreen />
-          </AuthLayout>
-        ),
+        element: <TrendingRequestScreen />,
       },
       {
         path: ":id",
