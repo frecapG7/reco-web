@@ -1,4 +1,3 @@
-import { CreateRequest } from "./page/CreateRequest";
 import { ManageAccount } from "./page/ManageAccount";
 import { RequestDetails } from "./page/RequestDetails";
 import { StandardLayout } from "./layout/StandardLayout";
@@ -12,6 +11,7 @@ import { MarketItemsAdministration } from "./admin/market/MarketItemsAdministrat
 import { MarketItemDetails } from "./admin/market/MarketItemDetails";
 import { AddMarketItem } from "./admin/market/AddMarketItem";
 import { Login } from "./login/Login";
+import { CreateRequest } from "./request/CreateRequest";
 
 export const routes = [
   {
@@ -62,6 +62,15 @@ export const routes = [
         ],
       },
       {
+        path: "requests",
+        children: [
+          {
+            path: "new",
+            element: <CreateRequest />,
+          },
+        ],
+      },
+      {
         path: "login",
         element: <Login />,
       },
@@ -77,10 +86,6 @@ export const routes = [
       {
         path: ":id",
         element: <RequestDetails />,
-      },
-      {
-        path: "new",
-        element: <CreateRequest />,
       },
     ],
   },

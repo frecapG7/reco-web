@@ -2,11 +2,7 @@ export const post = async (url, data) => {
   try {
     const response = await fetch(url, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      // headers: headers(),
-      //   credentials: "include",
+      headers: headers(),
       body: JSON.stringify(data),
     });
 
@@ -14,12 +10,12 @@ export const post = async (url, data) => {
       throw new Error({
         status: response.status,
         statusText: response.statusText,
-        message: response.statusText,
+        message: response.message,
       });
 
     return await response.json();
   } catch (e) {
-    console.error(e);
+    console.error(e?.message);
     throw e;
   }
 };
@@ -42,8 +38,6 @@ export const put = async (url, data) => {
 export const get = async (url, options) => {
   if (options?.params)
     url = `${url}?${new URLSearchParams(options.params).toString()}`;
-
-  // debugger;
   try {
     const response = await fetch(url, {
       method: "GET",

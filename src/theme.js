@@ -26,6 +26,7 @@ let theme = createTheme({
       contrastText: "#fff",
     },
     white: "#fff",
+    yellow: "#fcf424",
   },
 });
 
@@ -177,7 +178,8 @@ theme = createTheme(theme, {
     MuiFormControl: {
       styleOverrides: {
         root: {
-          marginY: 5,
+          marginBottom: 5,
+          marginTop: 5,
         },
       },
     },
