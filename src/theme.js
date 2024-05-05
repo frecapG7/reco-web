@@ -26,7 +26,9 @@ let theme = createTheme({
       contrastText: "#fff",
     },
     white: "#fff",
-    yellow: "#fcf424",
+    yellow: {
+      main: "#fcf424",
+    },
   },
 });
 

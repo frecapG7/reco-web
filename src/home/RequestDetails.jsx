@@ -1,43 +1,79 @@
-import { Box, Divider, Paper, Stack, Typography } from "@mui/material";
+import {
+  Box,
+  Chip,
+  Divider,
+  Grid,
+  Paper,
+  Stack,
+  Typography,
+} from "@mui/material";
 import { UserName } from "../components/user/UserName";
-import { UserCard } from "../components/user/UserCard";
-import { RecommendationCard } from "../components/request/RecommendationCard";
+import { Recommendations } from "./Recommendations";
+
+import { RequestType } from "../components/request/RequestType";
 
 export const RequestDetails = ({ request }) => {
   return (
-    <Stack spacing={6}>
-      <Box>
-        <UserName user={request.author} />
+    <Stack spacing={2}>
+      <Box
+        sx={{
+          height: 100,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+        }}
+      >
+        <Box>
+          <UserName user={request.author} />
+          <Typography variant="caption">{request.created}</Typography>
+        </Box>
+
+        <Box
+          sx={{
+            color: "primary.main",
+            p: 5,
+            border: 1,
+          }}
+          align="center"
+        >
+          <RequestType requestType={request.requestType} />
+        </Box>
       </Box>
 
-      <Box>
-        <Typography variant="h4">{request.title}</Typography>
-      </Box>
+      <Divider />
 
-      <Box>
+      <Box
+        sx={{
+          height: 250,
+          overflow: "hidden",
+          textOverflow: "ellipsis",
+          whiteSpace: "nowrap",
+          justifyContent: "flex-space-between",
+          display: "flex",
+          flexDirection: "column",
+        }}
+      >
+        <Typography variant="title" textAlign="left" paragraph>
+          {request.title}
+        </Typography>
         <Typography variant="body1">{request.description}</Typography>
+
+        <Grid container mt={2} spacing={3}>
+          {request.tags.map((tag, index) => (
+            <Grid item key={tag}>
+              <Chip key={index} label={`# ${tag}`} />
+            </Grid>
+          ))}
+        </Grid>
       </Box>
 
       <Paper
         sx={{
-          my: 5,
-          p: 5,
+          // p: 5,
           bgcolor: "primary.dark",
         }}
       >
-        <RecommendationCard
-          recommendation={{
-            user: {
-              name: "John Doe",
-              avatar: "https://randomuser.me/api/portraits",
-              title: "Software Engineer",
-            },
-            field1: "Field 1",
-            field2: "Field 2",
-            field3: "Field 3",
-            created: "2021-10-01",
-          }}
-        />
+        <Recommendations request={request} />
       </Paper>
     </Stack>
   );

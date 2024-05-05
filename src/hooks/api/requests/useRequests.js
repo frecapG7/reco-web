@@ -19,6 +19,18 @@ export const useGetRequests = (pageSize, pageNumber) => {
   });
 };
 
+const getRequest = async (id) => {
+  const response = await get(`/api/requests/${id}`);
+  return response;
+};
+
+export const useGetRequest = (id) => {
+  return useQuery({
+    queryKey: ["requests", id],
+    queryFn: () => getRequest(id),
+  });
+};
+
 const postRequest = async (data) => {
   const response = await post("/api/requests", data);
   return response;
