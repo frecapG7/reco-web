@@ -1,5 +1,6 @@
 import {
   Box,
+  Button,
   Chip,
   Divider,
   Grid,
@@ -44,7 +45,7 @@ export const RequestDetails = ({ request }) => {
 
       <Box
         sx={{
-          height: 250,
+          // height: 300,
           overflow: "hidden",
           textOverflow: "ellipsis",
           whiteSpace: "nowrap",
@@ -64,6 +65,11 @@ export const RequestDetails = ({ request }) => {
               <Chip key={index} label={`# ${tag}`} />
             </Grid>
           ))}
+          <Grid item xs={12}>
+            <Button variant="contained" color="primary">
+              Recommend
+            </Button>
+          </Grid>
         </Grid>
       </Box>
 

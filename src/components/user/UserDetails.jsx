@@ -1,4 +1,10 @@
-import { Avatar, CircularProgress, Grid, Typography } from "@mui/material";
+import {
+  Avatar,
+  CircularProgress,
+  Grid,
+  Stack,
+  Typography,
+} from "@mui/material";
 import { useGetUser } from "../../hooks/api/users/useUsers";
 import MonetizationOnRoundedIcon from "@mui/icons-material/MonetizationOnRounded";
 import LoginIcon from "@mui/icons-material/Login";
@@ -20,14 +26,41 @@ export const UserDetails = ({ user }) => {
         />
         <Typography>{data.name}</Typography>
       </Grid>
-      <Grid item xs={12}>
-        <Typography alignItems="center">
-          {data.balance} <MonetizationOnRoundedIcon color="yellow" />
-        </Typography>
+
+      <Grid
+        item
+        container
+        justifyContent="space-around"
+        sx={{
+          backgroundColor: "lightgray",
+          // p: 5,
+        }}
+      >
+        <Stack direction="column" alignItems="center">
+          <Typography>{data.balance}</Typography>
+          <MonetizationOnRoundedIcon color="yellow" />
+        </Stack>
+
+        <Stack direction="column" alignItems="center">
+          <Typography>{data.requestCount}</Typography>
+          Requests
+        </Stack>
+        <Stack direction="column" alignItems="center">
+          <Typography>{data.recommendationCount} </Typography>
+          Recommendations
+        </Stack>
       </Grid>
 
       <Grid item xs={12}>
-        <LoginIcon /> {data.created}
+        <Typography
+          textAlign="left"
+          sx={{
+            alignItems: "center",
+          }}
+        >
+          <LoginIcon fontSize="medium" />
+          {data.created}
+        </Typography>
       </Grid>
     </Grid>
   );

@@ -1,7 +1,6 @@
 import { Box, CircularProgress, Typography } from "@mui/material";
 import { useGetRecommendations } from "../hooks/api/requests/useRecommendations";
-import { RecommendationCard } from "../components/request/RecommendationCard";
-import { Fragment } from "react";
+import { Recommendation } from "../components/request/recommendation/Recommendation";
 
 export const Recommendations = ({ request }) => {
   const { data: recommendations, isLoading } = useGetRecommendations(
@@ -25,12 +24,11 @@ export const Recommendations = ({ request }) => {
   return (
     <Box>
       {recommendations?.map((recommendation, index) => (
-        <Fragment key={index}>
-          <RecommendationCard
-            key={recommendation.id}
-            recommendation={recommendation}
-          />
-        </Fragment>
+        <Recommendation
+          key={index}
+          recommendation={recommendation}
+          request={request}
+        />
       ))}
     </Box>
   );

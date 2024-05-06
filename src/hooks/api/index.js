@@ -6,15 +6,11 @@ export const post = async (url, data) => {
       body: JSON.stringify(data),
     });
 
-    if (!response.ok)
-      throw new Error({
-        status: response.status,
-        statusText: response.statusText,
-        message: response.message,
-      });
+    if (!response.ok) throw new Error(response.message, response.status);
 
     return await response.json();
   } catch (e) {
+    debugger;
     console.error(e?.message);
     throw e;
   }

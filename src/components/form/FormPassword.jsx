@@ -1,6 +1,5 @@
 import {
   FormControl,
-  FormControlLabel,
   IconButton,
   InputAdornment,
   TextField,

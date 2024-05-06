@@ -1,8 +1,8 @@
-import { Button, FormControl, IconButton } from "@mui/material";
+import { Button, FormControl } from "@mui/material";
 import { useController } from "react-hook-form";
 import UploadOutlinedIcon from "@mui/icons-material/UploadOutlined";
 
-export const FormUpload = ({ control, label, name, required, accept }) => {
+export const FormUpload = ({ control, label, name, required }) => {
   const {
     field: { onChange, ref, value },
   } = useController({
