@@ -1,23 +1,25 @@
 import {
   AppBar,
   Box,
-  Container,
   Drawer,
   IconButton,
   Paper,
-  Stack,
   Toolbar,
   Typography,
 } from "@mui/material";
-import icon from "../assets/img/icon.png";
+import icon from "../../public/icon.png";
 import { useState } from "react";
 import MenuIcon from "@mui/icons-material/Menu";
-import { DrawerContent } from "./DrawerContent";
 import { NavigationBar } from "./NavigationBar";
 
 const Header = ({ toggleDrawer }) => {
   return (
-    <AppBar>
+    <AppBar
+      position="static"
+      sx={{
+        zIndex: 99,
+      }}
+    >
       <Toolbar>
         <Box display="flex" justifyContent="space-between" alignItems="center">
           <Box component="img" src={icon} sx={{ width: "40px" }} alt="logo" />
@@ -46,36 +48,34 @@ const Footer = () => {
 };
 
 export const StandardLayout = ({ children }) => {
-  const [toggleDrawer, setToggleDrawer] = useState(true);
+  const [toggleDrawer, setToggleDrawer] = useState(false);
 
   return (
     <Box component="main" sx={{ flexGrow: 1 }}>
       <Header toggleDrawer={setToggleDrawer} />
-      <Container
+      <Drawer
+        variant="persistent"
+        anchor="left"
         sx={{
+          width: 200,
+          flexShrink: 0,
+        }}
+        open={toggleDrawer}
+        onClose={() => setToggleDrawer(false)}
+      >
+        <NavigationBar onClose={() => setToggleDrawer(false)} />
+      </Drawer>
+      <Box
+        sx={{
+          mb: 10,
           flexGrow: 1,
+          overflow: "auto",
+          display: "flex",
+          justifyContent: "center",
         }}
       >
-        <Drawer
-          variant="persistent"
-          anchor="left"
-          sx={{
-            width: 200,
-            flexShrink: 0,
-          }}
-          open={toggleDrawer}
-          onClose={() => setToggleDrawer(false)}
-        >
-          <NavigationBar onClose={() => setToggleDrawer(false)} />
-        </Drawer>
-        <Box
-          sx={{
-            my: 10,
-          }}
-        >
-          {children}
-        </Box>
-      </Container>
+        {children}
+      </Box>
       <Footer />
     </Box>
   );
