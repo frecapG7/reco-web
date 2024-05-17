@@ -1,5 +1,4 @@
 import { ManageAccount } from "./page/ManageAccount";
-import { RequestDetails } from "./page/RequestDetails";
 import { StandardLayout } from "./layout/StandardLayout";
 import { MyRequests } from "./page/MyRequests";
 import { TrendingRequestScreen } from "./page/TrendingRequestScreen";
@@ -73,19 +72,6 @@ export const routes = [
       {
         path: "login",
         element: <Login />,
-      },
-    ],
-  },
-  {
-    path: "/requests",
-    children: [
-      {
-        path: "",
-        element: <TrendingRequestScreen />,
-      },
-      {
-        path: ":id",
-        element: <RequestDetails />,
       },
     ],
   },
