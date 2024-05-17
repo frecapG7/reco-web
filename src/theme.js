@@ -97,17 +97,38 @@ theme = createTheme(theme, {
       styleOverrides: {
         root: {
           minWidth: 200,
+          padding: 5,
+          margin: 5,
         },
         outlined: {
           boxShadow: "none",
           borderRadius: 20,
-          padding: 5,
         },
         contained: {
           boxShadow: "none",
           borderRadius: 20,
-          padding: 5,
           ...theme.typography.button,
+        },
+      },
+    },
+    MuiToggleButton: {
+      styleOverrides: {
+        root: {
+          borderRadius: 20,
+          padding: 10,
+          // margin: 5,
+          "&.Mui-selected": {
+            backgroundColor: theme.palette.primary.main,
+            "&:hover": {},
+            "&::after": {
+              // Add these lines
+              content: '"✔"', // Unicode check character
+              position: "absolute",
+              right: 0,
+              top: -1,
+              color: theme.palette.success.main,
+            },
+          },
         },
       },
     },

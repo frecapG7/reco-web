@@ -10,6 +10,7 @@ export const FormText = ({
   rows,
   rules,
   required,
+  disabled,
   ...rest
 }) => {
   const {
@@ -23,7 +24,7 @@ export const FormText = ({
   });
 
   return (
-    <FormControl fullWidth>
+    <FormControl fullWidth disabled={disabled}>
       <TextField
         {...rest}
         fullWidth
@@ -40,6 +41,7 @@ export const FormText = ({
         rows={rows}
         minRows={rules?.minRows ? rules.minRows : 0}
         maxRows={rules?.maxRows ? rules.maxRows : 0}
+        InputProps={rest?.InputProps}
       />
     </FormControl>
   );

@@ -3,15 +3,15 @@ import {
   CircularProgress,
   Container,
   Paper,
+  TextField,
   Typography,
 } from "@mui/material";
 import { useGetRequests } from "../hooks/api/requests/useRequests";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { Fragment } from "react";
 import { RequestDetails } from "./RequestDetails";
 
 export const Home = () => {
-  const { data: results, isLoading, isError } = useGetRequests();
+  const { data: results, isLoading } = useGetRequests();
 
   if (isLoading) {
     return (
@@ -31,7 +31,14 @@ export const Home = () => {
 
   return (
     <Container>
-      <Box aria-label="search-filters">TODO</Box>
+      <Box
+        aria-label="search-filters"
+        sx={{
+          my: 5,
+        }}
+      >
+        <TextField />
+      </Box>
 
       <Box sx={{ my: 5 }}>
         <InfiniteScroll

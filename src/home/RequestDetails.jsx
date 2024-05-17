@@ -12,8 +12,12 @@ import { UserName } from "../components/user/UserName";
 import { Recommendations } from "./Recommendations";
 
 import { RequestType } from "../components/request/RequestType";
+import { RecommendationDialog } from "./RecommendationDialog";
+import { useState } from "react";
 
 export const RequestDetails = ({ request }) => {
+  const [openDialog, setOpenDialog] = useState(false);
+
   return (
     <Stack spacing={2}>
       <Box
@@ -29,16 +33,7 @@ export const RequestDetails = ({ request }) => {
           <Typography variant="caption">{request.created}</Typography>
         </Box>
 
-        <Box
-          sx={{
-            color: "primary.main",
-            p: 5,
-            border: 1,
-          }}
-          align="center"
-        >
-          <RequestType requestType={request.requestType} />
-        </Box>
+        <RequestType requestType={request.requestType} />
       </Box>
 
       <Divider />
@@ -46,15 +41,12 @@ export const RequestDetails = ({ request }) => {
       <Box
         sx={{
           // height: 300,
-          overflow: "hidden",
-          textOverflow: "ellipsis",
-          whiteSpace: "nowrap",
           justifyContent: "flex-space-between",
           display: "flex",
           flexDirection: "column",
         }}
       >
-        <Typography variant="title" textAlign="left" paragraph>
+        <Typography variant="title" textAlign="justify" paragraph>
           {request.title}
         </Typography>
         <Typography variant="body1">{request.description}</Typography>
@@ -66,7 +58,11 @@ export const RequestDetails = ({ request }) => {
             </Grid>
           ))}
           <Grid item xs={12}>
-            <Button variant="contained" color="primary">
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={() => setOpenDialog(true)}
+            >
               Recommend
             </Button>
           </Grid>
@@ -81,6 +77,12 @@ export const RequestDetails = ({ request }) => {
       >
         <Recommendations request={request} />
       </Paper>
+
+      <RecommendationDialog
+        open={openDialog}
+        onClose={() => setOpenDialog(false)}
+        request={request}
+      />
     </Stack>
   );
 };

@@ -13,6 +13,26 @@ export const useGetRecommendations = (requestId) => {
   });
 };
 
+const postRecommendation = async (requestId, recommendation) => {
+  const response = await post(
+    `/api/requests/${requestId}/recommendations/`,
+    recommendation
+  );
+  return response;
+};
+
+export const usePostRecommendation = (requestId) => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (data) => postRecommendation(requestId, data),
+    onSuccess: () =>
+      queryClient.invalidateQueries({
+        queryKey: ["requests", requestId, "recommendations"],
+      }),
+  });
+};
+
 const likeRecommendation = async (requestId, recommendationId) => {
   const response = await post(
     `/api/requests/${requestId}/recommendations/${recommendationId}/like`
