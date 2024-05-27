@@ -14,6 +14,7 @@ import AddIcon from "@mui/icons-material/Add";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
 import WhatshotIcon from "@mui/icons-material/Whatshot";
+import WhatshotOutlinedIcon from "@mui/icons-material/WhatshotOutlined";
 import { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 
@@ -22,6 +23,7 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import PowerSettingsNewIcon from "@mui/icons-material/PowerSettingsNew";
 import SettingsIcon from "@mui/icons-material/Settings";
 import { AdministrationItem } from "./menu/AdministrationItem";
+import { useAuthSession } from "../context/AuthContext";
 
 const AccountMenuItem = () => {
   const [open, setOpen] = useState(false);
@@ -57,7 +59,6 @@ const AccountMenuItem = () => {
   );
 };
 
-
 const NavigationItem = ({ icon, text, path }) => {
   return (
     <ListItem>
@@ -77,6 +78,8 @@ export const NavigationBar = ({ onClose }) => {
     navigate("/login");
   };
 
+  const { session } = useAuthSession();
+
   return (
     <>
       <Box
@@ -92,16 +95,16 @@ export const NavigationBar = ({ onClose }) => {
       <Box>
         <List>
           <NavigationItem
-            icon={<WhatshotIcon />}
-            text="Trending"
-            path="/requests"
+            icon={<WhatshotOutlinedIcon fontSize="large" />}
+            text="Home"
+            path="/"
           />
           <NavigationItem
             icon={<AddIcon />}
             text="Create Request"
             path="/requests/new"
           />
-          <AccountMenuItem />
+          {session?.user && <AccountMenuItem />}
 
           <AdministrationItem />
 

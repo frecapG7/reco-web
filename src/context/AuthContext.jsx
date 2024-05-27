@@ -17,6 +17,7 @@ export const useAuthSession = () => {
   }, []);
 
   const login = (session) => {
+    debugger;
     setSession(session);
 
     sessionStorage.setItem("token", session.access_token);

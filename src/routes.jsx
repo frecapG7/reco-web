@@ -1,7 +1,6 @@
 import { ManageAccount } from "./page/ManageAccount";
 import { StandardLayout } from "./layout/StandardLayout";
 import { MyRequests } from "./page/MyRequests";
-import { TrendingRequestScreen } from "./page/TrendingRequestScreen";
 import { Outlet } from "react-router-dom";
 import { Home } from "./home/Home";
 import { UsersAdministration } from "./admin/users/UsersAdministration";
