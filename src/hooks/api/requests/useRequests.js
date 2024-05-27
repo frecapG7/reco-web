@@ -1,21 +1,35 @@
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import {
+  useInfiniteQuery,
+  useMutation,
+  useQuery,
+  useQueryClient,
+} from "@tanstack/react-query";
 import { get, post } from "../index";
 
-const getRequests = async (pageSize, pageNumber) => {
+const getRequests = async (pageSize, pageNumber, filters) => {
   const response = await get("/api/requests", {
     params: {
-      pageSize: pageSize || 10,
-      pageNumber: pageNumber || 1,
+      pageSize: pageSize || 1,
+      pageNumber: pageNumber || 0,
+      ...(filters?.search && { search: filters.search }),
+      ...(filters?.type && { type: filters.type }),
+      ...(filters?.status && { status: filters.status }),
     },
   });
 
   return response;
 };
 
-export const useGetRequests = (pageSize, pageNumber) => {
-  return useQuery({
-    queryKey: ["requests", pageSize, pageNumber],
-    queryFn: () => getRequests(pageSize, pageNumber),
+export const useGetRequests = (filters) => {
+  return useInfiniteQuery({
+    queryKey: ["requests", filters],
+    queryFn: ({ pageParam }) => getRequests(10, pageParam, filters),
+    initialPageParam: 0,
+    getNextPageParam: (lastPage) => {
+      if (lastPage.pagination?.currentPage < lastPage.pagination?.totalPages)
+        return lastPage.pagination.currentPage + 1;
+      return undefined;
+    },
   });
 };
 

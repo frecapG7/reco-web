@@ -3,31 +3,26 @@ import {
   CircularProgress,
   Container,
   Paper,
-  TextField,
   Typography,
 } from "@mui/material";
 import { useGetRequests } from "../hooks/api/requests/useRequests";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { RequestDetails } from "./RequestDetails";
+import { Search } from "./Search";
+import { Fragment, useState } from "react";
 
 export const Home = () => {
-  const { data: results, isLoading } = useGetRequests();
+  const [filters, setFilters] = useState({
+    search: "",
+  });
 
-  if (isLoading) {
-    return (
-      <Container maxWidth="lg">
-        <Box
-          align="center"
-          alignItems="center"
-          sx={{
-            my: 5,
-          }}
-        >
-          <CircularProgress />
-        </Box>
-      </Container>
-    );
-  }
+  const {
+    data: results,
+    isLoading,
+    refetch,
+    fetchNextPage,
+    hasNextPage,
+  } = useGetRequests(filters);
 
   return (
     <Container>
@@ -37,14 +32,14 @@ export const Home = () => {
           my: 5,
         }}
       >
-        <TextField />
+        <Search filters={filters} setFilters={setFilters} />
       </Box>
 
       <Box sx={{ my: 5 }}>
         <InfiniteScroll
-          dataLength={results?.total || 0}
-          next={() => console.log("next")}
-          hasMore={false}
+          dataLength={50}
+          next={fetchNextPage}
+          hasMore={hasNextPage}
           loader={<CircularProgress />}
           endMessage={
             <Box align="center">
@@ -63,21 +58,30 @@ export const Home = () => {
               Release to refresh
             </Typography>
           }
-          refreshFunction={() => console.log("refresh")}
+          refreshFunction={() => refetch()}
         >
-          {results?.results.map((result) => (
-            <Paper
-              key={result.id}
-              sx={{
-                my: 5,
-                border: `5px solid ${
-                  result.status === "pending" ? "secondary.dark" : "green"
-                }`,
-              }}
-            >
-              <RequestDetails request={result} />
-            </Paper>
+          {results?.pages.map((page, i) => (
+            <Fragment key={i}>
+              {page.results.map((result) => (
+                <Paper
+                  key={result.id}
+                  sx={{
+                    my: 5,
+                    border: `5px solid ${
+                      result.status === "pending" ? "secondary.dark" : "green"
+                    }`,
+                  }}
+                >
+                  <RequestDetails request={result} />
+                </Paper>
+              ))}
+            </Fragment>
           ))}
+          {isLoading && (
+            <Box align="center">
+              <CircularProgress />
+            </Box>
+          )}
         </InfiniteScroll>
       </Box>
     </Container>
