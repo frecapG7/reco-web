@@ -10,7 +10,6 @@ export const post = async (url, data) => {
 
     return await response.json();
   } catch (e) {
-    debugger;
     console.error(e?.message);
     throw e;
   }
