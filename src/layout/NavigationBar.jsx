@@ -20,7 +20,6 @@ import { NavLink, useNavigate } from "react-router-dom";
 
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import PowerSettingsNewIcon from "@mui/icons-material/PowerSettingsNew";
 import LoginOutlinedIcon from "@mui/icons-material/LoginOutlined";
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 

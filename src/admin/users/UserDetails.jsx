@@ -1,25 +1,27 @@
 import { useParams } from "react-router-dom";
-import { useGetUser } from "../../hooks/api/admin/userUserAdministration";
+import { useGetUser } from "../../hooks/api/admin/useUserAdministration";
 import {
-  Avatar,
-  Badge,
   Box,
-  Button,
   CircularProgress,
   Container,
+  Divider,
+  Grid,
   List,
   ListItem,
   ListItemIcon,
   ListItemText,
   Paper,
-  Stack,
   Typography,
 } from "@mui/material";
 
 import MenuBookOutlinedIcon from "@mui/icons-material/MenuBookOutlined";
-import SavingsIcon from "@mui/icons-material/Savings";
 
 import { i18nDate } from "../../utils/i18n";
+import { UserBalance } from "../../components/user/icons/UserBalance";
+import { UserRequests } from "../../components/user/icons/UserRequests";
+import { UserRecommendations } from "../../components/user/icons/UserRecommendations";
+import { UserAvatar } from "../../components/user/icons/UserAvatar";
+import { CartDetail } from "./CartDetail";
 
 export const UserDetails = () => {
   const { id } = useParams();
@@ -48,94 +50,116 @@ export const UserDetails = () => {
         elevation={0}
         sx={{
           my: 5,
+          p: 5,
           bgcolor: "primary.dark",
         }}
       >
-        <Stack spacing={5}>
-          <Box
-            sx={{
-              my: 5,
-              px: 5,
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-            }}
-          >
+        <Grid container alignItems="center" spacing={2}>
+          <Grid item xs={6}>
+            <UserAvatar avatar={user?.avatar} />
+
+            <Box>
+              <Typography variant="title">{user.name}</Typography>
+              <Typography variant="subtitle1">{user.title}</Typography>
+            </Box>
             <Box
               display="flex"
               justifyContent="flex-start"
               alignItems="center"
-              gap={5}
-            >
-              <Avatar src={user.avatar} sx={{ width: 100, height: 100 }} />
-
-              <Box>
-                <Typography variant="h4">{user.name}</Typography>
-                <Typography variant="subtitle1">{user.title}</Typography>
-              </Box>
-            </Box>
-
-            <Box
-              sx={{
-                borderRadius: 5,
-                backgroundColor: "primary.light",
-                padding: 10,
-              }}
-              align="center"
-            >
-              <Badge
-                color="success"
-                badgeContent={user.balance}
-                sx={{
-                  color: "yellow",
-                  fontSize: 20,
-                }}
-              >
-                <SavingsIcon fontSize="large" color="yellow" />
-              </Badge>
-            </Box>
-
-            <Box aria-label="actions-button">
-              <Button variant="contained" color="primary">
-                Edit
-              </Button>
-            </Box>
-          </Box>
-
-          <Box
-            aria-label="boring-informations"
+              gap={2}
+            ></Box>
+          </Grid>
+          <Grid
+            item
+            xs={12}
+            md={6}
             sx={{
-              marginTop: 50,
+              display: "flex",
+              justifyContent: "space-around",
+              alignItems: "center",
+              backgroundColor: "primary.light",
+              borderRadius: 5,
+              padding: 5,
             }}
           >
-            <Typography>Created on {i18nDate(user?.created)}</Typography>
-            <Typography>Email: {user.email}</Typography>
-          </Box>
+            <UserRequests requests={10} />
+            <UserRecommendations recommendations={5} />
+            <UserBalance balance={user.balance} />
+          </Grid>
 
-          <Paper elevation={1}>
-            <Typography>Last requests</Typography>
-            <List>
-              <ListItem>
-                <ListItemIcon>
-                  <MenuBookOutlinedIcon color="primary" fontSize="medium" />
-                </ListItemIcon>
-                <ListItemText primary="Request 1" />
-              </ListItem>
-              <ListItem>
-                <ListItemIcon>
-                  <MenuBookOutlinedIcon color="primary" fontSize="medium" />
-                </ListItemIcon>
-                <ListItemText primary="Request 1" />
-              </ListItem>
-              <ListItem>
-                <ListItemIcon>
-                  <MenuBookOutlinedIcon color="primary" fontSize="medium" />
-                </ListItemIcon>
-                <ListItemText primary="Request 1" />
-              </ListItem>
-            </List>
-          </Paper>
-        </Stack>
+          <Grid
+            item
+            container
+            aria-label="boring-informations"
+            sx={
+              {
+                // marginTop: 50,
+              }
+            }
+          >
+            <Typography>Created on {i18nDate(user?.created)}</Typography>
+          </Grid>
+
+          <Grid item xs={12}>
+            <Divider>Recent activity</Divider>
+          </Grid>
+
+          <Grid item container alignItems="center" spacing={2}>
+            <Grid item xs={12} md={6}>
+              <Paper elevation={1}>
+                <Typography>Last requests</Typography>
+                <List>
+                  <ListItem>
+                    <ListItemIcon>
+                      <MenuBookOutlinedIcon color="primary" fontSize="medium" />
+                    </ListItemIcon>
+                    <ListItemText primary="Request 1" />
+                  </ListItem>
+                  <ListItem>
+                    <ListItemIcon>
+                      <MenuBookOutlinedIcon color="primary" fontSize="medium" />
+                    </ListItemIcon>
+                    <ListItemText primary="Request 1" />
+                  </ListItem>
+                  <ListItem>
+                    <ListItemIcon>
+                      <MenuBookOutlinedIcon color="primary" fontSize="medium" />
+                    </ListItemIcon>
+                    <ListItemText primary="Request 1" />
+                  </ListItem>
+                </List>
+              </Paper>
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <Paper elevation={1}>
+                <Typography>Last recommendations</Typography>
+                <List>
+                  <ListItem>
+                    <ListItemIcon>
+                      <MenuBookOutlinedIcon color="primary" fontSize="medium" />
+                    </ListItemIcon>
+                    <ListItemText primary="Reco 1" />
+                  </ListItem>
+                  <ListItem>
+                    <ListItemIcon>
+                      <MenuBookOutlinedIcon color="primary" fontSize="medium" />
+                    </ListItemIcon>
+                    <ListItemText primary="Reco 1" />
+                  </ListItem>
+                </List>
+              </Paper>
+            </Grid>
+          </Grid>
+
+          <Grid item xs={12}>
+            <CartDetail user={user} />
+          </Grid>
+
+          <Grid item xs={12}>
+            <Divider>Admin</Divider>
+          </Grid>
+          <Grid item xs={12}></Grid>
+        </Grid>
       </Paper>
     </Container>
   );

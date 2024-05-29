@@ -5,37 +5,48 @@ import { FormSelect } from "../../components/form/FormSelect";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 
-export const UsersFilters = ({ filters, onSubmit }) => {
-  const { control, handleSubmit, reset } = useForm();
+export const UsersFilters = ({ filters, setFilters }) => {
+  const { control, handleSubmit, watch } = useForm({
+    defaultValues: filters,
+  });
 
+  const data = watch();
   useEffect(() => {
-    reset(filters);
-  }, [reset, filters]);
+    setFilters(data);
+  }, [data, setFilters]);
 
   return (
-    <Grid container spacing={5}>
-      <Grid item xs={12} md={5}>
-        <FormText control={control} name="regex" />
+    <form>
+      <Grid container spacing={5} alignItems="center">
+        <Grid item xs={12} md={5}>
+          <FormText
+            control={control}
+            name="search"
+            rules={{
+              minLength: 2,
+            }}
+          />
+        </Grid>
+        <Grid item xs={12} md={5}>
+          <FormSelect
+            control={control}
+            name="role"
+            options={[
+              { label: "Admin", value: "admin" },
+              { label: "User", value: "user" },
+            ]}
+          />
+        </Grid>
+        <Grid item container justifyContent="flex-end" alignItems="baseline">
+          <Button
+            variant="contained"
+            color="secondary"
+            // onClick={handleSubmit(setFilters)}
+          >
+            Search
+          </Button>
+        </Grid>
       </Grid>
-      <Grid item xs={12} md={5}>
-        <FormSelect
-          control={control}
-          name="role"
-          options={[
-            { label: "Admin", value: "admin" },
-            { label: "User", value: "user" },
-          ]}
-        />
-      </Grid>
-      <Grid item container justifyContent="flex-end" alignItems="baseline">
-        <Button
-          variant="contained"
-          color="secondary"
-          onClick={handleSubmit(onSubmit)}
-        >
-          Search
-        </Button>
-      </Grid>
-    </Grid>
+    </form>
   );
 };

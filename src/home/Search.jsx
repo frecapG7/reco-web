@@ -2,7 +2,6 @@ import { Box } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { FormText } from "../components/form/FormText";
 import { useEffect } from "react";
-import { FormRequestType } from "../components/form/FormRequestType";
 import { FormToggles } from "../components/form/FormToggles";
 
 export const Search = ({ filters, setFilters }) => {

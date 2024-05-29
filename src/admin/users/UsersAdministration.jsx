@@ -13,11 +13,12 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
-import { useGetUsers } from "../../hooks/api/admin/userUserAdministration";
+import { useGetUsers } from "../../hooks/api/admin/useUserAdministration";
 import { useState } from "react";
 import { UsersFilters } from "./UsersFilters";
 import { useNavigate } from "react-router-dom";
 import { AddUserDialog } from "./AddUserDialog";
+import { i18nDateTime } from "../../utils/i18n";
 
 const Content = ({ users }) => {
   const navigate = useNavigate();
@@ -32,8 +33,8 @@ const Content = ({ users }) => {
 
   return users?.map((user, index) => (
     <TableRow key={index} hover>
-      <TableCell>{user.username}</TableCell>
-      <TableCell>{user.email}</TableCell>
+      <TableCell>{user.name}</TableCell>
+      <TableCell>{i18nDateTime(user.created)}</TableCell>
       <TableCell align="right">
         <Button
           variant="contained"
@@ -51,23 +52,20 @@ const Content = ({ users }) => {
 };
 
 export const UsersAdministration = () => {
-  const [filters, setFilters] = useState({});
-  const [pageNumber, setPageNumber] = useState(0);
+  const [filters, setFilters] = useState({
+    search: "",
+    role: "",
+  });
+  const [pageNumber, setPageNumber] = useState(1);
   const [pageSize, setPageSize] = useState(10);
 
   const [openDialog, setOpenDialog] = useState(false);
 
-  const {
-    data: results,
-    isLoading,
-    isError,
-    error,
-  } = useGetUsers(filters, pageNumber, pageSize);
-
-  const defaultFilters = {
-    regex: "",
-    role: "",
-  };
+  const { data: results, isLoading } = useGetUsers(
+    filters,
+    pageNumber,
+    pageSize
+  );
 
   return (
     <Container>
@@ -79,10 +77,7 @@ export const UsersAdministration = () => {
           my: 10,
         }}
       >
-        <UsersFilters
-          filters={defaultFilters}
-          onSubmit={(data) => console.log(data)}
-        />
+        <UsersFilters filters={filters} setFilters={setFilters} />
       </Paper>
 
       <Paper elevation={0} sx={{}}>
@@ -91,19 +86,24 @@ export const UsersAdministration = () => {
             <TableHead>
               <TableRow>
                 <TableCell align="center">Username</TableCell>
-                <TableCell align="center">Email</TableCell>
+                <TableCell align="center">Created</TableCell>
                 <TableCell align="right">Actions</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              <Content users={results} />
+              {isLoading && (
+                <TableRow>
+                  <TableCell colSpan={3}>Loading...</TableCell>
+                </TableRow>
+              )}
+              {!isLoading && <Content users={results?.results} />}
             </TableBody>
           </Table>
         </TableContainer>
         <TablePagination
           rowsPerPageOptions={[5, 10, 25]}
           component="div"
-          count={results?.length || 0}
+          count={results?.pagination?.totalResults || 0}
           rowsPerPage={pageSize}
           page={pageNumber}
           onPageChange={(event, newPage) => setPageNumber(newPage)}
