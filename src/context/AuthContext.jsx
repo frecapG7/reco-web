@@ -7,24 +7,38 @@ const AuthContext = createContext({
 });
 
 export const useAuthSession = () => {
-  const [session, setSession] = useState(null);
+  const [session, setSession] = useState({
+    loggedIn: false,
+    user: null,
+  });
 
+  // TODO: sync session with refresh token
   useEffect(() => {
     const session = sessionStorage.getItem("session");
     if (session) {
-      setSession(JSON.parse(session));
+      setSession({
+        loggedIn: true,
+        user: JSON.parse(session),
+      });
     }
   }, []);
 
-  const login = (session) => {
-    debugger;
-    setSession(session);
+  const login = (data) => {
+    setSession({
+      loggedIn: true,
+      user: data.user,
+    });
 
-    sessionStorage.setItem("token", session.access_token);
+    sessionStorage.setItem("session", JSON.stringify(data.user));
+    sessionStorage.setItem("token", data.access_token);
   };
 
   const logout = () => {
-    setSession(null);
+    setSession({
+      loggedIn: false,
+      user: null,
+    });
+    sessionStorage.removeItem("session");
     sessionStorage.removeItem("token");
   };
 

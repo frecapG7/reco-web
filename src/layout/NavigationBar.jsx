@@ -21,6 +21,9 @@ import { NavLink, useNavigate } from "react-router-dom";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import PowerSettingsNewIcon from "@mui/icons-material/PowerSettingsNew";
+import LoginOutlinedIcon from "@mui/icons-material/LoginOutlined";
+import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
+
 import SettingsIcon from "@mui/icons-material/Settings";
 import { AdministrationItem } from "./menu/AdministrationItem";
 import { useAuthSession } from "../context/AuthContext";
@@ -72,13 +75,11 @@ const NavigationItem = ({ icon, text, path }) => {
 
 export const NavigationBar = ({ onClose }) => {
   const navigate = useNavigate();
+  const { session, logout } = useAuthSession();
 
   const handleLogout = () => {
-    console.log("Logout");
-    navigate("/login");
+    logout();
   };
-
-  const { session } = useAuthSession();
 
   return (
     <>
@@ -106,16 +107,29 @@ export const NavigationBar = ({ onClose }) => {
           />
           {session?.user && <AccountMenuItem />}
 
-          <AdministrationItem />
+          {session?.user?.role === "admin" && <AdministrationItem />}
 
-          <ListItem>
-            <ListItemButton onClick={() => handleLogout()}>
-              <ListItemIcon>
-                <PowerSettingsNewIcon />
-              </ListItemIcon>
-              <ListItemText>Logout</ListItemText>
-            </ListItemButton>
-          </ListItem>
+          <Divider />
+          {session?.loggedIn && (
+            <ListItem>
+              <ListItemButton onClick={() => handleLogout()}>
+                <ListItemIcon>
+                  <LogoutOutlinedIcon />
+                </ListItemIcon>
+                <ListItemText>Logout</ListItemText>
+              </ListItemButton>
+            </ListItem>
+          )}
+          {!session?.loggedIn && (
+            <ListItem>
+              <ListItemButton onClick={() => navigate("/login")}>
+                <ListItemIcon>
+                  <LoginOutlinedIcon />
+                </ListItemIcon>
+                <ListItemText>Login</ListItemText>
+              </ListItemButton>
+            </ListItem>
+          )}
         </List>
       </Box>
     </>
