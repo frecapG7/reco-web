@@ -31,3 +31,29 @@ export const useGetUser = (id, options) => {
     ...options,
   });
 };
+
+const getLastRequests = async (userId) => {
+  const response = await get(`/api/admin/users/${userId}/requests`);
+  return response;
+};
+export const useGetLastRequests = (userId, options) => {
+  return useQuery({
+    queryKey: ["admin", "users", userId, "requests"],
+    queryFn: () => getLastRequests(userId),
+    ...options,
+  });
+};
+
+const getLastRecommendations = async (userId) => {
+  const response = await get(`/api/admin/users/${userId}/recommendations`);
+
+  return response;
+};
+
+export const useGetLastRecommendations = (userId, options) => {
+  return useQuery({
+    queryKey: ["admin", "users", userId, "recommendations"],
+    queryFn: () => getLastRecommendations(userId),
+    ...options,
+  });
+};

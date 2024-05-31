@@ -4,7 +4,7 @@ import { MyRequests } from "./page/MyRequests";
 import { Outlet } from "react-router-dom";
 import { Home } from "./home/Home";
 import { UsersAdministration } from "./admin/users/UsersAdministration";
-import { UserDetails } from "./admin/users/UserDetails";
+import { AdminUserDetails } from "./admin/users/AdminUserDetails";
 import { MarketItemsAdministration } from "./admin/market/MarketItemsAdministration";
 import { MarketItemDetails } from "./admin/market/MarketItemDetails";
 import { AddMarketItem } from "./admin/market/AddMarketItem";
@@ -36,7 +36,7 @@ export const routes = [
               },
               {
                 path: ":id",
-                element: <UserDetails />,
+                element: <AdminUserDetails />,
               },
             ],
           },
