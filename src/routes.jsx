@@ -10,6 +10,7 @@ import { MarketItemDetails } from "./admin/market/MarketItemDetails";
 import { AddMarketItem } from "./admin/market/AddMarketItem";
 import { Login } from "./login/Login";
 import { CreateRequest } from "./request/CreateRequest";
+import { User } from "./users/User";
 
 export const routes = [
   {
@@ -65,6 +66,15 @@ export const routes = [
           {
             path: "new",
             element: <CreateRequest />,
+          },
+        ],
+      },
+      {
+        path: "users",
+        children: [
+          {
+            path: ":id",
+            element: <User />,
           },
         ],
       },

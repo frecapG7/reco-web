@@ -8,9 +8,13 @@ import {
 import { useGetUser } from "../../hooks/api/users/useUsers";
 import MonetizationOnRoundedIcon from "@mui/icons-material/MonetizationOnRounded";
 import LoginIcon from "@mui/icons-material/Login";
+import { useNavigate } from "react-router-dom";
 
+//TODO: refactor this
 export const UserDetails = ({ user }) => {
   const { data, isLoading } = useGetUser(user.id);
+
+  const navigate = useNavigate();
 
   if (isLoading) {
     return <CircularProgress />;
@@ -18,7 +22,16 @@ export const UserDetails = ({ user }) => {
 
   return (
     <Grid container spacing={2}>
-      <Grid item container>
+      <Grid
+        item
+        container
+        onClick={() => navigate(`/users/${user.id}`)}
+        sx={{
+          "&:hover": {
+            cursor: "pointer",
+          },
+        }}
+      >
         <Avatar
           src={user.avatar}
           alt={user.name}
