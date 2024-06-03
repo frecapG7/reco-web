@@ -34,6 +34,7 @@ export const FormText = ({
         value={value}
         onChange={onChange}
         onBlur={onBlur}
+        disabled={disabled}
         error={!!error}
         helperText={i18nFormError(error)}
         required={required}

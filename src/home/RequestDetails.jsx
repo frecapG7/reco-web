@@ -71,8 +71,8 @@ export const RequestDetails = ({ request }) => {
 
       <Paper
         sx={{
-          // p: 5,
-          bgcolor: "primary.dark",
+          p: 0,
+          // bgcolor: "primary.dark",
         }}
       >
         <Recommendations request={request} />

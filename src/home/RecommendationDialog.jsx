@@ -23,7 +23,6 @@ export const RecommendationDialog = ({ open, onClose, request }) => {
   const createRecommendation = usePostRecommendation(request.id);
 
   const onSubmit = (data) => {
-    console.log(JSON.stringify(data, null, 2));
     createRecommendation.mutate(data, {
       onSuccess: () => {
         onClose();

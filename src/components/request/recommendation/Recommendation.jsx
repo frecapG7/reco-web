@@ -34,8 +34,9 @@ export const Recommendation = ({ request, recommendation }) => {
   return (
     <Card
       sx={{
-        color: "primary.main",
-        border: 1,
+        display: "flex",
+        flexDirection: "column",
+        backgroundColor: "secondary.light",
       }}
     >
       <CardHeader
@@ -53,7 +54,12 @@ export const Recommendation = ({ request, recommendation }) => {
       >
         <IFramely html={recommendation.html} />
       </CardMedia>
-      <CardActions disableSpacing>
+      <CardActions
+        disableSpacing
+        sx={{
+          backgroundColor: "white",
+        }}
+      >
         <ToggleButtonGroup
           exclusive
           fullWidth

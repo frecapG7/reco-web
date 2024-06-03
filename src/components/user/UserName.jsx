@@ -1,4 +1,4 @@
-import { Avatar, Box, Popover, Typography } from "@mui/material";
+import { Avatar, Box, Popover, Typography, Zoom } from "@mui/material";
 import { useState } from "react";
 import { UserDetails } from "./UserDetails";
 
@@ -43,6 +43,7 @@ export const UserName = ({ user }) => {
       <Popover
         id="user-details"
         open={Boolean(anchorEl)}
+        onClose={handlePopoverClose}
         anchorEl={anchorEl}
         anchorOrigin={{
           vertical: "bottom",
@@ -52,8 +53,17 @@ export const UserName = ({ user }) => {
           vertical: "top",
           horizontal: "left",
         }}
-        disableRestoreFocus
-        onAbort={handlePopoverClose}
+        disableScrollLock
+        transitionDuration={600}
+        TransitionComponent={Zoom}
+        slotProps={{
+          paper: {
+            sx: {
+              borderRadius: 5,
+              backgroundColor: "primary.light",
+            },
+          },
+        }}
       >
         <UserDetails user={user} />
       </Popover>
