@@ -1,14 +1,22 @@
-export const post = async (url, data) => {
+
+/*TODO: migrate to a object */
+export const post = async (url, data, options) => {
   try {
+    if (options?.params)
+      url = `${url}?${new URLSearchParams(options.params).toString()}`;
+
     const response = await fetch(url, {
       method: "POST",
       headers: headers(),
       body: JSON.stringify(data),
+      
     });
 
     if (!response.ok) throw new Error(response.message, response.status);
 
-    return await response.json();
+    const text = await response.text();
+    if (text?.length) return JSON.parse(text);
+    else return {};
   } catch (e) {
     console.error(e?.message);
     throw e;
