@@ -144,7 +144,7 @@ theme = createTheme(theme, {
         {
           props: { variant: "outlined" },
           style: {
-            borderRadius: 20,
+            borderRadius: 10,
             boxShadow: "none",
             border: "1px solid #e0e0e0",
             borderColor: "#1a73e8",
