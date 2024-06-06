@@ -1,82 +1,97 @@
-import {
-  AppBar,
-  Box,
-  Drawer,
-  IconButton,
-  Paper,
-  Toolbar,
-  Typography,
-} from "@mui/material";
-import icon from "../../public/icon.png";
+import { AppBar, Box, CssBaseline, Drawer, Toolbar } from "@mui/material";
 import { useState } from "react";
-import MenuIcon from "@mui/icons-material/Menu";
 import { NavigationBar } from "./NavigationBar";
+import { LayoutHeader } from "./LayoutHeader";
 
-const Header = ({ toggleDrawer }) => {
-  return (
-    <AppBar
-      position="static"
-      sx={{
-        zIndex: 99,
-      }}
-    >
-      <Toolbar>
-        <Box display="flex" justifyContent="space-between" alignItems="center">
-          <Box component="img" src={icon} sx={{ width: "40px" }} alt="logo" />
-
-          <Box>
-            <Typography variant="h6">My App</Typography>
-            <Typography variant="body2">Welcome to my app</Typography>
-          </Box>
-          <IconButton color="inherit" onClick={toggleDrawer}>
-            <MenuIcon />
-          </IconButton>
-        </Box>
-      </Toolbar>
-    </AppBar>
-  );
-};
-
-const Footer = () => {
-  return (
-    <Box component="footer">
-      <Paper elevation={0} py={2}>
-        <Typography textAlign="center">v1.0.0</Typography>
-      </Paper>
-    </Box>
-  );
-};
+const drawerWidth = 150;
 
 export const StandardLayout = ({ children }) => {
-  const [toggleDrawer, setToggleDrawer] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [isClosing, setIsClosing] = useState(false);
+
+  const handleDrawerClose = () => {
+    setIsClosing(true);
+    setMobileOpen(false);
+  };
+
+  const handleDrawerTransitionEnd = () => {
+    setIsClosing(false);
+  };
+
+  const handleDrawerToggle = () => {
+    if (!isClosing) {
+      setMobileOpen(!mobileOpen);
+    }
+  };
 
   return (
-    <Box component="main" sx={{ flexGrow: 1 }}>
-      <Header toggleDrawer={setToggleDrawer} />
-      <Drawer
-        variant="persistent"
-        anchor="left"
+    <Box component="main" display="flex">
+      <CssBaseline />
+      <AppBar
+        position="fixed"
         sx={{
-          width: 200,
-          flexShrink: 0,
+          borderRadius: 0,
         }}
-        open={toggleDrawer}
-        onClose={() => setToggleDrawer(false)}
       >
-        <NavigationBar onClose={() => setToggleDrawer(false)} />
-      </Drawer>
+        <Toolbar>
+          <LayoutHeader toggleMenu={handleDrawerToggle} />
+        </Toolbar>
+      </AppBar>
       <Box
+        component="nav"
         sx={{
-          mb: 10,
+          width: { sm: drawerWidth },
+          flexShrink: { sm: 0 },
+        }}
+        aria-label="nav-bar"
+      >
+        <Drawer
+          variant="temporary"
+          open={mobileOpen}
+          onTransitionEnd={handleDrawerTransitionEnd}
+          onClose={handleDrawerClose}
+          ModalProps={{
+            keepMounted: true,
+          }}
+          sx={{
+            display: { xs: "block", sm: "none" },
+            "& .MuiDrawer-paper": {
+              boxSizing: "border-box",
+              backgroundColor: "primary.main",
+            },
+          }}
+        >
+          <NavigationBar onClose={handleDrawerClose} />
+        </Drawer>
+        <Drawer
+          variant="permanent"
+          sx={{
+            display: { xs: "none", sm: "flex" },
+            "& .MuiDrawer-paper": {
+              boxSizing: "border-box",
+              mt: 5,
+              backgroundColor: "inherit",
+              border: "none",
+            },
+          }}
+          open
+        >
+          <NavigationBar />
+        </Drawer>
+      </Box>
+      <Box
+        component="main"
+        display="flex"
+        sx={{
+          my: 10,
           flexGrow: 1,
-          overflow: "auto",
-          display: "flex",
+          p: 3,
+          ml: { sm: 5 },
           justifyContent: "center",
         }}
       >
         {children}
       </Box>
-      <Footer />
     </Box>
   );
 };

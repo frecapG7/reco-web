@@ -7,6 +7,7 @@ import {
   ListItemButton,
   ListItemIcon,
   ListItemText,
+  Toolbar,
 } from "@mui/material";
 import { Box } from "@mui/system";
 
@@ -82,16 +83,18 @@ export const NavigationBar = ({ onClose }) => {
 
   return (
     <>
+      <Toolbar />
       <Box
         sx={{
           py: 2,
+          display: { sm: "none" },
         }}
       >
         <IconButton onClick={onClose}>
           <ChevronLeftIcon />
         </IconButton>
+        <Divider />
       </Box>
-      <Divider />
       <Box>
         <List>
           <NavigationItem

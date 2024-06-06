@@ -153,15 +153,15 @@ theme = createTheme(theme, {
         },
       ],
     },
-    MuiDrawer: {
-      styleOverrides: {
-        paper: {
-          width: 240,
-          backgroundColor: theme.palette.primary.main,
-          boxSizing: "border-box",
-        },
-      },
-    },
+    // MuiDrawer: {
+    //   styleOverrides: {
+    //     paper: {
+    //       // width: 240,
+    //       backgroundColor: "inherit",
+    //       // boxSizing: "border-box",
+    //     },
+    //   },
+    // },
     MuiDialog: {
       styleOverrides: {
         paper: {
