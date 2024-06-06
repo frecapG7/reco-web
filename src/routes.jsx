@@ -1,6 +1,4 @@
-import { ManageAccount } from "./page/ManageAccount";
 import { StandardLayout } from "./layout/StandardLayout";
-import { MyRequests } from "./page/MyRequests";
 import { Outlet } from "react-router-dom";
 import { Home } from "./home/Home";
 import { UsersAdministration } from "./admin/users/UsersAdministration";
@@ -11,6 +9,7 @@ import { AddMarketItem } from "./admin/market/AddMarketItem";
 import { Login } from "./login/Login";
 import { CreateRequest } from "./request/CreateRequest";
 import { User } from "./users/User";
+import { Signup } from "./signup/Signup";
 
 export const routes = [
   {
@@ -85,16 +84,11 @@ export const routes = [
     ],
   },
   {
-    path: "my",
-    children: [
-      {
-        path: "requests",
-        element: <MyRequests />,
-      },
-      {
-        path: "settings",
-        element: <ManageAccount />,
-      },
-    ],
+    path: "sign-in",
+    element: <Login />,
+  },
+  {
+    path: "sign-up",
+    element: <Signup />,
   },
 ];

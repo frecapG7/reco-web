@@ -144,7 +144,7 @@ theme = createTheme(theme, {
         {
           props: { variant: "outlined" },
           style: {
-            borderRadius: 20,
+            borderRadius: 10,
             boxShadow: "none",
             border: "1px solid #e0e0e0",
             borderColor: "#1a73e8",
@@ -153,15 +153,15 @@ theme = createTheme(theme, {
         },
       ],
     },
-    MuiDrawer: {
-      styleOverrides: {
-        paper: {
-          width: 240,
-          backgroundColor: theme.palette.primary.main,
-          boxSizing: "border-box",
-        },
-      },
-    },
+    // MuiDrawer: {
+    //   styleOverrides: {
+    //     paper: {
+    //       // width: 240,
+    //       backgroundColor: "inherit",
+    //       // boxSizing: "border-box",
+    //     },
+    //   },
+    // },
     MuiDialog: {
       styleOverrides: {
         paper: {

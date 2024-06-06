@@ -1,15 +1,11 @@
-import './App.css';
-import CssBaseline from '@mui/material/CssBaseline';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import { routes } from './routes';
-import { ThemeProvider } from '@emotion/react';
-import theme from './theme';
-import {  AuthContextProvider } from './context/AuthContext';
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
-
-
-
+import "./App.css";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { routes } from "./routes";
+import { ThemeProvider } from "@emotion/react";
+import theme from "./theme";
+import { AuthContextProvider } from "./context/AuthContext";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -17,10 +13,9 @@ const queryClient = new QueryClient({
       refetchOnWindowFocus: false,
       retry: false,
       staleTime: 30000,
-    }
-  }
+    },
+  },
 });
-
 
 const router = createBrowserRouter(routes, {
   future: {
@@ -29,22 +24,17 @@ const router = createBrowserRouter(routes, {
   },
 });
 
-
-
 const App = () => {
-
   return (
     <ThemeProvider theme={theme}>
       <AuthContextProvider>
         <QueryClientProvider client={queryClient}>
           <ReactQueryDevtools initialIsOpen={false} />
-          <CssBaseline />  
           <RouterProvider router={router} />
         </QueryClientProvider>
       </AuthContextProvider>
     </ThemeProvider>
-
   );
-}
+};
 
 export default App;

@@ -26,7 +26,6 @@ export const FormText = ({
   return (
     <FormControl fullWidth disabled={disabled}>
       <TextField
-        {...rest}
         fullWidth
         name={name}
         label={label}
@@ -43,6 +42,9 @@ export const FormText = ({
         minRows={rules?.minRows ? rules.minRows : 0}
         maxRows={rules?.maxRows ? rules.maxRows : 0}
         InputProps={rest?.InputProps}
+        variant="filled"
+        {...rest}
+        color="secondary"
       />
     </FormControl>
   );
