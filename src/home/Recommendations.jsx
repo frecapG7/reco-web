@@ -24,10 +24,10 @@ export const Recommendations = ({ request }) => {
   return (
     <Box
       sx={{
-        width: "100%",
-        display: "flex",
+        // width: "100%",
+        // display: "flex",
         flexDirection: "row",
-        justifyContent: "space-around",
+        // justifyContent: "space-around",
         gap: 2,
         backgroundColor: "inherit",
       }}
