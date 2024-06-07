@@ -36,7 +36,10 @@ export const Recommendation = ({ request, recommendation }) => {
       sx={{
         display: "flex",
         flexDirection: "column",
-        backgroundColor: "secondary.light",
+        backgroundColor: "primary.light",
+        border: "1px solid",
+        borderColor: "secondary.main",
+        borderBottom: "0px solid",
       }}
     >
       <CardHeader
