@@ -13,6 +13,7 @@ import { useEmbed } from "../../../hooks/api/embed/useEmbed";
 import { IFramely } from "../IFramely";
 import { FormLink } from "../../form/FormLink";
 import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
+import { SearchRecommendation } from "./SearchRecommendation";
 
 export const RecommendationForm = forwardRef(({ onSubmit }, ref) => {
   const { control, reset, watch, handleSubmit } = useForm({
@@ -56,6 +57,25 @@ export const RecommendationForm = forwardRef(({ onSubmit }, ref) => {
         alignContent: "center",
       }}
     >
+      <Grid item xs={12}>
+        <SearchRecommendation
+          control={control}
+          name="search"
+          label="Search"
+          requestType="BOOK"
+          onValueChange={(value) => {
+            setEditLink(false);
+            reset({
+              field1: value.field1,
+              field2: value.field2,
+              field3: value.field3,
+              html: value.html,
+              duplicate_from: value.id,
+            });
+          }}
+        />
+      </Grid>
+
       <Grow in={editLink} timeout={1000} unmountOnExit>
         <Grid item container aria-label="link-input-container">
           <Grid item xs={12}>
@@ -84,7 +104,7 @@ export const RecommendationForm = forwardRef(({ onSubmit }, ref) => {
         </Grid>
       </Grow>
 
-      <Grow in={Boolean(embed) && !editLink} timeout={1000} unmountOnExit>
+      <Grow in={!editLink} timeout={1000} unmountOnExit>
         <Grid item container>
           <Grid item xs={12}>
             <FormText
