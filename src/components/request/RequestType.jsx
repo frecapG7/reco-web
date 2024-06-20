@@ -1,7 +1,6 @@
 import MenuBookRoundedIcon from "@mui/icons-material/MenuBookRounded";
 import AudiotrackOutlinedIcon from "@mui/icons-material/AudiotrackOutlined";
 import MovieOutlinedIcon from "@mui/icons-material/MovieOutlined";
-import { Icon } from "@mui/material";
 
 const RequestTypeIcon = ({ requestType }) => {
   switch (requestType) {

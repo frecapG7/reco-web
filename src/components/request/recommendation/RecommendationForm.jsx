@@ -23,10 +23,9 @@ export const RecommendationForm = forwardRef(
     const url = watch("url");
     const html = watch("html");
 
-    const { data: embed, isLoading } = useEmbed(url);
+    const { data: embed } = useEmbed(url);
 
     const [showLinkInput, setShowLinkInput] = useState(false);
-    const [edit, setEdit] = useState(true);
 
     useImperativeHandle(ref, () => ({
       submit: handleSubmit(onSubmit),
@@ -40,9 +39,8 @@ export const RecommendationForm = forwardRef(
           html: embed.html,
           url: embed.url,
         });
-        setEdit(false);
       }
-    }, [embed, reset, setEdit]);
+    }, [embed, reset]);
 
     return (
       <Box>
@@ -83,7 +81,6 @@ export const RecommendationForm = forwardRef(
                 <SearchRecommendation
                   requestType={requestType}
                   onValueChange={(value) => {
-                    setEdit(false);
                     reset({
                       field1: value.field1,
                       field2: value.field2,
