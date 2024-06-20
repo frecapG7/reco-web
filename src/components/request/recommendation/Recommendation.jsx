@@ -4,18 +4,17 @@ import {
   CardActions,
   CardHeader,
   CardMedia,
-  ToggleButton,
-  ToggleButtonGroup,
+  IconButton,
 } from "@mui/material";
 import { useLikeRecommendation } from "../../../hooks/api/requests/useRecommendations";
 
 import LocalBarRoundedIcon from "@mui/icons-material/LocalBarRounded";
-import { useState } from "react";
-import HourglassEmptyOutlinedIcon from "@mui/icons-material/HourglassEmptyOutlined";
+import ShareRoundedIcon from "@mui/icons-material/ShareRounded";
 import { IFramely } from "../IFramely";
+import { useAuthSession } from "../../../context/AuthContext";
 
 export const Recommendation = ({ request, recommendation }) => {
-  const [rate, setRate] = useState("");
+  const { session } = useAuthSession();
 
   const likeRecommendation = useLikeRecommendation(
     request.id,
@@ -23,19 +22,33 @@ export const Recommendation = ({ request, recommendation }) => {
   );
 
   const handleLike = () => {
-    likeRecommendation.mutate(
-      {},
-      {
-        onSuccess: () => console.log("show toast ?"),
-      }
-    );
+    if (!session?.loggedIn) {
+      console.log("show login dialog");
+    } else {
+      likeRecommendation.mutate(
+        {},
+        {
+          onSuccess: () => console.log("show toast ?"),
+        }
+      );
+    }
+  };
+
+  const handleShare = () => {
+    if (!session?.loggedIn) {
+      console.log("show login dialog");
+    } else {
+      console.log("show share dialog");
+    }
   };
 
   return (
     <Card
+      elevation={0}
       sx={{
-        color: "primary.main",
-        border: 1,
+        display: "flex",
+        flexDirection: "column",
+        backgroundColor: "inherit",
       }}
     >
       <CardHeader
@@ -53,21 +66,36 @@ export const Recommendation = ({ request, recommendation }) => {
       >
         <IFramely html={recommendation.html} />
       </CardMedia>
-      <CardActions disableSpacing>
-        <ToggleButtonGroup
-          exclusive
-          fullWidth
-          aria-label="like-button"
-          value={rate}
-          onChange={(event, newValue) => setRate(newValue)}
+      <CardActions
+        // disableSpacing
+        sx={
+          {
+            // backgroundColor: "white",
+          }
+        }
+      >
+        <IconButton
+          onClick={handleLike}
+          sx={{
+            fontSize: 50,
+            border: "2px solid",
+            borderColor: "secondary.main",
+            backgroundColor: "secondary.main",
+          }}
         >
-          <ToggleButton value="like" aria-label="like">
-            <HourglassEmptyOutlinedIcon fontSize="large" />
-          </ToggleButton>
-          <ToggleButton value="dislike">
-            <LocalBarRoundedIcon fontSize="large" />
-          </ToggleButton>
-        </ToggleButtonGroup>
+          <LocalBarRoundedIcon fontSize="large" />
+        </IconButton>
+        <IconButton
+          sx={{
+            fontSize: 50,
+            border: "2px solid",
+            borderColor: "secondary.main",
+            backgroundColor: "secondary.main",
+          }}
+          onClick={handleShare}
+        >
+          <ShareRoundedIcon fontSize="large" />
+        </IconButton>
       </CardActions>
     </Card>
   );

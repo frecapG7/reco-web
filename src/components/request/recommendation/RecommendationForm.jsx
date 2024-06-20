@@ -1,101 +1,144 @@
-import {
-  CircularProgress,
-  Divider,
-  Grid,
-  Grow,
-  Typography,
-} from "@mui/material";
+import { Divider, Button, Box, Zoom, Fade } from "@mui/material";
 import { FormText } from "../../form/FormText";
 import { useForm } from "react-hook-form";
 import { useEmbed } from "../../../hooks/api/embed/useEmbed";
 import { IFramely } from "../IFramely";
 import { FormLink } from "../../form/FormLink";
-import { forwardRef, useEffect, useImperativeHandle } from "react";
+import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
+import { SearchRecommendation } from "./SearchRecommendation";
 
-export const RecommendationForm = forwardRef(({ onSubmit }, ref) => {
-  const { control, reset, watch, handleSubmit } = useForm({
-    defaultValues: {
-      url: "",
-      field1: "",
-      field2: "",
-      html: "",
-    },
-  });
+import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
 
-  const url = watch("url");
-  const html = watch("html");
+export const RecommendationForm = forwardRef(
+  ({ requestType, onSubmit }, ref) => {
+    const { control, reset, watch, handleSubmit } = useForm({
+      defaultValues: {
+        url: "",
+        field1: "",
+        field2: "",
+        html: "",
+      },
+    });
 
-  const { data: embed, isLoading } = useEmbed(url);
+    const url = watch("url");
+    const html = watch("html");
 
-  useImperativeHandle(ref, () => ({
-    submit: handleSubmit(onSubmit),
-  }));
+    const { data: embed } = useEmbed(url);
 
-  useEffect(() => {
-    if (embed) {
-      reset({
-        field1: embed.title,
-        field2: embed.author,
-        html: embed.html,
-        url: embed.url,
-      });
-    }
-  }, [embed, reset]);
+    const [showLinkInput, setShowLinkInput] = useState(false);
 
-  return (
-    <Grid
-      container
-      sx={{
-        alignItems: "center",
-        justifyContent: "center",
-        alignContent: "center",
-      }}
-    >
-      <Grid item xs={12}>
-        <Typography variant="h6">Paste your link from any website</Typography>
-      </Grid>
-      <Grid item xs={12}>
-        {isLoading && <CircularProgress />}
-        {!isLoading && (
-          <FormLink control={control} name="url" label="Use external link" />
-        )}
-      </Grid>
+    useImperativeHandle(ref, () => ({
+      submit: handleSubmit(onSubmit),
+    }));
 
-      <Grow in={embed} timeout={1000} unmountOnExit>
-        <Grid item container>
-          <Grid item xs={12}>
+    useEffect(() => {
+      if (embed) {
+        reset({
+          field1: embed.title,
+          field2: embed.author,
+          html: embed.html,
+          url: embed.url,
+        });
+      }
+    }, [embed, reset]);
+
+    return (
+      <Box>
+        <Zoom in={!html} appear={false} mountOnEnter unmountOnExit>
+          <Box display="flex" justifyContent="center">
+            <Fade in={showLinkInput} mountOnEnter unmountOnExit>
+              <Box
+                display="flex"
+                flexDirection="row"
+                alignItems="center"
+                justifyContent="space-between"
+              >
+                <Button
+                  sx={{
+                    flexGrow: 1,
+                  }}
+                  variant="contained"
+                  onClick={() => setShowLinkInput(false)}
+                >
+                  search
+                </Button>
+                <FormLink
+                  sx={{
+                    flexGrow: 4,
+                  }}
+                  control={control}
+                  name="url"
+                  label="Paste your link"
+                />
+              </Box>
+            </Fade>
+            <Fade in={!showLinkInput}>
+              <Box
+                display="flex"
+                alignItems="center"
+                justifyContent="space-between"
+              >
+                <SearchRecommendation
+                  requestType={requestType}
+                  onValueChange={(value) => {
+                    reset({
+                      field1: value.field1,
+                      field2: value.field2,
+                      field3: value.field3,
+                      html: value.html,
+                      duplicate_from: value.id,
+                    });
+                  }}
+                />
+
+                <Button
+                  variant="contained"
+                  onClick={() => setShowLinkInput(true)}
+                >
+                  +
+                </Button>
+              </Box>
+            </Fade>
+          </Box>
+        </Zoom>
+
+        <Zoom in={Boolean(html)} unmountOnExit mountOnEnter>
+          <Box display="flex" flexDirection="column">
+            <Box
+              display="flex"
+              flexDirection="row"
+              alignItems="center"
+              justifyContent="flex-start"
+              gap={1}
+            >
+              <Button
+                sx={{
+                  flexGrow: 1,
+                }}
+                variant="contained"
+                onClick={() => reset({})}
+              >
+                <CancelOutlinedIcon />
+              </Button>
+              <FormText
+                sx={{
+                  flexGrow: 4,
+                }}
+                control={control}
+                name="field1"
+                label="Title"
+                disabled
+                rules={{ required: true }}
+              />
+            </Box>
+
             <Divider />
-          </Grid>
-          <Grid item xs={12}>
-            <FormText
-              control={control}
-              name="field1"
-              label="Title"
-              rules={{ required: true }}
-            />
-          </Grid>
 
-          <Grid item xs={12}>
-            <FormText
-              control={control}
-              name="field2"
-              label="Author"
-              disabled={true}
-            />
-          </Grid>
-
-          <Grid item xs={12}>
-            <Divider />
-          </Grid>
-
-          {html && (
-            <Grid item xs={12}>
-              <IFramely html={html} />
-            </Grid>
-          )}
-        </Grid>
-      </Grow>
-    </Grid>
-  );
-});
+            <IFramely html={html} />
+          </Box>
+        </Zoom>
+      </Box>
+    );
+  }
+);
 RecommendationForm.displayName = "RecommendationForm";

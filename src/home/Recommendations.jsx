@@ -1,11 +1,23 @@
-import { Box, CircularProgress, Typography } from "@mui/material";
+import {
+  Box,
+  CircularProgress,
+  IconButton,
+  MobileStepper,
+  Slide,
+  Typography,
+} from "@mui/material";
 import { useGetRecommendations } from "../hooks/api/requests/useRecommendations";
 import { Recommendation } from "../components/request/recommendation/Recommendation";
+import { useState } from "react";
+import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
+import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 
 export const Recommendations = ({ request }) => {
   const { data: recommendations, isLoading } = useGetRecommendations(
     request.id
   );
+
+  const [activeIndex, setActiveIndex] = useState(0);
 
   if (isLoading)
     return (
@@ -22,14 +34,78 @@ export const Recommendations = ({ request }) => {
     );
 
   return (
-    <Box>
-      {recommendations?.map((recommendation, index) => (
-        <Recommendation
-          key={index}
-          recommendation={recommendation}
-          request={request}
-        />
-      ))}
+    <Box
+      display="flex"
+      sx={{
+        flexGrow: 1,
+        flexDirection: "column",
+        // backgroundColor: "primary.dark",
+        border: "1px solid",
+        borderColor: "secondary.main",
+        borderRadius: 5,
+        py: 2,
+      }}
+      onScroll={(e) => console.log(e)}
+    >
+      <Slide
+        key={activeIndex}
+        direction="right"
+        in={true}
+        mountOnEnter
+        unmountOnExit
+      >
+        <Box>
+          <Recommendation
+            recommendation={recommendations[activeIndex]}
+            request={request}
+          />
+        </Box>
+      </Slide>
+
+      <MobileStepper
+        variant="dots"
+        position="static"
+        steps={recommendations.length}
+        activeStep={activeIndex}
+        sx={{
+          // maxWidth: 400,
+          flexGrow: 1,
+          display: recommendations.length > 1 ? "flex" : "none",
+          justifyContent: "center",
+          borderRadius: 0,
+          backgroundColor: "inherit",
+        }}
+        nextButton={
+          <IconButton
+            size="large"
+            disabled={activeIndex === recommendations.length - 1}
+            onClick={() => setActiveIndex(activeIndex + 1)}
+            sx={{
+              mx: 5,
+              borderRadius: 10,
+              border: "1px solid",
+              borderColor: "primary.main",
+            }}
+          >
+            <KeyboardArrowRightIcon color="secondary" />
+          </IconButton>
+        }
+        backButton={
+          <IconButton
+            size="large"
+            disabled={activeIndex === 0}
+            onClick={() => setActiveIndex(activeIndex - 1)}
+            sx={{
+              mx: 5,
+              borderRadius: 10,
+              border: "1px solid",
+              borderColor: "primary.main",
+            }}
+          >
+            <KeyboardArrowLeftIcon color="secondary" />
+          </IconButton>
+        }
+      />
     </Box>
   );
 };

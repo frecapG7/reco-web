@@ -21,7 +21,6 @@ export const FormToggles = ({ control, name, label, options = [], rules }) => {
         error={error}
         exclusive
       >
-        {" "}
         {options.map((option, i) => (
           <ToggleButton key={i} value={option.value}>
             {option.label}

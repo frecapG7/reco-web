@@ -5,13 +5,13 @@ let theme = createTheme({
     mode: "light",
     primary: {
       main: "#ddb5e3",
-      light: "#EFE5F5",
+      light: "#FFD8F2",
       dark: "#a48cb8",
       contrastText: "#fff",
     },
     secondary: {
       main: "#80B484",
-      light: "#91B4AA",
+      light: "#96FF96",
       dark: "#2CB419",
       contrastText: "#1a73e8",
     },
@@ -213,6 +213,17 @@ theme = createTheme(theme, {
           borderRadius: 10,
           // border: `1px solid ${theme.palette.primary.main}`,
           backgroundColor: theme.palette.white,
+        },
+      },
+    },
+    MuiFilledInput: {
+      styleOverrides: {
+        root: {
+          borderRadius: 10,
+          backgroundColor: theme.palette.primary.light,
+          "&:focus": {
+            backgroundColor: theme.palette.primary.main,
+          },
         },
       },
     },
