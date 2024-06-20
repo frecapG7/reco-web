@@ -26,14 +26,14 @@ export const Home = () => {
 
   return (
     <Container>
-      <Box
+      <Paper
         aria-label="search-filters"
         sx={{
           my: 5,
         }}
       >
         <Search filters={filters} setFilters={setFilters} />
-      </Box>
+      </Paper>
 
       <Box sx={{ my: 5 }}>
         <InfiniteScroll
@@ -67,9 +67,6 @@ export const Home = () => {
                   key={result.id}
                   sx={{
                     my: 5,
-                    border: `5px solid ${
-                      result.status === "pending" ? "secondary.dark" : "green"
-                    }`,
                   }}
                 >
                   <RequestDetails request={result} />

@@ -4,6 +4,7 @@ import {
   Chip,
   Divider,
   Grid,
+  Icon,
   Paper,
   Stack,
   Typography,
@@ -33,7 +34,23 @@ export const RequestDetails = ({ request }) => {
           <Typography variant="caption">{request.created}</Typography>
         </Box>
 
-        <RequestType requestType={request.requestType} />
+        <Icon
+          sx={{
+            width: 100,
+            height: 100,
+            borderRadius: 10,
+            alignItems: "center",
+            justifyContent: "center",
+            display: "flex",
+            border: 5,
+
+            color: "secondary.main",
+            borderColor: "primary.main",
+            // backgroundColor: "primary.dark",
+          }}
+        >
+          <RequestType requestType={request.requestType} />
+        </Icon>
       </Box>
 
       <Divider />

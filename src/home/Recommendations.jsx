@@ -3,6 +3,7 @@ import {
   CircularProgress,
   IconButton,
   MobileStepper,
+  Slide,
   Typography,
 } from "@mui/material";
 import { useGetRecommendations } from "../hooks/api/requests/useRecommendations";
@@ -38,14 +39,28 @@ export const Recommendations = ({ request }) => {
       sx={{
         flexGrow: 1,
         flexDirection: "column",
+        // backgroundColor: "primary.dark",
+        border: "1px solid",
+        borderColor: "secondary.main",
+        borderRadius: 5,
+        py: 2,
       }}
       onScroll={(e) => console.log(e)}
     >
-      <Recommendation
+      <Slide
         key={activeIndex}
-        recommendation={recommendations[activeIndex]}
-        request={request}
-      />
+        direction="right"
+        in={true}
+        mountOnEnter
+        unmountOnExit
+      >
+        <Box>
+          <Recommendation
+            recommendation={recommendations[activeIndex]}
+            request={request}
+          />
+        </Box>
+      </Slide>
 
       <MobileStepper
         variant="dots"

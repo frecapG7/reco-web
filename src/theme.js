@@ -216,6 +216,17 @@ theme = createTheme(theme, {
         },
       },
     },
+    MuiFilledInput: {
+      styleOverrides: {
+        root: {
+          borderRadius: 10,
+          backgroundColor: theme.palette.primary.light,
+          "&:focus": {
+            backgroundColor: theme.palette.primary.main,
+          },
+        },
+      },
+    },
   },
 });
 

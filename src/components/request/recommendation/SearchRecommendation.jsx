@@ -1,58 +1,69 @@
-import { Autocomplete, FormControl, Grid, TextField } from "@mui/material";
-import { useController } from "react-hook-form";
+import {
+  Autocomplete,
+  FormControl,
+  Grid,
+  IconButton,
+  TextField,
+} from "@mui/material";
 import { useSearchRecommendations } from "../../../hooks/api/recommendations/recommendations";
 import { useState } from "react";
 import { ProviderIcon } from "../../icons/ProviderIcon";
+import SearchIcon from "@mui/icons-material/Search";
 
-export const SearchRecommendation = ({
-  control,
-  label,
-  name,
-  requestType,
-  onValueChange,
-}) => {
+export const SearchRecommendation = ({ requestType, onValueChange }) => {
   const [searchValue, setSearchValue] = useState("");
   const { data: recommendations, isLoading } = useSearchRecommendations(
     requestType,
     searchValue
   );
 
-  const {
-    field: { onChange, value, onBlur },
-  } = useController({
-    name,
-    control,
-    defaulValue: "",
-  });
-
   return (
     <FormControl fullWidth>
       <Autocomplete
+        fullWidth
         autoComplete
         blurOnSelect
+        autoFocus
+        disablePortal
         selectOnFocus={false}
         // disabled={isLoading}
         options={recommendations || []}
         isOptionEqualToValue={(option, value) => option.id === value.id}
-        filterOptions={(x) => x}
+        filterOptions={(options) => options}
         noOptionsText="No recommendations found"
         renderInput={(params) => (
           <TextField
+            fullWidth
+            {...params}
             variant="filled"
-            label={label}
-            onBlur={onBlur}
             FormHelperTextProps={{ error: true }}
             margin="normal"
-            {...params}
+            InputProps={{
+              startAdornment: (
+                <IconButton>
+                  <SearchIcon />
+                </IconButton>
+              ),
+              ...params.InputProps,
+            }}
+            // sx={{
+            //   "& .MuiFilledInput-root": {
+            //     borderRadius: 1,
+            //     "&:focus": {
+            //       // width: "100%",
+            //     },
+            //   },
+            //   backgroundColor: "background.paper",
+            // }}
           />
         )}
         renderOption={(props, option) => (
-          <li key={option.id}>
+          <li key={props.id}>
             <Grid
               container
               alignItems="center"
               justifyContent="space-between"
-              onClick={() => console.log("toto")}
+              onClick={props.onClick}
               sx={{
                 cursor: "pointer",
                 p: 1,
@@ -74,10 +85,8 @@ export const SearchRecommendation = ({
         loading={isLoading}
         loadingText="Loading recommendations..."
         onInputChange={(e, v) => setSearchValue(v)}
-        value={value}
         onChange={(e, data) => {
-          onChange(data);
-          onValueChange && onValueChange(data);
+          data && onValueChange(data);
         }}
       />
     </FormControl>

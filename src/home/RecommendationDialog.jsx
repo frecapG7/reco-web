@@ -4,7 +4,6 @@ import {
   Dialog,
   DialogActions,
   DialogContent,
-  DialogTitle,
 } from "@mui/material";
 import { RecommendationForm } from "../components/request/recommendation/RecommendationForm";
 import { useRef } from "react";
@@ -34,11 +33,13 @@ export const RecommendationDialog = ({ open, onClose, request }) => {
   };
 
   return (
-    <Dialog open={open} onClose={onClose} maxWidth="lg" fullWidth scroll="body">
-      <DialogTitle>Provide your freshest drink</DialogTitle>
-
+    <Dialog open={open} onClose={onClose} maxWidth="md" fullWidth scroll="body">
       <DialogContent>
-        <RecommendationForm ref={formRef} onSubmit={onSubmit} />
+        <RecommendationForm
+          ref={formRef}
+          onSubmit={onSubmit}
+          requestType={request.requestType}
+        />
       </DialogContent>
       <DialogActions>
         {createRecommendation.isPending && <CircularProgress />}

@@ -6,31 +6,16 @@ import { Icon } from "@mui/material";
 const RequestTypeIcon = ({ requestType }) => {
   switch (requestType) {
     case "BOOK":
-      return <MenuBookRoundedIcon fontSize="large" color="secondary" />;
+      return <MenuBookRoundedIcon fontSize="large" />;
     case "SONG":
-      return <AudiotrackOutlinedIcon fontSize="large" color="secondary" />;
+      return <AudiotrackOutlinedIcon fontSize="large" />;
     case "MOVIE":
-      return <MovieOutlinedIcon fontSize="large" color="secondary" />;
+      return <MovieOutlinedIcon fontSize="large" />;
     default:
       return null;
   }
 };
 
 export const RequestType = ({ requestType }) => {
-  return (
-    <Icon
-      sx={{
-        width: 100,
-        height: 100,
-        borderRadius: 5,
-        backgroundColor: "primary.light",
-        alignItems: "center",
-        justifyContent: "center",
-        display: "flex",
-        border: 1,
-      }}
-    >
-      <RequestTypeIcon requestType={requestType} />
-    </Icon>
-  );
+  return <RequestTypeIcon requestType={requestType} />;
 };
