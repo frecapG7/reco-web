@@ -46,15 +46,6 @@ export const SearchRecommendation = ({ requestType, onValueChange }) => {
               ),
               ...params.InputProps,
             }}
-            // sx={{
-            //   "& .MuiFilledInput-root": {
-            //     borderRadius: 1,
-            //     "&:focus": {
-            //       // width: "100%",
-            //     },
-            //   },
-            //   backgroundColor: "background.paper",
-            // }}
           />
         )}
         renderOption={(props, option) => (
