@@ -103,6 +103,7 @@ theme = createTheme(theme, {
         outlined: {
           boxShadow: "none",
           borderRadius: 20,
+          ...theme.typography.button,
         },
         contained: {
           boxShadow: "none",
