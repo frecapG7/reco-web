@@ -10,6 +10,7 @@ import { Login } from "./login/Login";
 import { CreateRequest } from "./request/CreateRequest";
 import { User } from "./users/User";
 import { Signup } from "./signup/Signup";
+import { Notifications } from "./notifications/Notifications";
 
 export const routes = [
   {
@@ -76,6 +77,10 @@ export const routes = [
             element: <User />,
           },
         ],
+      },
+      {
+        path: "notifications",
+        element: <Notifications />,
       },
       {
         path: "login",
