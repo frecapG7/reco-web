@@ -1,26 +1,10 @@
-import {
-  Badge,
-  Box,
-  Button,
-  Fade,
-  IconButton,
-  Popover,
-  Stack,
-  Typography,
-  useMediaQuery,
-} from "@mui/material";
+import { Box, IconButton, Typography, useMediaQuery } from "@mui/material";
 
 import { Logo } from "../components/utils/Logo";
 import { useNavigate } from "react-router-dom";
 import { useAuthSession } from "../context/AuthContext";
-import NotificationsOutlinedIcon from "@mui/icons-material/NotificationsOutlined";
 import Face5OutlinedIcon from "@mui/icons-material/Face5Outlined";
-import { useRef, useState } from "react";
-import {
-  useNotifications,
-  useUnreadCount,
-} from "../hooks/api/users/useNotifications";
-import { NotificationList } from "../components/user/notifications/NotificationList";
+import { HeaderNotification } from "./header/HeaderNotification";
 
 export const LayoutHeader = ({ toggleMenu }) => {
   const navigate = useNavigate();
@@ -33,22 +17,6 @@ export const LayoutHeader = ({ toggleMenu }) => {
     if (isUpSm) navigate("/");
     else toggleMenu();
   };
-
-  const notificationAnchorRef = useRef(null);
-  const [openNotification, setOpenNotification] = useState(false);
-  const { data: unreadCount } = useUnreadCount({
-    userId: session?.user?.id,
-    options: {
-      enabled: session?.loggedIn,
-    },
-  });
-  const { data: notifications, hasNextPage } = useNotifications({
-    id: session?.user?.id,
-    pageSize: 5,
-    options: {
-      enabled: openNotification,
-    },
-  });
 
   return (
     <Box
@@ -72,75 +40,11 @@ export const LayoutHeader = ({ toggleMenu }) => {
 
       {session?.loggedIn && (
         <Box display="flex" gap={2} alignItems="center" aria-label="user-space">
-          <IconButton
-            ref={notificationAnchorRef}
-            onClick={() =>
-              isUpSm
-                ? setOpenNotification(!openNotification)
-                : navigate("/notifications")
-            }
-          >
-            <Badge badgeContent={unreadCount?.value || 0} color="error">
-              <NotificationsOutlinedIcon />
-            </Badge>
-          </IconButton>
+          <HeaderNotification />
           <IconButton>
             <Face5OutlinedIcon />
           </IconButton>
         </Box>
-      )}
-
-      {isUpSm && (
-        <Popover
-          anchorEl={notificationAnchorRef.current}
-          open={openNotification}
-          onClose={() => setOpenNotification(false)}
-          anchorOrigin={{
-            vertical: "bottom",
-            horizontal: "right",
-          }}
-          transformOrigin={{
-            vertical: "top",
-            horizontal: "right",
-          }}
-          marginThreshold={20}
-          disableScrollLock
-          elevation={0}
-          slotProps={{
-            paper: {
-              variant: "outlined",
-              scroll: "body",
-              sx: {
-                my: 2,
-                p: 2,
-              },
-            },
-          }}
-          TransitionComponent={Fade}
-        >
-          <Box
-            onClick={() => setOpenNotification(false)}
-            sx={{
-              width: 350,
-            }}
-          >
-            <Stack spacing={1}>
-              <Typography variant="title">
-                <Badge badgeContent={unreadCount?.value || 0} color="primary">
-                  Notifications
-                </Badge>
-              </Typography>
-              <NotificationList
-                notifications={notifications?.pages.flatMap(
-                  (page) => page.results
-                )}
-                hasUnread={unreadCount?.value > 0}
-                hasMore={hasNextPage}
-                onShowMore={() => navigate("/notifications")}
-              />
-            </Stack>
-          </Box>
-        </Popover>
       )}
     </Box>
   );

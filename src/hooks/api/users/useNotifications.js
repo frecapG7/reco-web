@@ -1,53 +1,10 @@
-import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
-import { get } from "../../api/index";
-
-const data = [
-  {
-    id: 1,
-    createdAt: new Date(),
-    type: "like_request",
-    from: {
-      id: 1,
-      name: "John Doe",
-    },
-  },
-  {
-    id: 2,
-    createdAt: new Date(),
-    type: "like_request",
-    from: {
-      id: 2,
-      name: "Jane Doe",
-    },
-  },
-  {
-    id: 3,
-    createdAt: new Date(),
-    type: "like_request",
-    from: {
-      id: 2,
-      name: "Jane Doe",
-    },
-  },
-  {
-    id: 4,
-    createdAt: new Date(),
-    type: "like_request",
-    from: {
-      id: 2,
-      name: "Jane Doe",
-    },
-  },
-  {
-    id: 5,
-    createdAt: new Date(),
-    type: "like_request",
-    from: {
-      id: 2,
-      name: "Jane Doe",
-    },
-  },
-];
+import {
+  useInfiniteQuery,
+  useMutation,
+  useQuery,
+  useQueryClient,
+} from "@tanstack/react-query";
+import { get, put } from "../../api/index";
 
 const getNotifications = async ({
   id,
@@ -97,4 +54,56 @@ export const useUnreadCount = ({ userId, options }) => {
     queryFn: () => getUnreadCount({ userId }),
     ...options,
   });
-}
+};
+
+const markAsRead = async ({ userId, notificationId }) => {
+  const response = await put(
+    `/api/users/${userId}/notifications/${notificationId}/read`
+  );
+  return response;
+};
+
+export const useMarkAsRead = ({ userId, options }) => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: ({ notificationId }) =>
+      markAsRead({
+        userId,
+        notificationId,
+      }),
+    onSuccess: () => {
+      queryClient
+        .invalidateQueries(["users", userId, "notifications"])
+        .then(() => {
+          queryClient.setQueryData(
+            ["users", userId, "notifications", "unread"],
+            (prev) => prev - 1
+          );
+        });
+    },
+    ...options,
+  });
+};
+
+const markAllAsRead = async ({ userId }) => {
+  const response = await put(`/api/users/${userId}/notifications/read/all`);
+  return response;
+};
+
+export const useMarkAllAsRead = ({ userId, options }) => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: () => markAllAsRead({ userId }),
+    onSuccess: () => {
+      queryClient
+        .invalidateQueries(["users", userId, "notifications"])
+        .then(() => {
+          queryClient.setQueryData(
+            ["users", userId, "notifications", "unread"],
+            0
+          );
+        });
+    },
+    ...options,
+  });
+};

@@ -1,7 +1,9 @@
 import {
   Box,
   Button,
+  CircularProgress,
   Divider,
+  Fade,
   IconButton,
   List,
   ListItem,
@@ -11,6 +13,11 @@ import {
 
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import { NotificationListItem } from "./NotificationListItem";
+import {
+  useMarkAllAsRead,
+  useMarkAsRead,
+} from "../../../hooks/api/users/useNotifications";
+import { useAuthSession } from "../../../context/AuthContext";
 
 export const NotificationList = ({
   notifications = [],
@@ -18,6 +25,10 @@ export const NotificationList = ({
   hasMore = false,
   onShowMore = () => {},
 }) => {
+  const { session } = useAuthSession();
+  const markAsRead = useMarkAsRead({ userId: session.user?.id });
+  const markAllAsRead = useMarkAllAsRead({ userId: session.user?.id });
+
   return (
     <Box>
       <List
@@ -41,16 +52,26 @@ export const NotificationList = ({
             >
               {hasUnread && (
                 <>
-                  <Typography
-                    sx={{
-                      "&:hover": {
-                        cursor: "pointer",
-                        textDecoration: "underline",
-                      },
-                    }}
+                  <Fade
+                    in={!markAllAsRead.isPending}
+                    mountOnEnter
+                    unmountOnExit
                   >
-                    Mark all as read
-                  </Typography>
+                    <Typography
+                      sx={{
+                        "&:hover": {
+                          cursor: "pointer",
+                          textDecoration: "underline",
+                        },
+                      }}
+                      onClick={() => markAllAsRead.mutate()}
+                    >
+                      Mark all as read
+                    </Typography>
+                  </Fade>
+                  <Fade in={markAllAsRead.isPending} mountOnEnter unmountOnExit>
+                    <CircularProgress size={20} />
+                  </Fade>
                   <Divider
                     orientation="vertical"
                     variant="middle"

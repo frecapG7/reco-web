@@ -1,4 +1,3 @@
-
 /*TODO: migrate to a object */
 export const post = async (url, data, options) => {
   try {
@@ -9,7 +8,6 @@ export const post = async (url, data, options) => {
       method: "POST",
       headers: headers(),
       body: JSON.stringify(data),
-      
     });
 
     if (!response.ok) throw new Error(response.message, response.status);
@@ -23,15 +21,21 @@ export const post = async (url, data, options) => {
   }
 };
 
-export const put = async (url, data) => {
+export const put = async (url, data, options) => {
   try {
-    const response = await fetch("http://localhost:3000" + url, {
+    if (options?.params)
+      url = `${url}?${new URLSearchParams(options.params).toString()}`;
+
+    const response = await fetch(url, {
       method: "PUT",
       headers: headers(),
       credentials: "include",
       body: JSON.stringify(data),
     });
-    return await response.json();
+    if (!response.ok) throw new Error(response.message, response.status);
+
+    const text = await response.text();
+    if (text?.length) return JSON.parse(text);
   } catch (e) {
     console.error(e);
     throw e;
