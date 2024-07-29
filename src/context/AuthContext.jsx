@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 
 const AuthContext = createContext({
   session: {},
@@ -6,19 +6,18 @@ const AuthContext = createContext({
   logout: () => {},
 });
 
-export const useAuthSession = () => {
+export const AuthContextProvider = ({ children }) => {
   const [session, setSession] = useState({
     loggedIn: false,
     user: null,
   });
 
-  // TODO: sync session with refresh token
   useEffect(() => {
-    const session = sessionStorage.getItem("session");
-    if (session) {
+    const storage = sessionStorage.getItem("session");
+    if (storage) {
       setSession({
         loggedIn: true,
-        user: JSON.parse(session),
+        user: JSON.parse(storage),
       });
     }
   }, []);
@@ -42,15 +41,13 @@ export const useAuthSession = () => {
     sessionStorage.removeItem("token");
   };
 
-  return { session, login, logout };
-};
-
-export const AuthContextProvider = ({ children }) => {
-  const { session, login, logout } = useAuthSession();
-
   return (
     <AuthContext.Provider value={{ session, login, logout }}>
       {children}
     </AuthContext.Provider>
   );
+};
+
+export const useAuthSession = () => {
+  return useContext(AuthContext);
 };
