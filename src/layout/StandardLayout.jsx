@@ -80,7 +80,7 @@ export const StandardLayout = ({ children }) => {
               backgroundColor: "inherit",
               border: "none",
               overflow: "auto",
-              maxHeight: 500,
+              maxHeight: 700,
               "::-webkit-scrollbar": {
                 display: "none",
               },
