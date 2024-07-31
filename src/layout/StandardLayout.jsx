@@ -1,4 +1,11 @@
-import { AppBar, Box, CssBaseline, Drawer, Toolbar } from "@mui/material";
+import {
+  AppBar,
+  Box,
+  Container,
+  CssBaseline,
+  Drawer,
+  Toolbar,
+} from "@mui/material";
 import { useState } from "react";
 import { NavigationBar } from "./NavigationBar";
 import { LayoutHeader } from "./LayoutHeader";
@@ -69,15 +76,34 @@ export const StandardLayout = ({ children }) => {
             display: { xs: "none", sm: "flex" },
             "& .MuiDrawer-paper": {
               boxSizing: "border-box",
-              mt: 5,
+              mt: 10,
               backgroundColor: "inherit",
               border: "none",
+              overflow: "auto",
+              maxHeight: 500,
+              "::-webkit-scrollbar": {
+                display: "none",
+              },
+              msOverflowStyle: "none", // IE and Edge
+              scrollbarWidth: "none", // Firefox,
             },
           }}
           open
         >
           <NavigationBar />
         </Drawer>
+        {/* 
+        <Box
+          sx={{
+            display: { xs: "none", sm: "flex" },
+            my: 15,
+            mx: 2,
+            // backgroundColor: "inherit",
+            // border: "none",
+          
+          }}
+        >
+        </Box> */}
       </Box>
       <Box
         component="main"
@@ -86,7 +112,7 @@ export const StandardLayout = ({ children }) => {
           my: 10,
           flexGrow: 1,
           p: 3,
-          ml: { sm: 5 },
+          ml: { sm: 10 },
           justifyContent: "center",
         }}
       >
