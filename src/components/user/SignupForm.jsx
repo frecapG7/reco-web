@@ -16,6 +16,7 @@ import { useCallback, useEffect, useState } from "react";
 import { useValidateToken } from "../../hooks/api/validate/useValidate";
 import { FormPassword } from "../form/FormPassword";
 import TaskAltTwoToneIcon from "@mui/icons-material/TaskAltTwoTone";
+import { FormEmail } from "../form/FormEmail";
 
 export const SignupForm = ({ onSubmit }) => {
   const { control, handleSubmit, setError, clearErrors, watch } = useForm();
@@ -112,18 +113,7 @@ export const SignupForm = ({ onSubmit }) => {
             <Typography variant="h6">Create your account</Typography>
           </Grid>
           <Grid item xs={12}>
-            <FormText
-              control={control}
-              name="email"
-              label="Email"
-              rules={{
-                required: true,
-                pattern: {
-                  value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
-                  message: "invalid email address",
-                },
-              }}
-            />
+            <FormEmail control={control} name="email" label="Email" required />
           </Grid>
           <Grid item xs={12}>
             <FormText

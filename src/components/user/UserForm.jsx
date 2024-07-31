@@ -3,6 +3,7 @@ import { forwardRef, useEffect, useImperativeHandle } from "react";
 import { useForm } from "react-hook-form";
 import { FormText } from "../form/FormText";
 import { FormSelect } from "../form/FormSelect";
+import { FormEmail } from "../form/FormEmail";
 
 export const UserForm = forwardRef(({ user, onSubmit }, ref) => {
   const { control, handleSubmit, reset } = useForm();
@@ -26,12 +27,7 @@ export const UserForm = forwardRef(({ user, onSubmit }, ref) => {
         />
       </Grid>
       <Grid item xs={12}>
-        <FormText
-          control={control}
-          name="email"
-          label="Email"
-          rules={{ required: true }}
-        />
+        <FormEmail control={control} name="email" label="Email" required />
       </Grid>
       <Grid item xs={12}>
         <FormSelect
