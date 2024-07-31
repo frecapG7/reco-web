@@ -6,7 +6,7 @@ import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 
 export const UsersFilters = ({ filters, setFilters }) => {
-  const { control, handleSubmit, watch } = useForm({
+  const { control, watch } = useForm({
     defaultValues: filters,
   });
 

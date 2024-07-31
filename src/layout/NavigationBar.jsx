@@ -107,7 +107,7 @@ export const NavigationBar = ({ onClose }) => {
           text="Create Request"
           path="/requests/new"
         />
-        {session?.user && <AccountMenuItem />}
+        {/* {session?.user && <AccountMenuItem />} */}
 
         {session?.user?.role === "admin" && <AdministrationItem />}
 

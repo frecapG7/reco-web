@@ -13,7 +13,7 @@ import { UserAvatar } from "../components/user/icons/UserAvatar";
 export const User = () => {
   const { id } = useParams();
 
-  const { data: user, isLoading, isError, error } = useGetUser(id);
+  const { data: user, isLoading } = useGetUser(id);
 
   if (isLoading) {
     return <CircularProgress />;
@@ -45,8 +45,7 @@ export const User = () => {
         <Divider />
 
         <Box>
-
-            <Typography variant="h6">Balance: {user.balance}</Typography>
+          <Typography variant="h6">Balance: {user.balance}</Typography>
         </Box>
       </Paper>
     </Container>
