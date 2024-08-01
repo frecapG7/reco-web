@@ -15,7 +15,7 @@ import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import { NotificationListItem } from "./NotificationListItem";
 import {
   useMarkAllAsRead,
-  useMarkAsRead,
+  // useMarkAsRead,
 } from "../../../hooks/api/users/useNotifications";
 import { useAuthSession } from "../../../context/AuthContext";
 
@@ -26,7 +26,7 @@ export const NotificationList = ({
   onShowMore = () => {},
 }) => {
   const { session } = useAuthSession();
-  const markAsRead = useMarkAsRead({ userId: session.user?.id });
+  // const markAsRead = useMarkAsRead({ userId: session.user?.id });
   const markAllAsRead = useMarkAllAsRead({ userId: session.user?.id });
 
   return (

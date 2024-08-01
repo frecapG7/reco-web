@@ -2,7 +2,6 @@ import { Box, Button, Container, Grid, Paper, Typography } from "@mui/material";
 import { FormText } from "../../components/form/FormText";
 import { useForm } from "react-hook-form";
 import { FormSelect } from "../../components/form/FormSelect";
-import { FileUpload } from "@mui/icons-material";
 import { FormUpload } from "../../components/form/FormUpload";
 import { FormNumber } from "../../components/form/FormNumber";
 

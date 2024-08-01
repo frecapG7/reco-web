@@ -16,7 +16,6 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 export const MarketItemsAdministration = () => {
-  const [filters, setFilters] = useState({});
   const [pageNumber, setPageNumber] = useState(0);
   const [pageSize, setPageSize] = useState(10);
 

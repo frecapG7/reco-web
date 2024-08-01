@@ -56,7 +56,7 @@ export const UsersAdministration = () => {
     search: "",
     role: "",
   });
-  const [pageNumber, setPageNumber] = useState(1);
+  const [pageNumber, setPageNumber] = useState(0);
   const [pageSize, setPageSize] = useState(10);
 
   const [openDialog, setOpenDialog] = useState(false);

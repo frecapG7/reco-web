@@ -1,10 +1,4 @@
-import {
-  Box,
-  Button,
-  CircularProgress,
-  Container,
-  Paper,
-} from "@mui/material";
+import { Box, Button, CircularProgress, Container, Paper } from "@mui/material";
 import { LoginForm } from "../components/user/LoginForm";
 import { useRef } from "react";
 import icon from "../../public/icon.png";
@@ -28,7 +22,7 @@ export const Login = () => {
 
   const formRef = useRef();
 
-  const { session, login } = useAuthSession();
+  const { login } = useAuthSession();
 
   return (
     <Container>
@@ -51,8 +45,8 @@ export const Login = () => {
             my: 5,
           }}
         >
-          {login.isPending && <CircularProgress />}
-          {!login.isPending && (
+          {signIn.isPending && <CircularProgress />}
+          {!signIn.isPending && (
             <Button
               variant="contained"
               onClick={() => formRef.current?.submit()}
@@ -62,8 +56,6 @@ export const Login = () => {
           )}
         </Box>
       </Paper>
-
-      <pre>{JSON.stringify(session)}</pre>
     </Container>
   );
 };

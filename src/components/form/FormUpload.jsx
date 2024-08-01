@@ -4,7 +4,7 @@ import UploadOutlinedIcon from "@mui/icons-material/UploadOutlined";
 
 export const FormUpload = ({ control, label, name, required }) => {
   const {
-    field: { onChange, ref, value },
+    field: { value },
   } = useController({
     name,
     control,

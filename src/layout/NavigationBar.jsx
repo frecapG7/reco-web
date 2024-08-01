@@ -7,7 +7,7 @@ import {
   ListItemButton,
   ListItemIcon,
   ListItemText,
-  Toolbar,
+  Zoom,
 } from "@mui/material";
 import { Box } from "@mui/system";
 
@@ -32,33 +32,35 @@ const AccountMenuItem = () => {
   const [open, setOpen] = useState(false);
 
   return (
-    <>
-      <ListItem>
-        <ListItemButton onClick={() => setOpen(!open)}>
-          <ListItemIcon>
-            <ManageAccountsIcon />
-          </ListItemIcon>
-          <ListItemText>My account</ListItemText>
-          {open ? <ExpandLessIcon /> : <ExpandMoreIcon />}
-        </ListItemButton>
-      </ListItem>
+    <Zoom in mountOnEnter unmountOnExit>
+      <Box>
+        <ListItem>
+          <ListItemButton onClick={() => setOpen(!open)}>
+            <ListItemIcon>
+              <ManageAccountsIcon />
+            </ListItemIcon>
+            <ListItemText>My account</ListItemText>
+            {open ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+          </ListItemButton>
+        </ListItem>
 
-      {/** Sub-menu */}
-      <Collapse in={open} unmountOnExit sx={{ pl: 4 }}>
-        <List component="div" disablePadding>
-          <NavigationItem
-            icon={<WhatshotIcon />}
-            text="My requests"
-            path="/my/requests"
-          />
-          <NavigationItem
-            icon={<SettingsIcon />}
-            text="Settings"
-            path="/my/settings"
-          />
-        </List>
-      </Collapse>
-    </>
+        {/** Sub-menu */}
+        <Collapse in={open} unmountOnExit sx={{ pl: 4 }}>
+          <List component="div" disablePadding>
+            <NavigationItem
+              icon={<WhatshotIcon />}
+              text="My requests"
+              path="/my/requests"
+            />
+            <NavigationItem
+              icon={<SettingsIcon />}
+              text="Settings"
+              path="/my/settings"
+            />
+          </List>
+        </Collapse>
+      </Box>
+    </Zoom>
   );
 };
 
@@ -82,8 +84,7 @@ export const NavigationBar = ({ onClose }) => {
   };
 
   return (
-    <>
-      <Toolbar />
+    <Box>
       <Box
         sx={{
           py: 2,
@@ -95,45 +96,43 @@ export const NavigationBar = ({ onClose }) => {
         </IconButton>
         <Divider />
       </Box>
-      <Box>
-        <List>
-          <NavigationItem
-            icon={<WhatshotOutlinedIcon fontSize="large" />}
-            text="Home"
-            path="/"
-          />
-          <NavigationItem
-            icon={<AddIcon />}
-            text="Create Request"
-            path="/requests/new"
-          />
-          {session?.user && <AccountMenuItem />}
+      <List>
+        <NavigationItem
+          icon={<WhatshotOutlinedIcon fontSize="large" />}
+          text="Home"
+          path="/"
+        />
+        <NavigationItem
+          icon={<AddIcon />}
+          text="Create Request"
+          path="/requests/new"
+        />
+        {/* {session?.user && <AccountMenuItem />} */}
 
-          {session?.user?.role === "admin" && <AdministrationItem />}
+        {session?.user?.role === "admin" && <AdministrationItem />}
 
-          <Divider />
-          {session?.loggedIn && (
-            <ListItem>
-              <ListItemButton onClick={() => handleLogout()}>
-                <ListItemIcon>
-                  <LogoutOutlinedIcon />
-                </ListItemIcon>
-                <ListItemText>Logout</ListItemText>
-              </ListItemButton>
-            </ListItem>
-          )}
-          {!session?.loggedIn && (
-            <ListItem>
-              <ListItemButton onClick={() => navigate("/login")}>
-                <ListItemIcon>
-                  <LoginOutlinedIcon />
-                </ListItemIcon>
-                <ListItemText>Login</ListItemText>
-              </ListItemButton>
-            </ListItem>
-          )}
-        </List>
-      </Box>
-    </>
+        <Divider />
+        {session?.loggedIn && (
+          <ListItem>
+            <ListItemButton onClick={() => handleLogout()}>
+              <ListItemIcon>
+                <LogoutOutlinedIcon />
+              </ListItemIcon>
+              <ListItemText>Logout</ListItemText>
+            </ListItemButton>
+          </ListItem>
+        )}
+        {!session?.loggedIn && (
+          <ListItem>
+            <ListItemButton onClick={() => navigate("/login")}>
+              <ListItemIcon>
+                <LoginOutlinedIcon />
+              </ListItemIcon>
+              <ListItemText>Login</ListItemText>
+            </ListItemButton>
+          </ListItem>
+        )}
+      </List>
+    </Box>
   );
 };

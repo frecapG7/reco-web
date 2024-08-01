@@ -6,7 +6,7 @@ import {
 } from "@mui/material";
 import { UserCart } from "../../components/user/cart/UserCart";
 
-export const CartDetail = ({ user }) => {
+export const CartDetail = () => {
   //TODO: react query
   const cart = {};
 

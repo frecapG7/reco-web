@@ -25,5 +25,6 @@ export const useCreateUser = (options) => {
   return useMutation({
     mutationFn: ({ data, token }) => createUser(data, token),
     onSuccess: () => {},
+    ...options,
   });
 };
