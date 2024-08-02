@@ -28,6 +28,8 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import { AdministrationItem } from "./menu/AdministrationItem";
 import { useAuthSession } from "../context/AuthContext";
 
+import StorefrontOutlinedIcon from "@mui/icons-material/StorefrontOutlined";
+
 const AccountMenuItem = () => {
   const [open, setOpen] = useState(false);
 
@@ -106,6 +108,12 @@ export const NavigationBar = ({ onClose }) => {
           icon={<AddIcon />}
           text="Create Request"
           path="/requests/new"
+        />
+
+        <NavigationItem
+          icon={<StorefrontOutlinedIcon />}
+          text="Store"
+          path="/stores"
         />
         {/* {session?.user && <AccountMenuItem />} */}
 

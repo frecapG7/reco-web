@@ -11,6 +11,8 @@ import { CreateRequest } from "./request/CreateRequest";
 import { User } from "./users/User";
 import { Signup } from "./signup/Signup";
 import { Notifications } from "./notifications/Notifications";
+import { StoresHome } from "./stores/StoresHome";
+import { IconStore } from "./stores/icons/IconStore";
 
 export const routes = [
   {
@@ -81,6 +83,19 @@ export const routes = [
       {
         path: "notifications",
         element: <Notifications />,
+      },
+      {
+        path: "stores",
+        children: [
+          {
+            path: "",
+            element: <StoresHome />,
+          },
+          {
+            path: "icons",
+            element: <IconStore />,
+          },
+        ],
       },
       {
         path: "login",
