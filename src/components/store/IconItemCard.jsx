@@ -8,8 +8,19 @@ import {
   Typography,
 } from "@mui/material";
 import MonetizationOnOutlinedIcon from "@mui/icons-material/MonetizationOnOutlined";
+import { confirm } from "../utils/ConfirmationDialog";
 
 export const IconItemCard = ({ item }) => {
+  const handleBuy = () => {
+    confirm({
+      description: `Buying ${item.name} will cost you ${item.price}.`,
+    })
+      .then(() => {
+        console.log(`You have bought ${item.name} for ${item.price}.`);
+      })
+      .catch(() => {});
+  };
+
   return (
     <Card
       sx={{
@@ -31,7 +42,7 @@ export const IconItemCard = ({ item }) => {
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <Button variant="contained" color="primary">
+        <Button variant="contained" color="primary" onClick={handleBuy}>
           {item.price}
           <MonetizationOnOutlinedIcon />
         </Button>

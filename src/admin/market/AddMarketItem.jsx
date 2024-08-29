@@ -1,107 +1,164 @@
-import { Box, Button, Container, Grid, Paper, Typography } from "@mui/material";
+import {
+  Alert,
+  Box,
+  Button,
+  Container,
+  Grid,
+  Paper,
+  Typography,
+  Zoom,
+  Stack,
+  CircularProgress,
+  Divider,
+} from "@mui/material";
 import { FormText } from "../../components/form/FormText";
 import { useForm } from "react-hook-form";
 import { FormSelect } from "../../components/form/FormSelect";
+import { FormPrice } from "../../components/form/FormPrice";
+import { IconItemForm } from "./IconItemForm";
+import { usePostItem } from "../../hooks/api/admin/useMarketAdministration";
 import { FormUpload } from "../../components/form/FormUpload";
-import { FormNumber } from "../../components/form/FormNumber";
+import { FormRichEditor } from "../../components/form/FormRichEditor";
 
 export const AddMarketItem = () => {
-  const { control, handleSubmit } = useForm();
+  const { control, handleSubmit, watch, setValue } = useForm();
 
+  const postItem = usePostItem();
   const onSubmit = (data) => {
-    console.log(data);
+    postItem.mutate(
+      {
+        data: data.body,
+        image: data.image,
+      },
+      {
+        onSuccess: () => {
+          alert("Item created successfully");
+        },
+        onError: () => {
+          alert("Error creating item");
+        },
+      }
+    );
   };
+
+  const data = watch();
+
+  const type = watch("type");
 
   return (
     <Container>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <Box
-          sx={{
-            my: 5,
-          }}
-        >
-          <Typography variant="title" textAlign="center">
-            Add Market Item
-          </Typography>
+      <pre>{JSON.stringify(data)}</pre>
 
-          <Typography variant="subtitle1" textAlign="justify">
-            The created item will be available in the market
-          </Typography>
-        </Box>
-        <Paper
-          sx={{
-            padding: 5,
-            marginTop: 2,
-          }}
-        >
-          <Grid container spacing={4}>
-            <Grid item xs={12}>
-              <FormSelect
-                control={control}
-                options={[
-                  { value: "TITLE", label: "User titles" },
-                  { value: "AVATAR", label: "Avatar" },
-                  { value: "3", label: "Category 3" },
-                ]}
-                name="category"
-                label="Category"
-                required
-              />
-            </Grid>
-            <Grid item xs={12} sm={2}>
-              <FormUpload
-                control={control}
-                name="image"
-                label="Image"
-                required
-              />
-            </Grid>
-            <Grid item xs={12} sm={9}>
-              <FormText
-                control={control}
-                name="name"
-                label="Item name"
-                required
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <FormNumber
-                control={control}
-                name="price"
-                label="Price"
-                required
-                rules={{
-                  min: 1,
-                  max: 100,
-                }}
-                suffix={"$"}
-              />
+      <Box aria-label="header"></Box>
+
+      <Paper
+        sx={{
+          padding: 5,
+          marginTop: 2,
+        }}
+      >
+        <Stack spacing={2}>
+          <Box aria-label="form-header">
+            <Typography variant="label">
+              What type of market item do you want to create ?
+            </Typography>
+            <FormSelect
+              control={control}
+              options={[
+                { value: "TITLE", label: "User titles" },
+                { value: "AVATAR", label: "Avatar" },
+              ]}
+              name="type"
+              required
+            />
+            <Alert severity="info">
+              The created item will be available in the market
+            </Alert>
+          </Box>
+
+          <Grid item container spacing={2} p={5}>
+            <Zoom in={type === "AVATAR"} mountOnEnter unmountOnExit>
+              <Grid item container xs={12} sm={5}>
+                <Grid item xs={12}>
+                  <FormUpload
+                    control={control}
+                    name="image"
+                    label="Upload an icon to use as user Avatar"
+                    rules={{
+                      required: true,
+                    }}
+                    accept={["image/svg+xml"]}
+                    showPreview
+                  />
+                </Grid>
+              </Grid>
+            </Zoom>
+
+            <Grid item xs={0} sm={2}>
+              <Divider orientation="vertical" />
             </Grid>
 
-            <Grid item xs={12}>
-              <FormText
-                control={control}
-                name="description"
-                label="Description"
-                multiline
-                rows={10}
-                required
-              />
+            <Grid item container xs={12} sm={5} aria-label="form-body">
+              <Grid item xs={12}>
+                <FormText
+                  control={control}
+                  name="body.name"
+                  label="Item name"
+                  required
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <FormPrice
+                  control={control}
+                  name="body.price"
+                  label="Price"
+                  rules={{
+                    required: true,
+                    min: 1,
+                    max: 100,
+                  }}
+                />
+              </Grid>
+            </Grid>
+
+            <Grid item container aria-label="form-body" spacing={2}>
+              <Grid item xs={12}>
+                <Typography variant="label">Description</Typography>
+              </Grid>
+              <Grid item xs={12}>
+                <FormRichEditor
+                  control={control}
+                  name="body.description"
+                  label="Description"
+                  multiline
+                  rows={10}
+                  rules={{
+                    required: true,
+                  }}
+                />
+              </Grid>
             </Grid>
           </Grid>
-        </Paper>
+        </Stack>
+      </Paper>
 
-        <Box
-          align="center"
-          sx={{
-            mt: 5,
-          }}
-        >
-          <Button variant="contained" color="secondary" type="submit">
+      <Box
+        align="center"
+        sx={{
+          mt: 5,
+        }}
+      >
+        {!postItem.isPending && (
+          <Button
+            variant="contained"
+            color="secondary"
+            onClick={handleSubmit(onSubmit)}
+          >
             Save
           </Button>
-        </Box>
-      </form>
+        )}
+        {postItem.isPending && <CircularProgress />}
+      </Box>
     </Container>
   );
 };
