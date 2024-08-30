@@ -3,7 +3,6 @@ import {
   Box,
   Button,
   Container,
-  Grid,
   Paper,
   Typography,
   Zoom,
@@ -15,13 +14,12 @@ import { FormText } from "../../components/form/FormText";
 import { useForm } from "react-hook-form";
 import { FormSelect } from "../../components/form/FormSelect";
 import { FormPrice } from "../../components/form/FormPrice";
-import { IconItemForm } from "./IconItemForm";
 import { usePostItem } from "../../hooks/api/admin/useMarketAdministration";
 import { FormUpload } from "../../components/form/FormUpload";
 import { FormRichEditor } from "../../components/form/FormRichEditor";
 
 export const AddMarketItem = () => {
-  const { control, handleSubmit, watch, setValue } = useForm();
+  const { control, handleSubmit, watch } = useForm();
 
   const postItem = usePostItem();
   const onSubmit = (data) => {
@@ -41,14 +39,10 @@ export const AddMarketItem = () => {
     );
   };
 
-  const data = watch();
-
   const type = watch("type");
 
   return (
     <Container>
-      <pre>{JSON.stringify(data)}</pre>
-
       <Box aria-label="header"></Box>
 
       <Paper
@@ -57,7 +51,7 @@ export const AddMarketItem = () => {
           marginTop: 2,
         }}
       >
-        <Stack spacing={2}>
+        <Stack spacing={5}>
           <Box aria-label="form-header">
             <Typography variant="label">
               What type of market item do you want to create ?
@@ -76,69 +70,85 @@ export const AddMarketItem = () => {
             </Alert>
           </Box>
 
-          <Grid item container spacing={2} p={5}>
-            <Zoom in={type === "AVATAR"} mountOnEnter unmountOnExit>
-              <Grid item container xs={12} sm={5}>
-                <Grid item xs={12}>
-                  <FormUpload
-                    control={control}
-                    name="image"
-                    label="Upload an icon to use as user Avatar"
-                    rules={{
-                      required: true,
-                    }}
-                    accept={["image/svg+xml"]}
-                    showPreview
-                  />
-                </Grid>
-              </Grid>
+          <Box
+            aria-label="form-body-top"
+            display="flex"
+            alignItems="center"
+            justifyContent="space-evenly"
+            sx={{
+              flexDirection: { xs: "column", sm: "row" },
+              gap: 3,
+            }}
+          >
+            <Zoom in={type === "AVATAR"}>
+              <Paper
+                variant="outlined"
+                sx={{
+                  padding: 2,
+                  width: { xs: "100%", sm: "50%" },
+                  height: 200,
+                }}
+              >
+                <FormUpload
+                  control={control}
+                  name="image"
+                  label="Upload an icon to use as user Avatar"
+                  rules={{
+                    required: true,
+                  }}
+                  accept={["image/svg+xml"]}
+                  showPreview
+                />
+              </Paper>
             </Zoom>
 
-            <Grid item xs={0} sm={2}>
-              <Divider orientation="vertical" />
-            </Grid>
+            <Box aria-label="form-body-divider">
+              <Divider orientation="vertical" color="primary" flexItem />
+            </Box>
+            <Paper
+              aria-label="form-body-right"
+              variant="outlined"
+              sx={{
+                padding: 2,
+                width: { xs: "100%", sm: "50%" },
+                height: 200,
+              }}
+            >
+              <FormText
+                control={control}
+                name="body.name"
+                label="Item name"
+                required
+              />
+              <FormPrice
+                control={control}
+                name="body.price"
+                label="Price"
+                rules={{
+                  required: true,
+                  min: 1,
+                  max: 100,
+                }}
+              />
+            </Paper>
+          </Box>
 
-            <Grid item container xs={12} sm={5} aria-label="form-body">
-              <Grid item xs={12}>
-                <FormText
-                  control={control}
-                  name="body.name"
-                  label="Item name"
-                  required
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <FormPrice
-                  control={control}
-                  name="body.price"
-                  label="Price"
-                  rules={{
-                    required: true,
-                    min: 1,
-                    max: 100,
-                  }}
-                />
-              </Grid>
-            </Grid>
-
-            <Grid item container aria-label="form-body" spacing={2}>
-              <Grid item xs={12}>
-                <Typography variant="label">Description</Typography>
-              </Grid>
-              <Grid item xs={12}>
-                <FormRichEditor
-                  control={control}
-                  name="body.description"
-                  label="Description"
-                  multiline
-                  rows={10}
-                  rules={{
-                    required: true,
-                  }}
-                />
-              </Grid>
-            </Grid>
-          </Grid>
+          <Box aria-label="form-body-bottom">
+            <Typography variant="label">Description</Typography>
+            <Typography variant="body2" paragraph>
+              To ensure that the icon appears attractive in the store, please
+              add a detailed description. This will help users understand the
+              context and appeal of the icon, making it more engaging and
+              visually appealing.
+            </Typography>
+            <FormRichEditor
+              control={control}
+              name="body.description"
+              // rules={{
+              //   required: true,
+              // }}
+            />
+          </Box>
         </Stack>
       </Paper>
 
