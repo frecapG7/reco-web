@@ -1,107 +1,98 @@
-import { Box, Button, Container, Grid, Paper, Typography } from "@mui/material";
-import { FormText } from "../../components/form/FormText";
+import {
+  Alert,
+  Box,
+  Button,
+  Container,
+  Paper,
+  Typography,
+  Zoom,
+  CircularProgress,
+} from "@mui/material";
 import { useForm } from "react-hook-form";
 import { FormSelect } from "../../components/form/FormSelect";
-import { FormUpload } from "../../components/form/FormUpload";
-import { FormNumber } from "../../components/form/FormNumber";
+import { usePostItem } from "../../hooks/api/admin/useMarketAdministration";
+import { useRef } from "react";
+import { MarketItemForm } from "./forms/MartketItemForm";
 
 export const AddMarketItem = () => {
-  const { control, handleSubmit } = useForm();
+  const { control, watch } = useForm();
+  const type = watch("type");
 
+  const postItem = usePostItem();
   const onSubmit = (data) => {
-    console.log(data);
+    console.log(JSON.stringify(data, null, 2));
+    postItem.mutate(
+      {
+        type,
+        data,
+      },
+      {
+        onSuccess: () => {
+          alert("Item created successfully");
+        },
+        onError: () => {
+          alert("Error creating item");
+        },
+      }
+    );
   };
+
+  const formRef = useRef();
 
   return (
     <Container>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <Box
-          sx={{
-            my: 5,
-          }}
-        >
-          <Typography variant="title" textAlign="center">
-            Add Market Item
+      <Box
+        sx={{
+          my: 5,
+        }}
+        aria-label="header"
+      >
+        <Box aria-label="form-header">
+          <Typography variant="label">
+            What type of market item do you want to create ?
           </Typography>
-
-          <Typography variant="subtitle1" textAlign="justify">
+          <FormSelect
+            control={control}
+            options={[
+              { value: "TITLE", label: "User titles" },
+              { value: "ICON", label: "Users' avatar icons" },
+            ]}
+            name="type"
+            required
+          />
+          <Alert severity="info">
             The created item will be available in the market
-          </Typography>
+          </Alert>
         </Box>
+      </Box>
+
+      <Zoom in={type} mountOnEnter unmountOnExit>
         <Paper
           sx={{
-            padding: 5,
-            marginTop: 2,
+            p: 3,
           }}
         >
-          <Grid container spacing={4}>
-            <Grid item xs={12}>
-              <FormSelect
-                control={control}
-                options={[
-                  { value: "TITLE", label: "User titles" },
-                  { value: "AVATAR", label: "Avatar" },
-                  { value: "3", label: "Category 3" },
-                ]}
-                name="category"
-                label="Category"
-                required
-              />
-            </Grid>
-            <Grid item xs={12} sm={2}>
-              <FormUpload
-                control={control}
-                name="image"
-                label="Image"
-                required
-              />
-            </Grid>
-            <Grid item xs={12} sm={9}>
-              <FormText
-                control={control}
-                name="name"
-                label="Item name"
-                required
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <FormNumber
-                control={control}
-                name="price"
-                label="Price"
-                required
-                rules={{
-                  min: 1,
-                  max: 100,
-                }}
-                suffix={"$"}
-              />
-            </Grid>
-
-            <Grid item xs={12}>
-              <FormText
-                control={control}
-                name="description"
-                label="Description"
-                multiline
-                rows={10}
-                required
-              />
-            </Grid>
-          </Grid>
+          <MarketItemForm type={type} onSubmit={onSubmit} formRef={formRef} />
         </Paper>
+      </Zoom>
 
-        <Box
-          align="center"
-          sx={{
-            mt: 5,
-          }}
-        >
-          <Button variant="contained" color="secondary" type="submit">
+      <Box
+        align="center"
+        sx={{
+          mt: 5,
+        }}
+      >
+        {!postItem.isPending && (
+          <Button
+            variant="contained"
+            color="secondary"
+            onClick={() => formRef.current?.submit()}
+          >
             Save
           </Button>
-        </Box>
-      </form>
+        )}
+        {postItem.isPending && <CircularProgress />}
+      </Box>
     </Container>
   );
 };

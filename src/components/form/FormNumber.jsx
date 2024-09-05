@@ -1,6 +1,7 @@
-import { FormControl, TextField } from "@mui/material";
+import { FormControl, FormHelperText, TextField } from "@mui/material";
 import { useController } from "react-hook-form";
 import { NumericFormat } from "react-number-format";
+import { i18nFormError } from "../../utils/i18n";
 
 export const FormNumber = ({
   control,
@@ -16,7 +17,10 @@ export const FormNumber = ({
   } = useController({
     name,
     control,
-    rules: { required, ...rules },
+    rules: {
+      required,
+      ...rules,
+    },
     defaultValue: "",
   });
 
@@ -29,11 +33,10 @@ export const FormNumber = ({
         inputRef={ref}
         onChange={onChange}
         onBlur={onBlur}
-        error={!!error}
-        helperText={error?.message || error?.type}
         required={required}
         suffix={suffix}
       />
+      <FormHelperText error>{i18nFormError(error)}</FormHelperText>
     </FormControl>
   );
 };

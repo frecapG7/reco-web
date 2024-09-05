@@ -7,6 +7,7 @@ import {
 } from "@mui/material";
 import { useController } from "react-hook-form";
 import { getFormatLabel } from "./formUtils";
+import { i18nFormError } from "../../utils/i18n";
 
 export const FormSelect = ({
   name,
@@ -27,7 +28,7 @@ export const FormSelect = ({
     rules: { required, ...rules },
   });
 
-  const formatLabel = getFormatLabel(label, required);
+  const formatLabel = label && getFormatLabel(label, required);
 
   return (
     <FormControl fullWidth>
@@ -47,7 +48,7 @@ export const FormSelect = ({
         ))}
       </Select>
 
-      <FormHelperText error>{error?.message || error?.type}</FormHelperText>
+      <FormHelperText error>{i18nFormError(error)}</FormHelperText>
     </FormControl>
   );
 };

@@ -42,7 +42,7 @@ export const FormText = ({
         minRows={rules?.minRows ? rules.minRows : 0}
         maxRows={rules?.maxRows ? rules.maxRows : 0}
         InputProps={rest?.InputProps}
-        variant="filled"
+        variant="outlined"
         {...rest}
         color="secondary"
       />
