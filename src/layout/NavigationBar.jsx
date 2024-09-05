@@ -117,7 +117,7 @@ export const NavigationBar = ({ onClose }) => {
         />
         {/* {session?.user && <AccountMenuItem />} */}
 
-        {session?.user?.role === "admin" && <AdministrationItem />}
+        {session?.user?.role === "ADMIN" && <AdministrationItem />}
 
         <Divider />
         {session?.loggedIn && (

@@ -35,8 +35,8 @@ const Content = ({ results = [] }) => {
       <TableCell align="center">{item.name}</TableCell>
       <TableCell align="center">{item.type}</TableCell>
       <TableCell align="center">{item.price}</TableCell>
-      <TableCell align="right">{i18nDateTime(item.createdBy)}</TableCell>
-      <TableCell align="right">{i18nDateTime(item.createdAt)}</TableCell>
+      <TableCell align="right">{item.created_by?.name}</TableCell>
+      <TableCell align="right">{i18nDateTime(item?.created_at)}</TableCell>
     </TableRow>
   ));
 };

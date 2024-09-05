@@ -28,9 +28,9 @@ export const UserName = ({ user }) => {
       }}
     >
       <Avatar
-        src={user.avatar}
+        src="https://storage.googleapis.com/reco_dev/avatars/krishna-svgrepo-com.svg"
         alt={user.name}
-        sx={{ width: 50, height: 50 }}
+        sx={{ width: 75, height: 75 }}
       />
 
       <Box>

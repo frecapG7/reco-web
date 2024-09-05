@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { get } from "../index";
+import { get, post } from "../index";
 
 const getItems = async ({ value, type, page, pageSize }) => {
   const response = await get("/api/admin/market/items", {
@@ -21,18 +21,21 @@ export const useGetItems = ({ value, type, page, pageSize }, options) => {
   });
 };
 
-const postItem = async ({ data, image }) => {
-  const formData = new FormData();
-  formData.append("image", image);
-  formData.append("body", data);
-
-  console.log(formData);
+const createIcon = async ({ data }) => {
+  const response = await post("/api/admin/market/items/icons", data);
+  return response;
 };
 
 export const usePostItem = (options) => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: postItem,
+    mutationFn: ({ type, data }) => {
+      if (type === "ICON") {
+        return createIcon({ data });
+      } else {
+        throw new Error("Invalid type");
+      }
+    },
     onSuccess: () => {
       queryClient.invalidateQueries(["admin", "market", "items"]);
     },
