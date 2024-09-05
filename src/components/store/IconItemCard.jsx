@@ -6,6 +6,7 @@ import {
   CardContent,
   CardMedia,
   Dialog,
+  DialogActions,
   Typography,
 } from "@mui/material";
 import MonetizationOnOutlinedIcon from "@mui/icons-material/MonetizationOnOutlined";
@@ -60,12 +61,22 @@ export const IconItemCard = ({ item }) => {
         </CardActions>
       </Card>
       <Dialog
+        fullWidth
         maxWidth="lg"
         open={showDetails}
         scroll="body"
         onClose={() => setShowDetails(false)}
       >
         <IconItemDetail iconItem={item} onBuy={handleBuy} />
+        <DialogActions>
+          <Button
+            onClick={() => setShowDetails(false)}
+            variant="outlined"
+            color="primary"
+          >
+            Close
+          </Button>
+        </DialogActions>
       </Dialog>
     </>
   );

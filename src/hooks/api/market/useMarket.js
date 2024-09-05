@@ -46,7 +46,7 @@ const getVariousItems = () => {
     {
       name: "Invitation Token",
       type: "INVITATION",
-      img: "https://storage.googleapis.com/reco_dev/icons/gift-svgrepo-com.svg",
+      url: "https://storage.googleapis.com/reco_dev/icons/gift-svgrepo-com.svg",
       price: 20,
       description: "Invite a friend to join the community",
     },
