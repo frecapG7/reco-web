@@ -7,7 +7,7 @@ import ArrowForwardOutlinedIcon from "@mui/icons-material/ArrowForwardOutlined";
 import { useNavigate } from "react-router-dom";
 
 export const HomeIconItemList = () => {
-  const { data: iconItems, isLoading } = useGetIconItems();
+  const { data, isLoading } = useGetIconItems();
 
   const navigate = useNavigate();
 
@@ -25,7 +25,7 @@ export const HomeIconItemList = () => {
   return (
     <>
       <Stack direction="row" gap={2}>
-        {iconItems?.map((item, index) => (
+        {data.results?.map((item, index) => (
           <React.Fragment key={index}>
             <IconItemCard item={item} />
           </React.Fragment>
