@@ -6,8 +6,8 @@ import { FormText } from "../../../components/form/FormText";
 import { useForm } from "react-hook-form";
 import { forwardRef, useEffect, useImperativeHandle } from "react";
 
-export const MarketIcomForm = forwardRef(({ market, onSubmit }, ref) => {
-  MarketIcomForm.displayName = "MarketIcomForm";
+export const MarketIconForm = forwardRef(({ marketItem, onSubmit }, ref) => {
+  MarketIconForm.displayName = "MarketIconForm";
 
   const { control, handleSubmit, reset } = useForm();
 
@@ -16,8 +16,8 @@ export const MarketIcomForm = forwardRef(({ market, onSubmit }, ref) => {
   }));
 
   useEffect(() => {
-    reset(market);
-  }, [market, reset]);
+    reset(marketItem);
+  }, [marketItem, reset]);
 
   return (
     <form>

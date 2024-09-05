@@ -11,17 +11,8 @@ import {
 import { useForm } from "react-hook-form";
 import { FormSelect } from "../../components/form/FormSelect";
 import { usePostItem } from "../../hooks/api/admin/useMarketAdministration";
-import { MarketIcomForm } from "./forms/MarketIcomForm";
 import { useRef } from "react";
-
-const FormContent = ({ type, formRef, onSubmit }) => {
-  switch (type) {
-    case "ICON":
-      return <MarketIcomForm onSubmit={onSubmit} ref={formRef} />;
-    default:
-      <></>;
-  }
-};
+import { MarketItemForm } from "./forms/MartketItemForm";
 
 export const AddMarketItem = () => {
   const { control, watch } = useForm();
@@ -79,10 +70,9 @@ export const AddMarketItem = () => {
         <Paper
           sx={{
             p: 3,
-            // backgroundColor: "primary.light",
           }}
         >
-          <FormContent type={type} onSubmit={onSubmit} formRef={formRef} />
+          <MarketItemForm type={type} onSubmit={onSubmit} formRef={formRef} />
         </Paper>
       </Zoom>
 

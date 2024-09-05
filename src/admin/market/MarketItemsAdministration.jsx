@@ -20,6 +20,8 @@ import { i18nDateTime } from "../../utils/i18n";
 import { MarketItemsFilters } from "./MarketItemsFilters";
 
 const Content = ({ results = [] }) => {
+  const navigate = useNavigate();
+
   if (results.length === 0) {
     return (
       <TableRow>
@@ -31,7 +33,7 @@ const Content = ({ results = [] }) => {
   }
 
   return results.map((item, index) => (
-    <TableRow key={index} hover>
+    <TableRow key={index} hover onClick={() => navigate(`${item._id}`)}>
       <TableCell align="center">{item.name}</TableCell>
       <TableCell align="center">{item.type}</TableCell>
       <TableCell align="center">{item.price}</TableCell>
@@ -69,7 +71,10 @@ export const MarketItemsAdministration = () => {
             value: "",
             type: "",
           }}
-          onValueChange={(data) => {}}
+          onValueChange={(data) => {
+            setValue(data?.value);
+            setType(data?.type);
+          }}
         />
       </Paper>
 

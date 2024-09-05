@@ -29,7 +29,6 @@ export const put = async (url, data, options) => {
     const response = await fetch(url, {
       method: "PUT",
       headers: headers(),
-      credentials: "include",
       body: JSON.stringify(data),
     });
     if (!response.ok) throw new Error(response.message, response.status);
