@@ -4,7 +4,7 @@ import { LastRecommendations } from "../../components/user/requests/LastRecommen
 
 export const AdminLastRecommendations = ({ user }) => {
   const { data: lastRecommendations, isLoading } = useGetLastRecommendations(
-    user.id
+    user._id
   );
 
   if (isLoading)
