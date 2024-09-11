@@ -13,6 +13,7 @@ import { Signup } from "./signup/Signup";
 import { Notifications } from "./notifications/Notifications";
 import { StoresHome } from "./stores/StoresHome";
 import { IconStore } from "./stores/icons/IconStore";
+import { UserSettings } from "./settings/UserSettings";
 
 export const routes = [
   {
@@ -83,6 +84,10 @@ export const routes = [
       {
         path: "notifications",
         element: <Notifications />,
+      },
+      {
+        path: "settings",
+        element: <UserSettings />,
       },
       {
         path: "stores",

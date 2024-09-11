@@ -18,6 +18,7 @@ import {
   // useMarkAsRead,
 } from "../../../hooks/api/users/useNotifications";
 import { useAuthSession } from "../../../context/AuthContext";
+import { Navigate, useNavigate } from "react-router-dom";
 
 export const NotificationList = ({
   notifications = [],
@@ -28,6 +29,8 @@ export const NotificationList = ({
   const { session } = useAuthSession();
   // const markAsRead = useMarkAsRead({ userId: session.user?.id });
   const markAllAsRead = useMarkAllAsRead({ userId: session.user?.id });
+
+  const navigate = useNavigate();
 
   return (
     <Box>
@@ -80,8 +83,7 @@ export const NotificationList = ({
                   />
                 </>
               )}
-
-              <IconButton>
+              <IconButton onClick={() => navigate("./settings")}>
                 <SettingsOutlinedIcon />
               </IconButton>
             </Box>

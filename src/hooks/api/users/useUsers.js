@@ -28,3 +28,53 @@ export const useCreateUser = (options) => {
     ...options,
   });
 };
+
+const getLastRequests = async (id) => {
+  return [
+    {
+      id: 1,
+      requestType: "food",
+      title: "Burger",
+      created: new Date(),
+    },
+    {
+      id: 2,
+      requestType: "drink",
+      title: "Coke",
+      created: new Date(),
+    },
+  ];
+};
+
+export const useGetLastRequests = (id, options) => {
+  return useQuery({
+    queryKey: ["users", id, "requests"],
+    queryFn: () => getLastRequests(id),
+    ...options,
+  });
+};
+
+const getLastRecommendations = async (id) => {
+  return [
+    {
+      id: 1,
+      requestType: "food",
+      title: "Burger",
+      created: new Date(),
+    },
+    {
+      id: 2,
+      requestType: "drink",
+      title: "Coke",
+      created: new Date(),
+    },
+  ];
+};
+
+export const useGetLastRecommendations = (id, options) => {
+  return useQuery({
+    queryKey: ["users", id, "requests"],
+    queryFn: () => getLastRecommendations(id),
+    ...options,
+  });
+};
