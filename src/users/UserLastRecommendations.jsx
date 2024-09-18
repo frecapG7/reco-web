@@ -2,18 +2,17 @@ import { Box, Typography } from "@mui/material";
 
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { useGetLastRecommendations } from "../hooks/api/users/useUsers";
-import { LastRequests } from "../components/user/requests/LastRequests";
 import { LastRecommendations } from "../components/user/requests/LastRecommendations";
 
 export const UserLastRecommendations = ({ user }) => {
   const { data: lastRecommendations, isLoading } = useGetLastRecommendations(
     user.id,
     {
-      enabled: user?.settings?.publicRecommendationsHistory,
+      enabled: user?.privacy?.showRecommendations,
     }
   );
 
-  if (!user?.settings?.publicRequestHistory)
+  if (!user?.privacy?.showRecommendations)
     return (
       <Box align="center">
         <LockOutlinedIcon color="primary.main" fontSize="large" />
@@ -25,7 +24,10 @@ export const UserLastRecommendations = ({ user }) => {
 
   return (
     <Box display="flex">
-      <LastRecommendations LastRecommendations={lastRecommendations} />
+      <LastRecommendations
+        lastRecommendations={lastRecommendations}
+        isLoading={isLoading}
+      />
     </Box>
   );
 };

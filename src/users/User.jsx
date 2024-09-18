@@ -27,7 +27,7 @@ export const User = () => {
   return (
     <Container>
       <Stack spacing={2} my={2}>
-        <Box display="flex" justifyContent="space-between">
+        <Box display="flex" justifyContent="space-around">
           <Box
             align="center"
             sx={{
@@ -48,26 +48,22 @@ export const User = () => {
               justifyContent: "center",
               alignItems: "center",
               gap: 2,
-              backgroundColor: "secondary.main",
+              backgroundColor: "primary.main",
             }}
           >
             <Typography variant="h6">Stats</Typography>
             <Box
               display="flex"
               alignItems="center"
-              justifyContent="space-between"
+              justifyContent="space-around"
               gap={2}
             >
               <Stack>
-                <Typography>{user.requestCount}</Typography>
+                <Typography>{user.statistics.requestsCount}</Typography>
                 <Typography variant="caption">Requests</Typography>
               </Stack>
               <Stack>
-                <Typography>{user.recommendationCount}</Typography>
-                <Typography variant="caption">Recommendations</Typography>
-              </Stack>
-              <Stack>
-                <Typography>{user.recommendationCount}</Typography>
+                <Typography>{user.statistics.recommendationsCount}</Typography>
                 <Typography variant="caption">Recommendations</Typography>
               </Stack>
             </Box>
@@ -77,7 +73,6 @@ export const User = () => {
         <Divider textAlign="left">
           <Typography variant="h6">Last request</Typography>
         </Divider>
-
         <Paper aria-label="user-last-request-container">
           <UserLastRequest user={user} />
         </Paper>
@@ -85,16 +80,15 @@ export const User = () => {
         <Divider textAlign="left">
           <Typography variant="h6">Last recommendations</Typography>
         </Divider>
-
         <Paper aria-label="user-last-recommendations-container">
           <UserLastRecommendations user={user} />
         </Paper>
+
         <Divider textAlign="left">
           <Typography variant="h6">Last purchases</Typography>
         </Divider>
-
         <Paper aria-label="user-purchases-container">
-          {!user?.settings?.publicPurchaseHistory && (
+          {!user?.privacy?.showPurchaseHistory && (
             <Box align="center">
               <LockOutlinedIcon color="primary.main" fontSize="large" />
               <Typography variant="caption" paragraph>

@@ -6,10 +6,10 @@ import { LastRequests } from "../components/user/requests/LastRequests";
 
 export const UserLastRequest = ({ user }) => {
   const { data: lastRequests, isLoading } = useGetLastRequests(user.id, {
-    enabled: user?.settings?.publicRequestHistory,
+    enabled: user?.privacy?.showRequests,
   });
 
-  if (!user?.settings?.publicRequestHistory)
+  if (!user?.privacy?.showRequests)
     return (
       <Box align="center">
         <LockOutlinedIcon color="primary.main" fontSize="large" />
@@ -21,7 +21,7 @@ export const UserLastRequest = ({ user }) => {
 
   return (
     <Box display="flex">
-      <LastRequests LastRequests={lastRequests} />
+      <LastRequests lastRequests={lastRequests} isLoading={isLoading} />
     </Box>
   );
 };

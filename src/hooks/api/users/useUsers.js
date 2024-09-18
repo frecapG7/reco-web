@@ -30,20 +30,8 @@ export const useCreateUser = (options) => {
 };
 
 const getLastRequests = async (id) => {
-  return [
-    {
-      id: 1,
-      requestType: "food",
-      title: "Burger",
-      created: new Date(),
-    },
-    {
-      id: 2,
-      requestType: "drink",
-      title: "Coke",
-      created: new Date(),
-    },
-  ];
+  const response = await get(`/api/users/${id}/requests`);
+  return response;
 };
 
 export const useGetLastRequests = (id, options) => {
@@ -55,20 +43,8 @@ export const useGetLastRequests = (id, options) => {
 };
 
 const getLastRecommendations = async (id) => {
-  return [
-    {
-      id: 1,
-      requestType: "food",
-      title: "Burger",
-      created: new Date(),
-    },
-    {
-      id: 2,
-      requestType: "drink",
-      title: "Coke",
-      created: new Date(),
-    },
-  ];
+  const response = await get(`/api/users/${id}/recommendations`);
+  return response;
 };
 
 export const useGetLastRecommendations = (id, options) => {
