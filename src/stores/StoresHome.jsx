@@ -1,13 +1,6 @@
-import {
-  Box,
-  Container,
-  Divider,
-  Paper,
-  Stack,
-  Typography,
-} from "@mui/material";
+import { Box, Container, Divider, Stack, Typography } from "@mui/material";
 import { HomeIconItemList } from "./home/HomeIconItemList";
-import { HomeVariousItemList } from "./home/HomeVariousItemList";
+import { HomeConsumableItemsList } from "./home/HomeConsumableItemsList";
 import StorefrontOutlinedIcon from "@mui/icons-material/StorefrontOutlined";
 
 export const StoresHome = () => {
@@ -62,7 +55,7 @@ export const StoresHome = () => {
             coins, or other items. Use them wisely to boost your progress and
             enhance your experience.
           </Typography>
-          <HomeVariousItemList />
+          <HomeConsumableItemsList />
         </Box>
       </Stack>
     </Container>

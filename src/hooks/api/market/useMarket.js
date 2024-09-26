@@ -42,3 +42,15 @@ export const useGetVariousItems = () => {
     queryFn: getVariousItems,
   });
 };
+
+const getConsumableItems = async () => {
+  const response = await get("/api/stores/consumables");
+  return response;
+};
+
+export const useGetConsumableItems = () => {
+  return useQuery({
+    queryKey: ["stores", "consumables"],
+    queryFn: getConsumableItems,
+  });
+};

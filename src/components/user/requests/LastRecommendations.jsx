@@ -1,6 +1,6 @@
 import { Grid, Skeleton, Typography } from "@mui/material";
 import { RequestType } from "../../request/RequestType";
-import { i18nDate, i18nDateTime } from "../../../utils/i18n";
+import { i18nDateTime } from "../../../utils/i18n";
 
 export const LastRecommendations = ({
   lastRecommendations = [],

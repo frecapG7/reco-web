@@ -1,10 +1,10 @@
 import { Skeleton, Stack } from "@mui/material";
-import { useGetVariousItems } from "../../hooks/api/market/useMarket";
+import { useGetConsumableItems } from "../../hooks/api/market/useMarket";
 import React from "react";
-import { IconItemCard } from "../../components/store/IconItemCard";
+import { ConsumableItemCard } from "../../components/store/ConsumableItemCard";
 
-export const HomeVariousItemList = () => {
-  const { data: iconItems, isLoading } = useGetVariousItems();
+export const HomeConsumableItemsList = () => {
+  const { data: iconItems, isLoading } = useGetConsumableItems();
 
   if (isLoading)
     return (
@@ -20,9 +20,9 @@ export const HomeVariousItemList = () => {
   return (
     <>
       <Stack direction="row" gap={2}>
-        {iconItems?.map((item, index) => (
+        {iconItems?.results.map((item, index) => (
           <React.Fragment key={index}>
-            <IconItemCard item={item} />
+            <ConsumableItemCard item={item} />
           </React.Fragment>
         ))}
       </Stack>

@@ -54,8 +54,8 @@ export const AddMarketItem = () => {
           <FormSelect
             control={control}
             options={[
-              { value: "TITLE", label: "User titles" },
               { value: "ICON", label: "Users' avatar icons" },
+              { value: "CONSUMABLE", label: "Consumable items" },
             ]}
             name="type"
             required
@@ -67,13 +67,13 @@ export const AddMarketItem = () => {
       </Box>
 
       <Zoom in={type} mountOnEnter unmountOnExit>
-        <Paper
+        <Box
           sx={{
             p: 3,
           }}
         >
           <MarketItemForm type={type} onSubmit={onSubmit} formRef={formRef} />
-        </Paper>
+        </Box>
       </Zoom>
 
       <Box
