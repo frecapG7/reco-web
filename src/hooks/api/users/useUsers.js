@@ -49,8 +49,20 @@ const getLastRecommendations = async (id) => {
 
 export const useGetLastRecommendations = (id, options) => {
   return useQuery({
-    queryKey: ["users", id, "requests"],
+    queryKey: ["users", id, "recommendations"],
     queryFn: () => getLastRecommendations(id),
+    ...options,
+  });
+};
+
+const getLastPurchases = async (id) => {
+  const response = await get(`/api/users/${id}/purchases`);
+  return response;
+};
+export const useGetLastPurchases = (id, options) => {
+  return useQuery({
+    queryKey: ["users", id, "purchases"],
+    queryFn: () => getLastPurchases(id),
     ...options,
   });
 };

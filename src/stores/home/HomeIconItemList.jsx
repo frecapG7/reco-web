@@ -25,7 +25,7 @@ export const HomeIconItemList = () => {
   return (
     <>
       <Stack direction="row" gap={2}>
-        {data.results?.map((item, index) => (
+        {data?.results?.map((item, index) => (
           <React.Fragment key={index}>
             <IconItemCard item={item} />
           </React.Fragment>

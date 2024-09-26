@@ -18,7 +18,7 @@ import {
   // useMarkAsRead,
 } from "../../../hooks/api/users/useNotifications";
 import { useAuthSession } from "../../../context/AuthContext";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export const NotificationList = ({
   notifications = [],

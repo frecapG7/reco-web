@@ -11,9 +11,9 @@ import {
 } from "@mui/material";
 import { UserAvatar } from "../components/user/icons/UserAvatar";
 
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { UserLastRequest } from "./UserLastRequest";
 import { UserLastRecommendations } from "./UserLastRecommendations";
+import { UserLastPurchases } from "./UserLastPurchases";
 
 export const User = () => {
   const { id } = useParams();
@@ -87,15 +87,8 @@ export const User = () => {
         <Divider textAlign="left">
           <Typography variant="h6">Last purchases</Typography>
         </Divider>
-        <Paper aria-label="user-purchases-container">
-          {!user?.privacy?.showPurchaseHistory && (
-            <Box align="center">
-              <LockOutlinedIcon color="primary.main" fontSize="large" />
-              <Typography variant="caption" paragraph>
-                This user has their purchase history set to private.
-              </Typography>
-            </Box>
-          )}
+        <Paper aria-label="user-last-purchases-container">
+          <UserLastPurchases user={user} />
         </Paper>
 
         <Box>
