@@ -1,15 +1,18 @@
-import { Button, Skeleton, Stack, Tooltip } from "@mui/material";
-import { useGetIconItems } from "../../hooks/api/market/useMarket";
-import React from "react";
-import { IconItemCard } from "../../components/store/IconItemCard";
+import { Button, Dialog, Skeleton, Stack, Tooltip } from "@mui/material";
+import React, { useState } from "react";
 
 import ArrowForwardOutlinedIcon from "@mui/icons-material/ArrowForwardOutlined";
 import { useNavigate } from "react-router-dom";
+import { IconItemDetails } from "../components/IconItemDetails";
+import { IconItemCard } from "../components/IconItemCard";
+import { useGetTrendingIconItems } from "../../hooks/api/market/useIconsStore";
 
 export const HomeIconItemList = () => {
-  const { data, isLoading } = useGetIconItems();
+  const { data, isLoading } = useGetTrendingIconItems();
 
   const navigate = useNavigate();
+
+  const [selectedItem, setSelectedItem] = useState(null);
 
   if (isLoading)
     return (
@@ -27,7 +30,7 @@ export const HomeIconItemList = () => {
       <Stack direction="row" gap={2}>
         {data?.results?.map((item, index) => (
           <React.Fragment key={index}>
-            <IconItemCard item={item} />
+            <IconItemCard item={item} onClick={() => setSelectedItem(item)} />
           </React.Fragment>
         ))}
 
@@ -37,6 +40,15 @@ export const HomeIconItemList = () => {
           </Button>
         </Tooltip>
       </Stack>
+
+      <Dialog
+        open={Boolean(selectedItem)}
+        onClose={() => setSelectedItem(null)}
+        fullWidth
+        maxWidth="sm"
+      >
+        <IconItemDetails item={selectedItem} />
+      </Dialog>
     </>
   );
 };

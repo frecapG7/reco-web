@@ -24,7 +24,7 @@ export const useGetRequests = (filters) => {
   return useInfiniteQuery({
     queryKey: ["requests", filters],
     queryFn: ({ pageParam }) => getRequests(10, pageParam, filters),
-    initialPageParam: 0,
+    initialPageParam: 1,
     getNextPageParam: (lastPage) => {
       if (lastPage.pagination?.currentPage < lastPage.pagination?.totalPages)
         return lastPage.pagination.currentPage + 1;

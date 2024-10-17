@@ -1,15 +1,22 @@
 import { useQuery } from "@tanstack/react-query";
 import { get } from "../index";
 
-const getIconItems = async () => {
-  const response = await get("/api/stores/icons");
+const getIconItems = async ({ value = "", pageSize = 10, pageNumber = 1 }) => {
+  const response = await get("/api/stores/icons", {
+    params: {
+      value,
+      pageSize,
+      pageNumber,
+    },
+  });
   return response;
 };
 
-export const useGetIconItems = () => {
+// Deprecated
+export const useGetIconItems = (value, pageSize, pageNumber) => {
   return useQuery({
-    queryKey: ["stores", "icons"],
-    queryFn: getIconItems,
+    queryKey: ["stores", "icons", value, pageSize, pageNumber],
+    queryFn: () => getIconItems({ value, pageSize, pageNumber }),
   });
 };
 

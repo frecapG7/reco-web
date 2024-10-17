@@ -52,7 +52,17 @@ export const StoreItemCard = ({
               bgcolor: "primary.main",
             }}
           >
-            <Typography variant="body2">{description}</Typography>
+            <Typography
+              variant="body2"
+              sx={{
+                overflow: "hidden",
+                display: "-webkit-box",
+                WebkitBoxOrient: "vertical",
+                WebkitLineClamp: 10,
+              }}
+            >
+              {description}
+            </Typography>
           </Paper>
         </Slide>
       </CardActionArea>
