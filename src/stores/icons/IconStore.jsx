@@ -26,7 +26,7 @@ export const IconStore = () => {
     control,
   });
 
-  const { data, isLoading, hasNextPage, fetchNextPage } = useSearchIconItems(
+  const { data, hasNextPage, fetchNextPage } = useSearchIconItems(
     filters?.search
   );
 
