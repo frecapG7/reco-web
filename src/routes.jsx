@@ -13,6 +13,9 @@ import { Signup } from "./signup/Signup";
 import { Notifications } from "./notifications/Notifications";
 import { StoresHome } from "./stores/StoresHome";
 import { IconStore } from "./stores/icons/IconStore";
+import { UserSettings } from "./settings/UserSettings";
+import { AccountHome } from "./account/AccountHome";
+import { AuthProtectedLayout } from "./layout/AuthProtectedLayout";
 
 export const routes = [
   {
@@ -85,6 +88,10 @@ export const routes = [
         element: <Notifications />,
       },
       {
+        path: "settings",
+        element: <UserSettings />,
+      },
+      {
         path: "stores",
         children: [
           {
@@ -96,6 +103,14 @@ export const routes = [
             element: <IconStore />,
           },
         ],
+      },
+      {
+        path: "account",
+        element: (
+          <AuthProtectedLayout>
+            <AccountHome />
+          </AuthProtectedLayout>
+        ),
       },
       {
         path: "login",

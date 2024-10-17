@@ -3,8 +3,8 @@ import { Box, IconButton, Typography, useMediaQuery } from "@mui/material";
 import { Logo } from "../components/utils/Logo";
 import { useNavigate } from "react-router-dom";
 import { useAuthSession } from "../context/AuthContext";
-import Face5OutlinedIcon from "@mui/icons-material/Face5Outlined";
 import { HeaderNotification } from "./header/HeaderNotification";
+import { HeaderAccount } from "./header/HeaderAccount";
 
 export const LayoutHeader = ({ toggleMenu }) => {
   const navigate = useNavigate();
@@ -41,9 +41,7 @@ export const LayoutHeader = ({ toggleMenu }) => {
       {session?.loggedIn && (
         <Box display="flex" gap={2} alignItems="center" aria-label="user-space">
           <HeaderNotification />
-          <IconButton>
-            <Face5OutlinedIcon />
-          </IconButton>
+          <HeaderAccount />
         </Box>
       )}
     </Box>

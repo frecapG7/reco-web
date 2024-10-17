@@ -40,12 +40,19 @@ const createIcon = async ({ data }) => {
   return response;
 };
 
+const createConsumable = async ({ data }) => {
+  const response = await post("/api/admin/market/items/consumables", data);
+  return response;
+};
+
 export const usePostItem = (options) => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: ({ type, data }) => {
       if (type === "ICON") {
         return createIcon({ data });
+      } else if (type === "CONSUMABLE") {
+        return createConsumable({ data });
       } else {
         throw new Error("Invalid type");
       }

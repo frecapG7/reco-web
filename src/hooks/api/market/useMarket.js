@@ -1,32 +1,22 @@
 import { useQuery } from "@tanstack/react-query";
 import { get } from "../index";
-const mockData = [
-  {
-    name: "The All knowing",
-    img: "https://storage.googleapis.com/reco_dev/avatars/avatar-thinking-1-svgrepo-com.svg",
-    price: 10,
-  },
-  {
-    name: "The Wise",
-    img: "https://storage.googleapis.com/reco_dev/avatars/avatar-thinking-6-svgrepo-com.svg",
-    price: 40,
-  },
-  {
-    name: "The HistoryMan",
-    img: "https://storage.googleapis.com/reco_dev/avatars/krishna-svgrepo-com.svg",
-    price: 20,
-  },
-];
 
-const getIconItems = async () => {
-  const response = await get("/api/stores/icons");
+const getIconItems = async ({ value = "", pageSize = 10, pageNumber = 1 }) => {
+  const response = await get("/api/stores/icons", {
+    params: {
+      value,
+      pageSize,
+      pageNumber,
+    },
+  });
   return response;
 };
 
-export const useGetIconItems = () => {
+// Deprecated
+export const useGetIconItems = (value, pageSize, pageNumber) => {
   return useQuery({
-    queryKey: ["stores", "icons"],
-    queryFn: getIconItems,
+    queryKey: ["stores", "icons", value, pageSize, pageNumber],
+    queryFn: () => getIconItems({ value, pageSize, pageNumber }),
   });
 };
 
@@ -57,5 +47,17 @@ export const useGetVariousItems = () => {
   return useQuery({
     queryKey: ["market", "various"],
     queryFn: getVariousItems,
+  });
+};
+
+const getConsumableItems = async () => {
+  const response = await get("/api/stores/consumables");
+  return response;
+};
+
+export const useGetConsumableItems = () => {
+  return useQuery({
+    queryKey: ["stores", "consumables"],
+    queryFn: getConsumableItems,
   });
 };

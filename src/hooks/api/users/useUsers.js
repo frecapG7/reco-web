@@ -28,3 +28,41 @@ export const useCreateUser = (options) => {
     ...options,
   });
 };
+
+const getLastRequests = async (id) => {
+  const response = await get(`/api/users/${id}/requests`);
+  return response;
+};
+
+export const useGetLastRequests = (id, options) => {
+  return useQuery({
+    queryKey: ["users", id, "requests"],
+    queryFn: () => getLastRequests(id),
+    ...options,
+  });
+};
+
+const getLastRecommendations = async (id) => {
+  const response = await get(`/api/users/${id}/recommendations`);
+  return response;
+};
+
+export const useGetLastRecommendations = (id, options) => {
+  return useQuery({
+    queryKey: ["users", id, "recommendations"],
+    queryFn: () => getLastRecommendations(id),
+    ...options,
+  });
+};
+
+const getLastPurchases = async (id) => {
+  const response = await get(`/api/users/${id}/purchases`);
+  return response;
+};
+export const useGetLastPurchases = (id, options) => {
+  return useQuery({
+    queryKey: ["users", id, "purchases"],
+    queryFn: () => getLastPurchases(id),
+    ...options,
+  });
+};

@@ -5,6 +5,7 @@ import {
   CardActions,
   CardContent,
   CardMedia,
+  CircularProgress,
   Dialog,
   DialogActions,
   Typography,
@@ -13,17 +14,27 @@ import MonetizationOnOutlinedIcon from "@mui/icons-material/MonetizationOnOutlin
 import { confirm } from "../utils/ConfirmationDialog";
 import { useState } from "react";
 import { IconItemDetail } from "./IconItemDetail";
+import { useBuyIconItem } from "../../hooks/api/market/useIconsStore";
 
 export const IconItemCard = ({ item }) => {
   const [showDetails, setShowDetails] = useState(false);
+
+  const buyIcon = useBuyIconItem({ id: item._id });
 
   const handleBuy = () => {
     confirm({
       description: `Buying ${item.label} will cost you ${item.price}.`,
     })
       .then(() => {
-        console.log(`You have bought ${item.label} for ${item.price}.`);
-        setShowDetails(false);
+        buyIcon.mutate(
+          {},
+          {
+            onSuccess: () => {
+              alert("Item bought successfully!");
+              setShowDetails(false);
+            },
+          }
+        );
       })
       .catch(() => {});
   };
@@ -67,7 +78,10 @@ export const IconItemCard = ({ item }) => {
         scroll="body"
         onClose={() => setShowDetails(false)}
       >
-        <IconItemDetail iconItem={item} onBuy={handleBuy} />
+        {buyIcon.isPending && <CircularProgress />}
+        {!buyIcon.isPending && (
+          <IconItemDetail iconItem={item} onBuy={handleBuy} />
+        )}
         <DialogActions>
           <Button
             onClick={() => setShowDetails(false)}

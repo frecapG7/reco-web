@@ -1,6 +1,6 @@
-import { Box, Container, Paper, Stack, Typography } from "@mui/material";
+import { Box, Container, Divider, Stack, Typography } from "@mui/material";
 import { HomeIconItemList } from "./home/HomeIconItemList";
-import { HomeVariousItemList } from "./home/HomeVariousItemList";
+import { HomeConsumableItemsList } from "./home/HomeConsumableItemsList";
 import StorefrontOutlinedIcon from "@mui/icons-material/StorefrontOutlined";
 
 export const StoresHome = () => {
@@ -19,9 +19,10 @@ export const StoresHome = () => {
           for everyone. Start browsing now and unleash your creativity!
         </Typography>
       </Box>
+      <Divider flexItem />
 
       <Stack gap={5}>
-        <Paper aria-label="icon_items">
+        <Box aria-label="icon_items">
           <Typography variant="title" gutterBottom>
             Avatar
           </Typography>
@@ -29,7 +30,7 @@ export const StoresHome = () => {
             Enjoy our coolest illustrations to make your profile stand out.
           </Typography>
           <HomeIconItemList />
-        </Paper>
+        </Box>
 
         {/* <Box aria-label="title_items">
           <Link to="titles">See all</Link>
@@ -47,9 +48,14 @@ export const StoresHome = () => {
 
         <Box aria-label="category_items">
           <Typography variant="h4" gutterBottom>
-            Various items
+            Consumable items
           </Typography>
-          <HomeVariousItemList />
+          <Typography paragraph>
+            Consumable items can be used to obtain various benefits, such as XP,
+            coins, or other items. Use them wisely to boost your progress and
+            enhance your experience.
+          </Typography>
+          <HomeConsumableItemsList />
         </Box>
       </Stack>
     </Container>

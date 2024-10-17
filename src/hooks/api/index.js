@@ -41,6 +41,45 @@ export const put = async (url, data, options) => {
   }
 };
 
+export const patch = async (url, data, options) => {
+  try {
+    if (options?.params)
+      url = `${url}?${new URLSearchParams(options.params).toString()}`;
+
+    const response = await fetch(url, {
+      method: "PATCH",
+      headers: headers(),
+      body: JSON.stringify(data),
+    });
+    if (!response.ok) throw new Error(response.message, response.status);
+
+    const text = await response.text();
+    if (text?.length) return JSON.parse(text);
+  } catch (e) {
+    console.error(e);
+    throw e;
+  }
+};
+
+export const del = async (url, options) => {
+  try {
+    if (options?.params)
+      url = `${url}?${new URLSearchParams(options.params).toString()}`;
+
+    const response = await fetch(url, {
+      method: "DELETE",
+      headers: headers(),
+    });
+    if (!response.ok) throw new Error(response.message, response.status);
+
+    const text = await response.text();
+    if (text?.length) return JSON.parse(text);
+  } catch (e) {
+    console.error(e);
+    throw e;
+  }
+};
+
 export const get = async (url, options) => {
   if (options?.params)
     url = `${url}?${new URLSearchParams(options.params).toString()}`;
