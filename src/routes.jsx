@@ -16,6 +16,11 @@ import { IconStore } from "./stores/icons/IconStore";
 import { UserSettings } from "./settings/UserSettings";
 import { AccountHome } from "./account/AccountHome";
 import { AuthProtectedLayout } from "./layout/AuthProtectedLayout";
+import { MyActivity } from "./account/my-activity/MyActivity";
+import { AccountDetails } from "./account/details/AccountDetails";
+import { AccountSettings } from "./account/settings/AccountSettings";
+import { MyPurchases } from "./account/my-purchases/MyPurcharses";
+import { PurchaseDetails } from "./account/my-purchases/PurchaseDetails";
 
 export const routes = [
   {
@@ -111,6 +116,33 @@ export const routes = [
             <AccountHome />
           </AuthProtectedLayout>
         ),
+        children: [
+          {
+            path: "",
+            element: <AccountDetails />,
+          },
+          {
+            path: "my-activity",
+            element: <MyActivity />,
+          },
+          {
+            path: "my-purchases",
+            children: [
+              {
+                path: "",
+                element: <MyPurchases />,
+              },
+              {
+                path: ":id",
+                element: <PurchaseDetails />,
+              },
+            ],
+          },
+          {
+            path: "settings",
+            element: <AccountSettings />,
+          },
+        ],
       },
       {
         path: "login",

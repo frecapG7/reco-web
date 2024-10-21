@@ -18,6 +18,7 @@ import { UserAvatar } from "../../components/user/icons/UserAvatar";
 import { CartDetail } from "./CartDetail";
 import { AdminLastRequests } from "./AdminLastRequests";
 import { AdminLastRecommendations } from "./AdminLastRecommendations";
+import { UserStats } from "../../components/user/statistics/UserStats";
 
 export const AdminUserDetails = () => {
   const { id } = useParams();
@@ -83,19 +84,12 @@ export const AdminUserDetails = () => {
             xs={12}
             md={6}
             sx={{
-              display: "flex",
-              justifyContent: "space-around",
-              alignItems: "center",
               backgroundColor: "primary.light",
               borderRadius: 5,
               padding: 5,
             }}
           >
-            <UserRequests requests={user.stats.requestsCount} />
-            <UserRecommendations
-              recommendations={user.stats.recommendationsCount}
-            />
-            <UserBalance balance={user.stats.balance} />
+            <UserStats id={user.id} stats={user.stats} />
           </Grid>
 
           <Grid
