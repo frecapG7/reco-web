@@ -61,7 +61,12 @@ export const HeaderAccount = () => {
             </ListItemIcon>
             <ListItemText primary="Profile" />
           </MenuItem>
-          <MenuItem>
+          <MenuItem
+            onClick={() => {
+              navigate("./account/settings");
+              setAnchorEl(null);
+            }}
+          >
             <ListItemIcon>
               <SettingsOutlinedIcon />
             </ListItemIcon>
