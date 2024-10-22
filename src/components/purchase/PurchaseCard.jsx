@@ -13,6 +13,7 @@ import {
   Typography,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import { useRedeemPurchase } from "../../hooks/api/users/useUsers";
 
 const PurchaseBadge = ({ purchase }) => {
   switch (purchase.type) {
@@ -25,8 +26,21 @@ const PurchaseBadge = ({ purchase }) => {
   }
 };
 
-export const PurchaseCard = ({ purchase }) => {
+export const PurchaseCard = ({ user, purchase }) => {
   const navigate = useNavigate();
+
+  const redeem = useRedeemPurchase(user.id, purchase._id);
+
+  const handleUse = () => {
+    redeem.mutate(
+      {},
+      {
+        onSuccess: () => {
+          alert("Purchase redeemed!");
+        },
+      }
+    );
+  };
 
   return (
     <Badge
@@ -49,7 +63,7 @@ export const PurchaseCard = ({ purchase }) => {
         </CardContent>
         <CardActions>
           <Stack>
-            <Button color="primary" variant="contained">
+            <Button color="primary" variant="contained" onClick={handleUse}>
               Use
             </Button>
             <Button

@@ -30,7 +30,7 @@ export const MyPurchases = () => {
       <Grid container aria-label="searc-content">
         {purchases?.map((purchase, index) => (
           <Grid item xs={12} md={3} key={index}>
-            <PurchaseCard purchase={purchase} />
+            <PurchaseCard user={user} purchase={purchase} />
           </Grid>
         ))}
       </Grid>

@@ -28,7 +28,7 @@ export const UserName = ({ user }) => {
       }}
     >
       <Avatar
-        src="https://storage.googleapis.com/reco_dev/avatars/krishna-svgrepo-com.svg"
+        src={user.avatar}
         alt={user.name}
         sx={{ width: 75, height: 75 }}
       />

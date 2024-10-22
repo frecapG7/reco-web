@@ -1,4 +1,9 @@
-import { useInfiniteQuery, useMutation, useQuery } from "@tanstack/react-query";
+import {
+  useInfiniteQuery,
+  useMutation,
+  useQuery,
+  useQueryClient,
+} from "@tanstack/react-query";
 import { get, post } from "../index";
 
 const getUser = async (id) => {
@@ -104,6 +109,25 @@ export const useGetPurchase = (id, purchaseId, options) => {
   return useQuery({
     queryKey: ["users", id, "purchases", purchaseId],
     queryFn: () => getPurchase(id, purchaseId),
+    ...options,
+  });
+};
+
+const redeemPurchase = async (id, purchaseId) => {
+  const response = await post(
+    `/api/users/${id}/purchases/${purchaseId}/redeem`
+  );
+  return response;
+};
+
+export const useRedeemPurchase = (id, purchaseId, options) => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: () => redeemPurchase(id, purchaseId),
+    onSuccess: () => {
+      queryClient.invalidateQueries(["users", id, "purchases"]);
+    },
     ...options,
   });
 };
