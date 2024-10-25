@@ -1,4 +1,4 @@
-import { Avatar, Badge, Box, Skeleton, Typography } from "@mui/material";
+import { Avatar, Badge, Box, Skeleton, Stack, Typography } from "@mui/material";
 
 import LocalPostOfficeTwoToneIcon from "@mui/icons-material/LocalPostOfficeTwoTone";
 import LocalBarTwoToneIcon from "@mui/icons-material/LocalBarTwoTone";
@@ -14,7 +14,7 @@ const Metrics = ({ user }) => {
       gap={5}
       variant="contained"
       sx={{
-        backgroundColor: "primary.main",
+        // backgroundColor: "primary.main",
         borderRadius: 5,
         padding: 5,
       }}
@@ -77,25 +77,21 @@ const Metrics = ({ user }) => {
 export const UserSummary = ({ user }) => {
   if (!user)
     return (
-      <>
-        <Box
-          display="flex"
-          justifyContent="space-evenly"
-          alignItems="center"
-          aria-label="user-avatar"
-        >
-          <Box align="center">
-            <Skeleton animation="wave" variant="circular">
-              <Avatar />
-            </Skeleton>
-            <Skeleton variant="text" animation="wave" />
-          </Box>
-
-          <Box aria-label="user-stats">
-            <Metrics />
-          </Box>
+      <Box
+        display="flex"
+        justifyContent="space-evenly"
+        alignItems="center"
+        aria-label="user-avatar"
+      >
+        <Box align="center">
+          <Skeleton animation="wave" variant="circular">
+            <Avatar />
+          </Skeleton>
+          <Skeleton variant="text" animation="wave" />
         </Box>
-      </>
+
+        <Metrics />
+      </Box>
     );
 
   return (
@@ -106,13 +102,11 @@ export const UserSummary = ({ user }) => {
         alignItems="center"
         aria-label="user-avatar"
       >
-        <Box align="center">
+        <Stack alignItems="center">
           <Avatar src={user.avatar} />
           <Typography variant="title">{user.name}</Typography>
-        </Box>
-        <Box aria-label="user-stats">
-          <Metrics user={user} />
-        </Box>
+        </Stack>
+        <Metrics user={user} />
       </Box>
     </>
   );
