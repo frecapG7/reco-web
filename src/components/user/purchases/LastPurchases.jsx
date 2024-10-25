@@ -23,7 +23,7 @@ export const LastPurchases = ({ lastPurchases = [], isLoading }) => {
 
   return (
     <Grid container>
-      {lastPurchases.map((purchase) => (
+      {lastPurchases?.map((purchase) => (
         <Grid item container key={purchase.id} alignItems="center">
           <Grid item xs={4}>
             <Typography>{purchase.name}</Typography>
@@ -31,9 +31,6 @@ export const LastPurchases = ({ lastPurchases = [], isLoading }) => {
           <Grid item xs={4}>
             <Typography>{purchase.type}</Typography>
           </Grid>
-
-          
-
         </Grid>
       ))}
     </Grid>

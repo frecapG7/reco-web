@@ -32,13 +32,12 @@ export const StoreItemCard = ({
       onMouseLeave={() => setHover(false)}
     >
       <CardActionArea onClick={onClick}>
-        <CardMedia component="img" height="250" image={icon} alt={name} />
         <CardContent
           sx={{
-            height: 100,
             alignItems: "center",
           }}
         >
+          <CardMedia component="img" height="250" image={icon} alt={name} />
           <Typography variant="title">{label}</Typography>
         </CardContent>
         <Slide in={hover} timeout={300} direction="up">

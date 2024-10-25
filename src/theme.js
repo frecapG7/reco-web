@@ -228,6 +228,18 @@ theme = createTheme(theme, {
         },
       },
     },
+    MuiAvatar: {
+      styleOverrides: {
+        root: {
+          width: "7rem",
+          height: "7rem",
+          borderWidth: 2,
+          borderStyle: "solid",
+          borderColor: theme.palette.primary.dark,
+          boxSizing: "border-box",
+        },
+      },
+    },
   },
 });
 

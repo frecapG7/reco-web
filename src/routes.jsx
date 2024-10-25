@@ -2,7 +2,6 @@ import { StandardLayout } from "./layout/StandardLayout";
 import { Outlet } from "react-router-dom";
 import { Home } from "./home/Home";
 import { UsersAdministration } from "./admin/users/UsersAdministration";
-import { AdminUserDetails } from "./admin/users/AdminUserDetails";
 import { MarketItemsAdministration } from "./admin/market/MarketItemsAdministration";
 import { MarketItemDetails } from "./admin/market/MarketItemDetails";
 import { AddMarketItem } from "./admin/market/AddMarketItem";
@@ -20,6 +19,10 @@ import { AccountDetails } from "./account/details/AccountDetails";
 import { AccountSettings } from "./account/settings/AccountSettings";
 import { MyPurchases } from "./account/my-purchases/MyPurcharses";
 import { PurchaseDetails } from "./account/my-purchases/PurchaseDetails";
+import { AdminUserDetails } from "./admin/users/details/AdminUserDetails";
+import { AdminUserDetailsPurchasesTab } from "./admin/users/details/AdminUserDetailsPurchasesTab";
+import { AdminUserDetailsActivityTab } from "./admin/users/details/AdminUserDetailsActivityTab";
+import { AdminUserDetailsTab } from "./admin/users/details/AdminUserDetailsTab";
 
 export const routes = [
   {
@@ -47,6 +50,20 @@ export const routes = [
               {
                 path: ":id",
                 element: <AdminUserDetails />,
+                children: [
+                  {
+                    path: "",
+                    element: <AdminUserDetailsTab />,
+                  },
+                  {
+                    path: "activity",
+                    element: <AdminUserDetailsActivityTab />,
+                  },
+                  {
+                    path: "purchases",
+                    element: <AdminUserDetailsPurchasesTab />,
+                  },
+                ],
               },
             ],
           },

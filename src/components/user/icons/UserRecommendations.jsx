@@ -11,9 +11,9 @@ export const UserRecommendations = ({ recommendations }) => {
       }}
     >
       <LocalBarTwoToneIcon
-        color="primary"
+        // color="yellow"
         sx={{
-          backgroundColor: "tertiary.dark",
+          // backgroundColor: "secondary.main",
           fontSize: 50,
           borderRadius: "50%",
         }}

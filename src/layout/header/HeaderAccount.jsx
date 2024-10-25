@@ -1,5 +1,8 @@
 import {
+  Avatar,
+  Badge,
   Box,
+  Icon,
   IconButton,
   ListItemIcon,
   ListItemText,
@@ -11,12 +14,17 @@ import { useState } from "react";
 import Face5OutlinedIcon from "@mui/icons-material/Face5Outlined";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import { useNavigate } from "react-router-dom";
+import SavingsTwoToneIcon from "@mui/icons-material/SavingsTwoTone";
 
-export const HeaderAccount = () => {
+import { useGetUser } from "../../hooks/api/users/useUsers";
+
+export const HeaderAccount = ({ user }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
 
   const navigate = useNavigate();
+
+  const { data } = useGetUser(user?.id);
 
   return (
     <Box>
@@ -27,7 +35,21 @@ export const HeaderAccount = () => {
         aria-expanded={open ? "true" : undefined}
         onClick={(event) => setAnchorEl(event.currentTarget)}
       >
-        <Face5OutlinedIcon />
+        <Badge
+          showZero
+          badgeContent={data?.balance}
+          color="yellow"
+          overlap="rectangular"
+        >
+          <Avatar
+            src={data?.avatar}
+            alt={user?.name}
+            sx={{
+              width: 32,
+              height: 32,
+            }}
+          />
+        </Badge>
       </IconButton>
 
       <Menu
