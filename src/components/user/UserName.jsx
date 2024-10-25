@@ -1,9 +1,18 @@
 import { Avatar, Box, Popover, Typography, Zoom } from "@mui/material";
 import { useState } from "react";
-import { UserDetails } from "./UserDetails";
+import { UserSummary } from "./UserSummary";
+import { useGetUser } from "../../hooks/api/users/useUsers";
+import { useNavigate } from "react-router-dom";
 
+// TODO: please rename
 export const UserName = ({ user }) => {
   const [anchorEl, setAnchorEl] = useState(null);
+
+  const openDetails = Boolean(anchorEl);
+
+  const { data: details } = useGetUser(user.id, {
+    enabled: openDetails,
+  });
 
   const handlePopoverOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -11,6 +20,8 @@ export const UserName = ({ user }) => {
   const handlePopoverClose = () => {
     setAnchorEl(null);
   };
+
+  const navigate = useNavigate();
 
   return (
     <Box
@@ -28,7 +39,7 @@ export const UserName = ({ user }) => {
       }}
     >
       <Avatar
-        src="https://storage.googleapis.com/reco_dev/avatars/krishna-svgrepo-com.svg"
+        src={user.avatar}
         alt={user.name}
         sx={{ width: 75, height: 75 }}
       />
@@ -42,7 +53,7 @@ export const UserName = ({ user }) => {
 
       <Popover
         id="user-details"
-        open={Boolean(anchorEl)}
+        open={openDetails}
         onClose={handlePopoverClose}
         anchorEl={anchorEl}
         anchorOrigin={{
@@ -61,11 +72,13 @@ export const UserName = ({ user }) => {
             sx: {
               borderRadius: 5,
               backgroundColor: "primary.light",
+              cursor: "pointer",
             },
           },
         }}
+        onClick={() => navigate(`/users/${user.id}`)}
       >
-        <UserDetails user={user} />
+        <UserSummary user={details} />
       </Popover>
     </Box>
   );

@@ -83,7 +83,7 @@ export const NotificationList = ({
                   />
                 </>
               )}
-              <IconButton onClick={() => navigate("./settings")}>
+              <IconButton onClick={() => navigate("./account/settings")}>
                 <SettingsOutlinedIcon />
               </IconButton>
             </Box>

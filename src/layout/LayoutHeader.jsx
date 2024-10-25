@@ -41,7 +41,7 @@ export const LayoutHeader = ({ toggleMenu }) => {
       {session?.loggedIn && (
         <Box display="flex" gap={2} alignItems="center" aria-label="user-space">
           <HeaderNotification />
-          <HeaderAccount />
+          <HeaderAccount user={session.user} />
         </Box>
       )}
     </Box>

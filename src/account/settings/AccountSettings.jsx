@@ -1,31 +1,33 @@
-import {
-  Backdrop,
-  Box,
-  Button,
-  CircularProgress,
-  Container,
-  Divider,
-  List,
-  ListItem,
-  ListItemText,
-  ListSubheader,
-  Stack,
-  Typography,
-  Zoom,
-} from "@mui/material";
-import { useForm } from "react-hook-form";
-import { FormSwitch } from "../components/form/FormSwitch";
-import { FormText } from "../components/form/FormText";
-
-import { useAuthSession } from "../context/AuthContext";
+import { useOutletContext } from "react-router-dom";
 import {
   useGetSettings,
   usePatchSettings,
   useResetSettings,
-} from "../hooks/api/users/useSettings";
+} from "../../hooks/api/users/useSettings";
+import { useForm } from "react-hook-form";
 import { useCallback, useEffect } from "react";
+import {
+  Box,
+  Typography,
+  Stack,
+  List,
+  ListItem,
+  ListSubheader,
+  ListItemText,
+  Divider,
+  Zoom,
+  Button,
+  CircularProgress,
+  Backdrop,
+} from "@mui/material";
+import { FormText } from "../../components/form/FormText";
+import { FormSwitch } from "../../components/form/FormSwitch";
 
-export const UserSettings = () => {
+export const AccountSettings = () => {
+  const { user } = useOutletContext();
+
+  const { data: settings } = useGetSettings(user?.id);
+
   const {
     control,
     reset,
@@ -33,14 +35,8 @@ export const UserSettings = () => {
     formState: { isDirty },
   } = useForm();
 
-  const { session } = useAuthSession();
-
-  const { data: settings } = useGetSettings(session.user?.id);
-
-  const { mutate: patchSettings, isPending } = usePatchSettings(
-    session.user?.id
-  );
-  const resetSettings = useResetSettings(session.user?.id);
+  const { mutate: patchSettings, isPending } = usePatchSettings(user?.id);
+  const resetSettings = useResetSettings(user?.id);
 
   useEffect(() => {
     reset(settings);
@@ -58,17 +54,12 @@ export const UserSettings = () => {
   }, [isDirty, onSubmit, handleSubmit]);
 
   return (
-    <Container>
-      <Box>
-        <Typography variant="h4">Settings</Typography>
-      </Box>
-
+    <>
       <Stack spacing={2}>
         <List
           aria-label="general-settings"
           sx={{
             width: "100%",
-            // bgcolor: "primary.main",
             px: 2,
           }}
           subheader={<ListSubheader component={Box}>General</ListSubheader>}
@@ -172,6 +163,6 @@ export const UserSettings = () => {
       <Backdrop open={Boolean(isPending)}>
         <CircularProgress />
       </Backdrop>
-    </Container>
+    </>
   );
 };

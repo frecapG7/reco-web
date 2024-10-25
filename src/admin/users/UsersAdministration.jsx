@@ -74,7 +74,7 @@ export const UsersAdministration = () => {
         aria-label="users-filters"
         sx={{
           padding: 2,
-          my: 10,
+          my: 2,
         }}
       >
         <UsersFilters filters={filters} setFilters={setFilters} />
