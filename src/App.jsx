@@ -1,22 +1,14 @@
 import "./App.css";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { QueryClientProvider } from "@tanstack/react-query";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { routes } from "./routes";
 import { ThemeProvider } from "@emotion/react";
 import theme from "./theme";
 import { AuthContextProvider } from "./context/AuthContext";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import ApiClient from "./api/ApiClient";
 
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      refetchOnWindowFocus: false,
-      retry: false,
-      staleTime: 30000,
-    },
-  },
-});
-
+const queryClient = ApiClient;
 const router = createBrowserRouter(routes, {
   future: {
     // Normalize `useNavigation()`/`useFetcher()` `formMethod` to uppercase

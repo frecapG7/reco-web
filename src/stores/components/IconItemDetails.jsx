@@ -2,6 +2,7 @@ import { Box, CircularProgress } from "@mui/material";
 import { StoreItemDetails } from "../../components/store/StoreItemDetails";
 import { useBuyIconItem } from "../../hooks/api/market/useIconsStore";
 
+import { confirm } from "../../components/utils/ConfirmationDialog";
 import TaskAltOutlinedIcon from "@mui/icons-material/TaskAltOutlined";
 
 export const IconItemDetails = ({ item }) => {

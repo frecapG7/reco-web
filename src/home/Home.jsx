@@ -29,13 +29,13 @@ export const Home = () => {
       <Paper
         aria-label="search-filters"
         sx={{
-          my: 5,
+          mt: 5,
         }}
       >
         <Search filters={filters} setFilters={setFilters} />
       </Paper>
 
-      <Box sx={{ my: 5 }}>
+      <Box>
         <InfiniteScroll
           dataLength={50}
           next={fetchNextPage}

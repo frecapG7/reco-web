@@ -112,6 +112,20 @@ theme = createTheme(theme, {
         },
       },
     },
+    MuiIconButton: {
+      variants: [
+        {
+          props: { variant: "contained" },
+          style: {
+            backgroundColor: theme.palette.primary.main,
+            color: theme.palette.primary.contrastText,
+            "&:hover": {
+              backgroundColor: theme.palette.primary.dark,
+            },
+          },
+        },
+      ],
+    },
     MuiToggleButton: {
       styleOverrides: {
         root: {
