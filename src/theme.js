@@ -254,6 +254,13 @@ theme = createTheme(theme, {
         },
       },
     },
+    MuiAccordion: {
+      styleOverrides: {
+        root: {
+          backgroundColor: theme.palette.background.default,
+        },
+      },
+    },
   },
 });
 
