@@ -1,10 +1,15 @@
 import {
   Avatar,
+  Box,
   Card,
   CardActions,
+  CardContent,
   CardHeader,
   CardMedia,
+  Grid,
   IconButton,
+  Stack,
+  Typography,
 } from "@mui/material";
 import { useLikeRecommendation } from "../../../hooks/api/requests/useRecommendations";
 
@@ -42,61 +47,55 @@ export const Recommendation = ({ request, recommendation }) => {
     }
   };
 
+  const html = recommendation.html;
+  // '<div><div style="left: 0; width: 100%; height: 140px; position: relative;"><iframe src="//cdn.iframe.ly/api/iframe?card=small&app=1&url=https%3A%2F%2Fwww.babelio.com%2Flivres%2FHamilton-Letoile-de-Pandore-tome-1--Pandore-abusee%2F1412421&key=3bfef4cf586ad76048e1aff7cbc5f05e" style="top: 0; left: 0; width: 100%; height: 100%; position: absolute; border: 0;" allowfullscreen></iframe></div></div>';h
+  // '<div><div style="left: 0; width: 100%; height: 140px; position: relative;"><iframe src="//cdn.iframe.ly/api/iframe?card=small&app=1&url=https%3A%2F%2Fsoundcloud.com%2Fcerclelive%2Fmaz-antdot-run-radio-edit%3Fsi%3D2c3644debf954180b13d76f67e3ca6c0%26utm_source%3Dclipboard%26utm_medium%3Dtext%26utm_campaign%3Dsocial_sharing&key=3bfef4cf586ad76048e1aff7cbc5f05e" style="top: 0; left: 0; width: 100%; height: 100%; position: absolute; border: 0;" allowfullscreen allow="autoplay *;"></iframe></div></div>';
+
   return (
     <Card
-      elevation={0}
+      // variant="outlined"
       sx={{
+        width: "100%",
         display: "flex",
-        flexDirection: "column",
-        backgroundColor: "inherit",
+        p: 0,
+        // backgroundColor: "primary.main",
       }}
     >
-      <CardHeader
-        avatar={<Avatar />}
-        title={recommendation.user.name}
-        subheader={recommendation.user.title}
-        sx={{
-          maxHeight: 50,
-        }}
-      />
-      <CardMedia
-        sx={{
-          maxHeight: 500,
-        }}
-      >
-        <IFramely html={recommendation.html} />
-      </CardMedia>
-      <CardActions
-        // disableSpacing
-        sx={
-          {
-            // backgroundColor: "white",
-          }
-        }
-      >
-        <IconButton
-          onClick={handleLike}
+      <Grid container>
+        <Grid item xs={2}>
+          <CardContent>
+            <Stack aria-label="recommendation-user" alignItems="center">
+              <Avatar
+                src={recommendation.user.avatar}
+                alt={recommendation.user.name}
+              />
+              <Typography>{recommendation.user.name}</Typography>
+            </Stack>
+          </CardContent>
+        </Grid>
+        <Grid
+          item
+          container
+          xs={10}
           sx={{
-            fontSize: 50,
-            border: "2px solid",
-            borderColor: "secondary.main",
-            backgroundColor: "secondary.main",
+            // display: "flex",
+            flexDirection: "column",
+            justifyContent: "space-between",
           }}
         >
-          <LocalBarRoundedIcon fontSize="large" />
-        </IconButton>
-        <IconButton
-          sx={{
-            fontSize: 50,
-            border: "2px solid",
-            borderColor: "secondary.main",
-            backgroundColor: "secondary.main",
-          }}
-          onClick={handleShare}
-        >
-          <ShareRoundedIcon fontSize="large" />
-        </IconButton>
-      </CardActions>
+          <CardMedia>
+            <IFramely html={html} />
+          </CardMedia>
+          <CardActions>
+            <IconButton onClick={handleLike}>
+              <LocalBarRoundedIcon />
+            </IconButton>
+            <IconButton onClick={handleShare}>
+              <ShareRoundedIcon />
+            </IconButton>
+          </CardActions>
+        </Grid>
+      </Grid>
     </Card>
   );
 };

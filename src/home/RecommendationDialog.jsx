@@ -44,9 +44,18 @@ export const RecommendationDialog = ({ open, onClose, request }) => {
       <DialogActions>
         {createRecommendation.isPending && <CircularProgress />}
         {!createRecommendation.isPending && (
-          <Button variant="contained" onClick={() => formRef.current?.submit()}>
-            <LocalDrinkOutlinedIcon />
-          </Button>
+          <>
+            <Button variant="outlined" onClick={onClose}>
+              Cancel
+            </Button>
+            <Button
+              variant="contained"
+              onClick={() => formRef.current?.submit()}
+            >
+              <LocalDrinkOutlinedIcon />
+              (5 Piasse)
+            </Button>
+          </>
         )}
       </DialogActions>
     </Dialog>

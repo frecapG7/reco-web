@@ -1,4 +1,17 @@
-import { Divider, Button, Box, Zoom, Fade } from "@mui/material";
+import {
+  Divider,
+  Button,
+  Box,
+  Zoom,
+  Fade,
+  Grid,
+  IconButton,
+  Typography,
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
+  Stack,
+} from "@mui/material";
 import { FormText } from "../../form/FormText";
 import { useForm } from "react-hook-form";
 import { useEmbed } from "../../../hooks/api/embed/useEmbed";
@@ -43,101 +56,98 @@ export const RecommendationForm = forwardRef(
     }, [embed, reset]);
 
     return (
-      <Box>
-        <Zoom in={!html} appear={false} mountOnEnter unmountOnExit>
-          <Box display="flex" justifyContent="center">
-            <Fade in={showLinkInput} mountOnEnter unmountOnExit>
-              <Box
-                display="flex"
-                flexDirection="row"
-                alignItems="center"
-                justifyContent="space-between"
+      <form>
+        <Fade in={showLinkInput} mountOnEnter unmountOnExit>
+          <Grid
+            container
+            aria-label="form-link-container"
+            spacing={1}
+            alignItems="center"
+          >
+            <Grid item xs={1}>
+              <IconButton
+                onClick={() => setShowLinkInput(false)}
+                sx={{
+                  border: "2px solid red",
+                }}
               >
-                <Button
-                  sx={{
-                    flexGrow: 1,
-                  }}
-                  variant="contained"
-                  onClick={() => setShowLinkInput(false)}
-                >
-                  search
-                </Button>
-                <FormLink
-                  sx={{
-                    flexGrow: 4,
-                  }}
-                  control={control}
-                  name="url"
-                  label="Paste your link"
-                />
-              </Box>
-            </Fade>
-            <Fade in={!showLinkInput}>
-              <Box
-                display="flex"
-                alignItems="center"
-                justifyContent="space-between"
-              >
-                <SearchRecommendation
-                  requestType={requestType}
-                  onValueChange={(value) => {
-                    reset({
-                      field1: value.field1,
-                      field2: value.field2,
-                      field3: value.field3,
-                      html: value.html,
-                      duplicate_from: value.id,
-                    });
-                  }}
-                />
+                <CancelOutlinedIcon color="red" />
+              </IconButton>
+            </Grid>
+            <Grid item xs={11}>
+              <FormLink control={control} name="url" label="Paste your link" />
+            </Grid>
+          </Grid>
+        </Fade>
+        <Fade in={!showLinkInput} mountOnEnter unmountOnExit>
+          <Box
+            display="flex"
+            alignItems="center"
+            justifyContent="space-between"
+          >
+            <SearchRecommendation
+              requestType={requestType}
+              onValueChange={(value) => {
+                reset({
+                  field1: value.field1,
+                  field2: value.field2,
+                  field3: value.field3,
+                  html: value.html,
+                  duplicate_from: value.id,
+                });
+              }}
+            />
 
-                <Button
-                  variant="contained"
-                  onClick={() => setShowLinkInput(true)}
-                >
-                  +
-                </Button>
-              </Box>
-            </Fade>
+            <Button variant="contained" onClick={() => setShowLinkInput(true)}>
+              +
+            </Button>
           </Box>
-        </Zoom>
+        </Fade>
 
         <Zoom in={Boolean(html)} unmountOnExit mountOnEnter>
-          <Box display="flex" flexDirection="column">
-            <Box
-              display="flex"
-              flexDirection="row"
-              alignItems="center"
-              justifyContent="flex-start"
-              gap={1}
-            >
-              <Button
-                sx={{
-                  flexGrow: 1,
-                }}
-                variant="contained"
-                onClick={() => reset({})}
-              >
-                <CancelOutlinedIcon />
-              </Button>
-              <FormText
-                sx={{
-                  flexGrow: 4,
-                }}
-                control={control}
-                name="field1"
-                label="Title"
-                disabled
-                rules={{ required: true }}
-              />
-            </Box>
-
-            <Divider />
-
+          <Stack aria-label="recommendation-container">
             <IFramely html={html} />
-          </Box>
+            <Accordion
+              elevation={0}
+              sx={{
+                width: "100%",
+              }}
+            >
+              <AccordionSummary>Details</AccordionSummary>
+              <AccordionDetails>
+                <Grid item container xs={12}>
+                  <Grid item xs={12}>
+                    <Typography
+                      variant="caption"
+                      sx={{
+                        color: "text.secondary",
+                      }}
+                    >
+                      Title
+                    </Typography>
+                  </Grid>
+                  <Grid item xs={12}>
+                    <Typography noWrap>{embed?.title}</Typography>
+                  </Grid>
+                  <Grid item xs={12}>
+                    <Typography
+                      variant="caption"
+                      sx={{
+                        color: "text.secondary",
+                      }}
+                    >
+                      Author
+                    </Typography>
+                  </Grid>
+                  <Grid item xs={12}>
+                    <Typography noWrap>{embed?.author}</Typography>
+                  </Grid>
+                </Grid>
+              </AccordionDetails>
+            </Accordion>
+          </Stack>
         </Zoom>
-      </Box>
+      </form>
     );
   }
 );

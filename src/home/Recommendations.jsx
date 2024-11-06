@@ -4,6 +4,7 @@ import {
   IconButton,
   MobileStepper,
   Slide,
+  Stack,
   Typography,
 } from "@mui/material";
 import { useGetRecommendations } from "../hooks/api/requests/useRecommendations";
@@ -34,27 +35,9 @@ export const Recommendations = ({ request }) => {
     );
 
   return (
-    <Box
-      display="flex"
-      sx={{
-        flexGrow: 1,
-        flexDirection: "column",
-        // backgroundColor: "primary.dark",
-        border: "1px solid",
-        borderColor: "secondary.main",
-        borderRadius: 5,
-        py: 2,
-      }}
-      onScroll={(e) => console.log(e)}
-    >
-      <Slide
-        key={activeIndex}
-        direction="right"
-        in={true}
-        mountOnEnter
-        unmountOnExit
-      >
-        <Box>
+    <Stack>
+      <Slide key={activeIndex} direction="right" in mountOnEnter unmountOnExit>
+        <Box aria-label="recommendation" display="flex">
           <Recommendation
             recommendation={recommendations[activeIndex]}
             request={request}
@@ -80,14 +63,12 @@ export const Recommendations = ({ request }) => {
             size="large"
             disabled={activeIndex === recommendations.length - 1}
             onClick={() => setActiveIndex(activeIndex + 1)}
+            variant="contained"
             sx={{
               mx: 5,
-              borderRadius: 10,
-              border: "1px solid",
-              borderColor: "primary.main",
             }}
           >
-            <KeyboardArrowRightIcon color="secondary" />
+            <KeyboardArrowRightIcon />
           </IconButton>
         }
         backButton={
@@ -95,17 +76,15 @@ export const Recommendations = ({ request }) => {
             size="large"
             disabled={activeIndex === 0}
             onClick={() => setActiveIndex(activeIndex - 1)}
+            variant="contained"
             sx={{
               mx: 5,
-              borderRadius: 10,
-              border: "1px solid",
-              borderColor: "primary.main",
             }}
           >
-            <KeyboardArrowLeftIcon color="secondary" />
+            <KeyboardArrowLeftIcon />
           </IconButton>
         }
       />
-    </Box>
+    </Stack>
   );
 };

@@ -1,8 +1,7 @@
 import { Avatar, Badge, Box, Skeleton, Stack, Typography } from "@mui/material";
-
-import LocalPostOfficeTwoToneIcon from "@mui/icons-material/LocalPostOfficeTwoTone";
-import LocalBarTwoToneIcon from "@mui/icons-material/LocalBarTwoTone";
-import SavingsTwoToneIcon from "@mui/icons-material/SavingsTwoTone";
+import SoupKitchenOutlinedIcon from "@mui/icons-material/SoupKitchenOutlined";
+import LocalBarIcon from "@mui/icons-material/LocalBar";
+import SavingsOutlinedIcon from "@mui/icons-material/SavingsOutlined";
 
 const Metrics = ({ user }) => {
   return (
@@ -20,53 +19,44 @@ const Metrics = ({ user }) => {
       }}
     >
       <Badge
-        color="yellow"
+        color="secondary"
         overlap="rectangular"
         badgeContent={user?.statistics?.requestsCount}
         showZero
-        sx={{
-          fontSize: 20,
-        }}
       >
-        <LocalPostOfficeTwoToneIcon
+        <SoupKitchenOutlinedIcon
           sx={{
-            // backgroundColor: "secondary.main",
-            fontSize: 50,
+            backgroundColor: "primary.main",
+            padding: 1,
+            fontSize: 60,
             borderRadius: "50%",
+            // color: "primary.dark",
           }}
         />
       </Badge>
       <Badge
-        color="yellow"
+        color="secondary"
         badgeContent={user?.statistics?.recommendationsCount}
-        sx={{
-          fontSize: 20,
-        }}
         showZero
       >
-        <LocalBarTwoToneIcon
-          // color="yellow"
+        <LocalBarIcon
           sx={{
-            // backgroundColor: "secondary.main",
-            fontSize: 50,
+            backgroundColor: "primary.main",
+            padding: 1,
+            fontSize: 60,
             borderRadius: "50%",
+            // color: "primary.dark",
           }}
         />
       </Badge>
-      <Badge
-        color="yellow"
-        badgeContent={user?.balance}
-        sx={{
-          fontSize: 20,
-        }}
-        showZero
-      >
-        <SavingsTwoToneIcon
-          // color="white"
+      <Badge color="secondary" badgeContent={user?.balance} showZero>
+        <SavingsOutlinedIcon
           sx={{
-            // backgroundColor: "secondary.main",
-            fontSize: 50,
+            backgroundColor: "primary.main",
+            padding: 1,
+            fontSize: 60,
             borderRadius: "50%",
+            // color: "primary.dark",
           }}
         />
       </Badge>
