@@ -4,13 +4,23 @@ import { useEffect } from "react";
 import { FormLink } from "../form/FormLink";
 
 export const SearchLink = ({ onChange = () => {} }) => {
-  const { control } = useForm();
+  const {
+    control,
+    formState: { isValid },
+  } = useForm({
+    reValidateMode: "onChange",
+  });
 
   const value = useWatch({
     control,
     name: "value",
   });
-  const { data: embed } = useEmbed(value);
+
+  const enabled = !!value && isValid;
+
+  const { data: embed } = useEmbed(value, {
+    enabled: enabled,
+  });
 
   useEffect(() => {
     if (embed) {
@@ -25,5 +35,5 @@ export const SearchLink = ({ onChange = () => {} }) => {
     }
   });
 
-  return <FormLink control={control} name="value" />;
+  return <FormLink control={control} name="value" rules={{ required: true }} />;
 };

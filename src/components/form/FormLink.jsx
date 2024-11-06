@@ -27,6 +27,12 @@ export const FormLink = ({
         value: /^(http|https):\/\/[^ "]+$/,
         message: "Invalid URL",
       },
+      validate: (value) => {
+        if (value?.startsWith("http://") || value?.startsWith("https://")) {
+          return true;
+        }
+        return "Invalid URL";
+      },
     },
     defaultValue: "",
   });
