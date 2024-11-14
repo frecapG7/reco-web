@@ -165,14 +165,9 @@ export const RequestDetails = ({ request }) => {
         </Grid>
       </Box>
 
-      <Paper
-        sx={{
-          p: 0,
-          // bgcolor: "primary.dark",
-        }}
-      >
+      <Box aria-label="recommendations">
         <Recommendations request={request} />
-      </Paper>
+      </Box>
 
       <RecommendationDialog
         open={openDialog}

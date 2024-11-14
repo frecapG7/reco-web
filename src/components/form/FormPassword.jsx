@@ -51,7 +51,6 @@ export const FormPassword = ({ control, name, label, rules, ...rest }) => {
         helperText={i18nFormError(error)}
         required={rules?.required}
         type={showPassword ? "text" : "password"}
-        variant="filled"
         color="secondary"
         InputProps={{
           endAdornment: (

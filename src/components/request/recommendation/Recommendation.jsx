@@ -1,17 +1,22 @@
 import {
   Avatar,
+  Box,
+  Button,
   Card,
   CardActions,
-  CardHeader,
+  CardContent,
   CardMedia,
-  IconButton,
+  Grid,
+  Stack,
+  Typography,
 } from "@mui/material";
 import { useLikeRecommendation } from "../../../hooks/api/requests/useRecommendations";
 
 import LocalBarRoundedIcon from "@mui/icons-material/LocalBarRounded";
-import ShareRoundedIcon from "@mui/icons-material/ShareRounded";
+import ReplyOutlinedIcon from "@mui/icons-material/ReplyOutlined";
 import { IFramely } from "../IFramely";
 import { useAuthSession } from "../../../context/AuthContext";
+import { i18nRelativeDate } from "../../../i18n/i18nTime";
 
 export const Recommendation = ({ request, recommendation }) => {
   const { session } = useAuthSession();
@@ -42,61 +47,74 @@ export const Recommendation = ({ request, recommendation }) => {
     }
   };
 
+  const html = recommendation.html;
+
   return (
     <Card
       elevation={0}
       sx={{
+        width: "100%",
         display: "flex",
-        flexDirection: "column",
-        backgroundColor: "inherit",
+        p: 0,
       }}
     >
-      <CardHeader
-        avatar={<Avatar />}
-        title={recommendation.user.name}
-        subheader={recommendation.user.title}
-        sx={{
-          maxHeight: 50,
-        }}
-      />
-      <CardMedia
-        sx={{
-          maxHeight: 500,
-        }}
-      >
-        <IFramely html={recommendation.html} />
-      </CardMedia>
-      <CardActions
-        // disableSpacing
-        sx={
-          {
-            // backgroundColor: "white",
-          }
-        }
-      >
-        <IconButton
-          onClick={handleLike}
+      <Grid container>
+        <Grid item xs={2}>
+          <CardContent
+            sx={{
+              // width: "100px",
+              // height: "100px",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <Stack aria-label="recommendation-user" alignItems="center">
+              <Avatar
+                src={recommendation.user.avatar}
+                alt={recommendation.user.name}
+              />
+              <Typography variant="h6">{recommendation.user.name}</Typography>
+              <Typography>
+                {i18nRelativeDate(recommendation.created_at)}
+              </Typography>
+            </Stack>
+          </CardContent>
+        </Grid>
+        <Grid
+          item
+          container
+          xs={10}
           sx={{
-            fontSize: 50,
-            border: "2px solid",
-            borderColor: "secondary.main",
-            backgroundColor: "secondary.main",
+            // display: "flex",
+            flexDirection: "column",
+            justifyContent: "space-between",
           }}
         >
-          <LocalBarRoundedIcon fontSize="large" />
-        </IconButton>
-        <IconButton
-          sx={{
-            fontSize: 50,
-            border: "2px solid",
-            borderColor: "secondary.main",
-            backgroundColor: "secondary.main",
-          }}
-          onClick={handleShare}
-        >
-          <ShareRoundedIcon fontSize="large" />
-        </IconButton>
-      </CardActions>
+          <CardMedia>
+            <IFramely html={html} />
+          </CardMedia>
+          <CardActions>
+            <Box
+              sx={{ flexGrow: 1, mx: 5 }}
+              justifyContent="flex-end"
+              display="flex"
+            >
+              <Button
+                onClick={handleLike}
+                variant={recommendation?.liked ? "contained" : "outlined"}
+                disabled={recommendation?.liked}
+              >
+                {recommendation?.likesCount}
+                <LocalBarRoundedIcon fontSize="large" />
+              </Button>
+              <Button onClick={handleShare} variant="outlined">
+                <ReplyOutlinedIcon fontSize="large" />
+              </Button>
+            </Box>
+          </CardActions>
+        </Grid>
+      </Grid>
     </Card>
   );
 };

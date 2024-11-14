@@ -7,14 +7,12 @@ import {
   Typography,
   Zoom,
 } from "@mui/material";
-import { FormAvatar } from "../../../components/form/FormAvatar";
 import { FormPrice } from "../../../components/form/FormPrice";
 import { FormRichEditor } from "../../../components/form/FormRichEditor";
 import { FormText } from "../../../components/form/FormText";
 import { useForm } from "react-hook-form";
 import { forwardRef, useEffect, useImperativeHandle } from "react";
 import { FormSelect } from "../../../components/form/FormSelect";
-import { DoNotDisturbOnTotalSilenceRounded } from "@mui/icons-material";
 
 export const MarketConsumableForm = forwardRef(
   ({ marketItem, onSubmit }, ref) => {
