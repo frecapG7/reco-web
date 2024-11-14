@@ -14,9 +14,9 @@ import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 
 export const Recommendations = ({ request }) => {
-  const { data: recommendations, isLoading } = useGetRecommendations(
-    request.id
-  );
+  const { data, isLoading } = useGetRecommendations(request.id, "likes", 3);
+
+  const recommendations = data?.pages.flatMap((page) => page.results);
 
   const [activeIndex, setActiveIndex] = useState(0);
 
@@ -62,7 +62,10 @@ export const Recommendations = ({ request }) => {
           <IconButton
             size="large"
             disabled={activeIndex === recommendations.length - 1}
-            onClick={() => setActiveIndex(activeIndex + 1)}
+            onClick={(e) => {
+              e.preventDefault();
+              setActiveIndex(activeIndex + 1);
+            }}
             variant="contained"
             sx={{
               mx: 5,
@@ -75,7 +78,10 @@ export const Recommendations = ({ request }) => {
           <IconButton
             size="large"
             disabled={activeIndex === 0}
-            onClick={() => setActiveIndex(activeIndex - 1)}
+            onClick={(e) => {
+              e.preventDefault();
+              setActiveIndex(activeIndex - 1);
+            }}
             variant="contained"
             sx={{
               mx: 5,

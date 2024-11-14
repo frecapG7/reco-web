@@ -1,22 +1,22 @@
 import {
   Avatar,
   Box,
+  Button,
   Card,
   CardActions,
   CardContent,
-  CardHeader,
   CardMedia,
   Grid,
-  IconButton,
   Stack,
   Typography,
 } from "@mui/material";
 import { useLikeRecommendation } from "../../../hooks/api/requests/useRecommendations";
 
 import LocalBarRoundedIcon from "@mui/icons-material/LocalBarRounded";
-import ShareRoundedIcon from "@mui/icons-material/ShareRounded";
+import ReplyOutlinedIcon from "@mui/icons-material/ReplyOutlined";
 import { IFramely } from "../IFramely";
 import { useAuthSession } from "../../../context/AuthContext";
+import { i18nRelativeDate } from "../../../i18n/i18nTime";
 
 export const Recommendation = ({ request, recommendation }) => {
   const { session } = useAuthSession();
@@ -48,28 +48,36 @@ export const Recommendation = ({ request, recommendation }) => {
   };
 
   const html = recommendation.html;
-  // '<div><div style="left: 0; width: 100%; height: 140px; position: relative;"><iframe src="//cdn.iframe.ly/api/iframe?card=small&app=1&url=https%3A%2F%2Fwww.babelio.com%2Flivres%2FHamilton-Letoile-de-Pandore-tome-1--Pandore-abusee%2F1412421&key=3bfef4cf586ad76048e1aff7cbc5f05e" style="top: 0; left: 0; width: 100%; height: 100%; position: absolute; border: 0;" allowfullscreen></iframe></div></div>';h
-  // '<div><div style="left: 0; width: 100%; height: 140px; position: relative;"><iframe src="//cdn.iframe.ly/api/iframe?card=small&app=1&url=https%3A%2F%2Fsoundcloud.com%2Fcerclelive%2Fmaz-antdot-run-radio-edit%3Fsi%3D2c3644debf954180b13d76f67e3ca6c0%26utm_source%3Dclipboard%26utm_medium%3Dtext%26utm_campaign%3Dsocial_sharing&key=3bfef4cf586ad76048e1aff7cbc5f05e" style="top: 0; left: 0; width: 100%; height: 100%; position: absolute; border: 0;" allowfullscreen allow="autoplay *;"></iframe></div></div>';
 
   return (
     <Card
-      // variant="outlined"
+      elevation={0}
       sx={{
         width: "100%",
         display: "flex",
         p: 0,
-        // backgroundColor: "primary.main",
       }}
     >
       <Grid container>
         <Grid item xs={2}>
-          <CardContent>
+          <CardContent
+            sx={{
+              // width: "100px",
+              // height: "100px",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
             <Stack aria-label="recommendation-user" alignItems="center">
               <Avatar
                 src={recommendation.user.avatar}
                 alt={recommendation.user.name}
               />
-              <Typography>{recommendation.user.name}</Typography>
+              <Typography variant="h6">{recommendation.user.name}</Typography>
+              <Typography>
+                {i18nRelativeDate(recommendation.created_at)}
+              </Typography>
             </Stack>
           </CardContent>
         </Grid>
@@ -87,12 +95,23 @@ export const Recommendation = ({ request, recommendation }) => {
             <IFramely html={html} />
           </CardMedia>
           <CardActions>
-            <IconButton onClick={handleLike}>
-              <LocalBarRoundedIcon />
-            </IconButton>
-            <IconButton onClick={handleShare}>
-              <ShareRoundedIcon />
-            </IconButton>
+            <Box
+              sx={{ flexGrow: 1, mx: 5 }}
+              justifyContent="flex-end"
+              display="flex"
+            >
+              <Button
+                onClick={handleLike}
+                variant={recommendation?.liked ? "contained" : "outlined"}
+                disabled={recommendation?.liked}
+              >
+                {recommendation?.likesCount}
+                <LocalBarRoundedIcon fontSize="large" />
+              </Button>
+              <Button onClick={handleShare} variant="outlined">
+                <ReplyOutlinedIcon fontSize="large" />
+              </Button>
+            </Box>
           </CardActions>
         </Grid>
       </Grid>

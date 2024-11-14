@@ -24,6 +24,7 @@ let theme = createTheme({
     background: {
       default: "#EFE5F5",
       contrastText: "#fff",
+      light: "#f8f8f8",
     },
     white: "#fff",
     yellow: {
@@ -245,8 +246,8 @@ theme = createTheme(theme, {
     MuiAvatar: {
       styleOverrides: {
         root: {
-          width: "7rem",
-          height: "7rem",
+          width: "10vh",
+          height: "10vh",
           // borderWidth: 2,
           // borderStyle: "solid",
           // borderColor: theme.palette.primary.dark,
@@ -258,6 +259,25 @@ theme = createTheme(theme, {
       styleOverrides: {
         root: {
           backgroundColor: theme.palette.background.default,
+        },
+      },
+    },
+    MuiCard: {
+      styleOverrides: {
+        root: {
+          borderRadius: 20,
+          padding: 20,
+          backgroundColor: theme.palette.background.default,
+        },
+      },
+    },
+    MuiListSubheader: {
+      styleOverrides: {
+        root: {
+          backgroundColor: theme.palette.background.default,
+          // color: theme.palette.primary.contrastText,
+          fontWeight: "bold",
+          fontSize: 24,
         },
       },
     },

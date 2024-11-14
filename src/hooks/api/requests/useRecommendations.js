@@ -1,15 +1,39 @@
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import {
+  useInfiniteQuery,
+  useMutation,
+  useQueryClient,
+} from "@tanstack/react-query";
 import { get, post } from "../index";
 
-const getRecommendations = async (requestId) => {
-  const response = await get(`/api/requests/${requestId}/recommendations`);
+const getRecommendations = async (requestId, sort, pageSize, pageNumber) => {
+  const response = await get(`/api/requests/${requestId}/recommendations`, {
+    params: {
+      sort: sort || "likes",
+      pageSize: pageSize || 1,
+      pageNumber: pageNumber || 0,
+    },
+  });
   return response;
 };
 
-export const useGetRecommendations = (requestId) => {
-  return useQuery({
-    queryKey: ["requests", requestId, "recommendations"],
-    queryFn: () => getRecommendations(requestId),
+export const useGetRecommendations = (requestId, sort, pageSize) => {
+  return useInfiniteQuery({
+    queryKey: [
+      "requests",
+      requestId,
+      "recommendations",
+      "sort",
+      sort,
+      pageSize,
+    ],
+    queryFn: ({ pageParam }) =>
+      getRecommendations(requestId, sort, pageSize, pageParam),
+    initialPageParam: 1,
+    getNextPageParam: (lastPage) => {
+      if (lastPage.pagination?.currentPage < lastPage.pagination?.totalPages)
+        return lastPage.pagination.currentPage + 1;
+      return undefined;
+    },
   });
 };
 

@@ -23,6 +23,7 @@ import { AdminUserDetails } from "./admin/users/details/AdminUserDetails";
 import { AdminUserDetailsPurchasesTab } from "./admin/users/details/AdminUserDetailsPurchasesTab";
 import { AdminUserDetailsActivityTab } from "./admin/users/details/AdminUserDetailsActivityTab";
 import { AdminUserDetailsTab } from "./admin/users/details/AdminUserDetailsTab";
+import { RequestDetails } from "./requests/RequestDetails";
 
 export const routes = [
   {
@@ -92,6 +93,10 @@ export const routes = [
           {
             path: "new",
             element: <CreateRequest />,
+          },
+          {
+            path: ":id",
+            element: <RequestDetails />,
           },
         ],
       },
