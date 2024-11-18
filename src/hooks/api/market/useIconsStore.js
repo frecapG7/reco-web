@@ -32,24 +32,20 @@ export const useGetTrendingIconItems = () => {
   });
 };
 
-export const useSearchIconItems = (search) => {
+export const useSearchIconItems = (search, pageSize) => {
   return useInfiniteQuery({
     queryKey: ["stores", "icons", "search", search],
     queryFn: ({ pageParam }) =>
       getIconItems({
         value: search,
-        pageSize: 1,
+        pageSize,
         pageNumber: pageParam,
       }),
     initialPageParam: 1,
     getNextPageParam: (lastPage) => {
-      let value;
       if (lastPage.pagination?.currentPage < lastPage.pagination?.totalPages)
-        value = lastPage.pagination.currentPage + 1;
-      else value = undefined;
-
-      console.log(value);
-      return value;
+        return lastPage.pagination.currentPage + 1;
+      else return undefined;
     },
   });
 };
@@ -67,5 +63,16 @@ export const useBuyIconItem = () => {
     onSuccess: () => {
       Promise.all([queryClient.invalidateQueries("stores")]).then(() => {});
     },
+  });
+};
+
+export const useGetFreeIconItems = () => {
+  return useQuery({
+    queryKey: ["stores", "icons", "free"],
+    queryFn: () =>
+      getIconItems({
+        pageSize: 3,
+        pageNumber: 1,
+      }).then((res) => res.results),
   });
 };

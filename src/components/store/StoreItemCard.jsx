@@ -27,6 +27,10 @@ export const StoreItemCard = ({
     <Card
       sx={{
         maxWidth: 345,
+        height: "100%",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "space-between",
       }}
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
@@ -38,7 +42,9 @@ export const StoreItemCard = ({
           }}
         >
           <CardMedia component="img" height="250" image={icon} alt={name} />
-          <Typography variant="title">{label}</Typography>
+          <Typography variant="title" textAlign="center">
+            {label}
+          </Typography>
         </CardContent>
         <Slide in={hover} timeout={300} direction="up">
           <Paper
@@ -65,7 +71,13 @@ export const StoreItemCard = ({
           </Paper>
         </Slide>
       </CardActionArea>
-      <CardActions>
+      <CardActions
+        sx={{
+          width: "100%",
+          display: "flex",
+          justifyContent: "center",
+        }}
+      >
         <Button variant="contained" color="primary" onClick={onClick}>
           {price}
           <MonetizationOnOutlinedIcon />

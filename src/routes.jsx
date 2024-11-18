@@ -165,14 +165,14 @@ export const routes = [
         path: "login",
         element: <Login />,
       },
+      {
+        path: "sign-up",
+        element: <Signup />,
+      },
     ],
   },
   {
     path: "sign-in",
     element: <Login />,
-  },
-  {
-    path: "sign-up",
-    element: <Signup />,
   },
 ];

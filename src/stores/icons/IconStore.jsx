@@ -27,7 +27,8 @@ export const IconStore = () => {
   });
 
   const { data, hasNextPage, fetchNextPage } = useSearchIconItems(
-    filters?.search
+    filters?.search,
+    10
   );
 
   const icons = useMemo(
