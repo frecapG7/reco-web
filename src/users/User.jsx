@@ -1,7 +1,6 @@
 import { useParams } from "react-router-dom";
 import { useGetUser } from "../hooks/api/users/useUsers";
 import {
-  Box,
   CircularProgress,
   Container,
   Divider,
