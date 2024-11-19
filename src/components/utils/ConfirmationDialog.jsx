@@ -52,7 +52,7 @@ const ConfirmationDialog = ({
         onClose={onCancel}
         aria-label="confirmation-dialog"
         scroll="body"
-        // maxWidth="md"
+        maxWidth="sm"
         // fullWidth
       >
         <DialogTitle align="center">{title}</DialogTitle>

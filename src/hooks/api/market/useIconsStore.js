@@ -65,14 +65,3 @@ export const useBuyIconItem = () => {
     },
   });
 };
-
-export const useGetFreeIconItems = () => {
-  return useQuery({
-    queryKey: ["stores", "icons", "free"],
-    queryFn: () =>
-      getIconItems({
-        pageSize: 3,
-        pageNumber: 1,
-      }).then((res) => res.results),
-  });
-};

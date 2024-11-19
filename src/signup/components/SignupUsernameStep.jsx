@@ -1,5 +1,5 @@
 import { FormText } from "../../components/form/FormText";
-import { useForm, useFormContext } from "react-hook-form";
+import { useFormContext } from "react-hook-form";
 import { useValidateUsername } from "../../hooks/api/validate/useValidate";
 
 export const SignupUsernameStep = () => {

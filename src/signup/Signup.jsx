@@ -99,10 +99,13 @@ export const Signup = () => {
       }}
     >
       <Stack spacing={1}>
-        <Box align="center">
-          <Typography variant="title">
-            {step + 1}/{steps.length} {steps[step]?.label}
-          </Typography>
+        <Box display="flex" justifyContent="center" alignItems="center">
+          <Fade in={step !== 0}>
+            <IconButton onClick={() => setStep(step - 1)}>
+              <ArrowBackIcon />
+            </IconButton>
+          </Fade>
+          <Typography variant="title">{steps[step]?.label}</Typography>
         </Box>
 
         <form>
@@ -114,13 +117,9 @@ export const Signup = () => {
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
+              flexDirection: "column",
             }}
           >
-            <Fade in={step !== 0}>
-              <IconButton onClick={() => setStep(step - 1)}>
-                <ArrowBackIcon />
-              </IconButton>
-            </Fade>
             <FormProvider {...methods}>
               <Slide in direction="left" key={step}>
                 <Box align="center" width="100%">

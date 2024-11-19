@@ -1,4 +1,5 @@
 import {
+  Alert,
   Avatar,
   Badge,
   Box,
@@ -8,22 +9,29 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import { useGetFreeIconItems } from "../../hooks/api/market/useIconsStore";
 
 import CheckCircleRoundedIcon from "@mui/icons-material/CheckCircleRounded";
 import { useController, useFormContext } from "react-hook-form";
+import { useGetSignupAvatars } from "../../hooks/api/users/useUsers";
+import { i18nFormError } from "../../utils/i18n";
 
 export const SignupAvatarStep = () => {
   const { control } = useFormContext();
-  const { data } = useGetFreeIconItems();
+  const { data: avatars } = useGetSignupAvatars();
 
   const {
     field: { onChange, value },
+    fieldState: { error },
   } = useController({
     control,
     name: "icon_id",
     defaultValue: "",
-    rules: { required: true },
+    rules: {
+      required: {
+        value: true,
+        message: "Please select an avatar",
+      },
+    },
   });
 
   return (
@@ -42,7 +50,7 @@ export const SignupAvatarStep = () => {
             flexDirection: ["column", "row"],
           }}
         >
-          {data?.map((item) => (
+          {avatars?.map((item) => (
             <FormControlLabel
               key={item._id}
               value={item._id}
@@ -101,6 +109,11 @@ export const SignupAvatarStep = () => {
           ))}
         </Box>
       </RadioGroup>
+      {error && (
+        <Alert severity="error" sx={{ mt: 2 }}>
+          {i18nFormError(error)}
+        </Alert>
+      )}
     </>
   );
 };

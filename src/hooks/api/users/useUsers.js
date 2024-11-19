@@ -32,6 +32,17 @@ export const useSignup = (options) => {
   });
 };
 
+const getSignupAvatars = async () => {
+  return await get("/api/users/signup/avatars");
+};
+export const useGetSignupAvatars = (options) => {
+  return useQuery({
+    queryKey: ["signup", "avatars"],
+    queryFn: getSignupAvatars,
+    ...options,
+  });
+};
+
 const getLastRequests = async (id) => {
   const response = await get(`/api/users/${id}/requests`);
   return response;
