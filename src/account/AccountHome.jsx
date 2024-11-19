@@ -8,13 +8,10 @@ import {
   Stack,
   Tab,
   Tabs,
-  Typography,
   Zoom,
 } from "@mui/material";
-import { UserAvatar } from "../components/user/icons/UserAvatar";
 import { Outlet, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { UserStats } from "../components/user/statistics/UserStats";
 import { UserSummary } from "../components/user/UserSummary";
 export const AccountHome = () => {
   const { session } = useAuthSession();

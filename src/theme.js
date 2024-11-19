@@ -26,6 +26,10 @@ let theme = createTheme({
       contrastText: "#fff",
       light: "#f8f8f8",
     },
+    cancel: {
+      main: "#f44336",
+    },
+
     white: "#fff",
     yellow: {
       main: "#fcf424",
@@ -192,8 +196,10 @@ theme = createTheme(theme, {
     MuiDialogContent: {
       styleOverrides: {
         root: {
+          display: "flex",
+          flexDirection: "column",
           padding: 20,
-          minHeight: 200,
+          // minHeight: 200,
           marginTop: 20,
           marginBottom: 20,
           backgroundColor: theme.palette.background.default,

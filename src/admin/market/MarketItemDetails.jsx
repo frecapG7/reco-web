@@ -25,6 +25,8 @@ import { useMemo, useRef, useState } from "react";
 import { MarketItemForm } from "./forms/MartketItemForm";
 
 import { confirm } from "../../components/utils/ConfirmationDialog";
+import { StoreItemIcon } from "../../components/store/StoreItemIcon";
+import EditIcon from "@mui/icons-material/Edit";
 
 export const MarketItemDetails = () => {
   const { id } = useParams();
@@ -72,6 +74,20 @@ export const MarketItemDetails = () => {
     );
   };
 
+  const handleFreeOnSignup = () => {
+    updateItem.mutate(
+      {
+        ...marketItem,
+        freeOnSignup: !marketItem?.freeOnSignup,
+      },
+      {
+        onSuccess: () => {
+          alert("Item enabled successfully");
+        },
+      }
+    );
+  };
+
   const onDisable = () => {
     confirm({
       description: "Are you sure you want to disable this item?",
@@ -101,7 +117,7 @@ export const MarketItemDetails = () => {
 
   return (
     <Container>
-      <Paper
+      <Box
         aria-label="admin-container"
         sx={{
           my: 2,
@@ -110,31 +126,65 @@ export const MarketItemDetails = () => {
         <Stack spacing={2}>
           <Box
             display="flex"
-            justifyContent="space-between"
+            justifyContent="space-around"
             alignItems="center"
             aria-label="admin-header-container"
           >
-            <Box>
+            <Box align="center">
+              <StoreItemIcon type={marketItem.type} fontSize="large" />
               <Typography variant="h5" paragraph>
                 {marketItem.name}
               </Typography>
-              <Typography>{marketItem.type}</Typography>
             </Box>
-            <Paper
-              variant="outlined"
-              sx={{
-                borderRadius: 15,
-              }}
-            >
-              {marketItem.price}
-            </Paper>
-            <Button
-              variant="contained"
-              color="secondary"
-              onClick={() => setEdit(!edit)}
-            >
-              {edit ? "Cancel" : "Edit"}
-            </Button>
+
+            <Typography variant="h6" paragraph>
+              {marketItem.price} Piasses
+            </Typography>
+
+            <Stack direction="row" spacing={5}>
+              {marketItem.type === "IconItem" && (
+                <Stack direction="column" alignItems="center">
+                  <Typography variant="label">Free on signup</Typography>
+                  {JSON.stringify(marketItem.freeOnSignup)}
+                  <IconButton onClick={handleFreeOnSignup}>
+                    {marketItem?.freeOnSignup ? (
+                      <CheckCircleOutlineOutlinedIcon
+                        color="success"
+                        fontSize="large"
+                      />
+                    ) : (
+                      <CancelOutlinedIcon color="error" fontSize="large" />
+                    )}
+                  </IconButton>
+                </Stack>
+              )}
+
+              <Stack direction="column" alignItems="center">
+                <Typography variant="label">Enabled</Typography>
+                <IconButton>
+                  {marketItem?.enabled ? (
+                    <CheckCircleOutlineOutlinedIcon
+                      color="success"
+                      onClick={onDisable}
+                      fontSize="large"
+                    />
+                  ) : (
+                    <CancelOutlinedIcon
+                      color="error"
+                      onClick={onEnable}
+                      fontSize="large"
+                    />
+                  )}
+                </IconButton>
+              </Stack>
+              <IconButton
+                variant="contained"
+                // color={edit ? "cancel.main" : "primary"}
+                onClick={() => setEdit(!edit)}
+              >
+                {edit ? <CancelOutlinedIcon color="cancel" /> : <EditIcon />}
+              </IconButton>
+            </Stack>
           </Box>
           <Divider />
 
@@ -156,27 +206,9 @@ export const MarketItemDetails = () => {
               <Typography variant="label">Last modification</Typography>
               <Typography>{i18nDateTime(marketItem.modified_at)}</Typography>
             </Stack>
-            <Stack direction="column" alignItems="center">
-              <Typography variant="label">Enabled</Typography>
-              <IconButton>
-                {marketItem?.enabled ? (
-                  <CheckCircleOutlineOutlinedIcon
-                    color="success"
-                    onClick={onDisable}
-                    fontSize="small"
-                  />
-                ) : (
-                  <CancelOutlinedIcon
-                    color="error"
-                    onClick={onEnable}
-                    fontSize="large"
-                  />
-                )}
-              </IconButton>
-            </Stack>
           </Box>
         </Stack>
-      </Paper>
+      </Box>
 
       <Zoom in={!edit} mountOnEnter unmountOnExit>
         <Paper

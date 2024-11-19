@@ -13,3 +13,16 @@ export const useValidateToken = () => {
     mutationFn: (data) => validateToken(data),
   });
 };
+
+const validateUsername = async (username) => {
+  const response = await post("/api/validate/username", {
+    value: username,
+  });
+  return response;
+};
+
+export const useValidateUsername = () => {
+  return useMutation({
+    mutationFn: (data) => validateUsername(data),
+  });
+};

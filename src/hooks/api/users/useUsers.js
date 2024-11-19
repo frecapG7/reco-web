@@ -19,17 +19,26 @@ export const useGetUser = (id, options) => {
   });
 };
 
-const createUser = async (data, token) => {
-  const response = await post("/api/users", data, {
-    params: { token },
-  });
+const signup = async (data) => {
+  const response = await post("/api/users/signup", data);
   return response;
 };
 
-export const useCreateUser = (options) => {
+export const useSignup = (options) => {
   return useMutation({
-    mutationFn: ({ data, token }) => createUser(data, token),
+    mutationFn: (data) => signup(data),
     onSuccess: () => {},
+    ...options,
+  });
+};
+
+const getSignupAvatars = async () => {
+  return await get("/api/users/signup/avatars");
+};
+export const useGetSignupAvatars = (options) => {
+  return useQuery({
+    queryKey: ["signup", "avatars"],
+    queryFn: getSignupAvatars,
     ...options,
   });
 };

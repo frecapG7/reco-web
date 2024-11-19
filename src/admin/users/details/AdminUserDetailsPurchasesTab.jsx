@@ -1,5 +1,4 @@
 import { useOutletContext } from "react-router-dom";
-import { UserPurchases } from "../../../components/user/purchases/UserPurchases";
 import { useForm, useWatch } from "react-hook-form";
 import { useGetPurchases } from "../../../hooks/api/users/useUsers";
 import { Box, Grid } from "@mui/material";
