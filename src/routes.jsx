@@ -21,9 +21,9 @@ import { MyPurchases } from "./account/my-purchases/MyPurcharses";
 import { PurchaseDetails } from "./account/my-purchases/PurchaseDetails";
 import { AdminUserDetails } from "./admin/users/details/AdminUserDetails";
 import { AdminUserDetailsPurchasesTab } from "./admin/users/details/AdminUserDetailsPurchasesTab";
-import { AdminUserDetailsActivityTab } from "./admin/users/details/AdminUserDetailsActivityTab";
-import { AdminUserDetailsTab } from "./admin/users/details/AdminUserDetailsTab";
+import { AdminUserDetailsMetricsTab } from "./admin/users/details/AdminUserDetailsMetricsTab";
 import { RequestDetails } from "./requests/RequestDetails";
+import { AdminUserDetailsRequestsTab } from "./admin/users/details/AdminUserDetailsRequestsTab";
 
 export const routes = [
   {
@@ -54,11 +54,11 @@ export const routes = [
                 children: [
                   {
                     path: "",
-                    element: <AdminUserDetailsTab />,
+                    element: <AdminUserDetailsMetricsTab />,
                   },
                   {
-                    path: "activity",
-                    element: <AdminUserDetailsActivityTab />,
+                    path: "requests",
+                    element: <AdminUserDetailsRequestsTab />,
                   },
                   {
                     path: "purchases",
