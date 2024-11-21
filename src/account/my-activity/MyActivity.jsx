@@ -1,18 +1,14 @@
 import { Box, Divider, Stack, Typography } from "@mui/material";
 import { useOutletContext } from "react-router-dom";
-import {
-  useGetLastRecommendations,
-  useGetLastRequests,
-} from "../../hooks/api/users/useUsers";
-import { LastRequests } from "../../components/user/requests/LastRequests";
+import { useGetLastRecommendations } from "../../hooks/api/users/useUsers";
 import { LastRecommendations } from "../../components/user/requests/LastRecommendations";
 
 export const MyActivity = () => {
   const { user } = useOutletContext();
 
-  const { data: lastRequests, isLoading: requestLoading } = useGetLastRequests(
-    user.id
-  );
+  // const { data: lastRequests, isLoading: requestLoading } = useGetLastRequests(
+  //   user.id
+  // );
   const { data: lastRecommendations, isLoading: recommendationLoading } =
     useGetLastRecommendations(user.id);
 
@@ -23,10 +19,10 @@ export const MyActivity = () => {
           <Typography paragraph gutterBottom>
             You made {user?.statistics?.requestsCount} requests in total.
           </Typography>
-          <LastRequests
+          {/* <LastRequests
             lastRequests={lastRequests}
             isLoading={requestLoading}
-          />
+          /> */}
         </Box>
 
         <Box aria-label="last-recommendations">

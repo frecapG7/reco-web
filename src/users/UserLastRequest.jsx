@@ -1,13 +1,12 @@
 import { Box, Typography } from "@mui/material";
 
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import { useGetLastRequests } from "../hooks/api/users/useUsers";
 import { LastRequests } from "../components/user/requests/LastRequests";
 
 export const UserLastRequest = ({ user }) => {
-  const { data: lastRequests, isLoading } = useGetLastRequests(user.id, {
-    enabled: user?.privacy?.showRequests,
-  });
+  // const { data: lastRequests, isLoading } = useGetLastRequests(user.id, {
+  //   enabled: user?.privacy?.showRequests,
+  // });
 
   if (!user?.privacy?.showRequests)
     return (
@@ -21,7 +20,7 @@ export const UserLastRequest = ({ user }) => {
 
   return (
     <Box display="flex">
-      <LastRequests lastRequests={lastRequests} isLoading={isLoading} />
+      <LastRequests lastRequests={[]} isLoading={true} />
     </Box>
   );
 };

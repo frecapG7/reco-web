@@ -165,3 +165,19 @@ export const useGetMetrics = (id, options) => {
     ...options,
   });
 };
+
+const getBalance = async (id, detailled) => {
+  return await get(`/api/users/${id}/balance`, {
+    params: {
+      detailled,
+    },
+  });
+};
+
+export const useGetBalance = (id, detailled, options) => {
+  return useQuery({
+    queryKey: ["users", id, "balance", detailled],
+    queryFn: () => getBalance(id, detailled),
+    ...options,
+  });
+};

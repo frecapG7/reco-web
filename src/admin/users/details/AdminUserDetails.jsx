@@ -56,7 +56,7 @@ export const AdminUserDetails = () => {
           aria-label="user-summary"
           display="flex"
           flexDirection="row"
-          justifyContent="space-between"
+          justifyContent="space-around"
           alignItems="center"
           sx={{
             marginBottom: 2,

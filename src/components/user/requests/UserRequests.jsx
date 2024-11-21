@@ -58,7 +58,7 @@ export const UserRequests = ({ user }) => {
               >
                 <CardHeader
                   avatar={
-                    <Avatar backgroundColor="primary.main">
+                    <Avatar>
                       <RequestType requestType={request?.requestType} />
                     </Avatar>
                   }

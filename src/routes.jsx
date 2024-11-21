@@ -24,6 +24,7 @@ import { AdminUserDetailsPurchasesTab } from "./admin/users/details/AdminUserDet
 import { AdminUserDetailsMetricsTab } from "./admin/users/details/AdminUserDetailsMetricsTab";
 import { RequestDetails } from "./requests/RequestDetails";
 import { AdminUserDetailsRequestsTab } from "./admin/users/details/AdminUserDetailsRequestsTab";
+import { MyRequests } from "./account/my-requests/MyRequests";
 
 export const routes = [
   {
@@ -139,8 +140,8 @@ export const routes = [
             element: <AccountDetails />,
           },
           {
-            path: "my-activity",
-            element: <MyActivity />,
+            path: "my-requests",
+            element: <MyRequests />,
           },
           {
             path: "my-purchases",
