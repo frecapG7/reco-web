@@ -43,28 +43,54 @@ export const useGetSignupAvatars = (options) => {
   });
 };
 
-const getLastRequests = async (id) => {
-  const response = await get(`/api/users/${id}/requests`);
+const getRequests = async (id, pageNumber, pageSize, params) => {
+  const response = await get(`/api/users/${id}/requests`, {
+    params: {
+      pageNumber: pageNumber || 0,
+      pageSize: pageSize || 1,
+      ...params,
+    },
+  });
   return response;
 };
 
-export const useGetLastRequests = (id, options) => {
-  return useQuery({
-    queryKey: ["users", id, "requests"],
-    queryFn: () => getLastRequests(id),
+export const useGetRequests = (id, pageSize, params, options) => {
+  return useInfiniteQuery({
+    queryKey: ["users", id, "requests", pageSize, params],
+    queryFn: ({ pageParam }) => getRequests(id, pageParam, pageSize, params),
+    initialPageParam: 1,
+    getNextPageParam: (lastPage) => {
+      if (lastPage.pagination?.currentPage < lastPage.pagination?.totalPages)
+        return lastPage.pagination.currentPage + 1;
+      return undefined;
+    },
     ...options,
   });
 };
 
-const getLastRecommendations = async (id) => {
-  const response = await get(`/api/users/${id}/recommendations`);
+const getRecommendations = async (id, pageNumber, pageSize, params) => {
+  const response = await get(`/api/users/${id}/recommendations`, {
+    params: {
+      pageNumber: pageNumber || 0,
+      pageSize: pageSize || 1,
+      ...params,
+    },
+  });
+
   return response;
 };
 
-export const useGetLastRecommendations = (id, options) => {
-  return useQuery({
-    queryKey: ["users", id, "recommendations"],
-    queryFn: () => getLastRecommendations(id),
+export const useGetRecommendations = (id, pageSize, params, options) => {
+  return useInfiniteQuery({
+    queryKey: ["users", id, "recommendations", pageSize, params],
+    queryFn: ({ pageParam }) =>
+      getRecommendations(id, pageParam, pageSize, params),
+    initialPageParam: 1,
+    getNextPageParam: (lastPage) => {
+      if (lastPage.pagination?.currentPage < lastPage.pagination?.totalPages)
+        return lastPage.pagination.currentPage + 1;
+      return undefined;
+    },
     ...options,
   });
 };
@@ -137,6 +163,35 @@ export const useRedeemPurchase = (id, purchaseId, options) => {
     onSuccess: () => {
       queryClient.invalidateQueries(["users", id, "purchases"]);
     },
+    ...options,
+  });
+};
+
+const getMetrics = async (id) => {
+  const response = await get(`/api/users/${id}/metrics`);
+  return response;
+};
+
+export const useGetMetrics = (id, options) => {
+  return useQuery({
+    queryKey: ["users", id, "metrics"],
+    queryFn: () => getMetrics(id),
+    ...options,
+  });
+};
+
+const getBalance = async (id, detailled) => {
+  return await get(`/api/users/${id}/balance`, {
+    params: {
+      detailled,
+    },
+  });
+};
+
+export const useGetBalance = (id, detailled, options) => {
+  return useQuery({
+    queryKey: ["users", id, "balance", detailled],
+    queryFn: () => getBalance(id, detailled),
     ...options,
   });
 };

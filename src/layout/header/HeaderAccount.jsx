@@ -2,21 +2,21 @@ import {
   Avatar,
   Badge,
   Box,
-  Icon,
   IconButton,
   ListItemIcon,
   ListItemText,
   Menu,
   MenuItem,
   MenuList,
+  Stack,
 } from "@mui/material";
 import { useState } from "react";
 import Face5OutlinedIcon from "@mui/icons-material/Face5Outlined";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import { useNavigate } from "react-router-dom";
-import SavingsTwoToneIcon from "@mui/icons-material/SavingsTwoTone";
+import SavingsOutlinedIcon from "@mui/icons-material/SavingsOutlined";
 
-import { useGetUser } from "../../hooks/api/users/useUsers";
+import { useGetBalance, useGetUser } from "../../hooks/api/users/useUsers";
 
 export const HeaderAccount = ({ user }) => {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -25,21 +25,26 @@ export const HeaderAccount = ({ user }) => {
   const navigate = useNavigate();
 
   const { data } = useGetUser(user?.id);
+  const { data: balance } = useGetBalance(user?.id);
 
   return (
     <Box>
-      <IconButton
-        id="account-menu-button"
-        aria-controls={open ? "account-menu" : undefined}
-        aria-haspopup="true"
-        aria-expanded={open ? "true" : undefined}
-        onClick={(event) => setAnchorEl(event.currentTarget)}
-      >
+      <Stack spacing={1} direction="row" alignItems="center">
         <Badge
           showZero
-          badgeContent={data?.balance}
-          color="yellow"
+          badgeContent={balance?.balance}
+          color="success"
           overlap="rectangular"
+        >
+          <SavingsOutlinedIcon color="yellow" />
+        </Badge>
+
+        <IconButton
+          id="account-menu-button"
+          aria-controls={open ? "account-menu" : undefined}
+          aria-haspopup="true"
+          aria-expanded={open ? "true" : undefined}
+          onClick={(event) => setAnchorEl(event.currentTarget)}
         >
           <Avatar
             src={data?.avatar}
@@ -49,8 +54,8 @@ export const HeaderAccount = ({ user }) => {
               height: 32,
             }}
           />
-        </Badge>
-      </IconButton>
+        </IconButton>
+      </Stack>
 
       <Menu
         id="account-menu"
@@ -83,6 +88,18 @@ export const HeaderAccount = ({ user }) => {
             </ListItemIcon>
             <ListItemText primary="Profile" />
           </MenuItem>
+          <MenuItem
+            onClick={() => {
+              navigate("./account/my-purchases");
+              setAnchorEl(null);
+            }}
+          >
+            <ListItemIcon>
+              <SettingsOutlinedIcon />
+            </ListItemIcon>
+            <ListItemText primary="Purchases" />
+          </MenuItem>
+
           <MenuItem
             onClick={() => {
               navigate("./account/settings");

@@ -1,4 +1,10 @@
-import { Box, IconButton, Typography, useMediaQuery } from "@mui/material";
+import {
+  Box,
+  IconButton,
+  Fade,
+  Typography,
+  useMediaQuery,
+} from "@mui/material";
 
 import { Logo } from "../components/utils/Logo";
 import { useNavigate } from "react-router-dom";
@@ -38,12 +44,19 @@ export const LayoutHeader = ({ toggleMenu }) => {
         </Box>
       </Box>
 
-      {session?.loggedIn && (
-        <Box display="flex" gap={2} alignItems="center" aria-label="user-space">
+      <Fade in={session?.loggedIn} mountOnEnter unmountOnExit>
+        <Box
+          display="flex"
+          flexDirection="row"
+          gap={2}
+          alignItems="center"
+          aria-label="user-space"
+          justifyContent="center"
+        >
           <HeaderNotification />
           <HeaderAccount user={session.user} />
         </Box>
-      )}
+      </Fade>
     </Box>
   );
 };

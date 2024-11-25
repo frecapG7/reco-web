@@ -29,7 +29,6 @@ let theme = createTheme({
     cancel: {
       main: "#f44336",
     },
-
     white: "#fff",
     yellow: {
       main: "#fcf424",
@@ -42,6 +41,11 @@ const {
   typography: { pxToRem },
 } = theme;
 theme = createTheme(theme, {
+  palette: {
+    currency: {
+      main: theme.palette.yellow.main,
+    },
+  },
   typography: {
     h1: {
       fontWeight: 600,
@@ -101,9 +105,14 @@ theme = createTheme(theme, {
     MuiButton: {
       styleOverrides: {
         root: {
-          minWidth: 200,
-          padding: 5,
-          margin: 5,
+          fontSize: "1rem",
+          textTransform: "none",
+          [theme.breakpoints.down("sm")]: {
+            minWidth: "8rem",
+          },
+          [theme.breakpoints.up("sm")]: {
+            minWidth: "10rem",
+          },
         },
         outlined: {
           boxShadow: "none",
@@ -260,6 +269,16 @@ theme = createTheme(theme, {
           // boxSizing: "border-box",
         },
       },
+      variants: [
+        {
+          props: { variant: "contained" },
+          style: {
+            // borderRadius: 20,
+            backgroundColor: theme.palette.primary.main,
+            color: theme.palette.primary.contrastText,
+          },
+        },
+      ],
     },
     MuiAccordion: {
       styleOverrides: {
@@ -274,6 +293,13 @@ theme = createTheme(theme, {
           borderRadius: 20,
           padding: 20,
           backgroundColor: theme.palette.background.default,
+        },
+      },
+    },
+    MuiCardHeader: {
+      styleOverrides: {
+        title: {
+          fontWeight: "bold",
         },
       },
     },

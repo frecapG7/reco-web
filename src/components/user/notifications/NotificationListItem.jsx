@@ -1,6 +1,5 @@
 import { IconButton, ListItem, ListItemText, Tooltip } from "@mui/material";
-
-import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord.js";
+import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
 import { i18nRelativeDate } from "../../../i18n/i18nTime";
 
 const buildLabel = (notification) => {
