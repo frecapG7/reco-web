@@ -25,18 +25,14 @@ export const AdminUserDetails = () => {
   const [tab, setTab] = useState("");
 
   const navigate = useNavigate();
-  const location = useLocation();
   const handleTabChange = (event, newValue) => {
-    navigate(newValue);
+    setTab(newValue);
   };
-
   useEffect(() => {
-    setTab(
-      location.pathname.split("/").pop() === id
-        ? ""
-        : location.pathname.split("/").pop()
-    );
-  }, [location, id]);
+    if (tab) {
+      navigate(`./${tab}`);
+    }
+  }, [tab, navigate]);
 
   if (isError)
     return (
@@ -99,9 +95,12 @@ export const AdminUserDetails = () => {
             textColor="primary"
             indicatorColor="primary"
             onChange={handleTabChange}
+            variant="scrollable"
+            scrollButtons="auto"
           >
             <Tab label="Metrics" value="" />
             <Tab label="Requests" value="requests" />
+            <Tab label="Recommendations" value="recommendations" />
             <Tab label="Purchases" value="purchases" />
           </Tabs>
         </Box>

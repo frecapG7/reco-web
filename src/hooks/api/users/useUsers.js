@@ -68,15 +68,29 @@ export const useGetRequests = (id, pageSize, params, options) => {
   });
 };
 
-const getLastRecommendations = async (id) => {
-  const response = await get(`/api/users/${id}/recommendations`);
+const getRecommendations = async (id, pageNumber, pageSize, params) => {
+  const response = await get(`/api/users/${id}/recommendations`, {
+    params: {
+      pageNumber: pageNumber || 0,
+      pageSize: pageSize || 1,
+      ...params,
+    },
+  });
+
   return response;
 };
 
-export const useGetLastRecommendations = (id, options) => {
-  return useQuery({
-    queryKey: ["users", id, "recommendations"],
-    queryFn: () => getLastRecommendations(id),
+export const useGetRecommendations = (id, pageSize, params, options) => {
+  return useInfiniteQuery({
+    queryKey: ["users", id, "recommendations", pageSize, params],
+    queryFn: ({ pageParam }) =>
+      getRecommendations(id, pageParam, pageSize, params),
+    initialPageParam: 1,
+    getNextPageParam: (lastPage) => {
+      if (lastPage.pagination?.currentPage < lastPage.pagination?.totalPages)
+        return lastPage.pagination.currentPage + 1;
+      return undefined;
+    },
     ...options,
   });
 };

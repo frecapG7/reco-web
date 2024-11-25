@@ -19,13 +19,16 @@ import {
   Button,
   CircularProgress,
   Backdrop,
+  Container,
 } from "@mui/material";
 import { FormText } from "../../components/form/FormText";
 import { FormSwitch } from "../../components/form/FormSwitch";
+import { useAuthSession } from "../../context/AuthContext";
 
 export const AccountSettings = () => {
-  const { user } = useOutletContext();
+  const { session } = useAuthSession();
 
+  const user = session?.user;
   const { data: settings } = useGetSettings(user?.id);
 
   const {
@@ -54,7 +57,7 @@ export const AccountSettings = () => {
   }, [isDirty, onSubmit, handleSubmit]);
 
   return (
-    <>
+    <Container>
       <Stack spacing={2}>
         <List
           aria-label="general-settings"
@@ -163,6 +166,6 @@ export const AccountSettings = () => {
       <Backdrop open={Boolean(isPending)}>
         <CircularProgress />
       </Backdrop>
-    </>
+    </Container>
   );
 };

@@ -3,46 +3,43 @@ import {
   Box,
   Card,
   CardActionArea,
-  CardContent,
   CardHeader,
+  CardMedia,
   CircularProgress,
   Divider,
   Paper,
   Stack,
   Typography,
 } from "@mui/material";
-import { useGetRequests } from "../../../hooks/api/users/useUsers";
+import { useGetRecommendations } from "../../../hooks/api/users/useUsers";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { useNavigate } from "react-router-dom";
 import { RequestType } from "../../request/RequestType";
 import { i18nDateTime } from "../../../utils/i18n";
+import { IFramely } from "../../request/IFramely";
 import { useState } from "react";
 import { SortMenu } from "../../search/SortMenu";
 import { RequestTypeMenu } from "../../search/RequestTypeMenu";
 import { Logo } from "../../utils/Logo";
 
-export const UserRequests = ({ user }) => {
-  const [sort, setSort] = useState("likes_desc");
+export const UserRecommendations = ({ user }) => {
+  const [sort, setSort] = useState("likes");
   const [requestType, setRequestType] = useState("");
 
-  const { data, hasNextPage, refetch } = useGetRequests(
+  const { data, hasNextPage, refetch } = useGetRecommendations(
     user?.id,
     10,
     {
       sort,
       type: requestType,
     },
-    {
-      enabled: !!user,
-    }
+    { enabled: !!user }
   );
 
-  const navigate = useNavigate();
-  const requests = data?.pages?.flatMap((page) => page.results);
+  const recommendations = data?.pages?.flatMap((page) => page.results);
 
   return (
     <Stack width="100%">
-      <Stack direction="row" spacing={1} alignItems="center">
+      <Stack direction="row" spacing={1}>
         <Typography variant="label"> Sort by </Typography>
         <SortMenu value={sort} onChange={(sort) => setSort(sort)} />
 
@@ -69,38 +66,23 @@ export const UserRequests = ({ user }) => {
         }
       >
         <Stack spacing={3} divider={<Divider />}>
-          {requests?.map((request, index) => (
-            <Card
-              key={index}
-              elevation={0}
-              sx={{
-                "&:hover": {
-                  cursor: "pointer",
-                },
-              }}
-            >
-              <CardActionArea
-                onClick={() => navigate(`/requests/${request.id}`)}
-              >
+          {recommendations?.map((recommendation, index) => (
+            <Card key={index} elevation={0}>
+              <CardActionArea>
                 <CardHeader
                   avatar={
                     <Avatar variant="contained">
-                      <RequestType requestType={request?.requestType} />
+                      <RequestType requestType={recommendation?.requestType} />
                     </Avatar>
                   }
-                  title={request?.title}
-                  subheader={i18nDateTime(request?.created)}
-                  action={
-                    <Paper variant="body1">
-                      {request.recommendationsCount} Rococos
-                    </Paper>
-                  }
+                  title={recommendation?.displayName}
+                  subheader={i18nDateTime(recommendation?.createdAt)}
+                  action={<Paper>{recommendation?.likes} likes</Paper>}
                 />
-                <CardContent>
-                  <Typography variant="body1">
-                    {request?.description}
-                  </Typography>
-                </CardContent>
+
+                <CardMedia>
+                  <IFramely html={recommendation.html} />
+                </CardMedia>
               </CardActionArea>
             </Card>
           ))}

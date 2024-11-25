@@ -6,13 +6,11 @@ import {
   Divider,
   Grid,
   Icon,
-  Paper,
   Popover,
   Stack,
   Typography,
   useMediaQuery,
 } from "@mui/material";
-import { UserName } from "../components/user/UserName";
 import { Recommendations } from "./Recommendations";
 
 import { RequestType } from "../components/request/RequestType";

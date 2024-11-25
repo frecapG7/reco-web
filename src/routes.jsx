@@ -14,7 +14,6 @@ import { StoresHome } from "./stores/StoresHome";
 import { IconStore } from "./stores/icons/IconStore";
 import { AccountHome } from "./account/AccountHome";
 import { AuthProtectedLayout } from "./layout/AuthProtectedLayout";
-import { MyActivity } from "./account/my-activity/MyActivity";
 import { AccountDetails } from "./account/details/AccountDetails";
 import { AccountSettings } from "./account/settings/AccountSettings";
 import { MyPurchases } from "./account/my-purchases/MyPurcharses";
@@ -25,6 +24,10 @@ import { AdminUserDetailsMetricsTab } from "./admin/users/details/AdminUserDetai
 import { RequestDetails } from "./requests/RequestDetails";
 import { AdminUserDetailsRequestsTab } from "./admin/users/details/AdminUserDetailsRequestsTab";
 import { MyRequests } from "./account/my-requests/MyRequests";
+import { UserDetailsRequestTab } from "./users/details/UserDetailsRequestTab";
+import { AdminUserDetailsRecommendationsTab } from "./admin/users/details/AdminUserDetailsRecommendationsTab";
+import { UserDetailsRecommendationsTab } from "./users/details/UserDetailsRecommendationsTab";
+import { MyRecommendations } from "./account/my-recommendations/MyRecommendations";
 
 export const routes = [
   {
@@ -60,6 +63,10 @@ export const routes = [
                   {
                     path: "requests",
                     element: <AdminUserDetailsRequestsTab />,
+                  },
+                  {
+                    path: "recommendations",
+                    element: <AdminUserDetailsRecommendationsTab />,
                   },
                   {
                     path: "purchases",
@@ -107,6 +114,16 @@ export const routes = [
           {
             path: ":id",
             element: <User />,
+            children: [
+              {
+                path: "",
+                element: <UserDetailsRequestTab />,
+              },
+              {
+                path: "recommendations",
+                element: <UserDetailsRecommendationsTab />,
+              },
+            ],
           },
         ],
       },
@@ -131,18 +148,10 @@ export const routes = [
         path: "account",
         element: (
           <AuthProtectedLayout>
-            <AccountHome />
+            <Outlet />
           </AuthProtectedLayout>
         ),
         children: [
-          {
-            path: "",
-            element: <AccountDetails />,
-          },
-          {
-            path: "my-requests",
-            element: <MyRequests />,
-          },
           {
             path: "my-purchases",
             children: [
@@ -159,6 +168,24 @@ export const routes = [
           {
             path: "settings",
             element: <AccountSettings />,
+          },
+          {
+            path: "",
+            element: <AccountHome />,
+            children: [
+              {
+                path: "my-metrics",
+                element: <AccountDetails />,
+              },
+              {
+                path: "my-requests",
+                element: <MyRequests />,
+              },
+              {
+                path: "my-recommendations",
+                element: <MyRecommendations />,
+              },
+            ],
           },
         ],
       },

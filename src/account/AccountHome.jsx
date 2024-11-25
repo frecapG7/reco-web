@@ -6,6 +6,7 @@ import {
   Box,
   CircularProgress,
   Container,
+  Fade,
   Stack,
   Tab,
   Tabs,
@@ -19,24 +20,23 @@ import Grid from "@mui/material/Grid2";
 import AccessTimeOutlinedIcon from "@mui/icons-material/AccessTimeOutlined";
 import { i18nDateTime } from "../utils/i18n";
 import { UserWallet } from "../components/user/wallet/UserWallet";
+
+const tabs = ["my-metrics", "my-requests", "my-recommendations"];
+
 export const AccountHome = () => {
   const { session } = useAuthSession();
   const { data: user, isLoading } = useGetUser(session?.user.id);
 
-  const [tab, setTab] = useState("");
+  const [tab, setTab] = useState("my-metrics");
 
   const navigate = useNavigate();
   const handleTabChange = (event, newValue) => {
-    navigate(newValue);
+    setTab(newValue);
   };
 
   useEffect(() => {
-    setTab(
-      location.pathname.split("/").pop() === "account"
-        ? ""
-        : location.pathname.split("/").pop()
-    );
-  }, [setTab]);
+    if (tabs.includes(tab)) navigate(`./${tab}`);
+  }, [tab, navigate]);
 
   if (isLoading) {
     return <CircularProgress />;
@@ -50,15 +50,21 @@ export const AccountHome = () => {
           spacing={2}
           alignItems="center"
           display="flex"
-          justifyContent="space-between"
+          justifyContent="space-around"
         >
           <Grid container alignItems="center">
             <Grid size={{ xs: 12, md: 6 }}>
+              {/* <Badge
+                color="primary"
+                badgeContent={<EditIcon fontSize="medium" />}
+                overlap="circular"
+              > */}
               <Avatar
                 sx={{ width: "10rem", height: "10rem" }}
                 src={user?.avatar}
                 alt={user?.name}
               />
+              {/* </Badge> */}
             </Grid>
             <Grid size={{ xs: 12, md: 6 }}>
               <Typography variant="h4">{user?.name}</Typography>
@@ -77,22 +83,23 @@ export const AccountHome = () => {
           </Grid>
         </Grid>
 
-        <Box
-          aria-label="account-tabs"
-          sx={{ borderBottom: 1, borderColor: "divider" }}
-        >
-          <Tabs
-            value={tab}
-            textColor="primary"
-            indicatorColor="primary"
-            onChange={handleTabChange}
+        <Fade in={tabs.includes(tab)}>
+          <Box
+            aria-label="account-tabs"
+            sx={{ borderBottom: 1, borderColor: "divider" }}
           >
-            <Tab label="Account" value="" />
-            <Tab label="Requests" value="my-requests" />
-            <Tab label="Purchases" value="my-purchases" />
-            <Tab label="Settings" value="settings" />
-          </Tabs>
-        </Box>
+            <Tabs
+              value={tab}
+              textColor="primary"
+              indicatorColor="primary"
+              onChange={handleTabChange}
+            >
+              <Tab label="Metrics" value="my-metrics" />
+              <Tab label="Requests" value="my-requests" />
+              <Tab label="Recommendations" value="my-recommendations" />
+            </Tabs>
+          </Box>
+        </Fade>
         <Zoom key={tab} in>
           <Box aria-label="account-tabs-content">
             <Outlet

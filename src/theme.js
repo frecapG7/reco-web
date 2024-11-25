@@ -269,6 +269,16 @@ theme = createTheme(theme, {
           // boxSizing: "border-box",
         },
       },
+      variants: [
+        {
+          props: { variant: "contained" },
+          style: {
+            // borderRadius: 20,
+            backgroundColor: theme.palette.primary.main,
+            color: theme.palette.primary.contrastText,
+          },
+        },
+      ],
     },
     MuiAccordion: {
       styleOverrides: {
@@ -283,6 +293,13 @@ theme = createTheme(theme, {
           borderRadius: 20,
           padding: 20,
           backgroundColor: theme.palette.background.default,
+        },
+      },
+    },
+    MuiCardHeader: {
+      styleOverrides: {
+        title: {
+          fontWeight: "bold",
         },
       },
     },

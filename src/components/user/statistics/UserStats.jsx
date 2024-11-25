@@ -3,7 +3,7 @@ import { UserRequests } from "../icons/UserRequests";
 import { UserRecommendations } from "../icons/UserRecommendations";
 import { UserBalance } from "../icons/UserBalance";
 
-export const UserStats = ({ id, stats }) => {
+export const UserStats = ({ stats }) => {
   //TODO: use id to fetch details
 
   return (
