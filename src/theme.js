@@ -7,13 +7,13 @@ let theme = createTheme({
       main: "#ddb5e3",
       light: "#FFD8F2",
       dark: "#a48cb8",
-      contrastText: "#fff",
+      contrastText: "#1F4529",
     },
     secondary: {
-      main: "#80B484",
+      main: "#A1EEBD",
       light: "#96FF96",
       dark: "#2CB419",
-      contrastText: "#1a73e8",
+      contrastText: "#8174A0",
     },
     tertiary: {
       main: "#f1f1f1",
@@ -25,6 +25,9 @@ let theme = createTheme({
       default: "#EFE5F5",
       contrastText: "#fff",
       light: "#f8f8f8",
+    },
+    neutral: {
+      main: "#f1f1f1",
     },
     cancel: {
       main: "#f44336",
@@ -89,13 +92,12 @@ theme = createTheme(theme, {
       },
     },
     button: {
-      fontWeight: 600,
       fontFamily: "Roboto, Arial",
-      fontSize: pxToRem(16),
+      fontSize: pxToRem(10),
       [breakpoints.up("sm")]: {
         fontSize: pxToRem(18),
       },
-      color: theme.palette.text.primary,
+      color: theme.palette.text.primary.contrastText,
     },
   },
 });
@@ -117,7 +119,11 @@ theme = createTheme(theme, {
         outlined: {
           boxShadow: "none",
           borderRadius: 20,
+          color: theme.palette.secondary.main,
           ...theme.typography.button,
+        },
+        outlinedSecondary: {
+          backgroundColor: theme.palette.neutral.main,
         },
         contained: {
           boxShadow: "none",
@@ -127,15 +133,52 @@ theme = createTheme(theme, {
       },
     },
     MuiIconButton: {
+      root: {
+        styleOverrides: {},
+      },
       variants: [
         {
           props: { variant: "contained" },
           style: {
             backgroundColor: theme.palette.primary.main,
-            color: theme.palette.primary.contrastText,
+            color: theme.palette.neutral.main,
             "&:hover": {
               backgroundColor: theme.palette.primary.dark,
             },
+          },
+        },
+        {
+          props: { variant: "outlined" },
+          style: {
+            backgroundColor: theme.palette.background.default,
+            color: theme.palette.primary.dark,
+            borderRadius: "50%",
+          },
+        },
+      ],
+    },
+    MuiIcon: {
+      variants: [
+        {
+          props: { variant: "contained" },
+          style: {
+            minWidth: 100,
+            minHeight: 100,
+            borderRadius: "50%",
+            alignItems: "center",
+            display: "flex",
+            justifyContent: "center",
+            backgroundColor: theme.palette.primary.main,
+            color: theme.palette.primary.contrastText,
+          },
+        },
+        {
+          props: { variant: "outlined" },
+          style: {
+            borderRadius: "50%",
+            backgroundColor: theme.palette.background.default,
+            color: theme.palette.primary.contrastText,
+            boder: `3px solid ${theme.palette.secondary.main}`,
           },
         },
       ],
@@ -310,6 +353,26 @@ theme = createTheme(theme, {
           // color: theme.palette.primary.contrastText,
           fontWeight: "bold",
           fontSize: 24,
+        },
+      },
+    },
+    MuiListItemAvatar: {
+      styleOverrides: {
+        root: {
+          "& .MuiAvatar-root": {
+            width: 50,
+            height: 50,
+          },
+        },
+      },
+    },
+    MuiMenu: {
+      styleOverrides: {
+        paper: {
+          borderRadius: 10,
+          padding: 5,
+          backgroundColor: theme.palette.background.default,
+          minWidth: 200,
         },
       },
     },

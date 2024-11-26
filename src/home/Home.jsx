@@ -73,27 +73,29 @@ export const Home = () => {
               {page.results.map((result) => (
                 <Card
                   key={result.id}
+                  elevation={1}
                   sx={{
                     my: 5,
+                    mx: 1,
                     p: 0,
                   }}
                 >
-                  <CardActionArea
-                    onClick={(e) => {
-                      if (e.target.tagName === "BUTTON") {
-                        e.preventDefault();
-                        return;
-                      }
-                      navigate(`/requests/${result.id}`);
-                    }}
-                  >
-                    <CardContent>
-                      <Stack spacing={1}>
+                  <CardContent>
+                    <Stack spacing={1}>
+                      <CardActionArea
+                        onClick={(e) => {
+                          if (e.target.tagName === "BUTTON") {
+                            e.preventDefault();
+                            return;
+                          }
+                          navigate(`/requests/${result.id}`);
+                        }}
+                      >
                         <Request request={result} />
-                        <Recommendations request={result} />
-                      </Stack>
-                    </CardContent>
-                  </CardActionArea>
+                      </CardActionArea>
+                      <Recommendations request={result} />
+                    </Stack>
+                  </CardContent>
                 </Card>
               ))}
             </Fragment>

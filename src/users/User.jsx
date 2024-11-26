@@ -11,7 +11,11 @@ import {
   Typography,
   Zoom,
 } from "@mui/material";
+import Grid from "@mui/material/Grid2";
 import { useEffect, useState } from "react";
+import { FollowButton } from "../components/user/follows/FollowButton";
+import AccessTimeOutlinedIcon from "@mui/icons-material/AccessTimeOutlined";
+import { i18nDateTime } from "../utils/i18n";
 
 export const User = () => {
   const { id } = useParams();
@@ -40,16 +44,36 @@ export const User = () => {
   return (
     <Container>
       <Stack spacing={2} my={2}>
-        <Box align="center">
-          <Avatar
-            sx={{ width: "10rem", height: "10rem" }}
-            src={user?.avatar}
-            alt={user?.name}
-          />
-          <Typography variant="h4" fontWeight="bold">
-            {user?.name}
-          </Typography>
-        </Box>
+        <Grid
+          container
+          size={{ xs: 12, md: 4 }}
+          display="flex"
+          justifyContent="space-between"
+          px={5}
+        >
+          <Grid container alignItems="center">
+            <Grid size={{ xs: 6 }}>
+              <Avatar
+                sx={{ width: 100, height: 100 }}
+                src={user?.avatar}
+                alt={user?.name}
+              />
+            </Grid>
+            <Grid size={{ xs: 6 }}>
+              <Typography variant="h4">{user?.name}</Typography>
+              <Box display="flex" alignItems="center" gap={0.2}>
+                <AccessTimeOutlinedIcon fontSize="small" />
+                <Typography variant="subtitle2" textAlign="center">
+                  {i18nDateTime(user?.created)}
+                </Typography>
+              </Box>
+            </Grid>
+          </Grid>
+
+          <Grid container>
+            <FollowButton user={user} />
+          </Grid>
+        </Grid>
 
         <Box
           aria-label="user-tabs"

@@ -18,7 +18,8 @@ export const RequestTypeMenu = ({ value, onChange }) => {
   return (
     <>
       <Button
-        variant="outlined"
+        variant="contained"
+        color="primary"
         size="small"
         sx={{
           p: 0,

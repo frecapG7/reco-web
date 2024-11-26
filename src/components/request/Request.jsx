@@ -6,26 +6,20 @@ import {
   Divider,
   Grid,
   Icon,
-  Popover,
   Skeleton,
   Stack,
   Typography,
-  useMediaQuery,
 } from "@mui/material";
 
 import { RequestType } from "./RequestType";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { UserSummary } from "../user/UserSummary";
-import { useGetUser } from "../../hooks/api/users/useUsers";
 import { RecommendationDialog } from "../../home/RecommendationDialog";
 
 const User = ({ user }) => {
-  const isUpSm = useMediaQuery((theme) => theme.breakpoints.up("sm"));
   const [anchorEl, setAnchorEl] = useState(null);
 
   const isMouseOver = Boolean(anchorEl);
-  const openDetails = Boolean(anchorEl) && isUpSm;
 
   const handlePopoverOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -35,10 +29,6 @@ const User = ({ user }) => {
   };
 
   const navigate = useNavigate();
-
-  const { data: details } = useGetUser(user.id, {
-    enabled: openDetails,
-  });
 
   return (
     <Box
@@ -71,32 +61,6 @@ const User = ({ user }) => {
       >
         {user.name}
       </Typography>
-
-      <Popover
-        id="user-details"
-        open={openDetails}
-        onClose={handlePopoverClose}
-        anchorEl={anchorEl}
-        anchorOrigin={{
-          vertical: "bottom",
-          horizontal: "left",
-        }}
-        transformOrigin={{
-          vertical: "top",
-          horizontal: "left",
-        }}
-        // disableScrollLock
-        slotProps={{
-          paper: {
-            sx: {
-              cursor: "pointer",
-              padding: 2,
-            },
-          },
-        }}
-      >
-        <UserSummary user={details} />
-      </Popover>
     </Box>
   );
 };
@@ -133,21 +97,7 @@ export const Request = ({ request }) => {
           <User user={request.author} />
         </Box>
 
-        <Icon
-          sx={{
-            width: 100,
-            height: 100,
-            borderRadius: 10,
-            alignItems: "center",
-            justifyContent: "center",
-            display: "flex",
-            border: 5,
-
-            color: "secondary.main",
-            borderColor: "primary.main",
-            // backgroundColor: "primary.dark",
-          }}
-        >
+        <Icon variant="contained">
           <RequestType requestType={request?.requestType} />
         </Icon>
       </Box>

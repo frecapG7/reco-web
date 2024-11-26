@@ -1,6 +1,6 @@
 import { Stack, Skeleton } from "@mui/material";
 import Grid from "@mui/material/Grid2";
-import { i18nDate, i18nDateTime } from "../../utils/i18n";
+import { i18nDate } from "../../utils/i18n";
 
 import AccessTimeOutlinedIcon from "@mui/icons-material/AccessTimeOutlined";
 import TollOutlinedIcon from "@mui/icons-material/TollOutlined";

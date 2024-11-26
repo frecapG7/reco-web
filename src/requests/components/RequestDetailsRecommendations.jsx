@@ -1,6 +1,5 @@
 import {
   Box,
-  Button,
   CircularProgress,
   Divider,
   Menu,
@@ -13,6 +12,7 @@ import { useGetRecommendations } from "../../hooks/api/requests/useRecommendatio
 import { Fragment, useEffect, useState } from "react";
 import { Recommendation } from "../../components/request/recommendation/Recommendation";
 import InfiniteScroll from "react-infinite-scroll-component";
+import { SortMenu } from "../../components/search/SortMenu";
 
 export const RequestDetailsRecommendations = ({ request }) => {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -38,16 +38,15 @@ export const RequestDetailsRecommendations = ({ request }) => {
 
   return (
     <Stack>
-      <Box aria-label="recommendations-filters">
+      <Stack
+        aria-label="recommendations-filters"
+        direction="row"
+        spacing={1}
+        alignItems="center"
+      >
         <Typography variant="label">Sort by</Typography>
-        <Button
-          variant="outlined"
-          fontSize="small"
-          onClick={(e) => setAnchorEl(e.currentTarget)}
-        >
-          {sort}
-        </Button>
-      </Box>
+        <SortMenu value={sort} onChange={setSort} />
+      </Stack>
 
       <Divider />
 
