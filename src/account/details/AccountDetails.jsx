@@ -10,6 +10,8 @@ import SendOutlinedIcon from "@mui/icons-material/SendOutlined";
 import { Typography } from "@mui/material";
 import { PurchaseMetrics } from "../../components/metrics/PurchaseMetrics";
 
+import { FollowingList } from "../../components/user/follows/FollowingList";
+
 export const AccountDetails = () => {
   const { user } = useOutletContext();
 
@@ -23,45 +25,50 @@ export const AccountDetails = () => {
         container
         size={{ xs: 12, md: 8 }}
         spacing={2}
+        // alignItems="center"
         aria-label="user-main-metrics-container"
       >
-        <Grid size={{ xs: 6 }}>
-          <MetricsItem
-            icon={<LocalFireDepartmentOutlinedIcon fontSize="large" />}
-            value={metrics?.requests.total}
-            caption="Requests"
-          />
+        <Grid container size="auto">
+          <Grid size={{ xs: 6 }}>
+            <MetricsItem
+              icon={<LocalFireDepartmentOutlinedIcon fontSize="large" />}
+              value={metrics?.requests.total}
+              caption="Requests"
+            />
+          </Grid>
+          <Grid size={{ xs: 6 }}>
+            <MetricsItem
+              icon={<SendOutlinedIcon fontSize="large" />}
+              value={metrics?.recommendations.total}
+              caption="Recommendations"
+            />
+          </Grid>
+          <Grid size={{ xs: 6 }}>
+            <MetricsItem
+              icon={<LocalPizzaOutlinedIcon fontSize="large" />}
+              value={metrics?.likes.recommendationsLikedCount}
+              caption="Recommendations you like"
+            />
+          </Grid>
+          <Grid size={{ xs: 6 }}>
+            <MetricsItem
+              icon={<InterestsOutlinedIcon fontSize="large" />}
+              value={metrics?.likes.totalLikes}
+              caption="Total Likes"
+            />
+          </Grid>
         </Grid>
-        <Grid size={{ xs: 6 }}>
-          <MetricsItem
-            icon={<SendOutlinedIcon fontSize="large" />}
-            value={metrics?.recommendations.total}
-            caption="Recommendations"
-          />
-        </Grid>
-        <Grid size={{ xs: 6 }}>
-          <MetricsItem
-            icon={<LocalPizzaOutlinedIcon fontSize="large" />}
-            value={metrics?.likes.recommendationsLikedCount}
-            caption="Recommendations you like"
-          />
-        </Grid>
-        <Grid size={{ xs: 6 }}>
-          <MetricsItem
-            icon={<InterestsOutlinedIcon fontSize="large" />}
-            value={metrics?.likes.totalLikes}
-            caption="Total Likes"
-          />
+        <Grid
+          container
+          size="auto"
+          aria-label="user-purchases-details-container"
+        >
+          <Typography variant="h5">Purchases</Typography>
+          <PurchaseMetrics purchases={metrics?.purchases} />
         </Grid>
       </Grid>
-
-      <Grid
-        container
-        size={{ xs: 12, md: 8 }}
-        aria-label="user-purchases-details-container"
-      >
-        <Typography variant="h5">Purchases</Typography>
-        <PurchaseMetrics purchases={metrics?.purchases} />
+      <Grid container size={{ xs: 12, md: 4 }}>
+        <FollowingList user={user} />
       </Grid>
     </Grid>
   );

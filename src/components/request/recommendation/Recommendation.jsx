@@ -1,15 +1,16 @@
 import {
   Avatar,
   Box,
-  Button,
   Card,
+  CardActionArea,
   CardActions,
   CardContent,
   CardMedia,
-  Grid,
+  IconButton,
   Stack,
   Typography,
 } from "@mui/material";
+import Grid from "@mui/material/Grid2";
 import { useLikeRecommendation } from "../../../hooks/api/requests/useRecommendations";
 
 import LocalBarRoundedIcon from "@mui/icons-material/LocalBarRounded";
@@ -17,6 +18,7 @@ import ReplyOutlinedIcon from "@mui/icons-material/ReplyOutlined";
 import { IFramely } from "../IFramely";
 import { useAuthSession } from "../../../context/AuthContext";
 import { i18nRelativeDate } from "../../../i18n/i18nTime";
+import { useNavigate } from "react-router-dom";
 
 export const Recommendation = ({ request, recommendation }) => {
   const { session } = useAuthSession();
@@ -25,6 +27,7 @@ export const Recommendation = ({ request, recommendation }) => {
     request.id,
     recommendation.id
   );
+  const navigate = useNavigate();
 
   const handleLike = () => {
     if (!session?.loggedIn) {
@@ -58,8 +61,8 @@ export const Recommendation = ({ request, recommendation }) => {
         p: 0,
       }}
     >
-      <Grid container>
-        <Grid item xs={2}>
+      <Grid container width="100%">
+        <Grid size={{ xs: 2 }}>
           <CardContent
             sx={{
               // width: "100px",
@@ -69,22 +72,25 @@ export const Recommendation = ({ request, recommendation }) => {
               justifyContent: "center",
             }}
           >
-            <Stack aria-label="recommendation-user" alignItems="center">
-              <Avatar
-                src={recommendation.user.avatar}
-                alt={recommendation.user.name}
-              />
-              <Typography variant="h6">{recommendation.user.name}</Typography>
-              <Typography>
-                {i18nRelativeDate(recommendation.created_at)}
-              </Typography>
-            </Stack>
+            <CardActionArea
+              onClick={() => navigate(`/users/${recommendation.user.id}`)}
+            >
+              <Stack aria-label="recommendation-user" alignItems="center">
+                <Avatar
+                  src={recommendation.user.avatar}
+                  alt={recommendation.user.name}
+                />
+                <Typography variant="h6">{recommendation.user.name}</Typography>
+                <Typography>
+                  {i18nRelativeDate(recommendation.created_at)}
+                </Typography>
+              </Stack>
+            </CardActionArea>
           </CardContent>
         </Grid>
         <Grid
-          item
           container
-          xs={10}
+          size={{ xs: 10 }}
           sx={{
             // display: "flex",
             flexDirection: "column",
@@ -99,18 +105,19 @@ export const Recommendation = ({ request, recommendation }) => {
               sx={{ flexGrow: 1, mx: 5 }}
               justifyContent="flex-end"
               display="flex"
+              gap={3}
             >
-              <Button
+              <IconButton
                 onClick={handleLike}
                 variant={recommendation?.liked ? "contained" : "outlined"}
                 disabled={recommendation?.liked}
               >
                 {recommendation?.likesCount}
                 <LocalBarRoundedIcon fontSize="large" />
-              </Button>
-              <Button onClick={handleShare} variant="outlined">
+              </IconButton>
+              <IconButton onClick={handleShare} variant="outlined">
                 <ReplyOutlinedIcon fontSize="large" />
-              </Button>
+              </IconButton>
             </Box>
           </CardActions>
         </Grid>

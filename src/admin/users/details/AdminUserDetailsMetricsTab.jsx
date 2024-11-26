@@ -5,7 +5,7 @@ import {
   ListItem,
   ListItemText,
   ListSubheader,
-  Paper,
+  Stack,
   Typography,
 } from "@mui/material";
 import { useGetMetrics } from "../../../hooks/api/users/useUsers";
@@ -21,6 +21,7 @@ import WalletOutlinedIcon from "@mui/icons-material/WalletOutlined";
 import { i18nRelativeDate } from "../../../i18n/i18nTime";
 import { PurchaseMetrics } from "../../../components/metrics/PurchaseMetrics";
 import { MetricsItem } from "../../../components/metrics/MetricsItem";
+import { FollowingList } from "../../../components/user/follows/FollowingList";
 
 export const AdminUserDetailsMetricsTab = () => {
   const { user } = useOutletContext();
@@ -31,39 +32,40 @@ export const AdminUserDetailsMetricsTab = () => {
 
   return (
     <Grid container spacing={5} width="100%">
-      <Grid
-        container
-        size={{ xs: 12, md: 8 }}
-        spacing={2}
-        aria-label="user-main-metrics-container"
-      >
-        <Grid size={{ xs: 6 }}>
-          <MetricsItem
-            icon={<LocalFireDepartmentOutlinedIcon fontSize="large" />}
-            value={metrics?.requests.total}
-            caption="Requests"
-          />
+      <Grid container size={{ xs: 12, md: 8 }} spacing={2}>
+        <Grid container aria-label="user-main-metrics-container">
+          <Grid size={{ xs: 6 }}>
+            <MetricsItem
+              icon={<LocalFireDepartmentOutlinedIcon fontSize="large" />}
+              value={metrics?.requests.total}
+              caption="Requests"
+            />
+          </Grid>
+          <Grid size={{ xs: 6 }}>
+            <MetricsItem
+              icon={<SendOutlinedIcon fontSize="large" />}
+              value={metrics?.recommendations.total}
+              caption="Recommendations"
+            />
+          </Grid>
+          <Grid size={{ xs: 6 }}>
+            <MetricsItem
+              icon={<LocalPizzaOutlinedIcon fontSize="large" />}
+              value={metrics?.likes.recommendationsLikedCount}
+              caption="Recommendations you like"
+            />
+          </Grid>
+          <Grid size={{ xs: 6 }}>
+            <MetricsItem
+              icon={<InterestsOutlinedIcon fontSize="large" />}
+              value={metrics?.likes.totalLikes}
+              caption="Total Likes"
+            />
+          </Grid>
         </Grid>
-        <Grid size={{ xs: 6 }}>
-          <MetricsItem
-            icon={<SendOutlinedIcon fontSize="large" />}
-            value={metrics?.recommendations.total}
-            caption="Recommendations"
-          />
-        </Grid>
-        <Grid size={{ xs: 6 }}>
-          <MetricsItem
-            icon={<LocalPizzaOutlinedIcon fontSize="large" />}
-            value={metrics?.likes.recommendationsLikedCount}
-            caption="Recommendations you like"
-          />
-        </Grid>
-        <Grid size={{ xs: 6 }}>
-          <MetricsItem
-            icon={<InterestsOutlinedIcon fontSize="large" />}
-            value={metrics?.likes.totalLikes}
-            caption="Total Likes"
-          />
+        <Grid container aria-label="user-purchases-details-container">
+          <Typography variant="h5">Purchases</Typography>
+          <PurchaseMetrics purchases={metrics?.purchases} />
         </Grid>
       </Grid>
 
@@ -72,52 +74,48 @@ export const AdminUserDetailsMetricsTab = () => {
         container
         aria-label="user-wallet-details-container"
       >
-        <Paper
-          sx={{
-            width: "100%",
-          }}
-        >
-          <Box display="flex" gap={2} alignItems="center"></Box>
-          <List
-            subheader={
-              <ListSubheader
-                component="div"
-                sx={{
-                  backgroundColor: "inherit",
-                }}
-              >
-                <Box
-                  display="flex"
-                  flexDirection="row"
-                  alignItems="center"
-                  gap={2}
+        <Stack spacing={2} width="100%">
+          <>
+            <Box display="flex" gap={2} alignItems="center"></Box>
+            <List
+              subheader={
+                <ListSubheader
+                  component="div"
+                  sx={{
+                    backgroundColor: "inherit",
+                  }}
                 >
-                  <WalletOutlinedIcon fontSize="large" />
-                  <Typography variant="h6">156</Typography>
-                </Box>
-              </ListSubheader>
-            }
-          >
-            <ListItem>
-              <ListItemText primary="Current balance" secondary="156 Piasse" />
-            </ListItem>
-            <ListItem>
-              <ListItemText
-                primary="Next refill"
-                secondary={i18nRelativeDate(new Date("2024-12-01"))}
-              />
-            </ListItem>
-          </List>
-        </Paper>
-      </Grid>
+                  <Box
+                    display="flex"
+                    flexDirection="row"
+                    alignItems="center"
+                    gap={2}
+                  >
+                    <WalletOutlinedIcon fontSize="large" />
+                    <Typography variant="h6">156</Typography>
+                  </Box>
+                </ListSubheader>
+              }
+            >
+              <ListItem>
+                <ListItemText
+                  primary="Current balance"
+                  secondary="156 Piasse"
+                />
+              </ListItem>
+              <ListItem>
+                <ListItemText
+                  primary="Next refill"
+                  secondary={i18nRelativeDate(new Date("2024-12-01"))}
+                />
+              </ListItem>
+            </List>
+          </>
 
-      <Grid
-        container
-        size={{ xs: 12, md: 8 }}
-        aria-label="user-purchases-details-container"
-      >
-        <Typography variant="h5">Purchases</Typography>
-        <PurchaseMetrics purchases={metrics?.purchases} />
+          <>
+            <FollowingList user={user} />
+          </>
+        </Stack>
       </Grid>
 
       <Grid container size={{ xs: 12 }}>

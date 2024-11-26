@@ -53,23 +53,15 @@ export const AccountHome = () => {
           justifyContent="space-around"
         >
           <Grid container alignItems="center">
-            <Grid size={{ xs: 12, md: 6 }}>
-              {/* <Badge
-                color="primary"
-                badgeContent={<EditIcon fontSize="medium" />}
-                overlap="circular"
-              > */}
+            <Grid size={{ xs: 6 }}>
               <Avatar
                 sx={{ width: "10rem", height: "10rem" }}
                 src={user?.avatar}
                 alt={user?.name}
               />
-              {/* </Badge> */}
             </Grid>
-            <Grid size={{ xs: 12, md: 6 }}>
+            <Grid size={{ xs: 6, md: 6 }}>
               <Typography variant="h4">{user?.name}</Typography>
-              <Typography variant="subtitle1">{user?.email}</Typography>
-              <Typography variant="subtitle1">{user?.role}</Typography>
               <Box display="flex" alignItems="center" gap={0.2}>
                 <AccessTimeOutlinedIcon fontSize="small" />
                 <Typography variant="subtitle2" textAlign="center">
