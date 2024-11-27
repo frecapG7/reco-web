@@ -2,6 +2,7 @@
   "name": "reco-web",
   "version": "0.2.0",
   "private": true,
+  "homepage": ".",
   "type": "module",
   "dependencies": {
     "@emotion/react": "^11.13.3",
