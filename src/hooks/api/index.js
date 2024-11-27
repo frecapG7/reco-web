@@ -2,64 +2,46 @@ import { FetchError } from "./FetchError";
 
 /*TODO: migrate to a object */
 export const post = async (url, data, options) => {
-  if (options?.params)
-    url = `${url}?${new URLSearchParams(options.params).toString()}`;
-
-  const response = await fetch(url, {
+  return await fetcher(url, options?.params, {
     method: "POST",
-    headers: headers(),
     body: JSON.stringify(data),
   });
-
-  return await handleResponse(response);
 };
 
 export const put = async (url, data, options) => {
-  if (options?.params)
-    url = `${url}?${new URLSearchParams(options.params).toString()}`;
-
-  const response = await fetch(url, {
+  return await fetcher(url, options?.params, {
     method: "PUT",
-    headers: headers(),
     body: JSON.stringify(data),
   });
-  return await handleResponse(response);
 };
 
 export const patch = async (url, data, options) => {
-  if (options?.params)
-    url = `${url}?${new URLSearchParams(options.params).toString()}`;
-
-  const response = await fetch(url, {
+  return await fetcher(url, options?.params, {
     method: "PATCH",
-    headers: headers(),
     body: JSON.stringify(data),
   });
-  return await handleResponse(response);
 };
 
 export const del = async (url, options) => {
-  if (options?.params)
-    url = `${url}?${new URLSearchParams(options.params).toString()}`;
-
-  const response = await fetch(url, {
+  return await fetcher(url, options?.params, {
     method: "DELETE",
-    headers: headers(),
   });
-  if (!response.ok) throw new Error(response.message, response.status);
-
-  const text = await response.text();
-  if (text?.length) return JSON.parse(text);
 };
 
 export const get = async (url, options) => {
-  if (options?.params)
-    url = `${url}?${new URLSearchParams(options.params).toString()}`;
-  const response = await fetch(url, {
+  return await fetcher(url, options?.params, {
     method: "GET",
-    headers: headers(),
   });
+};
 
+const fetcher = async (endpoint, params, options) => {
+  let url = endpoint;
+  if (params) url = `${url}?${new URLSearchParams(params).toString()}`;
+
+  const response = await fetch(`${url}`, {
+    headers: headers(),
+    ...options,
+  });
   return await handleResponse(response);
 };
 

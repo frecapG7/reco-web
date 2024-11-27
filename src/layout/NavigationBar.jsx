@@ -1,5 +1,4 @@
 import {
-  Collapse,
   Divider,
   IconButton,
   List,
@@ -7,64 +6,21 @@ import {
   ListItemButton,
   ListItemIcon,
   ListItemText,
-  Zoom,
 } from "@mui/material";
 import { Box } from "@mui/system";
 
 import AddIcon from "@mui/icons-material/Add";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
-import WhatshotIcon from "@mui/icons-material/Whatshot";
 import WhatshotOutlinedIcon from "@mui/icons-material/WhatshotOutlined";
-import { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 
-import ExpandLessIcon from "@mui/icons-material/ExpandLess";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import LoginOutlinedIcon from "@mui/icons-material/LoginOutlined";
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 
-import SettingsIcon from "@mui/icons-material/Settings";
 import { AdministrationItem } from "./menu/AdministrationItem";
 import { useAuthSession } from "../context/AuthContext";
 
 import StorefrontOutlinedIcon from "@mui/icons-material/StorefrontOutlined";
-
-const AccountMenuItem = () => {
-  const [open, setOpen] = useState(false);
-
-  return (
-    <Zoom in mountOnEnter unmountOnExit>
-      <Box>
-        <ListItem>
-          <ListItemButton onClick={() => setOpen(!open)}>
-            <ListItemIcon>
-              <ManageAccountsIcon />
-            </ListItemIcon>
-            <ListItemText>My account</ListItemText>
-            {open ? <ExpandLessIcon /> : <ExpandMoreIcon />}
-          </ListItemButton>
-        </ListItem>
-
-        {/** Sub-menu */}
-        <Collapse in={open} unmountOnExit sx={{ pl: 4 }}>
-          <List component="div" disablePadding>
-            <NavigationItem
-              icon={<WhatshotIcon />}
-              text="My requests"
-              path="/my/requests"
-            />
-            <NavigationItem
-              icon={<SettingsIcon />}
-              text="Settings"
-              path="/my/settings"
-            />
-          </List>
-        </Collapse>
-      </Box>
-    </Zoom>
-  );
-};
 
 const NavigationItem = ({ icon, text, path }) => {
   return (
