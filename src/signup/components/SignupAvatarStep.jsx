@@ -44,7 +44,7 @@ export const SignupAvatarStep = () => {
       >
         <Box
           display="flex"
-          justifyContent="space-around"
+          justifyContent="space-evenly"
           alignItems="center"
           sx={{
             flexDirection: ["column", "row"],

@@ -1,4 +1,4 @@
-import { FormControl, TextField } from "@mui/material";
+import { FormControl, IconButton, Stack, TextField } from "@mui/material";
 import { useController } from "react-hook-form";
 import { i18nFormError } from "../../utils/i18n";
 
@@ -41,10 +41,8 @@ export const FormText = ({
         rows={rows}
         minRows={rules?.minRows ? rules.minRows : 0}
         maxRows={rules?.maxRows ? rules.maxRows : 0}
-        InputProps={rest?.InputProps}
         variant="outlined"
         {...rest}
-        color="secondary"
       />
     </FormControl>
   );

@@ -6,21 +6,18 @@ import { confirm } from "../../components/utils/ConfirmationDialog";
 import TaskAltOutlinedIcon from "@mui/icons-material/TaskAltOutlined";
 
 export const IconItemDetails = ({ item }) => {
-  const buyIcon = useBuyIconItem({ id: item?._id });
+  const buyIcon = useBuyIconItem();
 
   const handleBuy = () => {
     confirm({
       description: `Buying ${item.label} will cost you ${item.price}.`,
     })
       .then(() => {
-        buyIcon.mutate(
-          {},
-          {
-            onSuccess: () => {
-              alert("Item bought successfully!");
-            },
-          }
-        );
+        buyIcon.mutate(item._id, {
+          onSuccess: () => {
+            alert("Item bought successfully!");
+          },
+        });
       })
       .catch(() => {});
   };
