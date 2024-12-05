@@ -4,16 +4,16 @@ import {
   Container,
   Dialog,
   Fade,
-  Grid,
   Typography,
 } from "@mui/material";
-import { IconItemCard } from "../components/IconItemCard";
 import { useMemo, useState } from "react";
 
 import { IconFilters } from "./components/IconFilters";
 import { useSearchIconItems } from "../../hooks/api/market/useIconsStore";
 import { useForm, useWatch } from "react-hook-form";
 import { IconItemDetails } from "../components/IconItemDetails";
+import { IconItemList } from "../components/IconItemList";
+import { useNavigate } from "react-router-dom";
 
 export const IconStore = () => {
   const { control, setValue } = useForm({
@@ -36,6 +36,7 @@ export const IconStore = () => {
     [data]
   );
 
+  const navigate = useNavigate();
   const [selectedItem, setSelectedItem] = useState(null);
 
   return (
@@ -57,18 +58,8 @@ export const IconStore = () => {
 
       <Fade in={icons?.length > 0} mountOnEnter unmountOnExit>
         <Box aria-label="content">
-          <Grid container spacing={4}>
-            {data?.pages
-              ?.flatMap((page) => page?.results)
-              .map((item, index) => (
-                <Grid key={index} item xs={12} sm={3}>
-                  <IconItemCard
-                    item={item}
-                    onClick={() => setSelectedItem(item)}
-                  />
-                </Grid>
-              ))}
-          </Grid>
+          <IconItemList icons={icons} onClick={(item) => navigate(item.id)} />
+
           <Fade in={hasNextPage} mountOnEnter unmountOnExit>
             <Box align="center" mt={5}>
               <Button

@@ -29,6 +29,7 @@ import { AdminUserDetailsRecommendationsTab } from "./admin/users/details/AdminU
 import { UserDetailsRecommendationsTab } from "./users/details/UserDetailsRecommendationsTab";
 import { MyRecommendations } from "./account/my-recommendations/MyRecommendations";
 import { AdminUserDetailsPurchasesDetails } from "./admin/users/details/AdminUserDetailsPurchasesDetails";
+import { IconDetails } from "./stores/icons/IconDetails";
 
 export const routes = [
   {
@@ -150,11 +151,16 @@ export const routes = [
           },
           {
             path: "icons",
-            element: <IconStore />,
-          },
-          {
-            path: ":id",
-            element: <>todo</>,
+            children: [
+              {
+                path: "",
+                element: <IconStore />,
+              },
+              {
+                path: ":id",
+                element: <IconDetails />,
+              },
+            ],
           },
         ],
       },

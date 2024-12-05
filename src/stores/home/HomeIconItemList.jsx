@@ -1,18 +1,22 @@
-import { Button, Dialog, Skeleton, Stack, Tooltip } from "@mui/material";
-import React, { useState } from "react";
+import {
+  Box,
+  Dialog,
+  IconButton,
+  ImageList,
+  ImageListItem,
+  ImageListItemBar,
+  Skeleton,
+  Stack,
+} from "@mui/material";
 
-import ArrowForwardOutlinedIcon from "@mui/icons-material/ArrowForwardOutlined";
 import { useNavigate } from "react-router-dom";
-import { IconItemDetails } from "../components/IconItemDetails";
-import { IconItemCard } from "../components/IconItemCard";
 import { useGetTrendingIconItems } from "../../hooks/api/market/useIconsStore";
-
+import AddCircleOutlinedIcon from "@mui/icons-material/AddCircleOutlined";
+import { IconItemList } from "../components/IconItemList";
 export const HomeIconItemList = () => {
   const { data, isLoading } = useGetTrendingIconItems();
 
   const navigate = useNavigate();
-
-  const [selectedItem, setSelectedItem] = useState(null);
 
   if (isLoading)
     return (
@@ -27,28 +31,16 @@ export const HomeIconItemList = () => {
 
   return (
     <>
-      <Stack direction="row" gap={2}>
-        {data?.results?.map((item, index) => (
-          <React.Fragment key={index}>
-            <IconItemCard item={item} onClick={() => setSelectedItem(item)} />
-          </React.Fragment>
-        ))}
+      <Box display="flex" alignItems="center" flexWrap="wrap">
+        <IconItemList
+          icons={data?.results}
+          onClick={(item) => navigate(`./icons/${item.id}`)}
+        />
 
-        <Tooltip title="View more">
-          <Button variant="contained" onClick={() => navigate("icons")}>
-            <ArrowForwardOutlinedIcon fontSize="large" />
-          </Button>
-        </Tooltip>
-      </Stack>
-
-      <Dialog
-        open={Boolean(selectedItem)}
-        onClose={() => setSelectedItem(null)}
-        fullWidth
-        maxWidth="sm"
-      >
-        <IconItemDetails item={selectedItem} />
-      </Dialog>
+        <IconButton onClick={() => navigate("./icons")}>
+          <AddCircleOutlinedIcon />
+        </IconButton>
+      </Box>
     </>
   );
 };

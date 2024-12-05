@@ -1,7 +1,9 @@
-import { Avatar, Box, Button, Stack, Typography } from "@mui/material";
+import { Box, Button, Paper, Stack, Typography } from "@mui/material";
+import { PaymentDetails } from "./payment/PaymentDetails";
 
 export const StoreItemDetails = ({
   icon,
+  type,
   name,
   label,
   price,
@@ -12,28 +14,44 @@ export const StoreItemDetails = ({
     <Stack spacing={2}>
       <Box
         display="flex"
-        justifyContent="space-evenly"
+        justifyContent="space-between"
         alignItems="center"
+        flexDirection={{ xs: "column", md: "row" }}
         px={5}
+        gap={2}
       >
-        <Box display="flex" align="center" flexDirection="column">
-          <Avatar
+        <Box display="flex" gap={1} alignItems="flex-end" flexDirection="row">
+          <Box
+            component="img"
             src={icon}
             alt={name}
             sx={{
-              width: 200,
-              height: 200,
-              border: "5px solid",
-              borderColor: "secondary.main",
+              width: { xs: "10em", md: "25em" },
+              height: { xs: "15em", md: "30em" },
+              backgroundColor: "primary.main",
+              borderRadius: 5,
+              padding: 5,
             }}
+            loading="lazy"
           />
-          <Typography variant="h2">{label}</Typography>
+          <Stack>
+            <Typography variant="title">{label}</Typography>
+            <Typography variant="subtitle">{type}</Typography>
+          </Stack>
         </Box>
-        <Box display="flex" align="center" flexDirection="column">
-          <Button variant="contained" color="primary" onClick={onBuy}>
-            Buy for {price}
-          </Button>
-        </Box>
+        <Paper
+          aria-label="payment-details"
+          display="flex"
+          alignItems="center"
+          justifyContent="flex-start"
+          flexDirection="column"
+          sx={{
+            p: 4,
+            minWidth: { xs: "100%", md: "20em" },
+          }}
+        >
+          <PaymentDetails balance={1000} price={price} onBuy={onBuy} />
+        </Paper>
       </Box>
 
       <Box>

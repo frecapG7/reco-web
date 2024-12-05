@@ -12,7 +12,7 @@ export const StoresHome = () => {
         </Typography>
         <StorefrontOutlinedIcon fontSize="large" />
 
-        <Typography paragraph>
+        <Typography>
           Explore our vast collection of items, from icons to titles, and
           discover the perfect pieces to express yourself. Whether you're
           looking for a new profile icon or a catchy title, we have something
@@ -50,7 +50,7 @@ export const StoresHome = () => {
           <Typography variant="h4" gutterBottom>
             Consumable items
           </Typography>
-          <Typography paragraph>
+          <Typography>
             Consumable items can be used to obtain various benefits, such as XP,
             coins, or other items. Use them wisely to boost your progress and
             enhance your experience.

@@ -1,4 +1,4 @@
-import { Box, CircularProgress } from "@mui/material";
+import { Box, CircularProgress, Typography } from "@mui/material";
 import { StoreItemDetails } from "../../components/store/StoreItemDetails";
 import { useBuyIconItem } from "../../hooks/api/market/useIconsStore";
 
@@ -33,12 +33,14 @@ export const IconItemDetails = ({ item }) => {
     return (
       <Box align="center">
         <TaskAltOutlinedIcon color="success" fontSize="large" />
+        <Typography variant="h4">Item bought successfully!</Typography>
       </Box>
     );
 
   return (
     <StoreItemDetails
       icon={item?.url}
+      type={item?.type}
       name={item?.name}
       label={item?.label}
       price={item?.price}
