@@ -30,6 +30,7 @@ import { UserDetailsRecommendationsTab } from "./users/details/UserDetailsRecomm
 import { MyRecommendations } from "./account/my-recommendations/MyRecommendations";
 import { AdminUserDetailsPurchasesDetails } from "./admin/users/details/AdminUserDetailsPurchasesDetails";
 import { IconDetails } from "./stores/icons/IconDetails";
+import { ConsumableDetails } from "./stores/consumables/ConsumableDetails";
 
 export const routes = [
   {
@@ -159,6 +160,15 @@ export const routes = [
               {
                 path: ":id",
                 element: <IconDetails />,
+              },
+            ],
+          },
+          {
+            path: "consumables",
+            children: [
+              {
+                path: ":id",
+                element: <ConsumableDetails />,
               },
             ],
           },

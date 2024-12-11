@@ -31,25 +31,6 @@ export const useGetItem = (id) => {
   });
 };
 
-const getVariousItems = () => {
-  return [
-    {
-      name: "Invitation Token",
-      type: "INVITATION",
-      url: "https://storage.googleapis.com/reco_dev/icons/gift-svgrepo-com.svg",
-      price: 20,
-      description: "Invite a friend to join the community",
-    },
-  ];
-};
-
-export const useGetVariousItems = () => {
-  return useQuery({
-    queryKey: ["market", "various"],
-    queryFn: getVariousItems,
-  });
-};
-
 const getConsumableItems = async () => {
   const response = await get("/api/stores/consumables");
   return response;

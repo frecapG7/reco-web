@@ -32,6 +32,18 @@ export const useGetTrendingIconItems = () => {
   });
 };
 
+const getIconItem = async (id) => {
+  const response = get(`/api/stores/icons/${id}`);
+  return response;
+};
+export const useGetIconItem = (id, options) => {
+  return useQuery({
+    queryKey: ["stores", "icons", id],
+    queryFn: () => getIconItem(id),
+    ...options,
+  });
+};
+
 export const useSearchIconItems = (search, pageSize) => {
   return useInfiniteQuery({
     queryKey: ["stores", "icons", "search", search],

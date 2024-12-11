@@ -1,5 +1,5 @@
-import { Box, Button, Paper, Stack, Typography } from "@mui/material";
-import { PaymentDetails } from "./payment/PaymentDetails";
+import { Box, Paper, Stack, Typography } from "@mui/material";
+import { PaymentDetails } from "../payment/PaymentDetails";
 
 export const StoreItemDetails = ({
   icon,
@@ -50,7 +50,11 @@ export const StoreItemDetails = ({
             minWidth: { xs: "100%", md: "20em" },
           }}
         >
-          <PaymentDetails balance={1000} price={price} onBuy={onBuy} />
+          <PaymentDetails
+            price={price}
+            onBuy={onBuy}
+            hasQuantity={type === "ConsumableItem"}
+          />
         </Paper>
       </Box>
 

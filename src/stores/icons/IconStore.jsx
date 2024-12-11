@@ -1,17 +1,9 @@
-import {
-  Box,
-  Button,
-  Container,
-  Dialog,
-  Fade,
-  Typography,
-} from "@mui/material";
-import { useMemo, useState } from "react";
+import { Box, Button, Container, Fade, Typography } from "@mui/material";
+import { useMemo } from "react";
 
 import { IconFilters } from "./components/IconFilters";
 import { useSearchIconItems } from "../../hooks/api/market/useIconsStore";
 import { useForm, useWatch } from "react-hook-form";
-import { IconItemDetails } from "../components/IconItemDetails";
 import { IconItemList } from "../components/IconItemList";
 import { useNavigate } from "react-router-dom";
 
@@ -37,7 +29,6 @@ export const IconStore = () => {
   );
 
   const navigate = useNavigate();
-  const [selectedItem, setSelectedItem] = useState(null);
 
   return (
     <Container>
@@ -73,15 +64,6 @@ export const IconStore = () => {
           </Fade>
         </Box>
       </Fade>
-
-      <Dialog
-        open={Boolean(selectedItem)}
-        onClose={() => setSelectedItem(null)}
-        fullWidth
-        maxWidth="md"
-      >
-        <IconItemDetails item={selectedItem} />
-      </Dialog>
     </Container>
   );
 };

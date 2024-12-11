@@ -38,6 +38,7 @@ export const Home = () => {
         aria-label="search-filters"
         sx={{
           mt: 5,
+          p: 2,
         }}
       >
         <Search filters={filters} setFilters={setFilters} />
