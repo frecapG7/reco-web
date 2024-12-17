@@ -5,6 +5,8 @@ import {
   CircularProgress,
   Container,
   Divider,
+  Fade,
+  Icon,
   IconButton,
   Paper,
   Stack,
@@ -20,13 +22,16 @@ import { i18nDateTime } from "../../utils/i18n";
 
 import CheckCircleOutlineOutlinedIcon from "@mui/icons-material/CheckCircleOutlineOutlined";
 import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
-import { IconItemDetail } from "../../components/store/IconItemDetail";
-import { useMemo, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { MarketItemForm } from "./forms/MartketItemForm";
 
 import { confirm } from "../../components/utils/ConfirmationDialog";
-import { StoreItemIcon } from "../../components/store/StoreItemIcon";
+import { STORE_ITEM_TYPE } from "../../utils/enumUtils";
+import { EnumIcon } from "../../components/icons/EnumIcon";
+import { StoreItemDetails } from "../../components/store/items/StoreItemDetails";
 import EditIcon from "@mui/icons-material/Edit";
+import { CurrencyIcon } from "../../components/icons/CurrencyIcon";
+import { UpdateMarketItem } from "./components/UpdateMarketItem";
 
 export const MarketItemDetails = () => {
   const { id } = useParams();
@@ -34,15 +39,6 @@ export const MarketItemDetails = () => {
   const { data: marketItem, isLoading } = useGetItem(id);
 
   const [edit, setEdit] = useState(false);
-
-  const type = useMemo(() => {
-    switch (marketItem?.type) {
-      case "IconItem":
-        return "ICON";
-      default:
-        return "";
-    }
-  }, [marketItem]);
 
   const formRef = useRef();
 
@@ -123,132 +119,120 @@ export const MarketItemDetails = () => {
           my: 2,
         }}
       >
-        <Stack spacing={2}>
-          <Box
-            display="flex"
-            justifyContent="space-around"
-            alignItems="center"
-            aria-label="admin-header-container"
-          >
-            <Box align="center">
-              <StoreItemIcon type={marketItem.type} fontSize="large" />
-              <Typography variant="h5" paragraph>
-                {marketItem.name}
-              </Typography>
-            </Box>
+        <Box
+          display="flex"
+          justifyContent="space-around"
+          alignItems="center"
+          aria-label="admin-header-container"
+        >
+          <Stack direction="column" alignItems="center">
+            <Typography variant="label">Type</Typography>
 
-            <Typography variant="h6" paragraph>
-              {marketItem.price} Piasses
-            </Typography>
+            <EnumIcon
+              value={marketItem.type}
+              values={STORE_ITEM_TYPE}
+              fontSize="large"
+            />
+          </Stack>
 
-            <Stack direction="row" spacing={5}>
-              {marketItem.type === "IconItem" && (
-                <Stack direction="column" alignItems="center">
-                  <Typography variant="label">Free on signup</Typography>
-                  {JSON.stringify(marketItem.freeOnSignup)}
-                  <IconButton onClick={handleFreeOnSignup}>
-                    {marketItem?.freeOnSignup ? (
-                      <CheckCircleOutlineOutlinedIcon
-                        color="success"
-                        fontSize="large"
-                      />
-                    ) : (
-                      <CancelOutlinedIcon color="error" fontSize="large" />
-                    )}
-                  </IconButton>
-                </Stack>
+          <Stack direction="column" alignItems="center">
+            <Typography variant="label">Created By</Typography>
+            <Typography>{marketItem.created_by?.name}</Typography>
+          </Stack>
+
+          <Stack direction="column" alignItems="center">
+            <Typography variant="label">Last modification</Typography>
+            <Typography>{i18nDateTime(marketItem.modified_at)}</Typography>
+          </Stack>
+
+          <Stack direction="column" alignItems="center">
+            <Typography variant="label">Enabled</Typography>
+            <IconButton>
+              {marketItem?.enabled ? (
+                <CheckCircleOutlineOutlinedIcon
+                  color="success"
+                  onClick={onDisable}
+                  fontSize="large"
+                />
+              ) : (
+                <CancelOutlinedIcon
+                  color="error"
+                  onClick={onEnable}
+                  fontSize="large"
+                />
               )}
-
-              <Stack direction="column" alignItems="center">
-                <Typography variant="label">Enabled</Typography>
-                <IconButton>
-                  {marketItem?.enabled ? (
-                    <CheckCircleOutlineOutlinedIcon
-                      color="success"
-                      onClick={onDisable}
-                      fontSize="large"
-                    />
-                  ) : (
-                    <CancelOutlinedIcon
-                      color="error"
-                      onClick={onEnable}
-                      fontSize="large"
-                    />
-                  )}
-                </IconButton>
-              </Stack>
-              <IconButton
-                variant="contained"
-                // color={edit ? "cancel.main" : "primary"}
-                onClick={() => setEdit(!edit)}
-              >
-                {edit ? <CancelOutlinedIcon color="cancel" /> : <EditIcon />}
-              </IconButton>
-            </Stack>
-          </Box>
-          <Divider />
-
-          <Box
-            display="flex"
-            justifyContent="space-evenly"
-            alignItems="center"
-            aria-label="admin-metadata-container"
-          >
-            <Stack direction="column" alignItems="center">
-              <Typography variant="label">Created By</Typography>
-              <Typography>{marketItem.created_by?.name}</Typography>
-            </Stack>
-            <Stack direction="column" alignItems="center">
-              <Typography variant="label">Created at</Typography>
-              <Typography>{i18nDateTime(marketItem.created_at)}</Typography>
-            </Stack>
-            <Stack direction="column" alignItems="center">
-              <Typography variant="label">Last modification</Typography>
-              <Typography>{i18nDateTime(marketItem.modified_at)}</Typography>
-            </Stack>
-          </Box>
-        </Stack>
+            </IconButton>
+          </Stack>
+        </Box>
       </Box>
 
-      <Zoom in={!edit} mountOnEnter unmountOnExit>
-        <Paper
-          sx={{
-            my: 5,
-          }}
-          aria-label="admin-item-detail"
-        >
-          <IconItemDetail
-            iconItem={marketItem}
-            onBuy={() => alert("You wanna play kid?")}
-          />
-        </Paper>
-      </Zoom>
-
-      <Zoom in={edit} mountOnEnter unmountOnExit>
-        <Paper
-          sx={{
-            my: 5,
-          }}
-          aria-label="admin-item-edit"
-        >
-          <MarketItemForm
-            type={type}
-            marketItem={marketItem}
-            onSubmit={onSubmit}
-            formRef={formRef}
-          />
-
-          <Box align="center">
-            <Button
-              variant="contained"
-              color="secondary"
-              onClick={() => formRef.current?.submit()}
+      <Box
+        display="flex"
+        justifyContent="space-between"
+        flexDirection={{ xs: "column", md: "row-reverse" }}
+        px={5}
+        gap={2}
+      >
+        <Paper>
+          <Box
+            display="flex"
+            justifyContent="space-between"
+            alignItems="center"
+          >
+            <Fade in={!edit}>
+              <Typography variant="title">
+                {marketItem?.price} <CurrencyIcon />
+              </Typography>
+            </Fade>
+            <IconButton
+              variant={edit ? "contained" : "outlined"}
+              // color="secondary"
+              onClick={() => setEdit(!edit)}
             >
-              Save
-            </Button>
+              {edit ? <CancelOutlinedIcon /> : <EditIcon />}
+            </IconButton>
           </Box>
+          <Zoom in={!edit} mountOnEnter unmountOnExit>
+            <Box display="flex" flexDirection="column" gap={2} p={2}>
+              <Stack divider={<Divider />} spacing={2} p={2}>
+                <Stack>
+                  <Typography variant="caption">Label</Typography>
+                  <Typography variant="subtitle">
+                    {marketItem?.label}
+                  </Typography>
+                </Stack>
+                <Stack>
+                  <Typography variant="caption">Name</Typography>
+                  <Typography variant="body1">{marketItem?.name}</Typography>
+                </Stack>
+                <Stack>
+                  <Typography variant="caption">Icon</Typography>
+                  <Typography>{marketItem.icon}</Typography>
+                </Stack>
+              </Stack>
+            </Box>
+          </Zoom>
+          <Zoom in={edit} mountOnEnter unmountOnExit>
+            <Box
+              sx={{
+                my: 5,
+              }}
+              aria-label="admin-item-edit"
+            >
+              <UpdateMarketItem marketItem={marketItem} onSubmit={onSubmit} />
+            </Box>
+          </Zoom>
         </Paper>
-      </Zoom>
+        <Box aria-label="details-container" flexGrow={{ xs: 1, md: 2 }}>
+          <StoreItemDetails
+            icon={marketItem.icon}
+            type={marketItem.type}
+            label={marketItem.label}
+            name={marketItem.name}
+            description={marketItem.description}
+          />
+        </Box>
+      </Box>
 
       <Backdrop open={updateItem.isPending}>
         <CircularProgress />

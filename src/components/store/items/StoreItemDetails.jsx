@@ -1,63 +1,55 @@
-import { Box, Paper, Stack, Typography } from "@mui/material";
-import { PaymentDetails } from "../payment/PaymentDetails";
+import { Badge, Box, Icon, Typography } from "@mui/material";
+import { EnumIcon } from "../../icons/EnumIcon";
+import { STORE_ITEM_TYPE } from "../../../utils/enumUtils";
 
-export const StoreItemDetails = ({
-  icon,
-  type,
-  name,
-  label,
-  price,
-  description,
-  onBuy,
-}) => {
+export const StoreItemDetails = ({ icon, type, name, label, description }) => {
   return (
-    <Stack spacing={2}>
-      <Box
-        display="flex"
-        justifyContent="space-between"
-        alignItems="center"
-        flexDirection={{ xs: "column", md: "row" }}
-        px={5}
-        gap={2}
+    <Box
+      display="flex"
+      flexDirection="column"
+      justifyContent="flex-start"
+      alignItems="flex-start"
+      gap={2}
+    >
+      <Badge
+        // component={Icon}
+        badgeContent={
+          <Icon variant="outlined" color="secondary">
+            <EnumIcon value={type} values={STORE_ITEM_TYPE} />
+          </Icon>
+        }
+        slotProps={{
+          color: "secondary",
+          fontSize: "large",
+        }}
       >
-        <Box display="flex" gap={1} alignItems="flex-end" flexDirection="row">
+        <Box
+          sx={{
+            // width: { xs: "10em", md: "25em" },
+            // height: { xs: "10.5em", md: "27em" },
+            backgroundColor: "primary.main",
+            borderRadius: 5,
+            padding: 5,
+            display: "flex",
+            flexDirection: "column",
+          }}
+        >
           <Box
             component="img"
             src={icon}
             alt={name}
-            sx={{
-              width: { xs: "10em", md: "25em" },
-              height: { xs: "15em", md: "30em" },
-              backgroundColor: "primary.main",
-              borderRadius: 5,
-              padding: 5,
-            }}
             loading="lazy"
+            sx={{
+              width: { xs: "5em", md: "10em" },
+            }}
           />
-          <Stack>
-            <Typography variant="title">{label}</Typography>
-            <Typography variant="subtitle">{type}</Typography>
-          </Stack>
+          <Typography variant="title" textAlign="center">
+            {label}
+          </Typography>
         </Box>
-        <Paper
-          aria-label="payment-details"
-          display="flex"
-          sx={{
-            p: 4,
-            minWidth: { xs: "100%", md: "20em" },
-          }}
-        >
-          <PaymentDetails
-            price={price}
-            onBuy={onBuy}
-            hasQuantity={type === "ConsumableItem"}
-          />
-        </Paper>
-      </Box>
+      </Badge>
 
-      <Box>
-        <Typography>{description}</Typography>
-      </Box>
-    </Stack>
+      <Typography>{description}</Typography>
+    </Box>
   );
 };
