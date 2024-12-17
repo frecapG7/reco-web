@@ -14,6 +14,7 @@ import SupervisorAccountOutlinedIcon from "@mui/icons-material/SupervisorAccount
 import StorefrontOutlinedIcon from "@mui/icons-material/StorefrontOutlined";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import KeyOutlinedIcon from "@mui/icons-material/KeyOutlined";
 
 export const AdministrationItem = () => {
   const [open, setOpen] = useState(false);
@@ -41,6 +42,11 @@ export const AdministrationItem = () => {
             icon={<StorefrontOutlinedIcon />}
             text="Marketplace"
             path="/administration/market"
+          />
+          <MenuItem
+            icon={<KeyOutlinedIcon />}
+            text="Keys"
+            path="/administration/tokens"
           />
         </List>
       </Collapse>

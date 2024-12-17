@@ -163,8 +163,14 @@ theme = createTheme(theme, {
         {
           props: { variant: "contained" },
           style: {
-            minWidth: 100,
-            minHeight: 100,
+            [theme.breakpoints.down("sm")]: {
+              minWidth: 50,
+              minHeight: 50,
+            },
+            [theme.breakpoints.up("sm")]: {
+              minWidth: 100,
+              minHeight: 100,
+            },
             borderRadius: "50%",
             alignItems: "center",
             display: "flex",

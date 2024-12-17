@@ -42,9 +42,6 @@ export const StoreItemDetails = ({
         <Paper
           aria-label="payment-details"
           display="flex"
-          alignItems="center"
-          justifyContent="flex-start"
-          flexDirection="column"
           sx={{
             p: 4,
             minWidth: { xs: "100%", md: "20em" },

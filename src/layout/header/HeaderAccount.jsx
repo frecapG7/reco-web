@@ -18,6 +18,7 @@ import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import { useNavigate } from "react-router-dom";
 import SavingsOutlinedIcon from "@mui/icons-material/SavingsOutlined";
 import Inventory2OutlinedIcon from "@mui/icons-material/Inventory2Outlined";
+import KeyIcon from "@mui/icons-material/Key";
 import { useGetBalance, useGetUser } from "../../hooks/api/users/useUsers";
 import { useAuthSession } from "../../context/AuthContext";
 
@@ -29,7 +30,9 @@ export const HeaderAccount = ({ user }) => {
 
   const { logout } = useAuthSession();
   const { data } = useGetUser(user?.id);
-  const { data: balance } = useGetBalance(user?.id);
+  const { data: balance } = useGetBalance(user?.id, {
+    enabled: !!user?.id,
+  });
 
   return (
     <Box>
@@ -113,14 +116,26 @@ export const HeaderAccount = ({ user }) => {
             }}
           >
             <Inventory2OutlinedIcon
-              // fontSize="large"
+              fontSize="large"
               sx={{
-                width: 40,
-                height: 40,
                 mr: 2,
               }}
             />
             Purchases
+          </MenuItem>
+          <MenuItem
+            onClick={() => {
+              navigate("./account/my-keys");
+              setAnchorEl(null);
+            }}
+          >
+            <KeyIcon
+              fontSize="large"
+              sx={{
+                mr: 2,
+              }}
+            />
+            Keys
           </MenuItem>
           <Divider />
 

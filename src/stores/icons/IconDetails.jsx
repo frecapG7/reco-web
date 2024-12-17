@@ -1,5 +1,5 @@
 import { Container, Zoom, Box, CircularProgress } from "@mui/material";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import {
   useBuyIconItem,
   useGetIconItem,
@@ -12,18 +12,26 @@ export const IconDetails = () => {
   const { data: iconItem } = useGetIconItem(id, {
     enabled: !!id,
   });
-  const buyItem = useBuyIconItem(id);
+  const buyIcon = useBuyIconItem();
 
-  const handleBuy = () => {};
+  const navigate = useNavigate();
+
+  const handleBuy = () => {
+    buyIcon.mutate(iconItem, {
+      onSuccess: (data) => {
+        setTimeout(() => navigate(`/account/my-purchases/${data.id}`), 2000);
+      },
+    });
+  };
 
   return (
     <Container sx={{ my: 2 }}>
-      <Zoom in={buyItem.isPending} mountOnEnter unmountOnExit>
+      <Zoom in={buyIcon.isPending} mountOnEnter unmountOnExit>
         <Box align="center" sx={{ my: 2 }}>
           <CircularProgress />
         </Box>
       </Zoom>
-      <Zoom in={!buyItem.isPending} mountOnEnter unmountOnExit>
+      <Zoom in={!buyIcon.isPending} mountOnEnter unmountOnExit>
         <Box>
           <StoreItemDetails
             icon={iconItem?.url}
@@ -38,7 +46,7 @@ export const IconDetails = () => {
       </Zoom>
 
       <SuccessDialog
-        open={buyItem.isSuccess}
+        open={buyIcon.isSuccess}
         message="Item successfully purchased!"
       />
     </Container>

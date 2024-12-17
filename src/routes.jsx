@@ -31,6 +31,8 @@ import { MyRecommendations } from "./account/my-recommendations/MyRecommendation
 import { AdminUserDetailsPurchasesDetails } from "./admin/users/details/AdminUserDetailsPurchasesDetails";
 import { IconDetails } from "./stores/icons/IconDetails";
 import { ConsumableDetails } from "./stores/consumables/ConsumableDetails";
+import { MyKeys } from "./account/my-keys/MyKeys";
+import { TokensAdministration } from "./admin/tokens/TokensAdministration";
 
 export const routes = [
   {
@@ -104,6 +106,10 @@ export const routes = [
                 element: <MarketItemsAdministration />,
               },
             ],
+          },
+          {
+            path: "tokens",
+            element: <TokensAdministration />,
           },
         ],
       },
@@ -194,6 +200,10 @@ export const routes = [
                 element: <MyPurchases />,
               },
             ],
+          },
+          {
+            path: "my-keys",
+            element: <MyKeys />,
           },
           {
             path: "settings",

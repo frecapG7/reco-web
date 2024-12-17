@@ -6,10 +6,16 @@ import {
   ListItemText,
   ListItemIcon,
   Typography,
-  Avatar,
+  Icon,
   ListItemButton,
   IconButton,
   Stack,
+  SvgIcon,
+  Button,
+  ListItemAvatar,
+  Avatar,
+  Paper,
+  Badge,
 } from "@mui/material";
 import { useForm, useWatch } from "react-hook-form";
 import { PurchaseFilters } from "../../purchase/PurchaseFilters";
@@ -42,26 +48,25 @@ export const UserPurchases = ({ user }) => {
         {purchases?.map((purchase, index) => (
           <ListItem
             key={index}
-            secondaryAction={
-              <Stack direction="row">
-                <IconButton>toto</IconButton>
-                <IconButton>toto</IconButton>
-                <IconButton>toto</IconButton>
-              </Stack>
-            }
             divider
+            secondaryAction={
+              <Paper
+                elevation={0}
+                sx={{
+                  p: 1,
+                  borderRadius: "50%",
+                  backgroundColor: "primary.main",
+                }}
+              >
+                {purchase.quantity}
+              </Paper>
+            }
             // disablePadding
           >
             <ListItemButton onClick={() => navigate(purchase.id)}>
-              <ListItemIcon>
-                <Avatar
-                  src={purchase.icon}
-                  sx={{
-                    width: 75,
-                    height: 75,
-                  }}
-                />
-              </ListItemIcon>
+              <ListItemAvatar>
+                <Avatar src={purchase.icon} alt={purchase.name} />
+              </ListItemAvatar>
               <ListItemText
                 primary={purchase.name}
                 primaryTypographyProps={{

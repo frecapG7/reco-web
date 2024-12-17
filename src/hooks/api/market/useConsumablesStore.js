@@ -1,5 +1,6 @@
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { get, post } from "../index";
+import { useAuthSession } from "../../../context/AuthContext";
 
 const getConsumableItems = async () => {
   const response = await get("/api/stores/consumables");
@@ -24,8 +25,11 @@ export const useGetConsumable = (id) => {
   });
 };
 
-const buyConsumableItem = async (id, quantity) => {
-  const response = await post(`/api/stores/consumables/${id}/buy`, {
+const buyConsumableItem = async (userId, id, quantity) => {
+  const response = await post(`/api/users/${userId}/purchases`, {
+    item: {
+      id,
+    },
     quantity,
   });
 
@@ -33,7 +37,16 @@ const buyConsumableItem = async (id, quantity) => {
 };
 
 export const useBuyConsumableItem = (id) => {
+  const { session } = useAuthSession();
+
+  const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: (quantity) => buyConsumableItem(id, quantity),
+    mutationFn: (quantity) => buyConsumableItem(session.user?.id, id, quantity),
+    onSuccess: () => {
+      Promise.all([
+        queryClient.invalidateQueries(["stores", "consumables"]),
+        queryClient.invalidateQueries(["users", session.user?.id, "purchases"]),
+      ]);
+    },
   });
 };
