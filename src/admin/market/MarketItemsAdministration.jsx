@@ -33,7 +33,7 @@ const Content = ({ results = [] }) => {
   }
 
   return results.map((item, index) => (
-    <TableRow key={index} hover onClick={() => navigate(`${item._id}`)}>
+    <TableRow key={index} hover onClick={() => navigate(`${item.id}`)}>
       <TableCell align="center">{item.name}</TableCell>
       <TableCell align="center">{item.type}</TableCell>
       <TableCell align="center">{item.price}</TableCell>

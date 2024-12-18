@@ -1,27 +1,17 @@
-import { Grid, IconButton, Menu } from "@mui/material";
-import { FormText } from "../../../components/form/FormText";
+import { Grid2 as Grid, IconButton, Menu } from "@mui/material";
 import TuneOutlinedIcon from "@mui/icons-material/TuneOutlined";
 import { FormSelect } from "../../../components/form/FormSelect";
 import { useState } from "react";
+import { FormSearch } from "../../../components/form/FormSearch";
 
-export const IconFilters = ({ control, setValue }) => {
+export const IconFilters = ({ control }) => {
   const [anchorEl, setAnchorEl] = useState(null);
 
   return (
     <form>
       <Grid container spacing={2} alignItems="center">
-        <Grid item xs={8}>
-          <FormText
-            control={control}
-            name="search"
-            InputProps={{
-              endAdornment: (
-                <IconButton onClick={() => setValue("search", "")}>
-                  x
-                </IconButton>
-              ),
-            }}
-          />
+        <Grid size={{ xs: 8 }}>
+          <FormSearch control={control} name="search" />
         </Grid>
         <Grid item xs={4}>
           <IconButton onClick={(event) => setAnchorEl(event.currentTarget)}>

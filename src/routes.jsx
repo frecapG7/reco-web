@@ -17,7 +17,7 @@ import { AuthProtectedLayout } from "./layout/AuthProtectedLayout";
 import { AccountDetails } from "./account/details/AccountDetails";
 import { AccountSettings } from "./account/settings/AccountSettings";
 import { MyPurchases } from "./account/my-purchases/MyPurcharses";
-import { PurchaseDetails } from "./account/my-purchases/PurchaseDetails";
+import { MyPurchasesDetails } from "./account/my-purchases/MyPurchasesDetails";
 import { AdminUserDetails } from "./admin/users/details/AdminUserDetails";
 import { AdminUserDetailsPurchasesTab } from "./admin/users/details/AdminUserDetailsPurchasesTab";
 import { AdminUserDetailsMetricsTab } from "./admin/users/details/AdminUserDetailsMetricsTab";
@@ -28,6 +28,11 @@ import { UserDetailsRequestTab } from "./users/details/UserDetailsRequestTab";
 import { AdminUserDetailsRecommendationsTab } from "./admin/users/details/AdminUserDetailsRecommendationsTab";
 import { UserDetailsRecommendationsTab } from "./users/details/UserDetailsRecommendationsTab";
 import { MyRecommendations } from "./account/my-recommendations/MyRecommendations";
+import { AdminUserDetailsPurchasesDetails } from "./admin/users/details/AdminUserDetailsPurchasesDetails";
+import { IconDetails } from "./stores/icons/IconDetails";
+import { ConsumableDetails } from "./stores/consumables/ConsumableDetails";
+import { MyKeys } from "./account/my-keys/MyKeys";
+import { TokensAdministration } from "./admin/tokens/TokensAdministration";
 
 export const routes = [
   {
@@ -70,7 +75,16 @@ export const routes = [
                   },
                   {
                     path: "purchases",
-                    element: <AdminUserDetailsPurchasesTab />,
+                    children: [
+                      {
+                        path: "",
+                        element: <AdminUserDetailsPurchasesTab />,
+                      },
+                      {
+                        path: ":purchaseId",
+                        element: <AdminUserDetailsPurchasesDetails />,
+                      },
+                    ],
                   },
                 ],
               },
@@ -92,6 +106,10 @@ export const routes = [
                 element: <MarketItemsAdministration />,
               },
             ],
+          },
+          {
+            path: "tokens",
+            element: <TokensAdministration />,
           },
         ],
       },
@@ -140,7 +158,25 @@ export const routes = [
           },
           {
             path: "icons",
-            element: <IconStore />,
+            children: [
+              {
+                path: "",
+                element: <IconStore />,
+              },
+              {
+                path: ":id",
+                element: <IconDetails />,
+              },
+            ],
+          },
+          {
+            path: "consumables",
+            children: [
+              {
+                path: ":id",
+                element: <ConsumableDetails />,
+              },
+            ],
           },
         ],
       },
@@ -156,14 +192,18 @@ export const routes = [
             path: "my-purchases",
             children: [
               {
+                path: ":id",
+                element: <MyPurchasesDetails />,
+              },
+              {
                 path: "",
                 element: <MyPurchases />,
               },
-              {
-                path: ":id",
-                element: <PurchaseDetails />,
-              },
             ],
+          },
+          {
+            path: "my-keys",
+            element: <MyKeys />,
           },
           {
             path: "settings",

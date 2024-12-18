@@ -2,6 +2,8 @@ import {
   Avatar,
   Badge,
   Box,
+  Divider,
+  Icon,
   IconButton,
   ListItemIcon,
   ListItemText,
@@ -11,12 +13,14 @@ import {
   Stack,
 } from "@mui/material";
 import { useState } from "react";
-import Face5OutlinedIcon from "@mui/icons-material/Face5Outlined";
+import PowerSettingsNewIcon from "@mui/icons-material/PowerSettingsNew";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import { useNavigate } from "react-router-dom";
 import SavingsOutlinedIcon from "@mui/icons-material/SavingsOutlined";
-
+import Inventory2OutlinedIcon from "@mui/icons-material/Inventory2Outlined";
+import KeyIcon from "@mui/icons-material/Key";
 import { useGetBalance, useGetUser } from "../../hooks/api/users/useUsers";
+import { useAuthSession } from "../../context/AuthContext";
 
 export const HeaderAccount = ({ user }) => {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -24,8 +28,11 @@ export const HeaderAccount = ({ user }) => {
 
   const navigate = useNavigate();
 
+  const { logout } = useAuthSession();
   const { data } = useGetUser(user?.id);
-  const { data: balance } = useGetBalance(user?.id);
+  const { data: balance } = useGetBalance(user?.id, {
+    enabled: !!user?.id,
+  });
 
   return (
     <Box>
@@ -65,6 +72,14 @@ export const HeaderAccount = ({ user }) => {
         MenuListProps={{
           "aria-labelledby": "basic-button",
         }}
+        slotProps={{
+          paper: {
+            elevation: 0,
+            sx: {
+              minWidth: 300,
+            },
+          },
+        }}
         disableScrollLock
         marginThreshold={20}
         anchorOrigin={{
@@ -83,10 +98,16 @@ export const HeaderAccount = ({ user }) => {
               setAnchorEl(null);
             }}
           >
-            <ListItemIcon>
-              <Face5OutlinedIcon />
-            </ListItemIcon>
-            <ListItemText primary="Profile" />
+            <Avatar
+              src={data?.avatar}
+              alt={user?.name}
+              sx={{
+                width: 40,
+                height: 40,
+                mr: 2,
+              }}
+            />
+            Profile
           </MenuItem>
           <MenuItem
             onClick={() => {
@@ -94,11 +115,29 @@ export const HeaderAccount = ({ user }) => {
               setAnchorEl(null);
             }}
           >
-            <ListItemIcon>
-              <SettingsOutlinedIcon />
-            </ListItemIcon>
-            <ListItemText primary="Purchases" />
+            <Inventory2OutlinedIcon
+              fontSize="large"
+              sx={{
+                mr: 2,
+              }}
+            />
+            Purchases
           </MenuItem>
+          <MenuItem
+            onClick={() => {
+              navigate("./account/my-keys");
+              setAnchorEl(null);
+            }}
+          >
+            <KeyIcon
+              fontSize="large"
+              sx={{
+                mr: 2,
+              }}
+            />
+            Keys
+          </MenuItem>
+          <Divider />
 
           <MenuItem
             onClick={() => {
@@ -110,6 +149,17 @@ export const HeaderAccount = ({ user }) => {
               <SettingsOutlinedIcon />
             </ListItemIcon>
             <ListItemText primary="Settings" />
+          </MenuItem>
+          <MenuItem
+            onClick={() => {
+              logout();
+              setAnchorEl(null);
+            }}
+          >
+            <ListItemIcon>
+              <PowerSettingsNewIcon />
+            </ListItemIcon>
+            <ListItemText primary="Logout" />
           </MenuItem>
         </MenuList>
       </Menu>

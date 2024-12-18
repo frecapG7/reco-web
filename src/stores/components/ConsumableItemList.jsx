@@ -1,8 +1,8 @@
 import { Box, Typography } from "@mui/material";
 
 import { StoreItemList } from "../../components/store/items/StoreItemList";
-export const IconItemList = ({ icons, onClick }) => {
-  if (icons?.length == 0) {
+export const ConsumableItemList = ({ consumables, onClick }) => {
+  if (consumables?.length == 0) {
     return (
       <Box aria-label="no-content" align="center">
         <Typography variant="h4">No results</Typography>
@@ -12,10 +12,10 @@ export const IconItemList = ({ icons, onClick }) => {
 
   return (
     <StoreItemList
-      items={icons?.map((icon) => ({
+      items={consumables?.map((icon) => ({
         id: icon.id,
         label: icon.label,
-        img: icon.url,
+        img: icon.icon,
         price: icon.price,
       }))}
       onClick={onClick}

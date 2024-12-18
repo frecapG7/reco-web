@@ -141,7 +141,7 @@ theme = createTheme(theme, {
           props: { variant: "contained" },
           style: {
             backgroundColor: theme.palette.primary.main,
-            color: theme.palette.neutral.main,
+            color: theme.palette.secondary.dark,
             "&:hover": {
               backgroundColor: theme.palette.primary.dark,
             },
@@ -153,6 +153,7 @@ theme = createTheme(theme, {
             backgroundColor: theme.palette.background.default,
             color: theme.palette.primary.dark,
             borderRadius: "50%",
+            border: `2px solid ${theme.palette.primary.main}`,
           },
         },
       ],
@@ -162,8 +163,14 @@ theme = createTheme(theme, {
         {
           props: { variant: "contained" },
           style: {
-            minWidth: 100,
-            minHeight: 100,
+            [theme.breakpoints.down("sm")]: {
+              minWidth: 50,
+              minHeight: 50,
+            },
+            [theme.breakpoints.up("sm")]: {
+              minWidth: 100,
+              minHeight: 100,
+            },
             borderRadius: "50%",
             alignItems: "center",
             display: "flex",
@@ -207,9 +214,9 @@ theme = createTheme(theme, {
     MuiPaper: {
       styleOverrides: {
         root: {
-          padding: 20,
-          backgroundColor: theme.palette.secondary.white,
-          borderRadius: 20,
+          padding: 5,
+          backgroundColor: theme.palette.neutral.main,
+          borderRadius: 10,
         },
       },
       variants: [

@@ -1,8 +1,9 @@
 import { Box } from "@mui/material";
 import { useForm } from "react-hook-form";
-import { FormText } from "../components/form/FormText";
+import { FormSearch } from "../components/form/FormSearch";
 import { useEffect } from "react";
 import { FormToggles } from "../components/form/FormToggles";
+import { RequestType } from "../components/request/RequestType";
 
 export const Search = ({ filters, setFilters }) => {
   const { control, watch } = useForm({
@@ -18,23 +19,22 @@ export const Search = ({ filters, setFilters }) => {
   return (
     <Box>
       <form>
-        <FormText control={control} name="search" label="Search" />
+        <FormSearch control={control} name="search" label="Search" />
         <FormToggles
           control={control}
           name="type"
-          label="Type"
           options={[
             {
               value: "BOOK",
-              label: "Book",
+              label: <RequestType requestType="BOOK" />,
             },
             {
               value: "SONG",
-              label: "Song",
+              label: <RequestType requestType="SONG" />,
             },
             {
               value: "MOVIE",
-              label: "Movie",
+              label: <RequestType requestType="MOVIE" />,
             },
           ]}
         />

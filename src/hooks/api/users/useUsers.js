@@ -195,3 +195,21 @@ export const useGetBalance = (id, detailled, options) => {
     ...options,
   });
 };
+
+const getUserTokens = async (id, pageSize, pageNumber) => {
+  const response = await get(`/api/users/${id}/tokens`, {
+    params: {
+      pageSize: pageSize || 10,
+      pageNumber: pageNumber || 1,
+    },
+  });
+  return response;
+};
+
+export const useGetUserTokens = (id, pageSize, pageNumber, options) => {
+  return useQuery({
+    queryKey: ["users", id, "tokens", pageSize, pageNumber],
+    queryFn: () => getUserTokens(id, pageSize, pageNumber),
+    ...options,
+  });
+};

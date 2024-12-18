@@ -1,22 +1,43 @@
-import { Grid, IconButton } from "@mui/material";
-import { FormText } from "../form/FormText";
+import { Divider } from "@mui/material";
+import Grid from "@mui/material/Grid2";
+import { FormRadioIcon } from "../form/FormRadioIcon";
 
-export const PurchaseFilters = ({ control, setValue }) => {
+import LocalDiningOutlinedIcon from "@mui/icons-material/LocalDiningOutlined";
+import FaceRetouchingNaturalOutlinedIcon from "@mui/icons-material/FaceRetouchingNaturalOutlined";
+import { FormSearch } from "../form/FormSearch";
+
+export const PurchaseFilters = ({ control }) => {
   return (
-    <form>
-      <Grid container spacing={2} alignItems="center">
-        <Grid item xs={8}>
-          <FormText
+    <Grid container alignItems="center" width="100%">
+      <Grid size={{ xs: 8 }}>
+        <FormSearch control={control} name="name" label="Search" />
+      </Grid>
+      <Grid size={{ xs: 12 }} container>
+        <Grid size={{ xs: 12, sm: 2 }}>
+          <FormRadioIcon
             control={control}
-            name="name"
-            InputProps={{
-              endAdornment: (
-                <IconButton onClick={() => setValue("name", "")}>x</IconButton>
-              ),
-            }}
+            name="type"
+            options={[
+              {
+                value: "",
+                label: "All",
+              },
+              {
+                value: "ConsumablePurchase",
+                icon: <LocalDiningOutlinedIcon />,
+              },
+              {
+                value: "IconPurchase",
+                icon: <FaceRetouchingNaturalOutlinedIcon />,
+              },
+            ]}
           />
         </Grid>
+        <Grid size={{ xs: 0, md: 2 }}>
+          <Divider orientation="vertical" />
+        </Grid>
+        <Grid size={{ xs: 12, sm: 4 }}>TODO: sort</Grid>
       </Grid>
-    </form>
+    </Grid>
   );
 };

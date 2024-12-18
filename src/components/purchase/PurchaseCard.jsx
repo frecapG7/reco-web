@@ -42,9 +42,6 @@ const PurchaseMedia = ({ purchase }) => {
             sx={{
               width: "10rem",
               height: "10rem",
-              borderRadius: "50%",
-              borderColor: "primary.main",
-              border: 1,
               padding: 1,
             }}
           />
@@ -58,7 +55,7 @@ const PurchaseMedia = ({ purchase }) => {
 export const PurchaseCard = ({ user, purchase, canUse = false }) => {
   const navigate = useNavigate();
 
-  const redeem = useRedeemPurchase(user.id, purchase._id);
+  const redeem = useRedeemPurchase(user.id, purchase.id);
 
   const handleUse = () => {
     redeem.mutate(
@@ -75,7 +72,7 @@ export const PurchaseCard = ({ user, purchase, canUse = false }) => {
     <Badge
       badgeContent={
         <Tooltip title={purchase.type}>
-          <Icon fontSize="large" color="secondary">
+          <Icon fontSize="medium" variant="contained" color="primary">
             <PurchaseBadge purchase={purchase} />
           </Icon>
         </Tooltip>
@@ -86,7 +83,7 @@ export const PurchaseCard = ({ user, purchase, canUse = false }) => {
           maxWidth: 345,
           bgcolor: "background.default",
         }}
-        variant="outlined"
+        // variant="outlined"
       >
         <CardContent
           sx={{
@@ -106,7 +103,7 @@ export const PurchaseCard = ({ user, purchase, canUse = false }) => {
             <Button
               color="primary"
               variant="contained"
-              onClick={() => navigate(purchase._id)}
+              onClick={() => navigate(purchase.id)}
             >
               Details
             </Button>
