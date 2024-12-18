@@ -1,8 +1,15 @@
-import { Badge, Box, Icon, Typography } from "@mui/material";
+import { Badge, Box, Icon, Skeleton, Typography } from "@mui/material";
 import { EnumIcon } from "../../icons/EnumIcon";
 import { STORE_ITEM_TYPE } from "../../../utils/enumUtils";
 
 export const StoreItemDetails = ({ icon, type, name, label, description }) => {
+  if (!type)
+    return (
+      <Box>
+        <Skeleton variant="rectangular" width={300} height={300} />
+        <Skeleton variant="text" width={300} />
+      </Box>
+    );
   return (
     <Box
       display="flex"
@@ -12,7 +19,6 @@ export const StoreItemDetails = ({ icon, type, name, label, description }) => {
       gap={2}
     >
       <Badge
-        // component={Icon}
         badgeContent={
           <Icon variant="outlined" color="secondary">
             <EnumIcon value={type} values={STORE_ITEM_TYPE} />
@@ -25,13 +31,12 @@ export const StoreItemDetails = ({ icon, type, name, label, description }) => {
       >
         <Box
           sx={{
-            // width: { xs: "10em", md: "25em" },
-            // height: { xs: "10.5em", md: "27em" },
             backgroundColor: "primary.main",
             borderRadius: 5,
-            padding: 5,
+            padding: { xs: 4, md: 4 },
             display: "flex",
             flexDirection: "column",
+            alignItems: "center",
           }}
         >
           <Box
@@ -40,7 +45,7 @@ export const StoreItemDetails = ({ icon, type, name, label, description }) => {
             alt={name}
             loading="lazy"
             sx={{
-              width: { xs: "5em", md: "10em" },
+              width: { xs: "4em", md: "7.5em" },
             }}
           />
           <Typography variant="title" textAlign="center">
