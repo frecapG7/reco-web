@@ -2,7 +2,7 @@ import { Grid2 as Grid } from "@mui/material";
 import { FormText } from "../../../components/form/FormText";
 import { FormPrice } from "../../../components/form/FormPrice";
 
-export const StoreItemForm = ({ control, disabled }) => {
+export const StoreItemForm = ({ control }) => {
   return (
     <Grid
       container
