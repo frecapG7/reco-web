@@ -25,7 +25,7 @@ export const AddMarketItem = () => {
       >
         <CreateMarketItem onSubmit={onSubmit} />
       </Box>
-      <Backdrop in={postItem.isPending}>
+      <Backdrop open={postItem.isPending}>
         <CircularProgress />
       </Backdrop>
     </Container>

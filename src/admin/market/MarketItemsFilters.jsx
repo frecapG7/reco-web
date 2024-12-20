@@ -38,8 +38,8 @@ export const MarketItemsFilters = ({ filters, onValueChange }) => {
         </Grid>
         <Grid item container justifyContent="flex-end" alignItems="baseline">
           <Button
-            variant="contained"
-            color="secondary"
+            variant="outlined"
+            color="primary"
             // onClick={handleSubmit(setFilters)}
           >
             Search

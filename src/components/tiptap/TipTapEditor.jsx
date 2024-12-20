@@ -39,6 +39,7 @@ const TiptapEditor = ({ initialValue, onChange }) => {
 
 const style = {
   backgroundColor: "white",
+  paddingBottom: 100,
   ".tiptap": {
     border: 0,
     minHeight: 200,

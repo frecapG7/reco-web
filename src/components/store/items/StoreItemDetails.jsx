@@ -54,7 +54,9 @@ export const StoreItemDetails = ({ icon, type, name, label, description }) => {
         </Box>
       </Badge>
 
-      <Typography>{description}</Typography>
+      <div>
+        <div dangerouslySetInnerHTML={{ __html: description }} />
+      </div>
     </Box>
   );
 };

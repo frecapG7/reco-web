@@ -15,6 +15,7 @@ export const FormNumber = ({
   required,
   rules,
   suffix,
+  disabled = false,
 }) => {
   const {
     field: { ref, value, onChange, onBlur },
@@ -33,6 +34,7 @@ export const FormNumber = ({
     <FormControl fullWidth>
       <FormLabel required={rules?.required}>{label}</FormLabel>
       <NumericFormat
+        disabled={disabled}
         value={value}
         customInput={TextField}
         inputRef={ref}

@@ -140,7 +140,7 @@ theme = createTheme(theme, {
           props: { variant: "contained" },
           style: {
             backgroundColor: theme.palette.primary.main,
-            color: theme.palette.secondary.dark,
+            // color: theme.palette.secondary.dark,
             "&:hover": {
               backgroundColor: theme.palette.primary.dark,
             },
@@ -213,8 +213,8 @@ theme = createTheme(theme, {
           style: {
             borderRadius: 10,
             boxShadow: "none",
-            border: "1px solid #e0e0e0",
-            borderColor: "#1a73e8",
+            border: "1px solid",
+            borderColor: theme.palette.primary.main,
             padding: 20,
           },
         },
