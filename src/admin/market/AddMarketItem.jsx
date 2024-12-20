@@ -1,4 +1,4 @@
-import { Box, Container } from "@mui/material";
+import { Backdrop, Box, CircularProgress, Container } from "@mui/material";
 import { usePostItem } from "../../hooks/api/admin/useMarketAdministration";
 import { CreateMarketItem } from "./components/CreateMarketItem";
 
@@ -25,6 +25,9 @@ export const AddMarketItem = () => {
       >
         <CreateMarketItem onSubmit={onSubmit} />
       </Box>
+      <Backdrop in={postItem.isPending}>
+        <CircularProgress />
+      </Backdrop>
     </Container>
   );
 };

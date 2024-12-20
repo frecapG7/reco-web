@@ -109,6 +109,7 @@ theme = createTheme(theme, {
         root: {
           fontSize: "1rem",
           textTransform: "none",
+          borderRadius: 10,
           [theme.breakpoints.down("sm")]: {
             minWidth: "8rem",
           },
@@ -118,7 +119,6 @@ theme = createTheme(theme, {
         },
         outlined: {
           boxShadow: "none",
-          borderRadius: 20,
           color: theme.palette.secondary.main,
           ...theme.typography.button,
         },
@@ -127,7 +127,6 @@ theme = createTheme(theme, {
         },
         contained: {
           boxShadow: "none",
-          borderRadius: 20,
           ...theme.typography.button,
         },
       },
@@ -193,20 +192,9 @@ theme = createTheme(theme, {
     MuiToggleButton: {
       styleOverrides: {
         root: {
-          borderRadius: 20,
-          padding: 10,
-          // margin: 5,
           "&.Mui-selected": {
             backgroundColor: theme.palette.primary.main,
             "&:hover": {},
-            "&::after": {
-              // Add these lines
-              content: '"✔"', // Unicode check character
-              position: "absolute",
-              right: 0,
-              top: -1,
-              color: theme.palette.success.main,
-            },
           },
         },
       },
@@ -383,6 +371,9 @@ theme = createTheme(theme, {
         },
       },
     },
+  },
+  tiptap: {
+    margin: 10000,
   },
 });
 
