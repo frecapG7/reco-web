@@ -1,4 +1,10 @@
-import { Container, Zoom, Box, CircularProgress } from "@mui/material";
+import {
+  Container,
+  Zoom,
+  Box,
+  CircularProgress,
+  Skeleton,
+} from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom";
 import {
   useBuyIconItem,
@@ -25,6 +31,24 @@ export const IconDetails = () => {
     });
   };
 
+  if (!iconItem)
+    return (
+      <Container>
+        <Box display="flex" gap={2}>
+          <Box flex={1.5}>
+            <Skeleton variant="rectangular">
+              <StoreItemDetails />
+            </Skeleton>
+            <Skeleton variant="text" />
+          </Box>
+          <Box flex={1}>
+            <Skeleton variant="rounded">
+              <PaymentDetails />
+            </Skeleton>
+          </Box>
+        </Box>
+      </Container>
+    );
   return (
     <Container sx={{ my: 2 }}>
       <Zoom in={buyIcon.isPending} mountOnEnter unmountOnExit>

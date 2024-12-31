@@ -30,6 +30,7 @@ import { StoreItemDetails } from "../../components/store/items/StoreItemDetails"
 import EditIcon from "@mui/icons-material/Edit";
 import { CurrencyIcon } from "../../components/icons/CurrencyIcon";
 import { UpdateMarketItem } from "./components/UpdateMarketItem";
+import { UpdateMarketItemDescription } from "./components/UpdateMarketItemDescription";
 
 export const MarketItemDetails = () => {
   const { id } = useParams();
@@ -109,7 +110,7 @@ export const MarketItemDetails = () => {
           <Typography variant="label">Type</Typography>
 
           <EnumIcon
-            value={marketItem.type}
+            value={marketItem?.type}
             values={STORE_ITEM_TYPE}
             fontSize="large"
           />
@@ -166,45 +167,39 @@ export const MarketItemDetails = () => {
                   {marketItem?.price} <CurrencyIcon />
                 </Typography>
               </Fade>
-              <IconButton
-                variant={edit ? "contained" : "outlined"}
-                // color="secondary"
-                onClick={() => setEdit(!edit)}
-              >
+              <IconButton variant="outlined" onClick={() => setEdit(!edit)}>
                 {edit ? <CancelOutlinedIcon /> : <EditIcon />}
               </IconButton>
             </Box>
             <Zoom in={!edit} mountOnEnter unmountOnExit>
-              <Box display="flex" flexDirection="column" gap={2} p={2}>
-                <Stack divider={<Divider />} spacing={2} p={2}>
-                  <Stack>
-                    <Typography variant="caption">Label</Typography>
-                    <Typography variant="subtitle">
-                      {marketItem?.label}
-                    </Typography>
-                  </Stack>
-                  <Stack>
-                    <Typography variant="caption">Name</Typography>
-                    <Typography variant="body1">{marketItem?.name}</Typography>
-                  </Stack>
-                  <Stack>
-                    <Typography variant="caption">Icon</Typography>
-                    <Typography noWrap maxWidth={200}>
-                      {marketItem.icon}
-                    </Typography>
-                  </Stack>
+              <Stack divider={<Divider />} spacing={2} p={1}>
+                <Stack>
+                  <Typography variant="caption">Label</Typography>
+                  <Typography variant="subtitle">
+                    {marketItem?.label}
+                  </Typography>
                 </Stack>
-              </Box>
+                <Stack>
+                  <Typography variant="caption">Name</Typography>
+                  <Typography variant="body1">{marketItem?.name}</Typography>
+                </Stack>
+                <Stack>
+                  <Typography variant="caption">Icon</Typography>
+                  <Typography noWrap maxWidth={200}>
+                    {marketItem.icon}
+                  </Typography>
+                </Stack>
+              </Stack>
             </Zoom>
             <Zoom in={edit} mountOnEnter unmountOnExit>
-              <Box
-                sx={{
-                  my: 5,
-                }}
-                aria-label="admin-item-edit"
-              >
+              <Stack divider={<Divider />} spacing={2} p={1}>
                 <UpdateMarketItem marketItem={marketItem} onSubmit={onSubmit} />
-              </Box>
+
+                <UpdateMarketItemDescription
+                  marketItem={marketItem}
+                  onSubmit={onSubmit}
+                />
+              </Stack>
             </Zoom>
           </Paper>
         </Grid>

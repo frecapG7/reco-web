@@ -1,5 +1,4 @@
 import {
-  Badge,
   FormControl,
   FormControlLabel,
   IconButton,

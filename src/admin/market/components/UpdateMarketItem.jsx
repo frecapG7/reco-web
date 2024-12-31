@@ -11,10 +11,10 @@ export const UpdateMarketItem = ({ marketItem, onSubmit }) => {
   return (
     <Box>
       <StoreItemForm control={control} />
-      <Box align="center">
+      <Box display="flex" justifyContent="center">
         <Button
           variant="contained"
-          color="secondary"
+          color="primary"
           onClick={handleSubmit(onSubmit)}
         >
           Save

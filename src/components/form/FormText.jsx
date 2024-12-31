@@ -1,4 +1,4 @@
-import { FormControl, TextField } from "@mui/material";
+import { FormControl, FormLabel, TextField } from "@mui/material";
 import { useController } from "react-hook-form";
 import { i18nFormError } from "../../utils/i18n";
 
@@ -25,10 +25,10 @@ export const FormText = ({
 
   return (
     <FormControl fullWidth disabled={disabled}>
+      <FormLabel required={required}>{label}</FormLabel>
       <TextField
         fullWidth
         name={name}
-        label={label}
         inputRef={ref}
         value={value}
         onChange={onChange}

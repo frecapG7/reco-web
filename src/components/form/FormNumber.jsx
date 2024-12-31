@@ -1,4 +1,9 @@
-import { FormControl, FormHelperText, TextField } from "@mui/material";
+import {
+  FormControl,
+  FormHelperText,
+  FormLabel,
+  TextField,
+} from "@mui/material";
 import { useController } from "react-hook-form";
 import { NumericFormat } from "react-number-format";
 import { i18nFormError } from "../../utils/i18n";
@@ -10,6 +15,7 @@ export const FormNumber = ({
   required,
   rules,
   suffix,
+  disabled = false,
 }) => {
   const {
     field: { ref, value, onChange, onBlur },
@@ -26,10 +32,11 @@ export const FormNumber = ({
 
   return (
     <FormControl fullWidth>
+      <FormLabel required={rules?.required}>{label}</FormLabel>
       <NumericFormat
+        disabled={disabled}
         value={value}
         customInput={TextField}
-        label={label}
         inputRef={ref}
         onChange={onChange}
         onBlur={onBlur}

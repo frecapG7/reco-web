@@ -16,7 +16,6 @@ import {
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useGetItems } from "../../hooks/api/admin/useMarketAdministration";
-import { i18nDateTime } from "../../utils/i18n";
 import { MarketItemsFilters } from "./MarketItemsFilters";
 
 const Content = ({ results = [] }) => {
@@ -34,11 +33,18 @@ const Content = ({ results = [] }) => {
 
   return results.map((item, index) => (
     <TableRow key={index} hover onClick={() => navigate(`${item.id}`)}>
+      <TableCell align="center">
+        <Box
+          component="img"
+          src={item.icon}
+          sx={{
+            width: 40,
+          }}
+        />
+      </TableCell>
       <TableCell align="center">{item.name}</TableCell>
       <TableCell align="center">{item.type}</TableCell>
       <TableCell align="center">{item.price}</TableCell>
-      <TableCell align="right">{item.created_by?.name}</TableCell>
-      <TableCell align="right">{i18nDateTime(item?.created_at)}</TableCell>
     </TableRow>
   ));
 };
@@ -83,11 +89,10 @@ export const MarketItemsAdministration = () => {
           <Table aria-label="users-table">
             <TableHead>
               <TableRow>
+                <TableCell align="center">Icon</TableCell>
                 <TableCell align="center">Name</TableCell>
                 <TableCell align="center">Type</TableCell>
                 <TableCell align="center">Price</TableCell>
-                <TableCell align="right">Created By</TableCell>
-                <TableCell align="right">Created At</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>

@@ -1,23 +1,22 @@
 import {
   Box,
   Container,
-  Icon,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
   Pagination,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
 } from "@mui/material";
 import { useGetTokens } from "../../hooks/api/tokens/useTokens";
 import { useState } from "react";
 
-import KeyIcon from "@mui/icons-material/Key";
-import KeyOffIcon from "@mui/icons-material/KeyOff";
+import { i18nDateTime } from "../../utils/i18n";
 
 export const TokensAdministration = () => {
   const [pageNumber, setPageNumber] = useState(1);
-  const [pageSize, setPageSize] = useState(2);
-  const { data: page } = useGetTokens(pageSize, pageNumber);
+  const { data: page } = useGetTokens(10, pageNumber);
 
   return (
     <Container>
@@ -27,20 +26,25 @@ export const TokensAdministration = () => {
         height="100%"
         justifyContent="space-between"
       >
-        <Box>
-          <List>
-            {page?.results?.map((token) => (
-              <ListItem key={token.id}>
-                <ListItemIcon>
-                  <Icon color="secondary" variant="contained">
-                    {token?.used ? <KeyOffIcon /> : <KeyIcon />}
-                  </Icon>
-                </ListItemIcon>
-                <ListItemText primary={token.type} secondary={token.value} />
-              </ListItem>
-            ))}
-          </List>
-        </Box>
+        <TableContainer>
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell>Type</TableCell>
+                <TableCell>Created</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {page?.results?.map((token, index) => (
+                <TableRow key={index}>
+                  <TableCell>{token.type}</TableCell>
+                  <TableCell>{i18nDateTime(token.created)}</TableCell>
+                  <TableCell>{i18nDateTime(token.expiration)}</TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
 
         <Box alignSelf="bottom">
           <Pagination

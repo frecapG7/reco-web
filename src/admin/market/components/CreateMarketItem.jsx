@@ -1,7 +1,9 @@
-import { Alert, Button, Grid2 as Grid, Zoom } from "@mui/material";
+import { Alert, Button, Divider, Grid2 as Grid, Zoom } from "@mui/material";
 import { useForm, useWatch } from "react-hook-form";
 import { FormSelect } from "../../../components/form/FormSelect";
 import { StoreItemForm } from "../../../components/store/items/StoreItemForm";
+import { FormTipTapEditor } from "../../../components/form/FormTipTapEditor";
+import { STORE_ITEM_TYPE } from "../../../utils/enumUtils";
 export const CreateMarketItem = ({ onSubmit }) => {
   const { control, handleSubmit } = useForm();
 
@@ -11,14 +13,14 @@ export const CreateMarketItem = ({ onSubmit }) => {
   });
 
   return (
-    <Grid container>
+    <Grid container width="100%">
       <Grid size={{ xs: 12 }}>
         <FormSelect
           control={control}
-          options={[
-            { value: "ICON", label: "Users' avatar icons" },
-            { value: "CONSUMABLE", label: "Consumable items" },
-          ]}
+          options={Array.from(STORE_ITEM_TYPE, ([key, value]) => ({
+            value: key,
+            label: value.label,
+          }))}
           name="type"
           required
         />
@@ -28,20 +30,21 @@ export const CreateMarketItem = ({ onSubmit }) => {
       </Grid>
 
       <Zoom in={!!type}>
-        <Grid size={{ xs: 12 }}>
+        <Grid container>
+          <Divider flexItem />
           <StoreItemForm control={control} />
+          <FormTipTapEditor control={control} name="description" />
+          <Grid size={{ xs: 12 }} justifyContent="center" display="flex">
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={handleSubmit(onSubmit)}
+            >
+              Save
+            </Button>
+          </Grid>
         </Grid>
       </Zoom>
-
-      <Grid size={{ xs: 12 }} justifyContent="center" display="flex">
-        <Button
-          variant="contained"
-          color="secondary"
-          onClick={handleSubmit(onSubmit)}
-        >
-          Save
-        </Button>
-      </Grid>
     </Grid>
   );
 };
