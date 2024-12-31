@@ -1,6 +1,5 @@
 import {
   Box,
-  Button,
   Container,
   Fab,
   Paper,
@@ -32,21 +31,18 @@ const Content = ({ users }) => {
   }
 
   return users?.map((user, index) => (
-    <TableRow key={index} hover>
+    <TableRow key={index} hover onClick={() => navigate(`${user.id}`)}>
+      <TableCell align="center">
+        <Box
+          component="img"
+          src={user.avatar}
+          sx={{
+            width: 40,
+          }}
+        />
+      </TableCell>
       <TableCell>{user.name}</TableCell>
       <TableCell>{i18nDateTime(user.created)}</TableCell>
-      <TableCell align="right">
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={() => navigate(`${user.id}`)}
-        >
-          Edit
-        </Button>
-        <Button variant="contained" color="secondary">
-          Delete
-        </Button>
-      </TableCell>
     </TableRow>
   ));
 };
@@ -85,9 +81,9 @@ export const UsersAdministration = () => {
           <Table aria-label="users-table">
             <TableHead>
               <TableRow>
-                <TableCell align="center">Username</TableCell>
-                <TableCell align="center">Created</TableCell>
-                <TableCell align="right">Actions</TableCell>
+                <TableCell align="center"></TableCell>
+                <TableCell>User</TableCell>
+                <TableCell>Created</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>

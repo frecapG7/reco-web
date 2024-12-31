@@ -371,6 +371,13 @@ theme = createTheme(theme, {
         },
       },
     },
+    MuiTableRow: {
+      styleOverrides: {
+        hover: {
+          cursor: "pointer",
+        },
+      },
+    },
   },
   tiptap: {
     margin: 10000,
