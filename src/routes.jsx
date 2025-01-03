@@ -6,7 +6,6 @@ import { MarketItemsAdministration } from "./admin/market/MarketItemsAdministrat
 import { MarketItemDetails } from "./admin/market/MarketItemDetails";
 import { AddMarketItem } from "./admin/market/AddMarketItem";
 import { Login } from "./login/Login";
-import { CreateRequest } from "./request/CreateRequest";
 import { User } from "./users/User";
 import { Signup } from "./signup/Signup";
 import { Notifications } from "./notifications/Notifications";
@@ -33,6 +32,7 @@ import { IconDetails } from "./stores/icons/IconDetails";
 import { ConsumableDetails } from "./stores/consumables/ConsumableDetails";
 import { MyKeys } from "./account/my-keys/MyKeys";
 import { TokensAdministration } from "./admin/tokens/TokensAdministration";
+import { CreateRequestV2 } from "./requests/CreateRequestV2";
 
 export const routes = [
   {
@@ -118,7 +118,7 @@ export const routes = [
         children: [
           {
             path: "new",
-            element: <CreateRequest />,
+            element: <CreateRequestV2 />,
           },
           {
             path: ":id",

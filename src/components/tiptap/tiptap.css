@@ -1,0 +1,14 @@
+/* Basic editor styles */
+.tiptap {
+
+
+    background-color: "red";
+     /* Placeholder (at the top) */
+  p.is-editor-empty:first-child::before {
+    color: var(--gray-4);
+    content: attr(data-placeholder);
+    float: left;
+    height: 0;
+    pointer-events: none;
+  }
+}

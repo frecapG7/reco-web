@@ -10,7 +10,7 @@ let theme = createTheme({
       contrastText: "#1F4529",
     },
     secondary: {
-      main: "#A1EEBD",
+      main: "#4a9e48",
       light: "#96FF96",
       dark: "#2CB419",
       contrastText: "#8174A0",
@@ -375,6 +375,15 @@ theme = createTheme(theme, {
       styleOverrides: {
         hover: {
           cursor: "pointer",
+        },
+      },
+    },
+    MuiRadio: {
+      styleOverrides: {
+        root: {
+          "&:hover": {
+            transform: "scale(1.1)",
+          },
         },
       },
     },
