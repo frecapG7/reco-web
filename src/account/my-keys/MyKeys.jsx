@@ -19,16 +19,10 @@ export const MyKeys = () => {
   const { session } = useAuthSession();
 
   const [pageNumber, setPageNumber] = useState(1);
-  const [pageSize, setPageSize] = useState(10);
 
-  const { data: page } = useGetUserTokens(
-    session.user.id,
-    pageSize,
-    pageNumber,
-    {
-      enabled: !!session.user,
-    }
-  );
+  const { data: page } = useGetUserTokens(session.user.id, 10, pageNumber, {
+    enabled: !!session.user,
+  });
   return (
     <Container
       sx={{
@@ -55,7 +49,10 @@ export const MyKeys = () => {
       </List>
 
       <Box align="center" width="100%">
-        <Pagination count={page?.pagination.totalPages || 0} />
+        <Pagination
+          count={page?.pagination.totalPages || 0}
+          onChange={(e, value) => setPageNumber(value)}
+        />
       </Box>
     </Container>
   );

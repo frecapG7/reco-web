@@ -4,17 +4,18 @@ import {
   Button,
   Chip,
   Divider,
-  Grid,
+  Grid2 as Grid,
   Icon,
   Skeleton,
   Stack,
   Typography,
 } from "@mui/material";
 
-import { RequestType } from "./RequestType";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { RecommendationDialog } from "../../home/RecommendationDialog";
+import { EnumIcon } from "../icons/EnumIcon";
+import { REQUEST_TYPE } from "../../utils/enumUtils";
 
 const User = ({ user }) => {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -98,7 +99,11 @@ export const Request = ({ request }) => {
         </Box>
 
         <Icon variant="contained">
-          <RequestType requestType={request?.requestType} />
+          <EnumIcon
+            value={request?.requestType}
+            values={REQUEST_TYPE}
+            fontSize="large"
+          />
         </Icon>
       </Box>
 
@@ -112,10 +117,10 @@ export const Request = ({ request }) => {
           flexDirection: "column",
         }}
       >
-        <Typography variant="title" textAlign="justify" paragraph>
+        <Typography variant="title" textAlign="justify">
           {request.title}
         </Typography>
-        <Typography variant="body1">{request.description}</Typography>
+        <div dangerouslySetInnerHTML={{ __html: request.description }} />
 
         <Grid container mt={2} spacing={3}>
           {request.tags.map((tag, index) => (
@@ -123,7 +128,7 @@ export const Request = ({ request }) => {
               <Chip key={index} label={`# ${tag}`} />
             </Grid>
           ))}
-          <Grid item container xs={12} alignItems="center">
+          <Grid size={{ xs: 12 }} container alignItems="center">
             <Typography>{request.recommendationsCount} Recocos</Typography>
             <Button
               variant="contained"

@@ -15,7 +15,8 @@ export const SignupUsernameStep = () => {
         validate: async (value) => {
           try {
             await validateUsername(value);
-          } catch (error) {
+          } catch (e) {
+            console.warn(e);
             return "Username already exists";
           }
         },

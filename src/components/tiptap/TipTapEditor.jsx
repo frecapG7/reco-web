@@ -1,10 +1,16 @@
 import { EditorContent, useEditor } from "@tiptap/react";
 import { TipTapEditorMenu } from "./TipTapEditorMenu";
 import StarterKit from "@tiptap/starter-kit";
+import Placeholder from "@tiptap/extension-placeholder";
 
 const TiptapEditor = ({ initialValue, onChange }) => {
   const editor = useEditor({
-    extensions: [StarterKit],
+    extensions: [
+      StarterKit,
+      Placeholder.configure({
+        placeholder: "Write something amazing...",
+      }),
+    ],
     content: initialValue,
     /**
      * This option gives us the control to enable the default behavior of rendering the editor immediately.
@@ -18,7 +24,7 @@ const TiptapEditor = ({ initialValue, onChange }) => {
   });
 
   return (
-    <div style={style} onBlur={() => onChange(editor.getHTML())}>
+    <div onBlur={() => onChange(editor.getHTML())}>
       <TipTapEditorMenu editor={editor} />
       <EditorContent
         editor={editor}
@@ -33,21 +39,9 @@ const TiptapEditor = ({ initialValue, onChange }) => {
           },
         }}
       />
+      <link rel="stylesheet" href="/css/tiptap.css" />
     </div>
   );
-};
-
-const style = {
-  backgroundColor: "white",
-  paddingBottom: 100,
-  ".tiptap": {
-    border: 0,
-    minHeight: 200,
-  },
-  "&.tiptap": {
-    border: 0,
-    height: "200px",
-  },
 };
 
 export default TiptapEditor;

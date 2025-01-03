@@ -11,16 +11,16 @@ import {
 } from "@mui/material";
 import { useGetRequests } from "../hooks/api/requests/useRequests";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { Search } from "./Search";
-import { Fragment, useState } from "react";
+import { Fragment } from "react";
 import { useNavigate } from "react-router-dom";
 import { Request } from "../components/request/Request";
 import { Recommendations } from "./Recommendations";
+import { useForm, useWatch } from "react-hook-form";
+import { SearchRequestFilterForm } from "./components/SearchRequestFilterForm";
 
 export const Home = () => {
-  const [filters, setFilters] = useState({
-    search: "",
-  });
+  const { control } = useForm();
+  const filters = useWatch({ control });
 
   const {
     data: results,
@@ -41,7 +41,7 @@ export const Home = () => {
           p: 2,
         }}
       >
-        <Search filters={filters} setFilters={setFilters} />
+        <SearchRequestFilterForm control={control} />
       </Paper>
 
       <Box>
