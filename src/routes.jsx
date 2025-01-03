@@ -32,7 +32,7 @@ import { IconDetails } from "./stores/icons/IconDetails";
 import { ConsumableDetails } from "./stores/consumables/ConsumableDetails";
 import { MyKeys } from "./account/my-keys/MyKeys";
 import { TokensAdministration } from "./admin/tokens/TokensAdministration";
-import { CreateRequestV2 } from "./requests/CreateRequestV2";
+import { CreateRequest } from "./requests/CreateRequest";
 
 export const routes = [
   {
@@ -118,7 +118,7 @@ export const routes = [
         children: [
           {
             path: "new",
-            element: <CreateRequestV2 />,
+            element: <CreateRequest />,
           },
           {
             path: ":id",
