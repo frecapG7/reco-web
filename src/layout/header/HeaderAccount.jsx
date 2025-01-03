@@ -3,7 +3,6 @@ import {
   Badge,
   Box,
   Divider,
-  Icon,
   IconButton,
   ListItemIcon,
   ListItemText,

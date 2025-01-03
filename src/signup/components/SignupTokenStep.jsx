@@ -22,6 +22,7 @@ export const SignupTokenStep = () => {
             try {
               await validateToken(value);
             } catch (e) {
+              console.warn(e);
               return "Invalid token";
             }
           },

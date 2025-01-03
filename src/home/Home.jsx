@@ -19,7 +19,7 @@ import { useForm, useWatch } from "react-hook-form";
 import { SearchRequestFilterForm } from "./components/SearchRequestFilterForm";
 
 export const Home = () => {
-  const { control, watch } = useForm();
+  const { control } = useForm();
   const filters = useWatch({ control });
 
   const {

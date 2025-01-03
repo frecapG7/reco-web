@@ -8,7 +8,7 @@ export default [
     ignores: ["dist", "build", "plugins"],
   },
   {
-    files: ["**/*.js", "*.jsx"],
+    files: ["**/*.js", "**/*.jsx"],
     plugins: {
       react,
     },
