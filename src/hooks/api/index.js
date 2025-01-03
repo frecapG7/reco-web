@@ -62,6 +62,7 @@ const json = async (response) => {
   try {
     return await response.json();
   } catch (e) {
+    console.warn(e);
     // A bit ugly but I found no other solution to prevent json() from failing when body is empty
     return null;
   }

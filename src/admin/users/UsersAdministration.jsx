@@ -18,6 +18,7 @@ import { UsersFilters } from "./UsersFilters";
 import { useNavigate } from "react-router-dom";
 import { AddUserDialog } from "./AddUserDialog";
 import { i18nDateTime } from "../../utils/i18n";
+import { useForm, useWatch } from "react-hook-form";
 
 const Content = ({ users }) => {
   const navigate = useNavigate();
@@ -48,10 +49,13 @@ const Content = ({ users }) => {
 };
 
 export const UsersAdministration = () => {
-  const [filters, setFilters] = useState({
-    search: "",
-    role: "",
+  const { control } = useForm({
+    defaultValues: {
+      search: "",
+      role: "",
+    },
   });
+  const filters = useWatch({ control });
   const [pageNumber, setPageNumber] = useState(0);
   const [pageSize, setPageSize] = useState(10);
 
@@ -73,7 +77,7 @@ export const UsersAdministration = () => {
           my: 2,
         }}
       >
-        <UsersFilters filters={filters} setFilters={setFilters} />
+        <UsersFilters control={control} />
       </Paper>
 
       <Paper elevation={0} sx={{}}>
