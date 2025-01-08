@@ -140,7 +140,7 @@ export const HeaderAccount = ({ user }) => {
 
           <MenuItem
             onClick={() => {
-              navigate("./account/settings");
+              navigate("./settings");
               setAnchorEl(null);
             }}
           >

@@ -4,7 +4,7 @@ import {
   useQuery,
   useQueryClient,
 } from "@tanstack/react-query";
-import { get, post } from "../index";
+import { get, post, put } from "../index";
 
 const getUser = async (id) => {
   const response = await get(`/api/users/${id}`);
@@ -13,8 +13,36 @@ const getUser = async (id) => {
 
 export const useGetUser = (id, options) => {
   return useQuery({
-    queryKey: ["user", id],
+    queryKey: ["users", id],
     queryFn: () => getUser(id),
+    ...options,
+  });
+};
+
+const updateUser = async (id, data) => {
+  const response = await put(`/api/users/${id}`, data);
+  return response;
+};
+
+export const useUpdateUser = (id, options) => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (data) => updateUser(id, data),
+    onSuccess: (data) => {
+      queryClient.setQueryData(["users", id], data);
+    },
+    ...options,
+  });
+};
+
+const updatePassword = async (id, data) => {
+  const response = await put(`/api/users/${id}/password`, data);
+  return response;
+};
+
+export const useUpdatePassword = (id, options) => {
+  return useMutation({
+    mutationFn: (data) => updatePassword(id, data),
     ...options,
   });
 };

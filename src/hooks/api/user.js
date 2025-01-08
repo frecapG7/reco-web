@@ -18,19 +18,3 @@ export const useGetUser = (id, options) => {
 
 
 
-const updateUser = async (user) => {
-    const response = await put(`/users/${user.id}`, user);
-    return response;
-}
-
-
-export const useUpdateUser = (id, options) => {
-    const queryClient = useQueryClient();
-    return useMutation({
-        mutationFn: (user) => updateUser(user),
-        onSuccess: (data) => {
-            queryClient.setQueryData(['users', id], data)
-        },
-        ...options
-    });
-}

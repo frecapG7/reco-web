@@ -33,6 +33,10 @@ import { ConsumableDetails } from "./stores/consumables/ConsumableDetails";
 import { MyKeys } from "./account/my-keys/MyKeys";
 import { TokensAdministration } from "./admin/tokens/TokensAdministration";
 import { CreateRequest } from "./requests/CreateRequest";
+import { Settings } from "./settings/Settings";
+import { NotificationSettings } from "./settings/NotificationSettings";
+import { AccountSettingsV2 } from "./settings/AccountSettingsV2";
+import { PrivacySettings } from "./settings/PrivacySettings";
 
 export const routes = [
   {
@@ -206,10 +210,6 @@ export const routes = [
             element: <MyKeys />,
           },
           {
-            path: "settings",
-            element: <AccountSettings />,
-          },
-          {
             path: "",
             element: <AccountHome />,
             children: [
@@ -226,6 +226,28 @@ export const routes = [
                 element: <MyRecommendations />,
               },
             ],
+          },
+        ],
+      },
+      {
+        path: "settings",
+        element: (
+          <AuthProtectedLayout>
+            <Settings />
+          </AuthProtectedLayout>
+        ),
+        children: [
+          {
+            path: "notifications",
+            element: <NotificationSettings />,
+          },
+          {
+            path: "account",
+            element: <AccountSettingsV2 />,
+          },
+          {
+            path: "privacy",
+            element: <PrivacySettings />,
           },
         ],
       },

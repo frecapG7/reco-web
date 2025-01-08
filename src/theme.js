@@ -387,6 +387,18 @@ theme = createTheme(theme, {
         },
       },
     },
+    MuiTab: {
+      styleOverrides: {
+        root: {
+          "&.Mui-selected": {
+            color: theme.palette.primary.main,
+          },
+          "&:hover": {
+            color: theme.palette.primary.main,
+          },
+        },
+      },
+    },
   },
   tiptap: {
     margin: 10000,
