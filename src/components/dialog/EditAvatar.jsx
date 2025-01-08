@@ -26,7 +26,7 @@ export const EditAvatar = ({ open, onClose, user }) => {
       <DialogTitle>Edit Avatar</DialogTitle>
       <DialogContent>
         <Stack spacing={2} alignItems="center" justifyContent="center">
-          {items?.map((item, index) => (
+          {items?.map((item) => (
             <Avatar key={item.id} src={item.icon} />
           ))}
         </Stack>

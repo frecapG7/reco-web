@@ -4,6 +4,7 @@ const AuthContext = createContext({
   session: {},
   login: () => {},
   logout: () => {},
+  initialized: false,
 });
 
 export const AuthContextProvider = ({ children }) => {
@@ -11,6 +12,8 @@ export const AuthContextProvider = ({ children }) => {
     loggedIn: false,
     user: null,
   });
+
+  const [initialized, setInitialized] = useState(false);
 
   useEffect(() => {
     const storage = sessionStorage.getItem("session");
@@ -20,6 +23,7 @@ export const AuthContextProvider = ({ children }) => {
         user: JSON.parse(storage),
       });
     }
+    setInitialized(true);
   }, []);
 
   const login = (data) => {
@@ -42,7 +46,7 @@ export const AuthContextProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ session, login, logout }}>
+    <AuthContext.Provider value={{ session, login, logout, initialized }}>
       {children}
     </AuthContext.Provider>
   );

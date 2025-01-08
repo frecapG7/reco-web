@@ -29,8 +29,8 @@ export const HeaderAccount = ({ user }) => {
 
   const { logout } = useAuthSession();
   const { data } = useGetUser(user?.id);
-  const { data: balance } = useGetBalance(user?.id, {
-    enabled: !!user?.id,
+  const { data: balance } = useGetBalance(user?.id, false, {
+    enabled: !!user?.id && open,
   });
 
   return (

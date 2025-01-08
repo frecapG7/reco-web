@@ -18,7 +18,7 @@ import { useFormContext } from "react-hook-form";
 import { FormLocale } from "../components/form/FormLocale";
 import { useState } from "react";
 
-export const AccountSettingsV2 = () => {
+export const AccountSettings = () => {
   const { user } = useOutletContext();
 
   const [openEditPassword, setOpenEditPassword] = useState(false);

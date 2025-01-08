@@ -15,6 +15,7 @@ export const useGetUser = (id, options) => {
   return useQuery({
     queryKey: ["users", id],
     queryFn: () => getUser(id),
+    enabled: !!id && options?.enabled,
     ...options,
   });
 };
@@ -159,7 +160,7 @@ export const useGetPurchases = (id, filters, pageSize, options) => {
         return lastPage.pagination.currentPage + 1;
       return undefined;
     },
-    ...options,
+    enabled: !!id && options?.enabled,
   });
 };
 

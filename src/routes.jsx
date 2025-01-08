@@ -14,7 +14,6 @@ import { IconStore } from "./stores/icons/IconStore";
 import { AccountHome } from "./account/AccountHome";
 import { AuthProtectedLayout } from "./layout/AuthProtectedLayout";
 import { AccountDetails } from "./account/details/AccountDetails";
-import { AccountSettings } from "./account/settings/AccountSettings";
 import { MyPurchases } from "./account/my-purchases/MyPurcharses";
 import { MyPurchasesDetails } from "./account/my-purchases/MyPurchasesDetails";
 import { AdminUserDetails } from "./admin/users/details/AdminUserDetails";
@@ -35,7 +34,7 @@ import { TokensAdministration } from "./admin/tokens/TokensAdministration";
 import { CreateRequest } from "./requests/CreateRequest";
 import { Settings } from "./settings/Settings";
 import { NotificationSettings } from "./settings/NotificationSettings";
-import { AccountSettingsV2 } from "./settings/AccountSettingsV2";
+import { AccountSettings } from "./settings/AccountSettings";
 import { PrivacySettings } from "./settings/PrivacySettings";
 
 export const routes = [
@@ -243,7 +242,7 @@ export const routes = [
           },
           {
             path: "account",
-            element: <AccountSettingsV2 />,
+            element: <AccountSettings />,
           },
           {
             path: "privacy",

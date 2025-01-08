@@ -28,7 +28,7 @@ export const EditPassword = ({ open, onClose, user }) => {
     name: "newPassword",
   });
 
-  const updatePassword = useUpdatePassword(user.id, {
+  const updatePassword = useUpdatePassword(user?.id, {
     onSuccess: () => {
       setTimeout(() => {
         onClose();
