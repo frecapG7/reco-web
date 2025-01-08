@@ -1,36 +1,9 @@
-import { useForm } from "react-hook-form";
-import { useGetSettings } from "../hooks/api/users/useSettings";
-import { useCallback, useEffect } from "react";
+import { useFormContext } from "react-hook-form";
 import { List, ListItem, ListItemText } from "@mui/material";
 import { FormSwitch } from "../components/form/FormSwitch";
-import { useOutletContext } from "react-router-dom";
 
 export const PrivacySettings = () => {
-  const { user, patchSettings } = useOutletContext();
-
-  const { data: settings } = useGetSettings(user?.id);
-
-  const {
-    control,
-    reset,
-    handleSubmit,
-    formState: { isDirty },
-  } = useForm();
-
-  useEffect(() => {
-    reset(settings);
-  }, [settings, reset]);
-
-  const onSubmit = useCallback(
-    (data) => {
-      patchSettings(data);
-    },
-    [patchSettings]
-  );
-
-  useEffect(() => {
-    if (isDirty) handleSubmit(onSubmit)();
-  }, [isDirty, onSubmit, handleSubmit]);
+  const { control } = useFormContext();
 
   return (
     <List>

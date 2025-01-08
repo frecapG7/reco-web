@@ -6,7 +6,7 @@ import {
   Backdrop,
   CircularProgress,
 } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 
 import PersonIcon from "@mui/icons-material/Person";
@@ -18,6 +18,7 @@ import {
 } from "../hooks/api/users/useSettings";
 import { useAuthSession } from "../context/AuthContext";
 import { useGetUser } from "../hooks/api/users/useUsers";
+import { FormProvider, useForm } from "react-hook-form";
 export const Settings = () => {
   const [tab, setTab] = useState("account");
   const navigate = useNavigate();
@@ -33,6 +34,23 @@ export const Settings = () => {
   const { mutate: patchSettings, isPending } = usePatchSettings(
     session?.user?.id
   );
+
+  const formMethods = useForm();
+
+  useEffect(() => {
+    if (settings) formMethods.reset(settings);
+  }, [settings, formMethods.reset]);
+
+  const onSubmit = useCallback(
+    (data) => {
+      patchSettings(data);
+    },
+    [patchSettings]
+  );
+
+  useEffect(() => {
+    if (formMethods.formState.isDirty) formMethods.handleSubmit(onSubmit)();
+  }, [formMethods.formState.isDirty, onSubmit, formMethods.handleSubmit]);
 
   return (
     <Container>
@@ -55,13 +73,15 @@ export const Settings = () => {
         aria-label="settings"
         m={2}
       >
-        <Outlet
-          context={{
-            patchSettings,
-            settings,
-            user,
-          }}
-        />
+        <FormProvider {...formMethods}>
+          <Outlet
+            context={{
+              patchSettings,
+              settings,
+              user,
+            }}
+          />
+        </FormProvider>
       </Box>
 
       <Backdrop open={isPending}>

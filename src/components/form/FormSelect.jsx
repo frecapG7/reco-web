@@ -16,6 +16,7 @@ export const FormSelect = ({
   options,
   rules,
   required = false,
+  ...props
 }) => {
   const {
     field: { ref, value, onChange, onBlur },
@@ -31,7 +32,7 @@ export const FormSelect = ({
   const formatLabel = label && getFormatLabel(label, required);
 
   return (
-    <FormControl fullWidth>
+    <FormControl fullWidth {...props}>
       <InputLabel>{formatLabel}</InputLabel>
       <Select
         label={formatLabel}

@@ -11,25 +11,21 @@ import {
 
 import EditIcon from "@mui/icons-material/Edit";
 import { EditPassword } from "../components/dialog/EditPassword";
-import { useEffect, useState } from "react";
 import { EditEmail } from "../components/dialog/EditEmail";
-import { useGetUser } from "../hooks/api/users/useUsers";
 import { EditAvatar } from "../components/dialog/EditAvatar";
 import { useOutletContext } from "react-router-dom";
-import { useForm, useWatch } from "react-hook-form";
+import { useFormContext } from "react-hook-form";
 import { FormLocale } from "../components/form/FormLocale";
+import { useState } from "react";
 
 export const AccountSettingsV2 = () => {
-  const { user, settings, patchSettings } = useOutletContext();
+  const { user } = useOutletContext();
 
   const [openEditPassword, setOpenEditPassword] = useState(false);
   const [openEditEmail, setOpenEditEmail] = useState(false);
   const [openEditAvatar, setOpenEditAvatar] = useState(false);
 
-  const { control, reset, handleSubmit } = useForm();
-  useEffect(() => {
-    if (settings) reset(settings);
-  }, [settings, reset]);
+  const { control } = useFormContext();
 
   return (
     <Box width="100%">
@@ -70,9 +66,7 @@ export const AccountSettingsV2 = () => {
         <Divider />
 
         <ListItem
-          secondaryAction={
-            <FormLocale control={control} name="lang" onSubmit={handleSubmit} />
-          }
+          secondaryAction={<FormLocale control={control} name="lang" />}
         >
           <ListItemButton>
             <ListItemText primary="Language" />
