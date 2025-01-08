@@ -3,10 +3,9 @@ import { useAuthSession } from "../context/AuthContext";
 import { CircularProgress } from "@mui/material";
 
 export const AuthProtectedLayout = ({ children }) => {
-  const { session } = useAuthSession();
-  const loading = !session;
+  const { session, initialized } = useAuthSession();
 
-  if (loading) return <CircularProgress />;
+  if (!initialized) return <CircularProgress />;
 
   if (!session?.loggedIn) {
     return <Navigate to="/login" />;

@@ -14,7 +14,6 @@ import { IconStore } from "./stores/icons/IconStore";
 import { AccountHome } from "./account/AccountHome";
 import { AuthProtectedLayout } from "./layout/AuthProtectedLayout";
 import { AccountDetails } from "./account/details/AccountDetails";
-import { AccountSettings } from "./account/settings/AccountSettings";
 import { MyPurchases } from "./account/my-purchases/MyPurcharses";
 import { MyPurchasesDetails } from "./account/my-purchases/MyPurchasesDetails";
 import { AdminUserDetails } from "./admin/users/details/AdminUserDetails";
@@ -33,6 +32,10 @@ import { ConsumableDetails } from "./stores/consumables/ConsumableDetails";
 import { MyKeys } from "./account/my-keys/MyKeys";
 import { TokensAdministration } from "./admin/tokens/TokensAdministration";
 import { CreateRequest } from "./requests/CreateRequest";
+import { Settings } from "./settings/Settings";
+import { NotificationSettings } from "./settings/NotificationSettings";
+import { AccountSettings } from "./settings/AccountSettings";
+import { PrivacySettings } from "./settings/PrivacySettings";
 
 export const routes = [
   {
@@ -206,10 +209,6 @@ export const routes = [
             element: <MyKeys />,
           },
           {
-            path: "settings",
-            element: <AccountSettings />,
-          },
-          {
             path: "",
             element: <AccountHome />,
             children: [
@@ -226,6 +225,28 @@ export const routes = [
                 element: <MyRecommendations />,
               },
             ],
+          },
+        ],
+      },
+      {
+        path: "settings",
+        element: (
+          <AuthProtectedLayout>
+            <Settings />
+          </AuthProtectedLayout>
+        ),
+        children: [
+          {
+            path: "notifications",
+            element: <NotificationSettings />,
+          },
+          {
+            path: "account",
+            element: <AccountSettings />,
+          },
+          {
+            path: "privacy",
+            element: <PrivacySettings />,
           },
         ],
       },

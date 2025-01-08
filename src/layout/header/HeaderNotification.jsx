@@ -26,6 +26,9 @@ export const HeaderNotification = () => {
   const [openNotification, setOpenNotification] = useState(false);
   const { data: unreadCount } = useUnreadCount({
     userId: session?.user?.id,
+    options: {
+      enabled: !!session?.user?.id,
+    },
   });
   const { data: notifications, hasNextPage } = useNotifications({
     id: session?.user?.id,

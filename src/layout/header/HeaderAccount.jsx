@@ -29,8 +29,8 @@ export const HeaderAccount = ({ user }) => {
 
   const { logout } = useAuthSession();
   const { data } = useGetUser(user?.id);
-  const { data: balance } = useGetBalance(user?.id, {
-    enabled: !!user?.id,
+  const { data: balance } = useGetBalance(user?.id, false, {
+    enabled: !!user?.id && open,
   });
 
   return (
@@ -140,7 +140,7 @@ export const HeaderAccount = ({ user }) => {
 
           <MenuItem
             onClick={() => {
-              navigate("./account/settings");
+              navigate("./settings");
               setAnchorEl(null);
             }}
           >

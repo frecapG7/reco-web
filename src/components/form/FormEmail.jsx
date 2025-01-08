@@ -39,8 +39,6 @@ export const FormEmail = ({
         error={!!error}
         helperText={i18nFormError(error)}
         required={required}
-        variant="filled"
-        color="secondary"
       />
     </FormControl>
   );
