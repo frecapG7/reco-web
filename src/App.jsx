@@ -7,6 +7,7 @@ import theme from "./theme";
 import { AuthContextProvider } from "./context/AuthContext";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import ApiClient from "./api/ApiClient";
+import { Suspense } from "react";
 
 const queryClient = ApiClient;
 const router = createBrowserRouter(routes, {
@@ -18,14 +19,16 @@ const router = createBrowserRouter(routes, {
 
 const App = () => {
   return (
-    <ThemeProvider theme={theme}>
-      <AuthContextProvider>
-        <QueryClientProvider client={queryClient}>
-          <ReactQueryDevtools initialIsOpen={false} />
-          <RouterProvider router={router} />
-        </QueryClientProvider>
-      </AuthContextProvider>
-    </ThemeProvider>
+    <Suspense fallback="loading...">
+      <ThemeProvider theme={theme}>
+        <AuthContextProvider>
+          <QueryClientProvider client={queryClient}>
+            <ReactQueryDevtools initialIsOpen={false} />
+            <RouterProvider router={router} />
+          </QueryClientProvider>
+        </AuthContextProvider>
+      </ThemeProvider>
+    </Suspense>
   );
 };
 

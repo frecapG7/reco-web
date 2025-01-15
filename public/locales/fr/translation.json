@@ -1,0 +1,26 @@
+{
+  "title": "Bienvenue sur le site de l'association",
+  "termsOfService": {
+    "title": "Conditions d'utilisation",
+    "content": "En utilisant ce site, vous acceptez les conditions d'utilisation suivantes : ..."
+  },
+  "menu": {
+    "home": "Accueil",
+    "newRequest": "Nouvelle demande",
+    "store": "Magasiner"
+  },
+  "stores": {
+    "title": "Bienvenue sur le magasinage",
+    "description": "Explorer notre collection d'articles vous permettant de personaliser votre profil. Que vous cherchiez un nouvel icône de profil ou un titre accrocheur, nous avons quelque chose pour tout le monde. Commencez à naviguer maintenant et libérez avotre créativité!",
+    "avatars": {
+      "title": "Icônes de profil",
+      "description": "Trouvez l'icône de profil qui vous correspond le mieux."
+    },
+    "consumables": {
+      "title": "Consommables",
+      "description": "Découvrez les consommables qui vous permettront de personnaliser votre profil."
+    }
+  },
+  "login": "Connexion",
+  "logout": "Deconnexion"
+}
