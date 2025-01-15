@@ -15,7 +15,7 @@ import { useGetRequests } from "../../../hooks/api/users/useUsers";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useNavigate } from "react-router-dom";
 import { RequestType } from "../../request/RequestType";
-import { i18nDateTime } from "../../../utils/i18n";
+import { i18nDateTime } from "../../../i18n/i18nDate";
 import { useState } from "react";
 import { SortMenu } from "../../search/SortMenu";
 import { RequestTypeMenu } from "../../search/RequestTypeMenu";

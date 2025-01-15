@@ -10,6 +10,7 @@ import { useRef } from "react";
 
 import LocalDrinkOutlinedIcon from "@mui/icons-material/LocalDrinkOutlined";
 import { usePostRecommendation } from "../hooks/api/requests/useRecommendations";
+import { useTranslation } from "react-i18next";
 
 /**
  * Use this dialog to create new Recommendation
@@ -19,7 +20,7 @@ import { usePostRecommendation } from "../hooks/api/requests/useRecommendations"
 export const RecommendationDialog = ({ open, onClose, request }) => {
   const formRef = useRef();
 
-  const createRecommendation = usePostRecommendation(request.id);
+  const createRecommendation = usePostRecommendation(request?.id);
 
   const onSubmit = (data) => {
     createRecommendation.mutate(data, {
@@ -32,13 +33,15 @@ export const RecommendationDialog = ({ open, onClose, request }) => {
     });
   };
 
+  const { t } = useTranslation();
+
   return (
     <Dialog open={open} onClose={onClose} maxWidth="md" fullWidth scroll="body">
       <DialogContent>
         <RecommendationForm
           ref={formRef}
           onSubmit={onSubmit}
-          requestType={request.requestType}
+          requestType={request?.requestType}
         />
       </DialogContent>
       <DialogActions>
@@ -46,7 +49,7 @@ export const RecommendationDialog = ({ open, onClose, request }) => {
         {!createRecommendation.isPending && (
           <>
             <Button variant="outlined" onClick={onClose}>
-              Cancel
+              {t("cancel")}
             </Button>
             <Button
               variant="contained"

@@ -18,7 +18,7 @@ import { useEffect, useState } from "react";
 import Grid from "@mui/material/Grid2";
 
 import AccessTimeOutlinedIcon from "@mui/icons-material/AccessTimeOutlined";
-import { i18nDateTime } from "../utils/i18n";
+import { i18nDateTime } from "../i18n/i18nDate";
 import { UserWallet } from "../components/user/wallet/UserWallet";
 
 const tabs = ["my-metrics", "my-requests", "my-recommendations"];

@@ -1,5 +1,6 @@
 import {
   Box,
+  Button,
   Card,
   CardActionArea,
   CardContent,
@@ -11,12 +12,14 @@ import {
 } from "@mui/material";
 import { useGetRequests } from "../hooks/api/requests/useRequests";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Request } from "../components/request/Request";
 import { Recommendations } from "./Recommendations";
 import { useForm, useWatch } from "react-hook-form";
 import { SearchRequestFilterForm } from "./components/SearchRequestFilterForm";
+import { RecommendationDialog } from "./RecommendationDialog";
+import { useTranslation } from "react-i18next";
 
 export const Home = () => {
   const { control } = useForm();
@@ -31,6 +34,10 @@ export const Home = () => {
   } = useGetRequests(filters);
 
   const navigate = useNavigate();
+
+  const [selectedRequest, setSelectedRequest] = useState(null);
+
+  const { t } = useTranslation();
 
   return (
     <Container>
@@ -52,19 +59,19 @@ export const Home = () => {
           loader={<CircularProgress />}
           endMessage={
             <Box align="center">
-              <b>And that's it for today</b>
+              <b>{t("thatIsAll")}</b>
             </Box>
           }
           pullDownToRefresh
           pullDownToRefreshThreshold={50}
           pullDownToRefreshContent={
             <Typography variant="h3" textAlign="center">
-              Pull down to refresh
+              {t("pullDownToRefresh")}
             </Typography>
           }
           releaseToRefreshContent={
             <Typography variant="h3" textAlign="center">
-              Release to refresh
+              {t("releaseToRefresh")}
             </Typography>
           }
           refreshFunction={() => refetch()}
@@ -84,16 +91,17 @@ export const Home = () => {
                   <CardContent>
                     <Stack spacing={1}>
                       <CardActionArea
-                        onClick={(e) => {
-                          if (e.target.tagName === "BUTTON") {
-                            e.preventDefault();
-                            return;
-                          }
-                          navigate(`/requests/${result.id}`);
-                        }}
+                        onClick={() => navigate(`/requests/${result.id}`)}
                       >
                         <Request request={result} />
                       </CardActionArea>
+                      <Button
+                        variant="contained"
+                        color="primary"
+                        onClick={() => setSelectedRequest(result)}
+                      >
+                        {t("recommendation.add")}
+                      </Button>
                       <Recommendations request={result} />
                     </Stack>
                   </CardContent>
@@ -108,6 +116,12 @@ export const Home = () => {
           )}
         </InfiniteScroll>
       </Box>
+
+      <RecommendationDialog
+        open={Boolean(selectedRequest)}
+        onClose={() => setSelectedRequest(null)}
+        request={selectedRequest}
+      />
     </Container>
   );
 };

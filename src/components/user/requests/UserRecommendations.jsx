@@ -14,7 +14,7 @@ import {
 import { useGetRecommendations } from "../../../hooks/api/users/useUsers";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { RequestType } from "../../request/RequestType";
-import { i18nDateTime } from "../../../utils/i18n";
+import { i18nDateTime } from "../../../i18n/i18nDate";
 import { IFramely } from "../../request/IFramely";
 import { useState } from "react";
 import { SortMenu } from "../../search/SortMenu";

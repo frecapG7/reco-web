@@ -7,7 +7,7 @@ import {
 } from "@mui/material";
 import { useController } from "react-hook-form";
 import { getFormatLabel } from "./formUtils";
-import { i18nFormError } from "../../utils/i18n";
+import { i18nFormError } from "../../i18n/i18nForm";
 
 export const FormSelect = ({
   name,

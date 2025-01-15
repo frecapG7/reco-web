@@ -18,7 +18,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import { useUpdatePassword } from "../../hooks/api/users/useUsers";
 
 import TaskAltTwoToneIcon from "@mui/icons-material/TaskAltTwoTone";
-import { i18nFormError } from "../../utils/i18n";
+import { i18nFormError } from "../../i18n/i18nForm";
 
 export const EditPassword = ({ open, onClose, user }) => {
   const { control, getValues, handleSubmit } = useForm();

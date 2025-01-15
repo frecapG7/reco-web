@@ -1,0 +1,41 @@
+{
+  "title": "Hello in English",
+  "termsOfService": {
+    "title": "Terms of service",
+    "content": "By using this site, you agree to the following terms of service: ..."
+  },
+  "menu": {
+    "home": "Home",
+    "newRequest": "Create request",
+    "store": "Store"
+  },
+  "stores": {
+    "title": "Bienvenue sur le magasinage",
+    "description": "Explore our vast collection of items, from icons to titles, and discover the perfect pieces to express yourself. Whether you're looking for a new profile icon or a catchy title, we have something for everyone. Start browsing now and unleash your creativity!",
+    "avatars": {
+      "title": "Avatars",
+      "description": "Find the profile icon that best represents you."
+    },
+    "consumables": {
+      "title": "Consommables",
+      "description": "Discover the consumables that will help you personalize your profile."
+    }
+  },
+  "login": "Sign in",
+  "logout": "Sign out",
+  "search": "Search",
+  "price": "Price",
+  "buy": "Buy",
+
+  "user": {
+    "emailOrUsername": "Username or email address",
+    "name": "Username",
+    "email": "Email address",
+    "password": "Password"
+  },
+
+  "pullDownToRefresh": "Pull to refresh",
+  "releaseToRefresh": "Release to refresh",
+  "loading": "Loading...",
+  "noItems": "No items found"
+}

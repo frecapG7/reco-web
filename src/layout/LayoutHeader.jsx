@@ -11,6 +11,7 @@ import { useNavigate } from "react-router-dom";
 import { useAuthSession } from "../context/AuthContext";
 import { HeaderNotification } from "./header/HeaderNotification";
 import { HeaderAccount } from "./header/HeaderAccount";
+import { useTranslation } from "react-i18next";
 
 export const LayoutHeader = ({ toggleMenu }) => {
   const navigate = useNavigate();
@@ -18,6 +19,7 @@ export const LayoutHeader = ({ toggleMenu }) => {
   const isUpSm = useMediaQuery((theme) => theme.breakpoints.up("sm"));
 
   const { session } = useAuthSession();
+  const { t } = useTranslation();
 
   const onLogoClick = () => {
     if (isUpSm) navigate("/");
@@ -34,13 +36,12 @@ export const LayoutHeader = ({ toggleMenu }) => {
         flexGrow: 1,
       }}
     >
-      <Box display="flex">
+      <Box display="flex" alignItems="center">
         <IconButton onClick={onLogoClick}>
           <Logo width={50} />
         </IconButton>
         <Box>
-          <Typography variant="h6">Rococo</Typography>
-          <Typography variant="body2">Welcome to my app</Typography>
+          <Typography variant="h6">RawKauKo</Typography>
         </Box>
       </Box>
 

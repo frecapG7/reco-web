@@ -21,6 +21,7 @@ import { AdministrationItem } from "./menu/AdministrationItem";
 import { useAuthSession } from "../context/AuthContext";
 
 import StorefrontOutlinedIcon from "@mui/icons-material/StorefrontOutlined";
+import { useTranslation } from "react-i18next";
 
 const NavigationItem = ({ icon, text, path }) => {
   return (
@@ -36,6 +37,8 @@ const NavigationItem = ({ icon, text, path }) => {
 export const NavigationBar = ({ onClose }) => {
   const navigate = useNavigate();
   const { session, logout } = useAuthSession();
+
+  const { t } = useTranslation();
 
   const handleLogout = () => {
     logout();
@@ -57,18 +60,18 @@ export const NavigationBar = ({ onClose }) => {
       <List>
         <NavigationItem
           icon={<WhatshotOutlinedIcon fontSize="large" />}
-          text="Home"
+          text={t("menu.home")}
           path="/"
         />
         <NavigationItem
           icon={<AddIcon />}
-          text="Create Request"
+          text={t("menu.newRequest")}
           path="/requests/new"
         />
 
         <NavigationItem
           icon={<StorefrontOutlinedIcon />}
-          text="Store"
+          text={t("menu.store")}
           path="/stores"
         />
         {/* {session?.user && <AccountMenuItem />} */}
@@ -82,7 +85,7 @@ export const NavigationBar = ({ onClose }) => {
               <ListItemIcon>
                 <LogoutOutlinedIcon />
               </ListItemIcon>
-              <ListItemText>Logout</ListItemText>
+              <ListItemText>{t("logout")}</ListItemText>
             </ListItemButton>
           </ListItem>
         )}
@@ -92,7 +95,7 @@ export const NavigationBar = ({ onClose }) => {
               <ListItemIcon>
                 <LoginOutlinedIcon />
               </ListItemIcon>
-              <ListItemText>Login</ListItemText>
+              <ListItemText>{t("login")}</ListItemText>
             </ListItemButton>
           </ListItem>
         )}

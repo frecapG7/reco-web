@@ -5,7 +5,7 @@ import {
   TextField,
 } from "@mui/material";
 import ContentPasteOutlinedIcon from "@mui/icons-material/ContentPasteOutlined";
-import { i18nFormError } from "../../utils/i18n";
+import { i18nFormError } from "../../i18n/i18nForm";
 import { useController } from "react-hook-form";
 
 export const FormLink = ({

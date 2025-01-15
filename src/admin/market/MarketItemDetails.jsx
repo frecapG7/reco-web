@@ -17,7 +17,7 @@ import {
   useGetItem,
   useUpdateItem,
 } from "../../hooks/api/admin/useMarketAdministration";
-import { i18nDateTime } from "../../utils/i18n";
+import { i18nDateTime } from "../../i18n/i18nDate";
 
 import CheckCircleOutlineOutlinedIcon from "@mui/icons-material/CheckCircleOutlineOutlined";
 import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";

@@ -1,7 +1,6 @@
 import {
   Avatar,
   Box,
-  Button,
   Chip,
   Divider,
   Grid2 as Grid,
@@ -13,7 +12,6 @@ import {
 
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { RecommendationDialog } from "../../home/RecommendationDialog";
 import { EnumIcon } from "../icons/EnumIcon";
 import { REQUEST_TYPE } from "../../utils/enumUtils";
 
@@ -67,8 +65,6 @@ const User = ({ user }) => {
 };
 
 export const Request = ({ request }) => {
-  const [openDialog, setOpenDialog] = useState(false);
-
   if (!request)
     return (
       <Stack spacing={2}>
@@ -124,28 +120,15 @@ export const Request = ({ request }) => {
 
         <Grid container mt={2} spacing={3}>
           {request.tags.map((tag, index) => (
-            <Grid item key={tag}>
+            <Grid key={tag}>
               <Chip key={index} label={`# ${tag}`} />
             </Grid>
           ))}
           <Grid size={{ xs: 12 }} container alignItems="center">
             <Typography>{request.recommendationsCount} Recocos</Typography>
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={() => setOpenDialog(true)}
-            >
-              + Add a Recoco
-            </Button>
           </Grid>
         </Grid>
       </Box>
-
-      <RecommendationDialog
-        open={openDialog}
-        onClose={() => setOpenDialog(false)}
-        request={request}
-      />
     </Stack>
   );
 };

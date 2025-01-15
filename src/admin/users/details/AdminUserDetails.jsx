@@ -14,7 +14,7 @@ import {
 import Grid from "@mui/material/Grid2";
 
 import { useEffect, useState } from "react";
-import { i18nDateTime } from "../../../utils/i18n";
+import { i18nDateTime } from "../../../i18n/i18nDate";
 import AccessTimeOutlinedIcon from "@mui/icons-material/AccessTimeOutlined";
 
 export const AdminUserDetails = () => {

@@ -10,7 +10,7 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import { i18nDateTime } from "../../utils/i18n";
+import { i18nDateTime } from "../../i18n/i18nDate";
 
 import ShieldOutlinedIcon from "@mui/icons-material/ShieldOutlined";
 import NorthEastOutlinedIcon from "@mui/icons-material/NorthEastOutlined";

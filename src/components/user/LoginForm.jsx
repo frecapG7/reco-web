@@ -3,6 +3,7 @@ import { forwardRef, useImperativeHandle } from "react";
 import { FormText } from "../form/FormText";
 import { FormPassword } from "../form/FormPassword";
 import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 
 export const LoginForm = forwardRef(({ onSubmit }, ref) => {
   const { control, reset, handleSubmit } = useForm();
@@ -12,17 +13,19 @@ export const LoginForm = forwardRef(({ onSubmit }, ref) => {
     reset: reset,
   }));
 
+  const { t } = useTranslation();
+
   return (
     <Stack spacing={5}>
       <FormText
         name="name"
-        label="Username"
+        label={t("user.emailOrUsername")}
         control={control}
-        rules={{ required: true }}
+        required
       />
       <FormPassword
         name="password"
-        label="Password"
+        label={t("user.password")}
         control={control}
         rules={{ required: true }}
       />
