@@ -8,7 +8,7 @@ import { useState } from "react";
 import { useController } from "react-hook-form";
 
 import { Visibility, VisibilityOff } from "@mui/icons-material";
-import { i18nFormError } from "../../utils/i18n";
+import { i18nFormError } from "../../i18n/i18nForm";
 
 export const FormPassword = ({ control, name, label, rules, ...rest }) => {
   const {

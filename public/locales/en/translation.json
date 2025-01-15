@@ -22,5 +22,20 @@
     }
   },
   "login": "Sign in",
-  "logout": "Sign out"
+  "logout": "Sign out",
+  "search": "Search",
+  "price": "Price",
+  "buy": "Buy",
+
+  "user": {
+    "emailOrUsername": "Username or email address",
+    "name": "Username",
+    "email": "Email address",
+    "password": "Password"
+  },
+
+  "pullDownToRefresh": "Pull to refresh",
+  "releaseToRefresh": "Release to refresh",
+  "loading": "Loading...",
+  "noItems": "No items found"
 }

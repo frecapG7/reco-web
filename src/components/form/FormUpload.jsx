@@ -15,7 +15,7 @@ import {
 import { useController } from "react-hook-form";
 import CloudUploadOutlinedIcon from "@mui/icons-material/CloudUploadOutlined";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { i18nFormError } from "../../utils/i18n";
+import { i18nFormError } from "../../i18n/i18nForm";
 
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 

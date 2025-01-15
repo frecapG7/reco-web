@@ -7,7 +7,13 @@
   "menu": {
     "home": "Accueil",
     "newRequest": "Nouvelle demande",
-    "store": "Magasiner"
+    "store": "Magasiner",
+    "account": {
+      "profile": "Profil utilisateur",
+      "settings": "Paramètres",
+      "purchases": "Mes achats",
+      "keys": "Mes invitations"
+    }
   },
   "stores": {
     "title": "Bienvenue sur le magasinage",
@@ -22,5 +28,26 @@
     }
   },
   "login": "Connexion",
-  "logout": "Deconnexion"
+  "logout": "Deconnexion",
+  "search": "Rechercher",
+  "price": "Prix",
+  "buy": "Acheter",
+  "cancel": "Annuler",
+
+  "user": {
+    "emailOrUsername": "Adresse email ou nom d'utilisateur",
+    "name": "Nom utilisateur",
+    "email": "Adresse email",
+    "password": "Mot de passe"
+  },
+
+  "recommendation": {
+    "add": "RawkaukOier moi"
+  },
+
+  "pullDowToRefresh": "Tirer pour rafraîchir",
+  "releaseToRefresh": "Relâcher pour rafraîchir",
+  "loading": "Chargement...",
+  "noItems": "Aucun élément trouvé",
+  "thatIsAll": "C'est tout!"
 }

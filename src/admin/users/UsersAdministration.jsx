@@ -17,7 +17,7 @@ import { useState } from "react";
 import { UsersFilters } from "./UsersFilters";
 import { useNavigate } from "react-router-dom";
 import { AddUserDialog } from "./AddUserDialog";
-import { i18nDateTime } from "../../utils/i18n";
+import { i18nDateTime } from "../../i18n/i18nDate";
 import { useForm, useWatch } from "react-hook-form";
 
 const Content = ({ users }) => {

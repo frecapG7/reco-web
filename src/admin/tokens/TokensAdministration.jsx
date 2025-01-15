@@ -12,7 +12,7 @@ import {
 import { useGetTokens } from "../../hooks/api/tokens/useTokens";
 import { useState } from "react";
 
-import { i18nDateTime } from "../../utils/i18n";
+import { i18nDateTime } from "../../i18n/i18nDate";
 
 export const TokensAdministration = () => {
   const [pageNumber, setPageNumber] = useState(1);

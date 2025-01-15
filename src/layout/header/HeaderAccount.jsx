@@ -6,6 +6,7 @@ import {
   IconButton,
   ListItemIcon,
   ListItemText,
+  ListSubheader,
   Menu,
   MenuItem,
   MenuList,
@@ -20,6 +21,7 @@ import Inventory2OutlinedIcon from "@mui/icons-material/Inventory2Outlined";
 import KeyIcon from "@mui/icons-material/Key";
 import { useGetBalance, useGetUser } from "../../hooks/api/users/useUsers";
 import { useAuthSession } from "../../context/AuthContext";
+import { useTranslation } from "react-i18next";
 
 export const HeaderAccount = ({ user }) => {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -33,6 +35,7 @@ export const HeaderAccount = ({ user }) => {
     enabled: !!user?.id && open,
   });
 
+  const { t } = useTranslation();
   return (
     <Box>
       <Stack spacing={1} direction="row" alignItems="center">
@@ -97,16 +100,20 @@ export const HeaderAccount = ({ user }) => {
               setAnchorEl(null);
             }}
           >
-            <Avatar
-              src={data?.avatar}
-              alt={user?.name}
-              sx={{
-                width: 40,
-                height: 40,
-                mr: 2,
-              }}
-            />
-            Profile
+            <ListSubheader disableGutters>
+              <Avatar
+                src={data?.avatar}
+                alt={user?.name}
+                sx={
+                  {
+                    // width: 40,
+                    // height: 40,
+                    // mr: 2,
+                  }
+                }
+              />
+            </ListSubheader>
+            <ListItemText primary={t("menu.account.profile")} />
           </MenuItem>
           <MenuItem
             onClick={() => {
@@ -114,13 +121,11 @@ export const HeaderAccount = ({ user }) => {
               setAnchorEl(null);
             }}
           >
-            <Inventory2OutlinedIcon
-              fontSize="large"
-              sx={{
-                mr: 2,
-              }}
-            />
-            Purchases
+            <ListItemIcon>
+              <Inventory2OutlinedIcon />
+            </ListItemIcon>
+
+            <ListItemText primary={t("menu.account.purchases")} />
           </MenuItem>
           <MenuItem
             onClick={() => {
@@ -128,13 +133,10 @@ export const HeaderAccount = ({ user }) => {
               setAnchorEl(null);
             }}
           >
-            <KeyIcon
-              fontSize="large"
-              sx={{
-                mr: 2,
-              }}
-            />
-            Keys
+            <ListItemIcon>
+              <KeyIcon />
+            </ListItemIcon>
+            <ListItemText primary={t("menu.account.keys")} />
           </MenuItem>
           <Divider />
 

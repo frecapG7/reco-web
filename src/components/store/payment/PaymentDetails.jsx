@@ -9,6 +9,8 @@ import { useGetBalance } from "../../../hooks/api/users/useUsers";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 
+import { useTranslation } from "react-i18next";
+
 export const PaymentDetails = ({ price = 0, hasQuantity, onBuy }) => {
   const { session } = useAuthSession();
   const { data } = useGetBalance(session?.user?.id, true, {
@@ -16,6 +18,8 @@ export const PaymentDetails = ({ price = 0, hasQuantity, onBuy }) => {
   });
 
   const [quantity, setQuantity] = useState(1);
+
+  const { t } = useTranslation();
 
   const balance = data?.balance || 0;
   const totalCost = price * quantity;
@@ -43,7 +47,7 @@ export const PaymentDetails = ({ price = 0, hasQuantity, onBuy }) => {
           gap={2}
         >
           <Typography textAlign="end" variant="h6">
-            Price :
+            {t("price")} :
           </Typography>
           <Typography textAlign="end" variant="h6" color="error">
             -{price}
@@ -112,7 +116,7 @@ export const PaymentDetails = ({ price = 0, hasQuantity, onBuy }) => {
         }}
         disabled={remainingBalance < 0}
       >
-        Buy
+        {t("buy")}
       </Button>
     </>
   );

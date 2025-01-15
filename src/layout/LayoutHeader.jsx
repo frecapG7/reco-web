@@ -36,13 +36,12 @@ export const LayoutHeader = ({ toggleMenu }) => {
         flexGrow: 1,
       }}
     >
-      <Box display="flex">
+      <Box display="flex" alignItems="center">
         <IconButton onClick={onLogoClick}>
           <Logo width={50} />
         </IconButton>
         <Box>
-          <Typography variant="h6">Rococo</Typography>
-          <Typography variant="body2">{t("title")}</Typography>
+          <Typography variant="h6">RawKauKo</Typography>
         </Box>
       </Box>
 

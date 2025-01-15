@@ -13,7 +13,7 @@ import {
 import CheckCircleRoundedIcon from "@mui/icons-material/CheckCircleRounded";
 import { useController, useFormContext } from "react-hook-form";
 import { useGetSignupAvatars } from "../../hooks/api/users/useUsers";
-import { i18nFormError } from "../../utils/i18n";
+import { i18nFormError } from "../../i18n/i18nForm";
 
 export const SignupAvatarStep = () => {
   const { control } = useFormContext();

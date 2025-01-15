@@ -1,6 +1,6 @@
 import { FormControl, TextField } from "@mui/material";
 import { useController } from "react-hook-form";
-import { i18nFormError } from "../../utils/i18n";
+import { i18nFormError } from "../../i18n/i18nForm";
 
 export const FormEmail = ({
   control,
