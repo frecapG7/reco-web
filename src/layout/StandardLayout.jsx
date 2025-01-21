@@ -85,18 +85,6 @@ export const StandardLayout = ({ children }) => {
         >
           <NavigationBar />
         </Drawer>
-        {/* 
-        <Box
-          sx={{
-            display: { xs: "none", sm: "flex" },
-            my: 15,
-            mx: 2,
-            // backgroundColor: "inherit",
-            // border: "none",
-          
-          }}
-        >
-        </Box> */}
       </Box>
       <Box
         component="main"
