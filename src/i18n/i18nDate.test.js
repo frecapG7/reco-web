@@ -1,4 +1,4 @@
-import { describe, expect, it, test } from "vitest";
+import { describe, expect, it } from "vitest";
 import { i18nDate } from "./i18nDate";
 
 describe("Validate i18nDate", () => {

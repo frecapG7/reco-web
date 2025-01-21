@@ -1,4 +1,4 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { post } from "../index";
 
 const login = async (data) => {
@@ -7,8 +7,13 @@ const login = async (data) => {
 };
 
 export const useLogin = (options) => {
+  const queryClient = useQueryClient();
+
   return useMutation({
     mutationFn: (data) => login(data),
+    onSuccess: () => {
+      queryClient.invalidateQueries();
+    },
     ...options,
   });
 };
