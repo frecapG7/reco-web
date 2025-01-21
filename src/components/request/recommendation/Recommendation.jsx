@@ -11,36 +11,18 @@ import {
   Typography,
 } from "@mui/material";
 import Grid from "@mui/material/Grid2";
-import { useLikeRecommendation } from "../../../hooks/api/requests/useRecommendations";
 
-import LocalBarRoundedIcon from "@mui/icons-material/LocalBarRounded";
 import ReplyOutlinedIcon from "@mui/icons-material/ReplyOutlined";
 import { IFramely } from "../IFramely";
 import { useAuthSession } from "../../../context/AuthContext";
 import { i18nRelativeDate } from "../../../i18n/i18nTime";
 import { useNavigate } from "react-router-dom";
+import { LikeRecommendation } from "../../recommendation/LikeRecommendation";
 
-export const Recommendation = ({ request, recommendation }) => {
+export const Recommendation = ({ recommendation }) => {
   const { session } = useAuthSession();
 
-  const likeRecommendation = useLikeRecommendation(
-    request.id,
-    recommendation.id
-  );
   const navigate = useNavigate();
-
-  const handleLike = () => {
-    if (!session?.loggedIn) {
-      console.log("show login dialog");
-    } else {
-      likeRecommendation.mutate(
-        {},
-        {
-          onSuccess: () => console.log("show toast ?"),
-        }
-      );
-    }
-  };
 
   const handleShare = () => {
     if (!session?.loggedIn) {
@@ -65,8 +47,6 @@ export const Recommendation = ({ request, recommendation }) => {
         <Grid size={{ xs: 2 }}>
           <CardContent
             sx={{
-              // width: "100px",
-              // height: "100px",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
@@ -107,14 +87,7 @@ export const Recommendation = ({ request, recommendation }) => {
               display="flex"
               gap={3}
             >
-              <IconButton
-                onClick={handleLike}
-                variant={recommendation?.liked ? "contained" : "outlined"}
-                disabled={recommendation?.liked}
-              >
-                {recommendation?.likesCount}
-                <LocalBarRoundedIcon fontSize="large" />
-              </IconButton>
+              <LikeRecommendation recommendation={recommendation} />
               <IconButton onClick={handleShare} variant="outlined">
                 <ReplyOutlinedIcon fontSize="large" />
               </IconButton>

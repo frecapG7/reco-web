@@ -3,7 +3,7 @@ import {
   useMutation,
   useQueryClient,
 } from "@tanstack/react-query";
-import { get, post } from "../index";
+import { get, post, del } from "../index";
 
 const getRecommendations = async (requestId, sort, pageSize, pageNumber) => {
   const response = await get(`/api/requests/${requestId}/recommendations`, {
@@ -57,22 +57,24 @@ export const usePostRecommendation = (requestId) => {
   });
 };
 
-const likeRecommendation = async (requestId, recommendationId) => {
-  const response = await post(
-    `/api/requests/${requestId}/recommendations/${recommendationId}/like`
-  );
+const likeRecommendation = async (recommendationId) => {
+  const response = await post(`/api/recommendations/${recommendationId}/like`);
   return response;
 };
 
-export const useLikeRecommendation = (requestId, recommendationId) => {
-  const queryClient = useQueryClient();
+export const useLikeRecommendation = (recommendationId) => {
   return useMutation({
-    mutationFn: () => likeRecommendation(requestId, recommendationId),
-    onSuccess: (data) =>
-      queryClient.setQueryData(
-        ["requests", requestId, "recommendations"],
-        (previousState) =>
-          previousState.map((r) => (r.id === recommendationId ? data : r))
-      ),
+    mutationFn: () => likeRecommendation(recommendationId),
+  });
+};
+
+const unlikeRecommendation = async (recommendationId) => {
+  const response = await del(`/api/recommendations/${recommendationId}/like`);
+  return response;
+};
+
+export const useUnlikeRecommendation = (recommendationId) => {
+  return useMutation({
+    mutationFn: () => unlikeRecommendation(recommendationId),
   });
 };

@@ -19,7 +19,6 @@ export const LayoutHeader = ({ toggleMenu }) => {
   const isUpSm = useMediaQuery((theme) => theme.breakpoints.up("sm"));
 
   const { session } = useAuthSession();
-  const { t } = useTranslation();
 
   const onLogoClick = () => {
     if (isUpSm) navigate("/");
