@@ -2,43 +2,37 @@ import {
   Box,
   Button,
   Container,
-  Fade,
-  IconButton,
-  Paper,
+  Grid2 as Grid,
+  MobileStepper,
   Slide,
-  Stack,
   Typography,
 } from "@mui/material";
 import TaskAltTwoToneIcon from "@mui/icons-material/TaskAltTwoTone";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { useSignup } from "../hooks/api/users/useUsers";
 import { FormProvider, useForm } from "react-hook-form";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { SignupUsernameStep } from "./components/SignupUsernameStep";
-import { SignupPasswordStep } from "./components/SignupPasswordStep";
 import { SignupTokenStep } from "./components/SignupTokenStep";
 import { SignupAvatarStep } from "./components/SignupAvatarStep";
 import { useNavigate } from "react-router-dom";
+import gate_illustration1 from "../../public/gate_illustration1.png";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import { useTranslation } from "react-i18next";
 
 const steps = [
   {
     name: "TokenStep",
-    label: "Enter your token",
+    label: "signup.steps.token.label",
     component: <SignupTokenStep />,
   },
   {
     name: "UsernameStep",
-    label: "Define your username",
+    label: "signup.steps.token.information",
     component: <SignupUsernameStep />,
   },
   {
-    name: "PasswordStep",
-    label: "Create a password",
-    component: <SignupPasswordStep />,
-  },
-  {
     name: "AvatarStep",
-    label: "Pick your avatar",
+    label: "signup.steps.token.avatar",
     component: <SignupAvatarStep />,
   },
 ];
@@ -53,7 +47,7 @@ export const Signup = () => {
 
   const onSubmit = (data) => {
     signup.mutate(
-      { data, token: data.token },
+      data,
       {
         onSuccess: () => console.log("Success"),
       }
@@ -61,7 +55,13 @@ export const Signup = () => {
   };
 
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
+  const formRef = useRef();
+
+  useEffect(() => {
+    if (step !== 0) formRef.current.scrollIntoView({ behavior: "smooth" });
+  }, [step]);
   if (signup.isSuccess)
     return (
       <Container
@@ -92,59 +92,92 @@ export const Signup = () => {
     );
 
   return (
-    <Container
-      fixed
-      sx={{
-        my: 10,
-      }}
-    >
-      <Stack spacing={1}>
-        <Box display="flex" justifyContent="center" alignItems="center">
-          <Fade in={step !== 0}>
-            <IconButton onClick={() => setStep(step - 1)}>
-              <ArrowBackIcon />
-            </IconButton>
-          </Fade>
-          <Typography variant="title">{steps[step]?.label}</Typography>
-        </Box>
-
-        <form>
-          <Paper
+    <Container maxWidth="xl">
+      <Grid container width="100%">
+        <Grid
+          size={{ xs: 12, sm: 4 }}
+          sx={{
+            backgroundColor: "primary.dark",
+          }}
+        >
+          <Box
+            component="img"
+            src={gate_illustration1}
+            alt="gate"
             sx={{
-              backgroundColor: "background.default",
-              borderRadius: 3,
-              minHeight: 250,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              flexDirection: "column",
+              width: { xs: "100%", sm: "100%%" },
+              height: { xs: "100%", sm: "100%%" },
+              objectFit: "cover",
             }}
-          >
-            <FormProvider {...methods}>
-              <Slide in direction="left" key={step}>
-                <Box align="center" width="100%">
-                  {steps[step]?.component}
-                </Box>
-              </Slide>
-            </FormProvider>
-          </Paper>
-        </form>
+          />
+        </Grid>
 
-        <Box align="center">
-          <Button
-            variant="contained"
-            onClick={() => {
-              if (step === steps.length - 1) methods.handleSubmit(onSubmit)();
-              else
-                methods.trigger().then((valid) => {
-                  if (valid) setStep(step + 1);
-                });
-            }}
-          >
-            {step === steps.length - 1 ? "Submit" : "Continue"}
-          </Button>
-        </Box>
-      </Stack>
+        <Grid
+          size={{ xs: 12, sm: 6 }}
+          display="flex"
+          flexDirection="column"
+          justifyContent="space-around"
+          sx={{
+            mx: { xs: 0, sm: 5 },
+          }}
+          ref={formRef}
+        >
+          <Slide in={step !== 0}>
+            <Box
+              component={Button}
+              alignItems="center"
+              sx={{
+                display: { xs: "none", sm: "flex" },
+                justifyContent: "flex-start",
+              }}
+              justifyContent="flex-start"
+              onClick={() => setStep(step - 1)}
+            >
+              <ArrowBackIcon />
+              <Typography>{t("back")}</Typography>
+            </Box>
+          </Slide>
+          <form>
+            <Box>
+              <FormProvider {...methods}>
+                <Slide in direction="left" key={step}>
+                  <Box>{steps[step]?.component}</Box>
+                </Slide>
+              </FormProvider>
+            </Box>
+          </form>
+          <Box align="center" my={5}>
+            <Button
+              variant="contained"
+              onClick={() => {
+                if (step === steps.length - 1) methods.handleSubmit(onSubmit)();
+                else
+                  methods.trigger().then((valid) => {
+                    if (valid) setStep(step + 1);
+                  });
+              }}
+            >
+              {step === steps.length - 1 ? "Submit" : "Continue"}
+            </Button>
+          </Box>
+        </Grid>
+      </Grid>
+
+      <Box
+        mt={5}
+        sx={{
+          display: { xs: "flex", sm: "none" },
+        }}
+        alignItems="center"
+        justifyContent="center"
+      >
+        <MobileStepper
+          variant="dots"
+          steps={steps.length}
+          position="static"
+          activeStep={step}
+        />
+      </Box>
     </Container>
   );
 };

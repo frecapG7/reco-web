@@ -1,18 +1,9 @@
 import { Stack } from "@mui/material";
-import { forwardRef, useImperativeHandle } from "react";
 import { FormText } from "../form/FormText";
 import { FormPassword } from "../form/FormPassword";
-import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 
-export const LoginForm = forwardRef(({ onSubmit }, ref) => {
-  const { control, reset, handleSubmit } = useForm();
-
-  useImperativeHandle(ref, () => ({
-    submit: handleSubmit(onSubmit),
-    reset: reset,
-  }));
-
+export const LoginForm = ({ control }) => {
   const { t } = useTranslation();
 
   return (
@@ -31,6 +22,4 @@ export const LoginForm = forwardRef(({ onSubmit }, ref) => {
       />
     </Stack>
   );
-});
-
-LoginForm.displayName = "LoginForm";
+};

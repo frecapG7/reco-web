@@ -1,10 +1,12 @@
 import { createContext, useContext, useEffect, useState } from "react";
+import { LoginDialog } from "../components/dialog/LoginDialog";
 
 const AuthContext = createContext({
   session: {},
   login: () => {},
   logout: () => {},
   initialized: false,
+  showLogin: () => {},
 });
 
 export const AuthContextProvider = ({ children }) => {
@@ -45,9 +47,22 @@ export const AuthContextProvider = ({ children }) => {
     sessionStorage.removeItem("token");
   };
 
+  const [open, setOpen] = useState(false);
+
+  const showLogin = () => {
+    setOpen(true);
+  };
+
   return (
-    <AuthContext.Provider value={{ session, login, logout, initialized }}>
+    <AuthContext.Provider
+      value={{ session, login, logout, initialized, showLogin }}
+    >
       {children}
+      <LoginDialog
+        open={open}
+        onClose={() => setOpen(false)}
+        onSuccess={() => setOpen(false)}
+      />
     </AuthContext.Provider>
   );
 };

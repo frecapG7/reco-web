@@ -21,12 +21,12 @@ const App = () => {
   return (
     <Suspense fallback="loading...">
       <ThemeProvider theme={theme}>
-        <AuthContextProvider>
-          <QueryClientProvider client={queryClient}>
+        <QueryClientProvider client={queryClient}>
+          <AuthContextProvider>
             <ReactQueryDevtools initialIsOpen={false} />
             <RouterProvider router={router} />
-          </QueryClientProvider>
-        </AuthContextProvider>
+          </AuthContextProvider>
+        </QueryClientProvider>
       </ThemeProvider>
     </Suspense>
   );

@@ -11,7 +11,6 @@ import { useNavigate } from "react-router-dom";
 import { useAuthSession } from "../context/AuthContext";
 import { HeaderNotification } from "./header/HeaderNotification";
 import { HeaderAccount } from "./header/HeaderAccount";
-import { useTranslation } from "react-i18next";
 
 export const LayoutHeader = ({ toggleMenu }) => {
   const navigate = useNavigate();

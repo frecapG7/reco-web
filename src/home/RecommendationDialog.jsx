@@ -11,7 +11,7 @@ import { useRef } from "react";
 import LocalDrinkOutlinedIcon from "@mui/icons-material/LocalDrinkOutlined";
 import { usePostRecommendation } from "../hooks/api/requests/useRecommendations";
 import { useTranslation } from "react-i18next";
-
+import { useAuthSession } from "../context/AuthContext";
 /**
  * Use this dialog to create new Recommendation
  * @param {*} param0
@@ -20,6 +20,7 @@ import { useTranslation } from "react-i18next";
 export const RecommendationDialog = ({ open, onClose, request }) => {
   const formRef = useRef();
 
+  const { session, showLogin } = useAuthSession();
   const createRecommendation = usePostRecommendation(request?.id);
 
   const onSubmit = (data) => {
@@ -53,7 +54,13 @@ export const RecommendationDialog = ({ open, onClose, request }) => {
             </Button>
             <Button
               variant="contained"
-              onClick={() => formRef.current?.submit()}
+              onClick={() => {
+                if (!session?.loggedIn) {
+                  showLogin();
+                  return;
+                }
+                formRef.current?.submit();
+              }}
             >
               <LocalDrinkOutlinedIcon />
               (5 Piasse)

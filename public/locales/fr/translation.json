@@ -33,6 +33,17 @@
   "price": "Prix",
   "buy": "Acheter",
   "cancel": "Annuler",
+  "signup": {
+    "title": "Inscription",
+    "button": "Créer un compte",
+    "submit": "S'inscrire",
+    "success": "Inscription réussie! Vous pouvez maintenant vous connecter.",
+    "error": "Une erreur s'est produite lors de l'inscription. Veuillez réessayer.",
+    "disclaimer": "Face à la menace qui approche de l'Ouest, le roy Kouri a décidé de fermer les portes du Royaume de RauwkauKo. Afin de prouver votre valeur, et de pouvoir pénétrer sur les terres du savoir éternel, vous devez prouver votre valeur en vous inscrivant sur ce site. Seuls les plus valeureux pourront accéder à la connaissance ultime.",
+    "contact_disclaimer": "Votre offrande a été accépté par les dieux de l'Est. Tous les êtres qui entrent sur les terres de Rauwkaukoïa doivent se choisir une nouvelle identité. Veuillez choisir un nom d'utilisateur et un mot de passe pour accéder à la connaissance ultime.",
+    "avatar_disclaimer": "Une dernière étape vous est demandé avant que vous puissiez enfin pénétrer sur les terres de Rauwkaukoïa. Afin de préserver votre anonymat devant la menace qui vient de l'Est, vous devez choisir une apparance parmi les legendes de l'Est. Choisissez votre avatar avec sagesse, car il vous représentera pour l"
+  },
+  "forgotPassword": "Mot de passe oublié",
 
   "user": {
     "emailOrUsername": "Adresse email ou nom d'utilisateur",
@@ -49,5 +60,6 @@
   "releaseToRefresh": "Relâcher pour rafraîchir",
   "loading": "Chargement...",
   "noItems": "Aucun élément trouvé",
-  "thatIsAll": "C'est tout!"
+  "thatIsAll": "C'est tout!",
+  "back": "Retour"
 }
