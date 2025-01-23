@@ -10,6 +10,7 @@ export const FormText = ({
   rules,
   required,
   disabled,
+  placeholder,
   ...rest
 }) => {
   const {
@@ -40,6 +41,7 @@ export const FormText = ({
         rows={rows}
         minRows={rules?.minRows ? rules.minRows : 0}
         maxRows={rules?.maxRows ? rules.maxRows : 0}
+        placeholder={placeholder}
         variant="outlined"
         {...rest}
       />

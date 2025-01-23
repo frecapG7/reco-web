@@ -48,26 +48,20 @@ export const useUpdatePassword = (id, options) => {
   });
 };
 
-const signup = async (data) => {
-  const response = await post("/api/users/signup", data);
+const signup = async (data, params) => {
+  const response = await post("/api/users", data, {
+    params,
+  });
   return response;
 };
 
 export const useSignup = (options) => {
   return useMutation({
-    mutationFn: (data) => signup(data),
+    mutationFn: ({ token, ...data }) =>
+      signup(data, {
+        ...(token && { token }),
+      }),
     onSuccess: () => {},
-    ...options,
-  });
-};
-
-const getSignupAvatars = async () => {
-  return await get("/api/users/signup/avatars");
-};
-export const useGetSignupAvatars = (options) => {
-  return useQuery({
-    queryKey: ["signup", "avatars"],
-    queryFn: getSignupAvatars,
     ...options,
   });
 };

@@ -26,6 +26,8 @@
   "search": "Search",
   "price": "Price",
   "buy": "Buy",
+  "signup": "Sign up",
+  "forgotPassword": "Forgot password",
 
   "user": {
     "emailOrUsername": "Username or email address",
@@ -37,5 +39,6 @@
   "pullDownToRefresh": "Pull to refresh",
   "releaseToRefresh": "Release to refresh",
   "loading": "Loading...",
-  "noItems": "No items found"
+  "noItems": "No items found",
+  "back": "Back"
 }

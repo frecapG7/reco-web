@@ -1,7 +1,6 @@
 import {
   Alert,
   Avatar,
-  Badge,
   Box,
   FormControlLabel,
   Radio,
@@ -10,21 +9,36 @@ import {
   Typography,
 } from "@mui/material";
 
-import CheckCircleRoundedIcon from "@mui/icons-material/CheckCircleRounded";
 import { useController, useFormContext } from "react-hook-form";
-import { useGetSignupAvatars } from "../../hooks/api/users/useUsers";
 import { i18nFormError } from "../../i18n/i18nForm";
+import { useTranslation } from "react-i18next";
+
+const avatars = [
+  {
+    url: "https://storage.googleapis.com/reco_dev/avatars/avatar-batman-comics-svgrepo-com.svg",
+    name: "RocoMan",
+  },
+  {
+    url: "https://storage.googleapis.com/reco_dev/avatars/rookie_balboa_V1.svg",
+    name: "Rookie Balboa",
+  },
+  {
+    url: "https://storage.googleapis.com/reco_dev/avatars/avatar-15-svgrepo-com.svg",
+    name: "Roco",
+  },
+];
 
 export const SignupAvatarStep = () => {
   const { control } = useFormContext();
-  const { data: avatars } = useGetSignupAvatars();
+
+  const { t } = useTranslation();
 
   const {
     field: { onChange, value },
     fieldState: { error },
   } = useController({
     control,
-    name: "icon_id",
+    name: "defaultAvatar",
     defaultValue: "",
     rules: {
       required: {
@@ -36,6 +50,9 @@ export const SignupAvatarStep = () => {
 
   return (
     <>
+      <Typography variant="label" sx={{ mt: 2 }}>
+        {t("signup.avatar_disclaimer")}
+      </Typography>
       <RadioGroup
         value={value}
         onChange={(e) => {
@@ -46,18 +63,18 @@ export const SignupAvatarStep = () => {
           display="flex"
           justifyContent="space-evenly"
           alignItems="center"
-          sx={{
-            flexDirection: ["column", "row"],
-          }}
+          // sx={{
+          //   flexDirection: ["column", "row"],
+          // }}
         >
           {avatars?.map((item) => (
             <FormControlLabel
-              key={item._id}
-              value={item._id}
+              key={item.label}
+              value={item.url}
               control={
                 <Radio
                   icon={
-                    <Stack>
+                    <Stack alignItems="center">
                       <Avatar
                         src={item.url}
                         sx={{
@@ -65,43 +82,24 @@ export const SignupAvatarStep = () => {
                           height: 150,
                         }}
                       />
-                      <Typography variant="subtitle" align="center">
-                        {item.label}
-                      </Typography>
+                      <Typography variant="label">{item.name}</Typography>
                     </Stack>
                   }
                   checkedIcon={
-                    <Badge
-                      overlap="circular"
-                      anchorOrigin={{
-                        vertical: "top",
-                        horizontal: "right",
-                      }}
-                      badgeContent={
-                        <CheckCircleRoundedIcon
-                          color="success"
-                          fontSize="large"
-                        />
-                      }
-                    >
-                      <Stack>
-                        <Avatar
-                          src={item.url}
-                          sx={{
-                            width: 150,
-                            height: 150,
-                          }}
-                        />
-                        <Typography
-                          variant="subtitle"
-                          align="center"
-                          // color="primary.dark"
-                          fontWeight="bold"
-                        >
-                          {item.label}
-                        </Typography>
-                      </Stack>
-                    </Badge>
+                    <Stack alignItems="center">
+                      <Avatar
+                        src={item.url}
+                        sx={{
+                          width: 150,
+                          height: 150,
+                          border: "5px solid",
+                          borderColor: "success.main",
+                        }}
+                      />
+                      <Typography variant="label" color="success">
+                        {item.name}
+                      </Typography>
+                    </Stack>
                   }
                 />
               }
