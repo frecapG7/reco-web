@@ -15,7 +15,7 @@ import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
 import { usePostRecommendation } from "../hooks/api/requests/useRecommendations";
 import { useTranslation } from "react-i18next";
 import { useAuthSession } from "../context/AuthContext";
-import { RecommendationFormV2 } from "../components/request/recommendation/RecommendationFormV2";
+import { RecommendationForm } from "../components/recommendation/RecommendationForm";
 import { IFramely } from "../components/request/IFramely";
 /**
  * Use this dialog to create new Recommendation
@@ -56,7 +56,7 @@ export const RecommendationDialog = ({ open, onClose, request }) => {
       scroll="body"
     >
       <DialogContent>
-        <RecommendationFormV2
+        <RecommendationForm
           requestType={request.requestType}
           onSubmit={setRecommendation}
           disabled={Boolean(recommendation)}

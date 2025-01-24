@@ -8,13 +8,13 @@ import {
   Zoom,
 } from "@mui/material";
 import { useForm, useWatch } from "react-hook-form";
-import { FormText } from "../../form/FormText";
-import { useSearchRecommendations } from "../../../hooks/api/recommendations/recommendations";
+import { FormText } from "../form/FormText";
+import { useSearchRecommendations } from "../../hooks/api/recommendations/recommendations";
 import { useTranslation } from "react-i18next";
-import { useEmbed } from "../../../hooks/api/embed/useEmbed";
+import { useEmbed } from "../../hooks/api/embed/useEmbed";
 import { useEffect } from "react";
 
-export const RecommendationFormV2 = ({
+export const RecommendationForm = ({
   requestType,
   onSubmit,
   disabled = false,

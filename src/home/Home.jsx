@@ -1,6 +1,5 @@
 import {
   Box,
-  Button,
   Card,
   CardActionArea,
   CardContent,
@@ -12,7 +11,7 @@ import {
 } from "@mui/material";
 import { useGetRequests } from "../hooks/api/requests/useRequests";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { Fragment, useState } from "react";
+import { Fragment } from "react";
 import { useNavigate } from "react-router-dom";
 import { Request } from "../components/request/Request";
 import { Recommendations } from "./Recommendations";
