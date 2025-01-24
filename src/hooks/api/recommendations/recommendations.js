@@ -6,16 +6,17 @@ const searchRecommencations = async (requestType, search) => {
     params: {
       requestType,
       search,
+      pageSize: 3,
     },
   });
 
   return response;
 };
 
-export const useSearchRecommendations = (requestType, search) => {
+export const useSearchRecommendations = (requestType, search, options) => {
   return useQuery({
     queryKey: ["recommendations", requestType, search],
     queryFn: () => searchRecommencations(requestType, search),
-    enabled: Boolean(search) && Boolean(requestType),
+    enabled: Boolean(requestType) && options?.enabled,
   });
 };

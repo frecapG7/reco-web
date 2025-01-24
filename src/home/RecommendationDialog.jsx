@@ -1,31 +1,39 @@
 import {
+  Box,
   Button,
   CircularProgress,
   Dialog,
   DialogActions,
   DialogContent,
+  IconButton,
+  Zoom,
 } from "@mui/material";
-import { RecommendationForm } from "../components/request/recommendation/RecommendationForm";
-import { useRef } from "react";
+import { useState } from "react";
 
 import LocalDrinkOutlinedIcon from "@mui/icons-material/LocalDrinkOutlined";
+import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
 import { usePostRecommendation } from "../hooks/api/requests/useRecommendations";
 import { useTranslation } from "react-i18next";
 import { useAuthSession } from "../context/AuthContext";
+import { RecommendationFormV2 } from "../components/request/recommendation/RecommendationFormV2";
+import { IFramely } from "../components/request/IFramely";
 /**
  * Use this dialog to create new Recommendation
  * @param {*} param0
  * @returns
  */
 export const RecommendationDialog = ({ open, onClose, request }) => {
-  const formRef = useRef();
-
   const { session, showLogin } = useAuthSession();
+
+  const [recommendation, setRecommendation] = useState(null);
   const createRecommendation = usePostRecommendation(request?.id);
 
-  const onSubmit = (data) => {
-    createRecommendation.mutate(data, {
+  const onSubmit = () => {
+    if (!recommendation) return;
+
+    createRecommendation.mutate(recommendation, {
       onSuccess: () => {
+        setRecommendation(null);
         onClose();
       },
       onError: (error) => {
@@ -37,19 +45,47 @@ export const RecommendationDialog = ({ open, onClose, request }) => {
   const { t } = useTranslation();
 
   return (
-    <Dialog open={open} onClose={onClose} maxWidth="md" fullWidth scroll="body">
+    <Dialog
+      open={open}
+      onClose={() => {
+        setRecommendation(null);
+        onClose();
+      }}
+      maxWidth="md"
+      fullWidth
+      scroll="body"
+    >
       <DialogContent>
-        <RecommendationForm
-          ref={formRef}
-          onSubmit={onSubmit}
-          requestType={request?.requestType}
+        <RecommendationFormV2
+          requestType={request.requestType}
+          onSubmit={setRecommendation}
+          disabled={Boolean(recommendation)}
         />
+
+        <Zoom in={Boolean(recommendation)}>
+          <Box
+            display="flex"
+            alignItems="flex-start"
+            justifyContent="space-between"
+          >
+            <IFramely html={recommendation?.html} />
+            <IconButton onClick={() => setRecommendation(null)}>
+              <CancelOutlinedIcon />
+            </IconButton>
+          </Box>
+        </Zoom>
       </DialogContent>
       <DialogActions>
         {createRecommendation.isPending && <CircularProgress />}
         {!createRecommendation.isPending && (
           <>
-            <Button variant="outlined" onClick={onClose}>
+            <Button
+              variant="outlined"
+              onClick={() => {
+                setRecommendation(null);
+                onClose();
+              }}
+            >
               {t("cancel")}
             </Button>
             <Button
@@ -59,7 +95,7 @@ export const RecommendationDialog = ({ open, onClose, request }) => {
                   showLogin();
                   return;
                 }
-                formRef.current?.submit();
+                onSubmit();
               }}
             >
               <LocalDrinkOutlinedIcon />

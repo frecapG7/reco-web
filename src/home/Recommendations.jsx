@@ -1,5 +1,6 @@
 import {
   Box,
+  Button,
   CircularProgress,
   IconButton,
   MobileStepper,
@@ -12,6 +13,7 @@ import { Recommendation } from "../components/request/recommendation/Recommendat
 import { useState } from "react";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
+import { RecommendationDialog } from "./RecommendationDialog";
 
 export const Recommendations = ({ request }) => {
   const { data, isLoading } = useGetRecommendations(request.id, "likes", 3);
@@ -20,22 +22,50 @@ export const Recommendations = ({ request }) => {
 
   const [activeIndex, setActiveIndex] = useState(0);
 
+  const [openDialog, setOpenDialog] = useState(false);
+
   if (isLoading)
     return (
-      <Box>
+      <Box align="center">
         <CircularProgress />
       </Box>
     );
 
   if (!recommendations?.length)
     return (
-      <Box align="center">
-        <Typography variant="body1">No recommendations yet</Typography>
-      </Box>
+      <Stack spacing={2}>
+        <Box display="flex" justifyContent="flex-end" alignItems="center">
+          <Button
+            variant="outlined"
+            color="secondary"
+            onClick={() => setOpenDialog(true)}
+          >
+            +
+          </Button>
+        </Box>
+        <Box align="center">
+          <Typography variant="body1">No recommendations yet</Typography>
+        </Box>
+        <RecommendationDialog
+          open={openDialog}
+          onClose={() => setOpenDialog(false)}
+          request={request}
+        />
+      </Stack>
     );
 
   return (
-    <Stack>
+    <Stack spacing={2}>
+      <Box display="flex" justifyContent="flex-end" alignItems="center">
+        <Typography variant="h5"></Typography>
+        <Button
+          variant="outlined"
+          color="secondary"
+          onClick={() => setOpenDialog(true)}
+        >
+          + {request?.recommendationsCount} Recoco
+        </Button>
+      </Box>
       <Slide key={activeIndex} direction="right" in mountOnEnter unmountOnExit>
         <Box aria-label="recommendation" display="flex">
           <Recommendation
@@ -51,8 +81,6 @@ export const Recommendations = ({ request }) => {
         steps={recommendations.length}
         activeStep={activeIndex}
         sx={{
-          // maxWidth: 400,
-          flexGrow: 1,
           display: recommendations.length > 1 ? "flex" : "none",
           justifyContent: "center",
           borderRadius: 0,
@@ -90,6 +118,12 @@ export const Recommendations = ({ request }) => {
             <KeyboardArrowLeftIcon />
           </IconButton>
         }
+      />
+
+      <RecommendationDialog
+        open={openDialog}
+        onClose={() => setOpenDialog(false)}
+        request={request}
       />
     </Stack>
   );
