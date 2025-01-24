@@ -1,6 +1,5 @@
 import {
   Box,
-  Button,
   Card,
   CardActionArea,
   CardContent,
@@ -12,13 +11,12 @@ import {
 } from "@mui/material";
 import { useGetRequests } from "../hooks/api/requests/useRequests";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { Fragment, useState } from "react";
+import { Fragment } from "react";
 import { useNavigate } from "react-router-dom";
 import { Request } from "../components/request/Request";
 import { Recommendations } from "./Recommendations";
 import { useForm, useWatch } from "react-hook-form";
 import { SearchRequestFilterForm } from "./components/SearchRequestFilterForm";
-import { RecommendationDialog } from "./RecommendationDialog";
 import { useTranslation } from "react-i18next";
 
 export const Home = () => {
@@ -34,8 +32,6 @@ export const Home = () => {
   } = useGetRequests(filters);
 
   const navigate = useNavigate();
-
-  const [selectedRequest, setSelectedRequest] = useState(null);
 
   const { t } = useTranslation();
 
@@ -95,13 +91,7 @@ export const Home = () => {
                       >
                         <Request request={result} />
                       </CardActionArea>
-                      <Button
-                        variant="contained"
-                        color="primary"
-                        onClick={() => setSelectedRequest(result)}
-                      >
-                        {t("recommendation.add")}
-                      </Button>
+
                       <Recommendations request={result} />
                     </Stack>
                   </CardContent>
@@ -116,12 +106,6 @@ export const Home = () => {
           )}
         </InfiniteScroll>
       </Box>
-
-      <RecommendationDialog
-        open={Boolean(selectedRequest)}
-        onClose={() => setSelectedRequest(null)}
-        request={selectedRequest}
-      />
     </Container>
   );
 };

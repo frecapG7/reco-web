@@ -17,6 +17,8 @@ export const AuthContextProvider = ({ children }) => {
 
   const [initialized, setInitialized] = useState(false);
 
+  const [open, setOpen] = useState(false);
+
   useEffect(() => {
     const storage = sessionStorage.getItem("session");
     if (storage) {
@@ -46,8 +48,6 @@ export const AuthContextProvider = ({ children }) => {
     sessionStorage.removeItem("session");
     sessionStorage.removeItem("token");
   };
-
-  const [open, setOpen] = useState(false);
 
   const showLogin = () => {
     setOpen(true);

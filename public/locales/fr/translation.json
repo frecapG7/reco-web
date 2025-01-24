@@ -61,5 +61,9 @@
   "loading": "Chargement...",
   "noItems": "Aucun élément trouvé",
   "thatIsAll": "C'est tout!",
-  "back": "Retour"
+  "back": "Retour",
+  "noResults": {
+    "short": "Aucun résultat",
+    "long": "Aucun résultat ne correspond à votre recherche"
+  }
 }

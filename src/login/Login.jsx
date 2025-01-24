@@ -9,7 +9,7 @@ export const Login = () => {
     <Container>
       <LoginDialog
         open={true}
-        onClose={() => {}}
+        onClose={() => navigate("/", { replace: true })}
         onSuccess={() => navigate("/", { replace: true })}
       />
     </Container>

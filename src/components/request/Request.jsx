@@ -124,9 +124,6 @@ export const Request = ({ request }) => {
               <Chip key={index} label={`# ${tag}`} />
             </Grid>
           ))}
-          <Grid size={{ xs: 12 }} container alignItems="center">
-            <Typography>{request.recommendationsCount} Recocos</Typography>
-          </Grid>
         </Grid>
       </Box>
     </Stack>
