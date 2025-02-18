@@ -9,6 +9,7 @@ import { useController } from "react-hook-form";
 
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { i18nFormError } from "../../i18n/i18nForm";
+import { useTranslation } from "react-i18next";
 
 export const FormPassword = ({ control, name, label, rules, ...rest }) => {
   const {
@@ -22,6 +23,7 @@ export const FormPassword = ({ control, name, label, rules, ...rest }) => {
   });
 
   const [showPassword, setShowPassword] = useState(false);
+  const { t } = useTranslation();
 
   const handleClickShowPassword = () => {
     setShowPassword((prev) => !prev);
@@ -48,7 +50,7 @@ export const FormPassword = ({ control, name, label, rules, ...rest }) => {
         onChange={onChange}
         onBlur={onBlur}
         error={!!error}
-        helperText={i18nFormError(error)}
+        helperText={t(i18nFormError(error))}
         required={rules?.required}
         type={showPassword ? "text" : "password"}
         slotProps={{

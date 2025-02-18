@@ -236,3 +236,28 @@ export const useGetUserTokens = (id, pageSize, pageNumber, options) => {
     ...options,
   });
 };
+
+/** RESET PASSWORD && FORGOT PASSWORD */
+const forgotPassword = async (email) => {
+  const response = await post("/api/users/forgot-password", { email });
+  return response;
+};
+
+export const useForgotPassword = (options) => {
+  return useMutation({
+    mutationFn: (email) => forgotPassword(email),
+    ...options,
+  });
+};
+
+const resetPassword = async (data) => {
+  const response = await post("/api/users/reset-password", data);
+  return response;
+};
+
+export const useResetPassword = (options) => {
+  return useMutation({
+    mutationFn: (data) => resetPassword(data),
+    ...options,
+  });
+};

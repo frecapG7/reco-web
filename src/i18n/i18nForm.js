@@ -1,5 +1,5 @@
 export const i18nFormError = (error) => {
-  if (error?.message) return error.message;
+  if (error?.message) return `form.errors.${error.message}`;
   switch (error?.type) {
     case "required":
       return "This field is required";

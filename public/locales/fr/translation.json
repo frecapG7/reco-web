@@ -43,7 +43,18 @@
     "contact_disclaimer": "Votre offrande a été accépté par les dieux de l'Est. Tous les êtres qui entrent sur les terres de Rauwkaukoïa doivent se choisir une nouvelle identité. Veuillez choisir un nom d'utilisateur et un mot de passe pour accéder à la connaissance ultime.",
     "avatar_disclaimer": "Une dernière étape vous est demandé avant que vous puissiez enfin pénétrer sur les terres de Rauwkaukoïa. Afin de préserver votre anonymat devant la menace qui vient de l'Est, vous devez choisir une apparance parmi les legendes de l'Est. Choisissez votre avatar avec sagesse, car il vous représentera pour l"
   },
-  "forgotPassword": "Mot de passe oublié",
+  "forgotPassword": {
+    "title": "Reinitialiser le mot de passe",
+    "description": "Saisis l'adresse mail de ton compte pour recevoir un lien de réinitialisation de ton mot de passe",
+    "link": "Mot de passe oublié ?",
+    "button": "Reinitialiser le mot de passe"
+  },
+
+  "resetPassword": {
+    "title": "Modifier le mot de passe",
+    "description": "Saisis ton nouveau mot de passe pour le modifier",
+    "button": "Modifier le mot de passe"
+  },
 
   "user": {
     "emailOrUsername": "Adresse email ou nom d'utilisateur",
@@ -65,5 +76,11 @@
   "noResults": {
     "short": "Aucun résultat",
     "long": "Aucun résultat ne correspond à votre recherche"
+  },
+  "form": {
+    "errors": {
+      "required": "Ce champ est obligatoire",
+      "passwordFormat": "Le mot de passe doit contenir au moins 8 caractères, dont une lettre majuscule, une lettre minuscule et un chiffre"
+    }
   }
 }

@@ -17,3 +17,15 @@ export const useGetTokens = (pageSize, pageNumber) => {
     queryFn: () => getTokens({}, pageSize, pageNumber),
   });
 };
+
+const getToken = async (id) => {
+  const response = await get(`/api/tokens/${id}`);
+  return response;
+};
+
+export const useGetToken = (id) => {
+  return useQuery({
+    queryKey: ["tokens", id],
+    queryFn: () => getToken(id),
+  });
+};

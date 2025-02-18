@@ -27,7 +27,17 @@
   "price": "Price",
   "buy": "Buy",
   "signup": "Sign up",
-  "forgotPassword": "Forgot password",
+  "forgotPassword": {
+    "title": "Reset your password",
+    "description": "Enter your email address to reset your password",
+    "link": "Forgot your password ?",
+    "button": "Reset your password"
+  },
+  "resetPassword": {
+    "title": "Modify your password",
+    "description": "Enter your new password to modify it",
+    "button": "Modify password"
+  },
 
   "user": {
     "emailOrUsername": "Username or email address",
@@ -40,5 +50,12 @@
   "releaseToRefresh": "Release to refresh",
   "loading": "Loading...",
   "noItems": "No items found",
-  "back": "Back"
+  "back": "Back",
+
+  "form": {
+    "errors": {
+      "required": "This field is required",
+      "passwordFormat": "Password must contain at least 8 characters, including one uppercase letter, one lowercase letter and one number"
+    }
+  }
 }
