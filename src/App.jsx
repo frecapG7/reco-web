@@ -8,6 +8,7 @@ import { AuthContextProvider } from "./context/AuthContext";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import ApiClient from "./api/ApiClient";
 import { Suspense } from "react";
+import { Bounce, ToastContainer } from "react-toastify";
 
 const queryClient = ApiClient;
 const router = createBrowserRouter(routes, {
@@ -25,6 +26,19 @@ const App = () => {
           <AuthContextProvider>
             <ReactQueryDevtools initialIsOpen={false} />
             <RouterProvider router={router} />
+            <ToastContainer
+              position="bottom-left"
+              autoClose={5000}
+              hideProgressBar={true}
+              newestOnTop={false}
+              closeOnClick={false}
+              rtl={false}
+              pauseOnFocusLoss
+              draggable
+              pauseOnHover
+              theme="light"
+              transition={Bounce}
+            />
           </AuthContextProvider>
         </QueryClientProvider>
       </ThemeProvider>

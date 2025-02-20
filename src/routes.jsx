@@ -36,6 +36,9 @@ import { Settings } from "./settings/Settings";
 import { NotificationSettings } from "./settings/NotificationSettings";
 import { AccountSettings } from "./settings/AccountSettings";
 import { PrivacySettings } from "./settings/PrivacySettings";
+import { ForgotPassword } from "./login/ForgotPassword";
+import { Redirection } from "./redirection/Redirection";
+import { ResetPassword } from "./login/ResetPassword";
 
 export const routes = [
   {
@@ -257,6 +260,18 @@ export const routes = [
       {
         path: "sign-up",
         element: <Signup />,
+      },
+      {
+        path: "forgot-password",
+        element: <ForgotPassword />,
+      },
+      {
+        path: "reset-password",
+        element: <ResetPassword />,
+      },
+      {
+        path: "redirection",
+        element: <Redirection />,
       },
     ],
   },
