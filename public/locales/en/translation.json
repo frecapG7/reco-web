@@ -27,11 +27,13 @@
   "price": "Price",
   "buy": "Buy",
   "signup": "Sign up",
+  "close": "Close",
   "forgotPassword": {
     "title": "Reset your password",
     "description": "Enter your email address to reset your password",
     "link": "Forgot your password ?",
-    "button": "Reset your password"
+    "button": "Reset your password",
+    "success": "An email has been sent to you with a link to reset your password"
   },
   "resetPassword": {
     "title": "Modify your password",

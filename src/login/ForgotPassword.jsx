@@ -16,6 +16,7 @@ import { useTranslation } from "react-i18next";
 import { useForm } from "react-hook-form";
 import { FormEmail } from "../components/form/FormEmail";
 import { useForgotPassword } from "../hooks/api/users/useUsers";
+import { toast } from "react-toastify";
 
 export const ForgotPassword = () => {
   const navigate = useNavigate();
@@ -27,12 +28,20 @@ export const ForgotPassword = () => {
 
   const forgotPassword = useForgotPassword();
   const onSubmit = async (data) => {
-    await forgotPassword.mutateAsync(data.email);
+    toast("test", {
+      type: "success",
+    });
+    // await forgotPassword.mutateAsync(data.email);
   };
 
   return (
     <Container>
-      <Dialog open={true} maxWidth="sm" fullWidth fullScreen={isDownSm}>
+      <Dialog
+        open={!forgotPassword.isSuccess}
+        maxWidth="sm"
+        fullWidth
+        fullScreen={isDownSm}
+      >
         <DialogTitle>
           <Box display="flex" justifyContent="flex-end" alignItems="center">
             <IconButton onClick={() => navigate("/", { replace: true })}>
@@ -55,20 +64,58 @@ export const ForgotPassword = () => {
             <FormEmail control={control} name="email" label="Email" required />
           </DialogContent>
           <DialogActions>
-            <Button
-              variant="contained"
-              color="primary"
-              fullWidth
-              type="submit"
-              sx={{
-                px: 5,
-              }}
-              loading={forgotPassword.isPending}
-            >
-              {t("forgotPassword.button")}
-            </Button>
+            {forgotPassword.isSuccess && (
+              <Button
+                variant="contained"
+                color="primary"
+                fullWidth
+                type="submit"
+                sx={{
+                  px: 5,
+                }}
+                loading={forgotPassword.isPending}
+              >
+                {t("forgotPassword.button")}
+              </Button>
+            )}
           </DialogActions>
         </form>
+      </Dialog>
+
+      <Dialog
+        open={!forgotPassword.isSuccess}
+        maxWidth="sm"
+        fullWidth
+        fullScreen={isDownSm}
+      >
+        <DialogTitle>
+          <Box display="flex" justifyContent="flex-end" alignItems="center">
+            <IconButton onClick={() => navigate("/", { replace: true })}>
+              <CloseOutlinedIcon />
+            </IconButton>
+          </Box>
+        </DialogTitle>
+        <DialogContent>
+          <Box mb={2}>
+            <Typography variant="title">{t("forgotPassword.title")}</Typography>
+            <Typography variant="body1">
+              {t("forgotPassword.success")}
+            </Typography>
+          </Box>
+        </DialogContent>
+        <DialogActions>
+          <Button
+            variant="contained"
+            color="primary"
+            fullWidth
+            onClick={() => navigate("/", { replace: true })}
+            sx={{
+              px: 5,
+            }}
+          >
+            {t("close")}
+          </Button>
+        </DialogActions>
       </Dialog>
     </Container>
   );

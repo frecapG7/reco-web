@@ -33,6 +33,7 @@
   "price": "Prix",
   "buy": "Acheter",
   "cancel": "Annuler",
+  "close": "Fermer",
   "signup": {
     "title": "Inscription",
     "button": "Créer un compte",
@@ -47,7 +48,8 @@
     "title": "Reinitialiser le mot de passe",
     "description": "Saisis l'adresse mail de ton compte pour recevoir un lien de réinitialisation de ton mot de passe",
     "link": "Mot de passe oublié ?",
-    "button": "Reinitialiser le mot de passe"
+    "button": "Reinitialiser le mot de passe",
+    "success": "Un email vous a été envoyé avec un lien pour réinitialiser votre mot de passe"
   },
 
   "resetPassword": {
