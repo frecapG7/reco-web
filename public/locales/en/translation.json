@@ -7,7 +7,8 @@
   "menu": {
     "home": "Home",
     "newRequest": "Create request",
-    "store": "Store"
+    "store": "Store",
+    "recommendations": "Archives",
   },
   "stores": {
     "title": "Bienvenue sur le magasinage",

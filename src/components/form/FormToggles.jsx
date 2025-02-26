@@ -1,7 +1,14 @@
 import { FormControl, ToggleButton, ToggleButtonGroup } from "@mui/material";
 import { useController } from "react-hook-form";
 
-export const FormToggles = ({ control, name, label, options = [], rules }) => {
+export const FormToggles = ({
+  control,
+  name,
+  label,
+  options = [],
+  rules,
+  enforceValue = false,
+}) => {
   const {
     field: { value, onChange },
     fieldState: { error },
@@ -16,7 +23,10 @@ export const FormToggles = ({ control, name, label, options = [], rules }) => {
       <ToggleButtonGroup
         fullWidth
         value={value}
-        onChange={onChange}
+        onChange={(e, value) => {
+          if (enforceValue && !value) return;
+          onChange(value);
+        }}
         aria-label={label}
         error={error}
         exclusive

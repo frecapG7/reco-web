@@ -50,6 +50,7 @@ export const StandardLayout = ({ children }) => {
           open={mobileOpen}
           onTransitionEnd={handleDrawerTransitionEnd}
           onClose={handleDrawerClose}
+          onClick={handleDrawerToggle}
           ModalProps={{
             keepMounted: true,
           }}

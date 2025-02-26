@@ -77,11 +77,11 @@ export const Home = () => {
               {page.results.map((result) => (
                 <Card
                   key={result.id}
+                  variant="outlined"
                   elevation={1}
                   sx={{
                     my: 5,
                     mx: 1,
-                    p: 0,
                   }}
                 >
                   <CardContent>

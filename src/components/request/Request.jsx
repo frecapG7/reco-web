@@ -8,6 +8,7 @@ import {
   Skeleton,
   Stack,
   Typography,
+  Link,
 } from "@mui/material";
 
 import { useState } from "react";
@@ -54,6 +55,7 @@ const User = ({ user }) => {
         }}
       />
       <Typography
+        variant="title"
         sx={{
           ...(isMouseOver && { textDecoration: "underline" }),
         }}
@@ -90,8 +92,23 @@ export const Request = ({ request }) => {
           justifyContent: "space-between",
         }}
       >
-        <Box>
-          <User user={request.author} />
+        <Box
+          display="flex"
+          justifyContent="flex-start"
+          alignItems="center"
+          gap={2}
+        >
+          <Avatar
+            src={request?.author.avatar}
+            alt={request?.author.name}
+            sx={{
+              width: { xs: 50, sm: 100 },
+              height: { xs: 50, sm: 100 },
+            }}
+          />
+          <Stack>
+            <Typography variant="title">{request?.author.name}</Typography>
+          </Stack>
         </Box>
 
         <Icon variant="contained">

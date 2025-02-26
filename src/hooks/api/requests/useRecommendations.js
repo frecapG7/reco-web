@@ -1,6 +1,7 @@
 import {
   useInfiniteQuery,
   useMutation,
+  useQuery,
   useQueryClient,
 } from "@tanstack/react-query";
 import { get, post, del } from "../index";
@@ -34,6 +35,23 @@ export const useGetRecommendations = (requestId, sort, pageSize) => {
         return lastPage.pagination.currentPage + 1;
       return undefined;
     },
+  });
+};
+
+const getEmbedRecommendation = async (url) => {
+  const response = await get(`/api/recommendations/embed`, {
+    params: {
+      url,
+    },
+  });
+  return response;
+};
+
+export const useGetEmbedRecommendation = (url, options) => {
+  return useQuery({
+    queryKey: ["recommendations", "embed", url],
+    queryFn: () => getEmbedRecommendation(url),
+    ...options,
   });
 };
 

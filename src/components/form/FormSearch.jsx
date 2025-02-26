@@ -42,14 +42,14 @@ export const FormSearch = ({
           input: {
             endAdornment: (
               <Stack direction="row" alignItems="center">
-                <IconButton>
-                  <SearchOutlinedIcon />
-                </IconButton>
-                <Fade in={!!value} mountOnEnter unmountOnExit>
+                <Fade in={!!value}>
                   <IconButton onClick={() => onChange("")}>
                     <CancelOutlinedIcon />
                   </IconButton>
                 </Fade>
+                <IconButton>
+                  <SearchOutlinedIcon />
+                </IconButton>
               </Stack>
             ),
           },

@@ -36,8 +36,8 @@ export const Recommendations = ({ request }) => {
       <Stack spacing={2}>
         <Box display="flex" justifyContent="flex-end" alignItems="center">
           <Button
-            variant="outlined"
-            color="secondary"
+            variant="contained"
+            color="primary"
             onClick={() => setOpenDialog(true)}
           >
             +
@@ -59,8 +59,8 @@ export const Recommendations = ({ request }) => {
       <Box display="flex" justifyContent="flex-end" alignItems="center">
         <Typography variant="h5"></Typography>
         <Button
-          variant="outlined"
-          color="secondary"
+          variant="contained"
+          color="primary"
           onClick={() => setOpenDialog(true)}
         >
           + {request?.recommendationsCount} Recoco

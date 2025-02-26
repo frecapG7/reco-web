@@ -39,6 +39,8 @@ import { PrivacySettings } from "./settings/PrivacySettings";
 import { ForgotPassword } from "./login/ForgotPassword";
 import { Redirection } from "./redirection/Redirection";
 import { ResetPassword } from "./login/ResetPassword";
+import { SearchRecommendations } from "./recommendations/SearchRecommendations";
+import { CreateRecommendation } from "./recommendations/CreateRecommendation";
 
 export const routes = [
   {
@@ -129,6 +131,19 @@ export const routes = [
           {
             path: ":id",
             element: <RequestDetails />,
+          },
+        ],
+      },
+      {
+        path: "archives",
+        children: [
+          {
+            path: "",
+            element: <SearchRecommendations />,
+          },
+          {
+            path: "new",
+            element: <CreateRecommendation />,
           },
         ],
       },

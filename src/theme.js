@@ -48,6 +48,21 @@ theme = createTheme(theme, {
     currency: {
       main: theme.palette.yellow.main,
     },
+    book: {
+      light: "#A7E6FF",
+      main: "#3ABEF9",
+      dark: "#050C9C",
+    },
+    song: {
+      light: "#A9C46C",
+      main: "#809D3C",
+      dark: "#5D8736",
+    },
+    movie: {
+      light: "#FF8A08",
+      main: "#FF6500",
+      dark: "#C40C0C",
+    },
   },
   typography: {
     h1: {
@@ -94,6 +109,7 @@ theme = createTheme(theme, {
     button: {
       fontFamily: "Roboto, Arial",
       fontSize: pxToRem(10),
+      fontWeight: "bold",
       [breakpoints.up("sm")]: {
         fontSize: pxToRem(18),
       },
@@ -129,6 +145,9 @@ theme = createTheme(theme, {
           boxShadow: "none",
           ...theme.typography.button,
         },
+        containedPrimary: {
+          background: `repeating-conic-gradient(${theme.palette.secondary.light} 0%,${theme.palette.primary.light} 15%,${theme.palette.primary.main} 33%)`,
+        },
       },
     },
     MuiIconButton: {
@@ -140,6 +159,7 @@ theme = createTheme(theme, {
           props: { variant: "contained" },
           style: {
             backgroundColor: theme.palette.primary.main,
+            background: "linear-gradient(45deg, #ddb5e3 30%,#4a9e48 90%)",
             // color: theme.palette.secondary.dark,
             "&:hover": {
               backgroundColor: theme.palette.primary.dark,
@@ -162,9 +182,13 @@ theme = createTheme(theme, {
         {
           props: { variant: "contained" },
           style: {
-            [theme.breakpoints.down("sm")]: {
+            [theme.breakpoints.down("xs")]: {
               minWidth: 50,
               minHeight: 50,
+            },
+            [theme.breakpoints.up("xs")]: {
+              minWidth: 60,
+              minHeight: 60,
             },
             [theme.breakpoints.up("sm")]: {
               minWidth: 100,
@@ -175,7 +199,7 @@ theme = createTheme(theme, {
             display: "flex",
             justifyContent: "center",
             backgroundColor: theme.palette.primary.main,
-            color: theme.palette.primary.contrastText,
+            color: theme.palette.white,
           },
         },
         {
@@ -184,7 +208,7 @@ theme = createTheme(theme, {
             borderRadius: "50%",
             backgroundColor: theme.palette.background.default,
             color: theme.palette.primary.contrastText,
-            boder: `3px solid ${theme.palette.secondary.main}`,
+            border: `3px solid ${theme.palette.secondary.main}`,
           },
         },
       ],
@@ -211,9 +235,9 @@ theme = createTheme(theme, {
         {
           props: { variant: "outlined" },
           style: {
-            borderRadius: 10,
+            borderRadius: 0,
             boxShadow: "none",
-            border: "1px solid",
+            borderStyle: "inset",
             borderColor: theme.palette.primary.main,
             padding: 20,
           },
@@ -301,10 +325,6 @@ theme = createTheme(theme, {
         root: {
           width: "10vh",
           height: "10vh",
-          // borderWidth: 2,
-          // borderStyle: "solid",
-          // borderColor: theme.palette.primary.dark,
-          // boxSizing: "border-box",
         },
       },
       variants: [
@@ -328,11 +348,28 @@ theme = createTheme(theme, {
     MuiCard: {
       styleOverrides: {
         root: {
-          borderRadius: 20,
-          padding: 20,
+          borderRadius: 10,
           backgroundColor: theme.palette.background.default,
         },
       },
+      variants: [
+        {
+          props: { variant: "SONG" },
+          style: {
+            borderStyle: "inset",
+            borderWidth: 3,
+            borderColor: theme.palette.song.main,
+          },
+        },
+        {
+          props: { variant: "MOVIE" },
+          style: {
+            borderStyle: "inset",
+            borderWidth: 5,
+            borderColor: theme.palette.movie.main,
+          },
+        },
+      ],
     },
     MuiCardHeader: {
       styleOverrides: {
@@ -396,6 +433,23 @@ theme = createTheme(theme, {
           "&:hover": {
             color: theme.palette.primary.main,
           },
+        },
+      },
+    },
+    MuiBadge: {
+      styleOverrides: {
+        colorPrimary: {
+          backgroundColor: theme.palette.primary.main,
+          color: theme.palette.primary.contrastText,
+          background: "linear-gradient(45deg,  #2CB419  , #ddb5e3 50%)",
+        },
+      },
+    },
+    MuiChip: {
+      styleOverrides: {
+        filledSoundCloud: {
+          backgroundColor: "#ff5d00",
+          color: theme.palette.white,
         },
       },
     },

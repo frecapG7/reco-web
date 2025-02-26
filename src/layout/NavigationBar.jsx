@@ -8,20 +8,17 @@ import {
   ListItemText,
 } from "@mui/material";
 import { Box } from "@mui/system";
-
+import { NavLink, useNavigate } from "react-router-dom";
+import { AdministrationItem } from "./menu/AdministrationItem";
+import { useAuthSession } from "../context/AuthContext";
+import { useTranslation } from "react-i18next";
 import AddIcon from "@mui/icons-material/Add";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import WhatshotOutlinedIcon from "@mui/icons-material/WhatshotOutlined";
-import { NavLink, useNavigate } from "react-router-dom";
-
 import LoginOutlinedIcon from "@mui/icons-material/LoginOutlined";
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
-
-import { AdministrationItem } from "./menu/AdministrationItem";
-import { useAuthSession } from "../context/AuthContext";
-
 import StorefrontOutlinedIcon from "@mui/icons-material/StorefrontOutlined";
-import { useTranslation } from "react-i18next";
+import DatasetIcon from "@mui/icons-material/Dataset";
 
 const NavigationItem = ({ icon, text, path }) => {
   return (
@@ -67,6 +64,11 @@ export const NavigationBar = ({ onClose }) => {
           icon={<AddIcon />}
           text={t("menu.newRequest")}
           path="/requests/new"
+        />
+        <NavigationItem
+          icon={<DatasetIcon />}
+          text={t("menu.recommendations")}
+          path="/archives"
         />
 
         <NavigationItem
