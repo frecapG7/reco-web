@@ -1,9 +1,11 @@
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { Box, Typography } from "@mui/material";
 import { UserRecommendations } from "../../components/user/requests/UserRecommendations";
+import { useOutletContext } from "react-router-dom";
 
-export const UserDetailsRecommendationsTab = ({ user }) => {
-  if (!user?.privacy?.showRecommendations)
+export const UserDetailsRecommendationsTab = () => {
+  const { user } = useOutletContext();
+  if (user?.privacy?.privateRecommendations)
     return (
       <Box align="center" mt={5}>
         <LockOutlinedIcon

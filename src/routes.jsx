@@ -6,11 +6,10 @@ import { MarketItemsAdministration } from "./admin/market/MarketItemsAdministrat
 import { MarketItemDetails } from "./admin/market/MarketItemDetails";
 import { AddMarketItem } from "./admin/market/AddMarketItem";
 import { Login } from "./login/Login";
-import { User } from "./users/User";
+import { UserDetailsPage } from "./users/UserDetailsPage";
 import { Signup } from "./signup/Signup";
 import { Notifications } from "./notifications/Notifications";
 import { StoresHome } from "./stores/StoresHome";
-import { IconStore } from "./stores/icons/IconStore";
 import { AccountHome } from "./account/AccountHome";
 import { AuthProtectedLayout } from "./layout/AuthProtectedLayout";
 import { AccountDetails } from "./account/details/AccountDetails";
@@ -27,8 +26,6 @@ import { AdminUserDetailsRecommendationsTab } from "./admin/users/details/AdminU
 import { UserDetailsRecommendationsTab } from "./users/details/UserDetailsRecommendationsTab";
 import { MyRecommendations } from "./account/my-recommendations/MyRecommendations";
 import { AdminUserDetailsPurchasesDetails } from "./admin/users/details/AdminUserDetailsPurchasesDetails";
-import { IconDetails } from "./stores/icons/IconDetails";
-import { ConsumableDetails } from "./stores/consumables/ConsumableDetails";
 import { MyKeys } from "./account/my-keys/MyKeys";
 import { TokensAdministration } from "./admin/tokens/TokensAdministration";
 import { CreateRequest } from "./requests/CreateRequest";
@@ -41,6 +38,12 @@ import { Redirection } from "./redirection/Redirection";
 import { ResetPassword } from "./login/ResetPassword";
 import { SearchRecommendations } from "./recommendations/SearchRecommendations";
 import { CreateRecommendation } from "./recommendations/CreateRecommendation";
+import { RecommendationPage } from "./recommendations/RecommendationPage";
+import { RecommendationDetails } from "./recommendations/RecommendationDetails";
+import { CreateRequestRecommendation } from "./requests/CreateRequestRecommendation";
+import { RequestDetailsPage } from "./requests/RequestDetailsPage";
+import { IconsStore } from "./stores/icons/IconsStore";
+import { ProductDetails } from "./stores/ProductDetails";
 
 export const routes = [
   {
@@ -128,14 +131,30 @@ export const routes = [
             path: "new",
             element: <CreateRequest />,
           },
+
           {
             path: ":id",
-            element: <RequestDetails />,
+            element: <RequestDetailsPage />,
+            children: [
+              {
+                path: "add-recommendation",
+                element: <CreateRequestRecommendation />,
+              },
+              {
+                path: "",
+                element: <RequestDetails />,
+              },
+            ],
           },
         ],
       },
       {
         path: "archives",
+        element: (
+          <AuthProtectedLayout>
+            <RecommendationPage />
+          </AuthProtectedLayout>
+        ),
         children: [
           {
             path: "",
@@ -145,6 +164,10 @@ export const routes = [
             path: "new",
             element: <CreateRecommendation />,
           },
+          {
+            path: ":id",
+            element: <RecommendationDetails />,
+          },
         ],
       },
       {
@@ -152,7 +175,7 @@ export const routes = [
         children: [
           {
             path: ":id",
-            element: <User />,
+            element: <UserDetailsPage />,
             children: [
               {
                 path: "",
@@ -182,11 +205,11 @@ export const routes = [
             children: [
               {
                 path: "",
-                element: <IconStore />,
+                element: <IconsStore />,
               },
               {
-                path: ":id",
-                element: <IconDetails />,
+                path: ":name",
+                element: <ProductDetails />,
               },
             ],
           },
@@ -194,8 +217,8 @@ export const routes = [
             path: "consumables",
             children: [
               {
-                path: ":id",
-                element: <ConsumableDetails />,
+                path: ":name",
+                element: <ProductDetails />,
               },
             ],
           },

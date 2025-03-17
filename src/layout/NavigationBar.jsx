@@ -1,6 +1,5 @@
 import {
   Divider,
-  IconButton,
   List,
   ListItem,
   ListItemButton,
@@ -13,12 +12,11 @@ import { AdministrationItem } from "./menu/AdministrationItem";
 import { useAuthSession } from "../context/AuthContext";
 import { useTranslation } from "react-i18next";
 import AddIcon from "@mui/icons-material/Add";
-import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import WhatshotOutlinedIcon from "@mui/icons-material/WhatshotOutlined";
 import LoginOutlinedIcon from "@mui/icons-material/LoginOutlined";
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 import StorefrontOutlinedIcon from "@mui/icons-material/StorefrontOutlined";
-import DatasetIcon from "@mui/icons-material/Dataset";
+import CollectionsIcon from "@mui/icons-material/Collections";
 
 const NavigationItem = ({ icon, text, path }) => {
   return (
@@ -31,7 +29,7 @@ const NavigationItem = ({ icon, text, path }) => {
   );
 };
 
-export const NavigationBar = ({ onClose }) => {
+export const NavigationBar = () => {
   const navigate = useNavigate();
   const { session, logout } = useAuthSession();
 
@@ -43,17 +41,6 @@ export const NavigationBar = ({ onClose }) => {
 
   return (
     <Box>
-      <Box
-        sx={{
-          py: 2,
-          display: { sm: "none" },
-        }}
-      >
-        <IconButton onClick={onClose}>
-          <ChevronLeftIcon />
-        </IconButton>
-        <Divider />
-      </Box>
       <List>
         <NavigationItem
           icon={<WhatshotOutlinedIcon fontSize="large" />}
@@ -65,11 +52,14 @@ export const NavigationBar = ({ onClose }) => {
           text={t("menu.newRequest")}
           path="/requests/new"
         />
-        <NavigationItem
-          icon={<DatasetIcon />}
-          text={t("menu.recommendations")}
-          path="/archives"
-        />
+
+        {session?.loggedIn && (
+          <NavigationItem
+            icon={<CollectionsIcon />}
+            text={t("menu.recommendations")}
+            path="/archives"
+          />
+        )}
 
         <NavigationItem
           icon={<StorefrontOutlinedIcon />}

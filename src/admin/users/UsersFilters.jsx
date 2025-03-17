@@ -1,13 +1,13 @@
 import { Grid2 as Grid } from "@mui/material";
 
-import { FormText } from "../../components/form/FormText";
 import { FormSelect } from "../../components/form/FormSelect";
+import { FormSearch } from "../../components/form/FormSearch";
 
 export const UsersFilters = ({ control }) => {
   return (
     <Grid container spacing={5} width="100%" alignItems="center">
       <Grid size={{ xs: 12, md: 5 }}>
-        <FormText
+        <FormSearch
           control={control}
           name="search"
           rules={{
@@ -20,8 +20,8 @@ export const UsersFilters = ({ control }) => {
           control={control}
           name="role"
           options={[
-            { label: "Admin", value: "admin" },
-            { label: "User", value: "user" },
+            { label: "Admin", value: "ADMIN" },
+            { label: "User", value: "USER" },
           ]}
         />
       </Grid>

@@ -8,7 +8,7 @@
     "home": "Home",
     "newRequest": "Create request",
     "store": "Store",
-    "recommendations": "Archives",
+    "recommendations": "Archives"
   },
   "stores": {
     "title": "Bienvenue sur le magasinage",
@@ -60,5 +60,30 @@
       "required": "This field is required",
       "passwordFormat": "Password must contain at least 8 characters, including one uppercase letter, one lowercase letter and one number"
     }
+  },
+
+  "archives": {
+    "title": "Archives",
+    "shortDescription": "Explore the archives of RawKauKau",
+    "description": "Dans ce royaume enchanté, les utilisateurs partagent leurs trésors : livres envoûtants, mélodies captivantes et films fascinants. Plongez dans nos archives et découvrez des œuvres uniques. Utilisez la barre de recherche pour explorer et copier des liens vers des plateformes comme SoundCloud ou YouTube. Chaque lien partagé enrichit RawKauKau, faisant de notre site un refuge vivant où la créativité et la passion se rencontrent.",
+    "alreadyExists": "This archive already exists"
+  },
+
+  "request": {
+    "title": "Title",
+    "description": "Description",
+    "submit": "Send",
+    "success": "Request sent successfully"
+  },
+
+  "purchase": {
+    "paymentDetails": {
+      "title": "Payment details",
+      "date": "Date of purchase",
+      "price": "Price"
+    },
+    "quantity": "Quantity",
+    "redeem": "Redeem",
+    "createSuccess": "Thank you for your purchase!"
   }
 }

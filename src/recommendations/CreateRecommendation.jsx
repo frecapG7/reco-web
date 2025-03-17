@@ -1,11 +1,11 @@
 import {
+  Alert,
   Backdrop,
   Badge,
   Box,
   Button,
   CircularProgress,
   Container,
-  IconButton,
   Paper,
   Stack,
   Typography,
@@ -13,16 +13,19 @@ import {
 } from "@mui/material";
 import { useForm, useWatch } from "react-hook-form";
 import { FormLink } from "../components/form/FormLink";
-import { useEmbed } from "../hooks/api/embed/useEmbed";
 import { useEffect, useState } from "react";
 import { IFramely } from "../components/request/IFramely";
 import { useTranslation } from "react-i18next";
 import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
 import { FormToggles } from "../components/form/FormToggles";
 import { RequestType } from "../components/request/RequestType";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+
 import { useNavigate } from "react-router-dom";
-import { useGetEmbedRecommendation } from "../hooks/api/requests/useRecommendations";
+import {
+  useCreateRecommendation,
+  useGetEmbedRecommendation,
+} from "../hooks/api/requests/useRecommendations";
+import { toast } from "react-toastify";
 
 export const CreateRecommendation = () => {
   const {
@@ -50,6 +53,8 @@ export const CreateRecommendation = () => {
     enabled: isValid,
   });
 
+  const createRecommendation = useCreateRecommendation();
+
   const [recommendation, setRecommendation] = useState(null);
   useEffect(() => {
     if (embed)
@@ -61,18 +66,16 @@ export const CreateRecommendation = () => {
 
   const navigate = useNavigate();
 
+  const onSubmit = async () => {
+    await createRecommendation.mutateAsync(recommendation);
+    toast.success("+ 1");
+    setTimeout(() => {
+      navigate(-1);
+    }, 1000);
+  };
+
   return (
     <Container>
-      <IconButton
-        // variant="outlined"
-        // color="primary"
-        sx={{
-          mb: 2,
-        }}
-        onClick={() => navigate(-1)}
-      >
-        <ArrowBackIcon />
-      </IconButton>
       <Stack aria-label="recommendation-form" spacing={2}>
         <FormToggles
           control={control}
@@ -100,8 +103,10 @@ export const CreateRecommendation = () => {
           label="URL"
           placeholder="Paste a link"
           required
+          rules={{
+            minLength: 2,
+          }}
         />
-        <pre>{JSON.stringify(isValid)}</pre>
 
         <Zoom in={Boolean(recommendation)}>
           <Badge
@@ -113,6 +118,7 @@ export const CreateRecommendation = () => {
                 fontWeight: "bold",
               },
             }}
+            invisible={recommendation?.id}
           >
             <Paper
               elevation={3}
@@ -147,6 +153,10 @@ export const CreateRecommendation = () => {
           </Badge>
         </Zoom>
 
+        <Zoom in={recommendation?.id} mountOnEnter unmountOnExit>
+          <Alert severity="warning">{t("archives.alreadyExists")}</Alert>
+        </Zoom>
+
         <Zoom in={Boolean(recommendation)}>
           <Box
             display="flex"
@@ -166,7 +176,13 @@ export const CreateRecommendation = () => {
             >
               {t("cancel")}
             </Button>
-            <Button variant="contained" color="primary">
+            <Button
+              variant="contained"
+              color="primary"
+              loading={createRecommendation.isPending}
+              onClick={onSubmit}
+              disabled={recommendation?.id}
+            >
               {t("create")}
             </Button>
           </Box>

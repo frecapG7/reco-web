@@ -5,9 +5,9 @@ import {
   CardActionArea,
   CardContent,
   CardHeader,
+  Chip,
   CircularProgress,
   Divider,
-  Paper,
   Stack,
   Typography,
 } from "@mui/material";
@@ -16,42 +16,55 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import { useNavigate } from "react-router-dom";
 import { RequestType } from "../../request/RequestType";
 import { i18nDateTime } from "../../../i18n/i18nDate";
-import { useState } from "react";
-import { SortMenu } from "../../search/SortMenu";
-import { RequestTypeMenu } from "../../search/RequestTypeMenu";
 import { Logo } from "../../utils/Logo";
+import { useForm, useWatch } from "react-hook-form";
+import { FormSelectRequestType } from "../../form/FormSelectRequestType";
+import { FormSelect } from "../../form/FormSelect";
+
+import LocalPizzaOutlinedIcon from "@mui/icons-material/LocalPizzaOutlined";
 
 export const UserRequests = ({ user }) => {
-  const [sort, setSort] = useState("likes_desc");
-  const [requestType, setRequestType] = useState("");
-
-  const { data, hasNextPage, refetch } = useGetRequests(
-    user?.id,
-    10,
-    {
-      sort,
-      type: requestType,
+  const { control } = useForm({
+    defaultValues: {
+      sort: "created",
+      requestType: "",
     },
-    {
-      enabled: !!user,
-    }
-  );
+  });
+  const filters = useWatch({ control });
+
+  const { data, hasNextPage, refetch } = useGetRequests(user?.id, 10, filters, {
+    enabled: !!user,
+  });
 
   const navigate = useNavigate();
   const requests = data?.pages?.flatMap((page) => page.results);
 
   return (
     <Stack width="100%">
-      <Stack direction="row" spacing={1} alignItems="center">
-        <Typography variant="label"> Sort by </Typography>
-        <SortMenu value={sort} onChange={(sort) => setSort(sort)} />
-
-        <Divider orientation="vertical" />
-
-        <RequestTypeMenu
-          value={requestType}
-          onChange={(type) => setRequestType(type)}
+      <Stack
+        direction="row"
+        spacing={1}
+        alignItems="center"
+        justifyContent="flex-end"
+        display={{ xs: "none", sm: "flex" }}
+        maxWidth={250}
+      >
+        <FormSelect
+          control={control}
+          name="sort"
+          options={[
+            {
+              value: "likes",
+              label: "Likes",
+            },
+            {
+              value: "created",
+              label: "Nouvelles",
+            },
+          ]}
         />
+
+        <FormSelectRequestType control={control} name="requestType" />
       </Stack>
 
       <InfiniteScroll
@@ -70,15 +83,7 @@ export const UserRequests = ({ user }) => {
       >
         <Stack spacing={3} divider={<Divider />}>
           {requests?.map((request, index) => (
-            <Card
-              key={index}
-              elevation={0}
-              sx={{
-                "&:hover": {
-                  cursor: "pointer",
-                },
-              }}
-            >
+            <Card key={index} elevation={0}>
               <CardActionArea
                 onClick={() => navigate(`/requests/${request.id}`)}
               >
@@ -91,9 +96,11 @@ export const UserRequests = ({ user }) => {
                   title={request?.title}
                   subheader={i18nDateTime(request?.created)}
                   action={
-                    <Paper variant="body1">
-                      {request.recommendationsCount} Rococos
-                    </Paper>
+                    <Chip
+                      label={request.recommendationsCount}
+                      color="primary"
+                      icon={<LocalPizzaOutlinedIcon />}
+                    />
                   }
                 />
                 <CardContent>

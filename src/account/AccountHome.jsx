@@ -19,7 +19,6 @@ import Grid from "@mui/material/Grid2";
 
 import AccessTimeOutlinedIcon from "@mui/icons-material/AccessTimeOutlined";
 import { i18nDateTime } from "../i18n/i18nDate";
-import { UserWallet } from "../components/user/wallet/UserWallet";
 
 const tabs = ["my-metrics", "my-requests", "my-recommendations"];
 
@@ -69,9 +68,6 @@ export const AccountHome = () => {
                 </Typography>
               </Box>
             </Grid>
-          </Grid>
-          <Grid size={{ xs: 6, md: 4 }}>
-            <UserWallet user={user} />
           </Grid>
         </Grid>
 

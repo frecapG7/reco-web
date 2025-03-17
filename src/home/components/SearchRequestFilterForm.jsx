@@ -9,7 +9,7 @@ export const SearchRequestFilterForm = ({ control }) => {
       <FormSearch control={control} name="search" label="Search" />
       <FormToggles
         control={control}
-        name="type"
+        name="requestType"
         options={[
           {
             value: "BOOK",

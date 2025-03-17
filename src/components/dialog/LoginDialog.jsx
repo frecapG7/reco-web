@@ -4,7 +4,6 @@ import {
   DialogContent,
   DialogTitle,
   Button,
-  CircularProgress,
   Zoom,
   Box,
   Stack,
@@ -19,6 +18,7 @@ import { useLogin } from "../../hooks/api/auth/useLogin";
 import { Link } from "react-router-dom";
 import TaskAltIcon from "@mui/icons-material/TaskAlt";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
+import { Logo } from "../utils/Logo";
 
 export const LoginDialog = ({ open, onClose, onSuccess }) => {
   const { control, handleSubmit } = useForm();
@@ -47,45 +47,53 @@ export const LoginDialog = ({ open, onClose, onSuccess }) => {
       maxWidth="sm"
       fullWidth
       fullScreen={isDownSm}
+      slotProps={{
+        paper: {
+          component: "form",
+          onSubmit: handleSubmit(onSubmit),
+        },
+      }}
     >
       <DialogTitle>
-        <Box display="flex" justifyContent="flex-end" alignItems="center">
-          <IconButton onClick={onClose}>
-            <CloseOutlinedIcon />
-          </IconButton>
-        </Box>
+        <Logo width={100} />
       </DialogTitle>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <DialogContent>
-          <Zoom in={!signIn.isSuccess} mountOnEnter unmountOnExit>
-            <Box>
-              <LoginForm control={control} />
-              <Stack mt={2} spacing={2}>
-                <Link to="/forgot-password">{t("forgotPassword.link")}</Link>
-                <Link to="/sign-up">{t("signup.button")}</Link>
-              </Stack>
-            </Box>
-          </Zoom>
-          <Zoom in={signIn.isSuccess} mountOnEnter unmountOnExit>
-            <Box display="flex" flexDirection="column" alignItems="center">
-              <TaskAltIcon />
-            </Box>
-          </Zoom>
-        </DialogContent>
-        <DialogActions>
-          <Zoom in={signIn.isPending} mountOnEnter unmountOnExit>
-            <Box width="100%" display="flex" alignItems="center">
-              <CircularProgress />
-            </Box>
-          </Zoom>
-
-          <Zoom in={!signIn.isPending} mountOnEnter unmountOnExit>
-            <Button type="submit" fullWidth variant="contained">
-              {t("login")}
-            </Button>
-          </Zoom>
-        </DialogActions>
-      </form>
+      <IconButton
+        onClick={onClose}
+        sx={(theme) => ({
+          position: "absolute",
+          right: 8,
+          top: 8,
+          color: theme.palette.grey[500],
+        })}
+      >
+        <CloseOutlinedIcon />
+      </IconButton>
+      <DialogContent>
+        <Zoom in={!signIn.isSuccess} mountOnEnter unmountOnExit>
+          <Box>
+            <LoginForm control={control} />
+            <Stack mt={2} spacing={2}>
+              <Link to="/forgot-password">{t("forgotPassword.link")}</Link>
+              <Link to="/sign-up">{t("signup.button")}</Link>
+            </Stack>
+          </Box>
+        </Zoom>
+        <Zoom in={signIn.isSuccess} mountOnEnter unmountOnExit>
+          <Box display="flex" flexDirection="column" alignItems="center">
+            <TaskAltIcon />
+          </Box>
+        </Zoom>
+      </DialogContent>
+      <DialogActions>
+        <Button
+          type="submit"
+          fullWidth
+          variant="contained"
+          loading={signIn.isPending}
+        >
+          {t("login")}
+        </Button>
+      </DialogActions>
     </Dialog>
   );
 };

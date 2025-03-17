@@ -38,6 +38,17 @@ export const useGetRecommendations = (requestId, sort, pageSize) => {
   });
 };
 
+const getRecommendation = async (recommendationId) => {
+  const response = await get(`/api/recommendations/${recommendationId}`);
+  return response;
+};
+export const useGetRecommendation = (recommendationId) => {
+  return useQuery({
+    queryKey: ["recommendations", recommendationId],
+    queryFn: () => getRecommendation(recommendationId),
+  });
+};
+
 const getEmbedRecommendation = async (url) => {
   const response = await get(`/api/recommendations/embed`, {
     params: {
@@ -55,19 +66,32 @@ export const useGetEmbedRecommendation = (url, options) => {
   });
 };
 
-const postRecommendation = async (requestId, recommendation) => {
+const createRecommendation = async (recommendation) => {
+  const response = await post(`/api/recommendations`, recommendation);
+  return response;
+};
+export const useCreateRecommendation = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (data) => createRecommendation(data),
+    onSuccess: () => queryClient.invalidateQueries("recommendations"),
+  });
+};
+
+const createRequestRecommendation = async (requestId, recommendation) => {
   const response = await post(
-    `/api/requests/${requestId}/recommendations/`,
+    `/api/requests/${requestId}/recommendations`,
     recommendation
   );
   return response;
 };
 
-export const usePostRecommendation = (requestId) => {
+export const useCreateRequestRecommendation = (requestId) => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (data) => postRecommendation(requestId, data),
+    mutationFn: (data) => createRequestRecommendation(requestId, data),
     onSuccess: () =>
       queryClient.invalidateQueries({
         queryKey: ["requests", requestId, "recommendations"],

@@ -6,16 +6,30 @@ import {
 } from "@tanstack/react-query";
 import { get, post, put } from "../index";
 
-const getUser = async (id) => {
-  const response = await get(`/api/users/${id}`);
+const getMe = async () => {
+  const response = await get("/api/users/me");
   return response;
 };
 
-export const useGetUser = (id, options) => {
+export const useGetMe = (options) => {
   return useQuery({
-    queryKey: ["users", id],
-    queryFn: () => getUser(id),
-    enabled: !!id && options?.enabled,
+    queryKey: ["users", "me"],
+    queryFn: getMe,
+    ...options,
+  });
+};
+
+
+const getUser = async (name) => {
+  const response = await get(`/api/users/${name}`);
+  return response;
+};
+
+export const useGetUser = (name, options) => {
+  return useQuery({
+    queryKey: ["users", name],
+    queryFn: () => getUser(name),
+    enabled: !!name && options?.enabled,
     ...options,
   });
 };
@@ -126,66 +140,6 @@ export const useGetLastPurchases = (id, options) => {
   return useQuery({
     queryKey: ["users", id, "purchases"],
     queryFn: () => getLastPurchases(id),
-    ...options,
-  });
-};
-
-const getPurchases = async (id, filters, page, pageSize) => {
-  const response = await get(`/api/users/${id}/purchases`, {
-    params: {
-      pageSize: pageSize || 1,
-      pageNumber: page || 0,
-      ...(filters?.name && { name: filters.name }),
-      ...(filters?.type && { type: filters.type }),
-      ...(filters?.status && { status: filters.status }),
-    },
-  });
-
-  return response;
-};
-
-export const useGetPurchases = (id, filters, pageSize, options) => {
-  return useInfiniteQuery({
-    queryKey: ["users", id, "purchases", filters, pageSize],
-    queryFn: ({ pageParam }) => getPurchases(id, filters, pageParam, pageSize),
-    initialPageParam: 1,
-    getNextPageParam: (lastPage) => {
-      if (lastPage.pagination?.currentPage < lastPage.pagination?.totalPages)
-        return lastPage.pagination.currentPage + 1;
-      return undefined;
-    },
-    enabled: !!id && options?.enabled,
-  });
-};
-
-const getPurchase = async (id, purchaseId) => {
-  const response = await get(`/api/users/${id}/purchases/${purchaseId}`);
-  return response;
-};
-
-export const useGetPurchase = (id, purchaseId, options) => {
-  return useQuery({
-    queryKey: ["users", id, "purchases", purchaseId],
-    queryFn: () => getPurchase(id, purchaseId),
-    ...options,
-  });
-};
-
-const redeemPurchase = async (id, purchaseId) => {
-  const response = await post(
-    `/api/users/${id}/purchases/${purchaseId}/redeem`
-  );
-  return response;
-};
-
-export const useRedeemPurchase = (id, purchaseId, options) => {
-  const queryClient = useQueryClient();
-
-  return useMutation({
-    mutationFn: () => redeemPurchase(id, purchaseId),
-    onSuccess: () => {
-      queryClient.invalidateQueries(["users", id, "purchases"]);
-    },
     ...options,
   });
 };

@@ -4,6 +4,7 @@ import { get } from "../index";
 const getUsers = async (filters, pageNumber, pageSize) => {
   const response = await get("/api/admin/users", {
     params: {
+      ...filters,
       pageNumber,
       pageSize,
     },

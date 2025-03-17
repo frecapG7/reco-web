@@ -8,7 +8,6 @@ import {
 } from "@mui/material";
 
 import DiamondOutlinedIcon from "@mui/icons-material/DiamondOutlined";
-import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 export const StoreItemList = ({ items = [], onClick }) => {
   const skeletonItems = Array.from(new Array(5)).map((_, index) => ({
     id: `skeleton-${index}`,
@@ -47,11 +46,11 @@ export const StoreItemList = ({ items = [], onClick }) => {
           }}
           onClick={() => onClick(item)}
         >
-          {item.img ? (
+          {item.icon ? (
             <Box
               component="img"
-              srcSet={item.img}
-              src={item.img}
+              srcSet={item.icon}
+              src={item.icon}
               alt={item.label}
               loading="lazy"
               sx={{
@@ -63,16 +62,6 @@ export const StoreItemList = ({ items = [], onClick }) => {
           )}
           <ImageListItemBar
             title={item.label || <Skeleton width="60%" />}
-            subtitle={
-              item.price ? (
-                <>
-                  {item.price}
-                  <DiamondOutlinedIcon />
-                </>
-              ) : (
-                <Skeleton width="40%" />
-              )
-            }
             position="below"
             actionPosition="right"
             actionIcon={
@@ -81,7 +70,8 @@ export const StoreItemList = ({ items = [], onClick }) => {
                 variant="contained"
                 size="small"
               >
-                <ShoppingCartOutlinedIcon />
+                {item.price}
+                <DiamondOutlinedIcon />
               </IconButton>
             }
           />

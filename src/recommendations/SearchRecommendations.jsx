@@ -6,10 +6,8 @@ import {
   ListItem,
   ListItemButton,
   ListItemText,
-  ListSubheader,
   Pagination,
   Skeleton,
-  Button,
   Zoom,
 } from "@mui/material";
 import { useForm, useWatch } from "react-hook-form";
@@ -23,7 +21,12 @@ export const SearchRecommendations = () => {
   const {
     control,
     formState: { isValid },
-  } = useForm();
+  } = useForm({
+    defaultValues: {
+      requestType: "SONG",
+      search: "",
+    },
+  });
 
   const data = useWatch({
     control,
@@ -66,14 +69,7 @@ export const SearchRecommendations = () => {
           }}
           enforceValue
         />
-        <FormSearch
-          control={control}
-          name="search"
-          label="Search"
-          rules={{
-            minLength: 2,
-          }}
-        />
+        <FormSearch control={control} name="search" label="Search" />
       </Box>
 
       <Zoom in={isLoading} mountOnEnter unmountOnExit>
@@ -101,23 +97,7 @@ export const SearchRecommendations = () => {
         </List>
       </Zoom>
 
-      <List
-        subheader={
-          <ListSubheader>
-            <Box display="flex" justifyContent="flex-end" width="100%" my={2}>
-              {!isLoading && (
-                <Button
-                  variant="contained"
-                  color="primary"
-                  onClick={() => navigate("./new")}
-                >
-                  +
-                </Button>
-              )}
-            </Box>
-          </ListSubheader>
-        }
-      >
+      <List>
         {page?.results?.map((recommendation, index) => (
           <ListItem
             key={index}
@@ -131,7 +111,7 @@ export const SearchRecommendations = () => {
               pl: 0,
             }}
           >
-            <ListItemButton>
+            <ListItemButton onClick={() => navigate(`${recommendation.id}`)}>
               <ListItemText
                 primary={recommendation.field1}
                 secondary={recommendation.field2}

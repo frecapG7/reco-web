@@ -8,16 +8,14 @@ export const IconFilters = ({ control }) => {
   const [anchorEl, setAnchorEl] = useState(null);
 
   return (
-    <form>
-      <Grid container spacing={2} alignItems="center">
-        <Grid size={{ xs: 8 }}>
-          <FormSearch control={control} name="search" />
-        </Grid>
-        <Grid item xs={4}>
-          <IconButton onClick={(event) => setAnchorEl(event.currentTarget)}>
-            <TuneOutlinedIcon fontSize="large" color="primary" />
-          </IconButton>
-        </Grid>
+    <Grid container spacing={2} alignItems="center" width="100%">
+      <Grid size={{ xs: 8 }}>
+        <FormSearch control={control} name="search" />
+      </Grid>
+      <Grid item xs={4}>
+        <IconButton onClick={(event) => setAnchorEl(event.currentTarget)}>
+          <TuneOutlinedIcon fontSize="large" color="primary" />
+        </IconButton>
       </Grid>
 
       <Menu
@@ -26,7 +24,7 @@ export const IconFilters = ({ control }) => {
         anchorEl={anchorEl}
         onClose={() => setAnchorEl(null)}
         disableScrollLock
-        marginThreshold={20}
+        // marginThreshold={20}
         anchorOrigin={{
           vertical: "bottom",
           horizontal: "right",
@@ -41,11 +39,20 @@ export const IconFilters = ({ control }) => {
           control={control}
           name="sort"
           options={[
-            { label: "From cheapest to highest", value: "admin" },
-            { label: "From more recent to old ones", value: "user" },
+            { label: "Date", value: "admin" },
+            { label: "Price", value: "user" },
+          ]}
+        />
+        <FormSelect
+          label="Order"
+          control={control}
+          name="order"
+          options={[
+            { label: "Croissant", value: "asc" },
+            { label: "Décroissant", value: "desc" },
           ]}
         />
       </Menu>
-    </form>
+    </Grid>
   );
 };

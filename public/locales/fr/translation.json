@@ -70,6 +70,13 @@
     "add": "RawkaukOier moi"
   },
 
+  "request": {
+    "title": "Titre",
+    "description": "Description",
+    "submit": "Envoyer",
+    "success": "Demande envoyée avec succès"
+  },
+
   "pullDowToRefresh": "Tirer pour rafraîchir",
   "releaseToRefresh": "Relâcher pour rafraîchir",
   "loading": "Chargement...",
@@ -85,5 +92,22 @@
       "required": "Ce champ est obligatoire",
       "passwordFormat": "Le mot de passe doit contenir au moins 8 caractères, dont une lettre majuscule, une lettre minuscule et un chiffre"
     }
+  },
+
+  "archives": {
+    "title": "Archives",
+    "shortDescription": "Découvrez les recommandations des autres utilisateurs",
+    "description": "Dans ce royaume enchanté, les utilisateurs partagent leurs trésors : livres envoûtants, mélodies captivantes et films fascinants. Plongez dans nos archives et découvrez des œuvres uniques. Utilisez la barre de recherche pour explorer et copier des liens vers des plateformes comme SoundCloud ou YouTube. Chaque lien partagé enrichit RawKauKau, faisant de notre site un refuge vivant où la créativité et la passion se rencontrent.",
+    "alreadyExists": "Cette archive existe déja"
+  },
+  "purchase": {
+    "paymentDetails": {
+      "title": "Détails du paiement",
+      "date": "Date d'achat",
+      "price": "Prix"
+    },
+    "quantity": "Quantité",
+    "redeem": "Utiliser",
+    "createSuccess": "Merci pour votre achat!!"
   }
 }

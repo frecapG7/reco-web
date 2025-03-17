@@ -1,70 +1,54 @@
 import {
   Avatar,
-  Badge,
   Box,
-  Divider,
+  Chip,
   IconButton,
   ListItemIcon,
   ListItemText,
-  ListSubheader,
   Menu,
   MenuItem,
   MenuList,
-  Stack,
+  Typography,
 } from "@mui/material";
 import { useState } from "react";
 import PowerSettingsNewIcon from "@mui/icons-material/PowerSettingsNew";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import { useNavigate } from "react-router-dom";
-import SavingsOutlinedIcon from "@mui/icons-material/SavingsOutlined";
 import Inventory2OutlinedIcon from "@mui/icons-material/Inventory2Outlined";
 import KeyIcon from "@mui/icons-material/Key";
-import { useGetBalance, useGetUser } from "../../hooks/api/users/useUsers";
+import { useGetMe } from "../../hooks/api/users/useUsers";
 import { useAuthSession } from "../../context/AuthContext";
 import { useTranslation } from "react-i18next";
+import { CurrencyIcon } from "../../components/icons/CurrencyIcon";
 
-export const HeaderAccount = ({ user }) => {
+export const HeaderAccount = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
 
   const navigate = useNavigate();
 
   const { logout } = useAuthSession();
-  const { data } = useGetUser(user?.id);
-  const { data: balance } = useGetBalance(user?.id, false, {
-    enabled: !!user?.id && open,
-  });
+  const { data: user } = useGetMe();
 
   const { t } = useTranslation();
   return (
     <Box>
-      <Stack spacing={1} direction="row" alignItems="center">
-        <Badge
-          showZero
-          badgeContent={balance?.balance}
-          color="success"
-          overlap="rectangular"
-        >
-          <SavingsOutlinedIcon color="yellow" />
-        </Badge>
-
-        <IconButton
-          id="account-menu-button"
-          aria-controls={open ? "account-menu" : undefined}
-          aria-haspopup="true"
-          aria-expanded={open ? "true" : undefined}
-          onClick={(event) => setAnchorEl(event.currentTarget)}
-        >
-          <Avatar
-            src={data?.avatar}
-            alt={user?.name}
-            sx={{
-              width: 32,
-              height: 32,
-            }}
-          />
-        </IconButton>
-      </Stack>
+      <IconButton
+        id="account-menu-button"
+        aria-controls={open ? "account-menu" : undefined}
+        aria-haspopup="true"
+        aria-expanded={open ? "true" : undefined}
+        onClick={(event) => setAnchorEl(event.currentTarget)}
+      >
+        <Avatar
+          src={user?.avatar}
+          alt={user?.name}
+          sx={{
+            width: 32,
+            height: 32,
+          }}
+        />
+      </IconButton>
 
       <Menu
         id="account-menu"
@@ -76,9 +60,10 @@ export const HeaderAccount = ({ user }) => {
         }}
         slotProps={{
           paper: {
-            elevation: 0,
+            elevation: 5,
             sx: {
-              minWidth: 300,
+              overflow: "visible",
+              filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
             },
           },
         }}
@@ -90,7 +75,6 @@ export const HeaderAccount = ({ user }) => {
         }}
         transformOrigin={{
           vertical: "top",
-          horizontal: "right",
         }}
       >
         <MenuList>
@@ -99,27 +83,34 @@ export const HeaderAccount = ({ user }) => {
               navigate("./account");
               setAnchorEl(null);
             }}
+            divider
           >
-            <ListSubheader disableGutters>
-              <Avatar
-                src={data?.avatar}
-                alt={user?.name}
-                sx={
-                  {
-                    // width: 40,
-                    // height: 40,
-                    // mr: 2,
-                  }
-                }
-              />
-            </ListSubheader>
-            <ListItemText primary={t("menu.account.profile")} />
+            <Avatar
+              src={user?.avatar}
+              alt={user?.name}
+              sx={{
+                mr: 1,
+              }}
+            />
+            <Typography variant="h6" fontWeight="bold">
+              {user?.name}
+            </Typography>
+            <Chip
+              label={user?.balance}
+              size="small"
+              color="primary"
+              icon={<CurrencyIcon />}
+              sx={{
+                ml: 1,
+              }}
+            />
           </MenuItem>
           <MenuItem
             onClick={() => {
               navigate("./account/my-purchases");
               setAnchorEl(null);
             }}
+            dense
           >
             <ListItemIcon>
               <Inventory2OutlinedIcon />
@@ -132,19 +123,20 @@ export const HeaderAccount = ({ user }) => {
               navigate("./account/my-keys");
               setAnchorEl(null);
             }}
+            dense
           >
             <ListItemIcon>
               <KeyIcon />
             </ListItemIcon>
             <ListItemText primary={t("menu.account.keys")} />
           </MenuItem>
-          <Divider />
 
           <MenuItem
             onClick={() => {
               navigate("./settings");
               setAnchorEl(null);
             }}
+            dense
           >
             <ListItemIcon>
               <SettingsOutlinedIcon />
@@ -156,6 +148,7 @@ export const HeaderAccount = ({ user }) => {
               logout();
               setAnchorEl(null);
             }}
+            dense
           >
             <ListItemIcon>
               <PowerSettingsNewIcon />

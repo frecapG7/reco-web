@@ -36,6 +36,9 @@ let theme = createTheme({
     yellow: {
       main: "#fcf424",
     },
+    diamond: {
+      main: "#3fb1d3",
+    },
   },
 });
 
@@ -191,15 +194,16 @@ theme = createTheme(theme, {
               minHeight: 60,
             },
             [theme.breakpoints.up("sm")]: {
-              minWidth: 100,
-              minHeight: 100,
+              minWidth: 70,
+              minHeight: 70,
             },
+
             borderRadius: "50%",
             alignItems: "center",
             display: "flex",
             justifyContent: "center",
             backgroundColor: theme.palette.primary.main,
-            color: theme.palette.white,
+            color: theme.palette.secondary.dark,
           },
         },
         {
@@ -240,6 +244,35 @@ theme = createTheme(theme, {
             borderStyle: "inset",
             borderColor: theme.palette.primary.main,
             padding: 20,
+          },
+        },
+        {
+          props: { variant: "brutalist1" },
+          style: {
+            borderTop: "5px solid",
+            borderRight: "5px solid",
+            borderColor: theme.palette.primary.main,
+            paddingTop: 20,
+            paddingRight: 20,
+            paddingLeft: 0,
+            borderRadius: 2,
+            backgroundColor: theme.palette.background.default,
+            height: "100%",
+          },
+        },
+        {
+          props: { variant: "brutalist2" },
+          style: {
+            borderBottom: "2px solid",
+            borderLeft: "2px solid",
+            borderColor: theme.palette.primary.main,
+            paddingBottom: 5,
+            paddingLeft: 5,
+            borderRadius: 2,
+            backgroundColor: theme.palette.background.default,
+            ":after": {
+              width: "50%",
+            },
           },
         },
       ],
@@ -305,7 +338,7 @@ theme = createTheme(theme, {
           // padding: 5,
           borderRadius: 10,
           // border: `1px solid ${theme.palette.primary.main}`,
-          backgroundColor: theme.palette.white,
+          // backgroundColor: theme.palette.white,
         },
       },
     },
@@ -323,8 +356,8 @@ theme = createTheme(theme, {
     MuiAvatar: {
       styleOverrides: {
         root: {
-          width: "10vh",
-          height: "10vh",
+          // width: "10vh",
+          // height: "10vh",
         },
       },
       variants: [
@@ -345,6 +378,7 @@ theme = createTheme(theme, {
         },
       },
     },
+
     MuiCard: {
       styleOverrides: {
         root: {

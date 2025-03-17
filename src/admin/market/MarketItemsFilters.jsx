@@ -1,51 +1,29 @@
-import { Button, Grid } from "@mui/material";
-import { useEffect } from "react";
-import { useForm } from "react-hook-form";
-import { FormText } from "../../components/form/FormText";
+import { Grid2 as Grid } from "@mui/material";
 import { FormSelect } from "../../components/form/FormSelect";
+import { FormSearch } from "../../components/form/FormSearch";
 
-export const MarketItemsFilters = ({ filters, onValueChange }) => {
-  const { control, watch } = useForm({
-    defaultValues: filters,
-  });
-
-  const data = watch();
-  useEffect(() => {
-    onValueChange(data);
-  }, [data, onValueChange]);
-
+export const MarketItemsFilters = ({ control }) => {
   return (
-    <form>
-      <Grid container spacing={5} alignItems="center">
-        <Grid item xs={12} md={5}>
-          <FormText
-            control={control}
-            name="value"
-            rules={{
-              minLength: 2,
-            }}
-          />
-        </Grid>
-        <Grid item xs={12} md={5}>
-          <FormSelect
-            control={control}
-            name="type"
-            options={[
-              { label: "Icon", value: "IconItem" },
-              { label: "Title", value: "TitleItem" },
-            ]}
-          />
-        </Grid>
-        <Grid item container justifyContent="flex-end" alignItems="baseline">
-          <Button
-            variant="outlined"
-            color="primary"
-            // onClick={handleSubmit(setFilters)}
-          >
-            Search
-          </Button>
-        </Grid>
+    <Grid container spacing={5} alignItems="center">
+      <Grid size={{ xs: 12, md: 5 }}>
+        <FormSearch
+          control={control}
+          name="search"
+          rules={{
+            minLength: 2,
+          }}
+        />
       </Grid>
-    </form>
+      <Grid size={{ xs: 12, md: 5 }}>
+        <FormSelect
+          control={control}
+          name="type"
+          options={[
+            { label: "Icon", value: "IconItem" },
+            { label: "Title", value: "TitleItem" },
+          ]}
+        />
+      </Grid>
+    </Grid>
   );
 };

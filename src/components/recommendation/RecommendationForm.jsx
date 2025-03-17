@@ -11,8 +11,6 @@ import { useForm, useWatch } from "react-hook-form";
 import { FormText } from "../form/FormText";
 import { useSearchRecommendations } from "../../hooks/api/recommendations/recommendations";
 import { useTranslation } from "react-i18next";
-import { useEmbed } from "../../hooks/api/embed/useEmbed";
-import { useEffect } from "react";
 
 export const RecommendationForm = ({
   requestType,
@@ -33,30 +31,14 @@ export const RecommendationForm = ({
 
   const { data: page } = useSearchRecommendations(requestType, search);
 
-  const { data: embed } = useEmbed(search, {
-    enabled: search?.startsWith("https://") && search?.length > 10,
-  });
-
   const recommendations = page?.results || [{}, {}];
 
-  useEffect(() => {
-    if (embed) {
-      onSubmit({
-        field1: embed.title,
-        field2: embed.author,
-        field3: embed.description,
-        html: embed.html,
-        url: embed.url,
-        provider: embed.provider,
-      });
-    }
-  }, [embed]);
   return (
     <Box>
       <FormText
         control={control}
         name="search"
-        placeholder="Search anything or paste a link"
+        placeholder="Search anything..."
         disabled={disabled}
       />
 

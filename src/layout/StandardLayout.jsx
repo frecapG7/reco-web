@@ -58,7 +58,9 @@ export const StandardLayout = ({ children }) => {
             display: { xs: "block", sm: "none" },
             "& .MuiDrawer-paper": {
               boxSizing: "border-box",
-              backgroundColor: "primary.main",
+              backgroundColor: "background.default",
+              transition: "width 0.2s",
+              mt: 10,
             },
           }}
         >

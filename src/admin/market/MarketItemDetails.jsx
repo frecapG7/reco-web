@@ -31,6 +31,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import { CurrencyIcon } from "../../components/icons/CurrencyIcon";
 import { UpdateMarketItem } from "./components/UpdateMarketItem";
 import { UpdateMarketItemDescription } from "./components/UpdateMarketItemDescription";
+import { toast } from "react-toastify";
 
 export const MarketItemDetails = () => {
   const { id } = useParams();
@@ -39,12 +40,16 @@ export const MarketItemDetails = () => {
 
   const [edit, setEdit] = useState(false);
 
-  const updateItem = useUpdateItem(id);
+  const updateItem = useUpdateItem(id, {
+    onSuccess: () =>
+      toast("Item updated successfully", {
+        type: "success",
+      }),
+  });
 
   const onSubmit = (data) => {
     updateItem.mutate(data, {
       onSuccess: () => {
-        alert("Item updated successfully");
         setEdit(false);
       },
     });
@@ -53,17 +58,10 @@ export const MarketItemDetails = () => {
   const onEnable = () => {
     confirm({ description: "Are you sure you want to enable this item?" }).then(
       () =>
-        updateItem.mutate(
-          {
-            ...marketItem,
-            enabled: true,
-          },
-          {
-            onSuccess: () => {
-              alert("Item enabled successfully");
-            },
-          }
-        )
+        updateItem.mutate({
+          ...marketItem,
+          enabled: true,
+        })
     );
   };
 
@@ -71,17 +69,10 @@ export const MarketItemDetails = () => {
     confirm({
       description: "Are you sure you want to disable this item?",
     }).then(() =>
-      updateItem.mutate(
-        {
-          ...marketItem,
-          enabled: false,
-        },
-        {
-          onSuccess: () => {
-            alert("Item disabled successfully");
-          },
-        }
-      )
+      updateItem.mutate({
+        ...marketItem,
+        enabled: false,
+      })
     );
   };
 

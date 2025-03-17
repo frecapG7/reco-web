@@ -2,11 +2,11 @@ import {
   Box,
   Card,
   CardActionArea,
+  CardActions,
   CardContent,
   CircularProgress,
   Container,
   Paper,
-  Stack,
   Typography,
 } from "@mui/material";
 import { useGetRequests } from "../hooks/api/requests/useRequests";
@@ -14,7 +14,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import { Fragment } from "react";
 import { useNavigate } from "react-router-dom";
 import { Request } from "../components/request/Request";
-import { Recommendations } from "./Recommendations";
+import { Recommendations } from "./components/Recommendations";
 import { useForm, useWatch } from "react-hook-form";
 import { SearchRequestFilterForm } from "./components/SearchRequestFilterForm";
 import { useTranslation } from "react-i18next";
@@ -37,17 +37,17 @@ export const Home = () => {
 
   return (
     <Container>
-      <Paper
+      <Box
         aria-label="search-filters"
         sx={{
-          mt: 5,
-          p: 2,
+          px: 2,
+          mb: 2,
         }}
       >
         <SearchRequestFilterForm control={control} />
-      </Paper>
+      </Box>
 
-      <Box>
+      <Paper variant="brutalist1">
         <InfiniteScroll
           dataLength={50}
           next={fetchNextPage}
@@ -77,24 +77,23 @@ export const Home = () => {
               {page.results.map((result) => (
                 <Card
                   key={result.id}
-                  variant="outlined"
+                  variant="brutalist2"
                   elevation={1}
                   sx={{
                     my: 5,
                     mx: 1,
                   }}
                 >
-                  <CardContent>
-                    <Stack spacing={1}>
-                      <CardActionArea
-                        onClick={() => navigate(`/requests/${result.id}`)}
-                      >
-                        <Request request={result} />
-                      </CardActionArea>
-
-                      <Recommendations request={result} />
-                    </Stack>
-                  </CardContent>
+                  <CardActionArea
+                    onClick={() => navigate(`/requests/${result.id}`)}
+                  >
+                    <CardContent>
+                      <Request request={result} />
+                    </CardContent>
+                  </CardActionArea>
+                  <CardActions>
+                    <Recommendations request={result} />
+                  </CardActions>
                 </Card>
               ))}
             </Fragment>
@@ -105,7 +104,7 @@ export const Home = () => {
             </Box>
           )}
         </InfiniteScroll>
-      </Box>
+      </Paper>
     </Container>
   );
 };

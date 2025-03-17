@@ -1,4 +1,4 @@
-import { useGetPurchases } from "../../../hooks/api/users/useUsers";
+import { useGetPurchases } from "../../../hooks/api/users/usePurchases";
 import {
   Box,
   List,
@@ -15,9 +15,9 @@ import { PurchaseFilters } from "../../purchase/PurchaseFilters";
 import { useNavigate } from "react-router-dom";
 
 export const UserPurchases = ({ user }) => {
-  const { control, setValue } = useForm({
+  const { control } = useForm({
     defaultValues: {
-      name: "",
+      search: "",
     },
   });
 
@@ -25,20 +25,18 @@ export const UserPurchases = ({ user }) => {
     control,
   });
 
-  const { data } = useGetPurchases(user?.id, filters, 10, {
+  const { data: page } = useGetPurchases(user?.id, filters, 10, 1, {
     enabled: !!user,
   });
   const navigate = useNavigate();
 
-  const purchases = data?.pages?.flatMap((page) => page.results);
-
   return (
-    <>
+    <Box>
       <Box aria-label="search-filters">
-        <PurchaseFilters control={control} setValue={setValue} />
+        <PurchaseFilters control={control} />
       </Box>
       <List aria-label="search-content">
-        {purchases?.map((purchase, index) => (
+        {page?.results?.map((purchase, index) => (
           <ListItem
             key={index}
             divider
@@ -54,7 +52,6 @@ export const UserPurchases = ({ user }) => {
                 {purchase.quantity}
               </Paper>
             }
-            // disablePadding
           >
             <ListItemButton onClick={() => navigate(purchase.id)}>
               <ListItemAvatar>
@@ -62,9 +59,11 @@ export const UserPurchases = ({ user }) => {
               </ListItemAvatar>
               <ListItemText
                 primary={purchase.name}
-                primaryTypographyProps={{
-                  fontWeight: "bold",
-                  variant: "h6",
+                slotProps={{
+                  primary: {
+                    component: "h3",
+                    fontWeight: "bold",
+                  },
                 }}
                 secondary={purchase.type}
               />
@@ -73,7 +72,7 @@ export const UserPurchases = ({ user }) => {
         ))}
       </List>
 
-      {purchases?.length === 0 && (
+      {page?.results?.length === 0 && (
         <Box
           display="flex"
           alignSelf="bottom"
@@ -81,12 +80,9 @@ export const UserPurchases = ({ user }) => {
           aria-label="search-pagination"
           my={5}
         >
-          <Typography variant="h6">
-            You have made no purchases yet. Visit our store to explore and make
-            your first purchase!
-          </Typography>
+          <Typography variant="h6">No results</Typography>
         </Box>
       )}
-    </>
+    </Box>
   );
 };

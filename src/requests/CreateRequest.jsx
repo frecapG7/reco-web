@@ -1,68 +1,23 @@
-import {
-  Box,
-  CircularProgress,
-  Container,
-  Step,
-  StepButton,
-  StepLabel,
-  Stepper,
-  Zoom,
-} from "@mui/material";
-import { FormProvider, useForm } from "react-hook-form";
-import { CreateRequestTypeStep } from "./components/CreateRequestTypeStep";
-import { createElement, useState } from "react";
-import { CreateRequestDescriptionStep } from "./components/CreateRequestDescriptionStep";
-import { CreateRequestBonusStep } from "./components/CreateRequestBonusStep";
-import { CreateRequestTagsStep } from "./components/CreateRequestTagsStep";
+import { Box, Button, Container, Paper, Typography } from "@mui/material";
+import { useForm } from "react-hook-form";
 import { usePostRequest } from "../hooks/api/requests/useRequests";
 import { useNavigate } from "react-router-dom";
 
-const steps = new Map([
-  [
-    "type",
-    {
-      label: "",
-      component: CreateRequestTypeStep,
-      nextStep: "description",
-    },
-  ],
-  [
-    "description",
-    {
-      label: "Body",
-      component: CreateRequestDescriptionStep,
-      nextStep: "tags",
-    },
-  ],
-  [
-    "tags",
-    {
-      label: "Tags",
-      component: CreateRequestTagsStep,
-    },
-  ],
-  [
-    "bonus",
-    {
-      label: "Bonus",
-      component: CreateRequestBonusStep,
-    },
-  ],
-]);
+import SendIcon from "@mui/icons-material/Send";
+import { FormText } from "../components/form/FormText";
+import { FormTipTapEditor } from "../components/form/FormTipTapEditor";
+import { useTranslation } from "react-i18next";
 
 export const CreateRequest = () => {
-  const methods = useForm();
+  const { control, handleSubmit } = useForm();
 
-  const [activeStep, setActiveStep] = useState("type");
-  const activeStepIndex = Array.from(steps.keys()).indexOf(activeStep);
-
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const postRequest = usePostRequest();
 
-  const onSubmit = (data) => {
-    postRequest.mutate(data, {
-      onSuccess: (result) => navigate(`../${result.id}`),
-    });
+  const onSubmit = async (data) => {
+    const result = await postRequest.mutateAsync(data);
+    navigate(`../${result.id}`);
   };
 
   return (
@@ -71,52 +26,33 @@ export const CreateRequest = () => {
         display="flex"
         flexDirection="row"
         alignItems="flex-start"
-        justifyContent="flex-start"
+        justifyContent="space-between"
         gap={1}
+        mb={2}
       >
-        <Box flex={2}>
-          <Stepper activeStep={activeStepIndex} orientation="vertical">
-            {Array.from(steps?.entries())
-              // .filter((entry, index) => index < activeStepIndex)
-              .map(([key, step]) => (
-                <Step key={key}>
-                  <StepButton onClick={() => setActiveStep(key)}>
-                    <StepLabel>{step?.label}</StepLabel>
-                  </StepButton>
-                </Step>
-              ))}
-          </Stepper>
-        </Box>
-        <Box aria-label="step-content" flex={11}>
-          <FormProvider {...methods} mountOnEnter unmountOnExit>
-            <Zoom in={!postRequest.isPending} key={activeStep}>
-              <Box
-                sx={{
-                  width: "100%",
-                  height: 150,
-                }}
-              >
-                {createElement(steps.get(activeStep)?.component, {
-                  onSubmit: () => {
-                    const nextStep = steps.get(activeStep)?.nextStep;
-                    if (nextStep) {
-                      setActiveStep(nextStep);
-                    } else {
-                      methods.handleSubmit(onSubmit)();
-                    }
-                  },
-                })}
-              </Box>
-            </Zoom>
-
-            <Zoom in={postRequest.isPending} mountOnEnter unmountOnExit>
-              <Box display="flex" width="100%" justifyContent="center">
-                <CircularProgress />
-              </Box>
-            </Zoom>
-          </FormProvider>
-        </Box>
+        <Typography variant="title">Create Request</Typography>
       </Box>
+      <Paper variant="brutalist1">
+        <FormText
+          control={control}
+          name="title"
+          label={t("request.title")}
+          required
+        />
+        <FormTipTapEditor control={control} name="description" />
+
+        <Box display="flex" justifyContent="flex-end" mt={2}>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={handleSubmit(onSubmit)}
+            endIcon={<SendIcon />}
+            loading={postRequest.isPending}
+          >
+            {t("request.submit")}
+          </Button>
+        </Box>
+      </Paper>
     </Container>
   );
 };
