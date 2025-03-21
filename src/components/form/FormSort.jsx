@@ -3,12 +3,13 @@ import {
   FormHelperText,
   Icon,
   ListItemIcon,
+  ListItemText,
   MenuItem,
   Select,
 } from "@mui/material";
 import { useController } from "react-hook-form";
-
-import AccessTimeIcon from "@mui/icons-material/AccessTime";
+import WhatshotOutlinedIcon from "@mui/icons-material/WhatshotOutlined";
+import ThumbUpOutlinedIcon from "@mui/icons-material/ThumbUpOutlined";
 import { useTranslation } from "react-i18next";
 import { i18nFormError } from "../../i18n/i18nForm";
 
@@ -34,14 +35,16 @@ export const FormSort = ({ control, name, rules }) => {
         onChange={(e) => onChange(e.target.value)}
       >
         <MenuItem value="created">
-          {/* <ListItemIcon> */}
-          <AccessTimeIcon />
-          {/* </ListItemIcon> */}
+          <ListItemIcon>
+            <WhatshotOutlinedIcon />
+          </ListItemIcon>
+          <ListItemText primary={t("Newest")} />
         </MenuItem>
         <MenuItem value="likes">
           <ListItemIcon>
-            <AccessTimeIcon />
+            <ThumbUpOutlinedIcon />
           </ListItemIcon>
+          <ListItemText primary={t("Likes")} />
         </MenuItem>
       </Select>
       <FormHelperText error>{t(i18nFormError(error))}</FormHelperText>

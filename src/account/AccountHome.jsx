@@ -93,11 +93,11 @@ export const AccountHome = () => {
               </ListItemButton>
             </ListItem>
             <ListItem dense>
-              <ListItemButton>
+              <ListItemButton onClick={() => navigate("/settings/account")}>
                 <ListItemIcon aria-label="edit-profile">
                   <SettingsOutlinedIcon />
                 </ListItemIcon>
-                <ListItemText primary={t("account.editAvatar")} />
+                <ListItemText primary={t("account.editSettings")} />
               </ListItemButton>
             </ListItem>
           </List>

@@ -92,7 +92,7 @@ export const Home = () => {
                     <CardContent>
                       <Request request={result} />
                     </CardContent>
-                    <CardActions justifyContent="flex-end">
+                    <CardActions>
                       <Box
                         display="flex"
                         justifyContent="flex-end"

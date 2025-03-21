@@ -2,37 +2,32 @@ import {
   Box,
   CircularProgress,
   Divider,
-  Menu,
-  MenuItem,
-  MenuList,
   Stack,
-  Typography,
   Card,
   CardHeader,
   CardMedia,
   Avatar,
 } from "@mui/material";
 import { useGetRecommendations } from "../../hooks/api/requests/useRecommendations";
-import { useEffect, useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { SortMenu } from "../../components/search/SortMenu";
 import { IFramely } from "../../components/request/IFramely";
 import { LikeRecommendation } from "../../components/recommendation/LikeRecommendation";
 import useI18nTime from "../../hooks/i18n/useI18nTime";
+import { useForm, useWatch } from "react-hook-form";
+import { FormSort } from "../../components/form/FormSort";
 
 export const RequestDetailsRecommendations = ({ request }) => {
-  const [anchorEl, setAnchorEl] = useState(null);
-
-  const [sort, setSort] = useState("likes");
+  const { control } = useForm();
+  const sort = useWatch({
+    control,
+    name: "sort",
+    defaultValue: "likes",
+  });
 
   const { relativeTime } = useI18nTime();
 
   const { data, isLoading, refetch, fetchNextPage, hasNextPage } =
     useGetRecommendations(request.id, sort, 5);
-
-  useEffect(() => {
-    setAnchorEl(null);
-  }, [sort]);
 
   if (isLoading) {
     return (
@@ -51,12 +46,10 @@ export const RequestDetailsRecommendations = ({ request }) => {
         direction="row"
         spacing={1}
         alignItems="center"
+        maxWidth={150}
       >
-        <Typography variant="label">Sort by</Typography>
-        <SortMenu value={sort} onChange={setSort} />
+        <FormSort control={control} name="sort" />
       </Stack>
-
-      <Divider />
 
       {/* <Box aria-label="recommendations-list"> */}
       <InfiniteScroll
@@ -86,21 +79,6 @@ export const RequestDetailsRecommendations = ({ request }) => {
           ))}
         </Stack>
       </InfiniteScroll>
-      {/* </Box> */}
-
-      <Menu
-        open={Boolean(anchorEl)}
-        anchorEl={anchorEl}
-        onClose={() => setAnchorEl(null)}
-        MenuListProps={{
-          "aria-labelledby": "basic-button",
-        }}
-      >
-        <MenuList>
-          <MenuItem onClick={() => setSort("likes")}>Likes</MenuItem>
-          <MenuItem onClick={() => setSort("created")}>Created</MenuItem>
-        </MenuList>
-      </Menu>
     </Stack>
   );
 };

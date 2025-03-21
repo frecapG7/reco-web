@@ -151,5 +151,9 @@
         "description": "You can choose to hide your recommendations from other users. They will no longer be accessible in your profile to other users."
       }
     }
+  },
+  "notifications": {
+    "like_request": "{{username}} recommended on your request",
+    "like_recommendation": "{{username}} liked your recommendation"
   }
 }
