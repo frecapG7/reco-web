@@ -8,6 +8,7 @@
     "home": "Accueil",
     "newRequest": "Nouvelle demande",
     "store": "Magasiner",
+    "recommendations": "Archives",
     "account": {
       "profile": "Profil utilisateur",
       "settings": "Paramètres",
@@ -25,6 +26,14 @@
     "consumables": {
       "title": "Consommables",
       "description": "Découvrez les consommables qui vous permettront de personnaliser votre profil."
+    },
+    "products": {
+      "IconItem": {
+        "help": "Les avatars vous permettent de personnaliser votre profil selon vos humeurs. Une fois acheté, vous pourrez l'ensemble des icônes dans la page de votre profil."
+      },
+      "ConsumableItem": {
+        "help": "Les consommables vous offrent une variété d'effets que vous pouvez utiliser pour améliorer vos interactions avec les autres utilisateurs. Une fois acheté, vous pourrez les utiliser dans la page de votre profil."
+      }
     }
   },
   "login": "Connexion",
@@ -65,10 +74,21 @@
     "password": "Mot de passe"
   },
 
-  "recommendation": {
-    "add": "RawkaukOier moi"
+  "request": {
+    "title": "Titre",
+    "description": "Description",
+    "submit": "Envoyer",
+    "success": "Demande envoyée avec succès",
+    "createRequest": "Créer une demande",
+    "createRequestHelp": "Vous souhaitez solliciter les membres de la communauté pour obtenir des recommandations? Créez une demande et laissez les autres utilisateurs vous aider à trouver ce que vous cherchez."
   },
-
+  "recommendation": {
+    "createdBy": "Créé par",
+    "createdAt": "Created le",
+    "field1": "Titre",
+    "field2": "Artiste",
+    "field3": "Description"
+  },
   "pullDowToRefresh": "Tirer pour rafraîchir",
   "releaseToRefresh": "Relâcher pour rafraîchir",
   "loading": "Chargement...",
@@ -82,7 +102,76 @@
   "form": {
     "errors": {
       "required": "Ce champ est obligatoire",
-      "passwordFormat": "Le mot de passe doit contenir au moins 8 caractères, dont une lettre majuscule, une lettre minuscule et un chiffre"
+      "passwordFormat": "Le mot de passe doit contenir au moins 8 caractères, dont une lettre majuscule, une lettre minuscule et un chiffre",
+      "maxLength": "Ce champ doit contenir au plus {maxLength} caractères"
     }
+  },
+
+  "archives": {
+    "add": "Ajouter",
+    "title": "Archives",
+    "shortDescription": "Découvrez les recommandations des autres utilisateurs",
+    "description": "Dans ce royaume enchanté, les utilisateurs partagent leurs trésors : livres envoûtants, mélodies captivantes et films fascinants. Plongez dans nos archives et découvrez des œuvres uniques. Utilisez la barre de recherche pour explorer et copier des liens vers des plateformes comme SoundCloud ou YouTube. Chaque lien partagé enrichit RawKauKau, faisant de notre site un refuge vivant où la créativité et la passion se rencontrent.",
+    "alreadyExists": "Cette archive existe déja"
+  },
+  "purchase": {
+    "paymentDetails": {
+      "title": "Détails du paiement",
+      "date": "Date d'achat",
+      "price": "Prix"
+    },
+    "quantity": "Quantité",
+    "redeem": "Utiliser",
+    "createSuccess": "Merci pour votre achat!!"
+  },
+
+  "account": {
+    "editAvatar": "Modifier mon avatar",
+    "editSettings": "Modifier mes paramètres"
+  },
+  "settings": {
+    "title": "Paramètres",
+    "edit": "Modifier",
+    "save": "",
+    "cancel": "Annuler",
+    "success": "Paramètres enregistrés avec succès",
+    "tabs": {
+      "account": "Compte",
+      "notifications": "Notifications",
+      "privacy": "Confidentialité"
+    },
+    "avatar": {
+      "title": "Modifier mon avatar",
+      "description": "Choisissez un nouvel avatar pour personnaliser votre profil",
+      "success": "Votre avatar a été mis à jour avec succès"
+    },
+    "email": {
+      "title": "Modifier mon adresse email",
+      "description": "Vous pouvez modifier votre adresse email ici",
+      "success": "Adresse email modifiée avec succès"
+    },
+    "password": {
+      "title": "Modifier mon mot de passe",
+      "description": "Vous pouvez modifier votre mot de passe ici",
+      "success": "Mot de passe modifié avec succès"
+    },
+    "notifications": {
+      "title": "Autorise les notifications",
+      "description": "Vous recevrez des notifications pour les activités importantes de votre compte"
+    },
+    "privacy": {
+      "requests": {
+        "title": "Masquer les demandes",
+        "description": "Vous pouvez choisir de masquer vos demandes des autres utilisateurs. Celles-ci ne seront plus accessibles dans votre profil aux autres utilisateurs."
+      },
+      "recommendations": {
+        "title": "Masquer les recommandations",
+        "description": "Vous pouvez choisir de masquer vos recommandations des autres utilisateurs. Celles-ci ne seront plus accessibles dans votre profil aux autres utilisateurs."
+      }
+    }
+  },
+  "notifications": {
+    "like_request": "{{username}} a répondu à votre demande",
+    "like_recommendation": "{{username}} a aimé votre recommandation"
   }
 }

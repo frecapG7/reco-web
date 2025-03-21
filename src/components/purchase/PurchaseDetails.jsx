@@ -1,114 +1,106 @@
-import Grid from "@mui/material/Grid2";
 import {
-  Avatar,
-  Card,
-  CardContent,
-  CardHeader,
-  IconButton,
   Paper,
   Skeleton,
   Stack,
   Typography,
+  Grid2 as Grid,
+  Box,
 } from "@mui/material";
-import { i18nDateTime } from "../../i18n/i18nDate";
-
-import ShieldOutlinedIcon from "@mui/icons-material/ShieldOutlined";
-import NorthEastOutlinedIcon from "@mui/icons-material/NorthEastOutlined";
-import { useNavigate } from "react-router-dom";
+import useI18nTime from "../../hooks/i18n/useI18nTime";
 import DiamondRoundedIcon from "@mui/icons-material/DiamondRounded";
+import { useTranslation } from "react-i18next";
 
 export const PurchaseDetails = ({ purchase }) => {
-  const navigate = useNavigate();
+  const { t } = useTranslation();
+  const { formatDateTime } = useI18nTime();
 
   if (!purchase)
     return (
       <Grid container width="100%" spacing={2}>
-        <Grid size={{ xs: 12, sm: 9 }}>
-          <Card elevation={0}>
-            <CardHeader
-              avatar={<Avatar />}
-              title={<Skeleton variant="text" />}
-              subheader={<Skeleton variant="text" />}
-            />
-            <CardContent>
-              <Skeleton variant="text" />
-              <Skeleton variant="text" />
-              <Skeleton variant="text" />
-            </CardContent>
-          </Card>
+        <Grid size={{ xs: 12, sm: 4 }}>
+          <Skeleton variant="rectangular" width={300} height={200} />
         </Grid>
-        <Grid size={{ xs: 12, sm: 3 }}>
-          <Stack spacing={2}>
-            <Skeleton variant="rectangular" height={118} />
-            <Skeleton variant="rectangular" height={118} />
-          </Stack>
+        <Grid size={{ xs: 12, sm: 4 }}>
+          <Skeleton variant="text" width={300} />
+          <Skeleton variant="text" width={300} />
+        </Grid>
+        <Grid size={{ xs: 12, sm: 4 }}>
+          <Paper variant="brutalist2">
+            <Stack spacing={1} p={2}>
+              <Skeleton variant="text" width={300} />
+              <Skeleton variant="text" width={300} />
+              <Skeleton variant="text" width={300} />
+            </Stack>
+          </Paper>
         </Grid>
       </Grid>
     );
   return (
     <Grid container width="100%" spacing={2}>
-      <Grid size={{ xs: 12, sm: 9 }}>
-        <Card elevation={0}>
-          <CardHeader
-            avatar={<Avatar src={purchase.icon} width={150} height={150} />}
-            title={purchase.name}
-            subheader={purchase.type}
-            action={
-              <Stack spacing={1} direction="row">
-                <IconButton variant="contained" color="primary">
-                  <ShieldOutlinedIcon />
-                </IconButton>
-                <IconButton
-                  variant="outlined"
-                  color="primary"
-                  onClick={() => navigate(`/stores/${purchase.item.id}`)}
-                >
-                  <NorthEastOutlinedIcon />
-                </IconButton>
-              </Stack>
-            }
-          />
-          <CardContent>
-            <Typography variant="body1">
-              {purchase.item?.description}
-            </Typography>
-          </CardContent>
-        </Card>
-      </Grid>
-      <Grid size={{ xs: 12, sm: 3 }}>
-        <Stack>
-          <Typography variant="h6">Purchase Details</Typography>
-          <Paper
+      <Grid size={{ xs: 12, md: 4, lg: 3 }}>
+        <Box
+          sx={{
+            backgroundColor: "primary.main",
+            borderRadius: 2,
+            padding: { xs: 4, md: 4 },
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            maxWidth: 250,
+            flexGrow: 1,
+          }}
+        >
+          <Box
+            component="img"
+            src={purchase.icon}
+            alt={purchase.name}
+            loading="lazy"
             sx={{
-              px: 0,
+              display: "flex",
+              maxWidth: 200,
             }}
-          >
-            <Stack spacing={1} p={2}>
-              <>
-                <Typography fontWeight="bold" variant="body2">
-                  Purchase ID
-                </Typography>
-                <Typography variant="body2">{purchase?.id}</Typography>
-              </>
-              <>
-                <Typography fontWeight="bold" variant="body2">
-                  Price
-                </Typography>
-                <Typography variant="body2">
-                  {purchase?.payment_details.price} <DiamondRoundedIcon />
-                </Typography>
-              </>
-              <>
-                <Typography fontWeight="bold" variant="body2">
-                  Date
-                </Typography>
-                <Typography variant="body2">
-                  {i18nDateTime(purchase?.createdAt)}
-                </Typography>
-              </>
-            </Stack>
-          </Paper>
-        </Stack>
+          />
+          <Typography variant="title" textAlign="center">
+            {purchase.name}
+          </Typography>
+        </Box>
+      </Grid>
+      <Grid size={{ xs: 12, md: 4 }}>
+        <div dangerouslySetInnerHTML={{ __html: purchase.item?.description }} />
+      </Grid>
+      <Grid size={{ xs: 12, md: 4 }}>
+        <Paper variant="brutalist2">
+          <Stack spacing={1} p={2}>
+            <>
+              <Typography variant="label" textAlign="left">
+                {t("purchase.paymentDetails.date")}
+              </Typography>
+              <Typography fontWeight="bold" textAlign="right">
+                {formatDateTime(purchase?.payment_details?.purchased_at)}
+              </Typography>
+            </>
+            <>
+              <Typography variant="label" textAlign="left">
+                {t("purchase.paymentDetails.price")}
+              </Typography>
+              <Typography
+                fontWeight="bold"
+                textAlign="right"
+                alignContent="center"
+              >
+                {purchase?.payment_details?.price} <DiamondRoundedIcon />
+              </Typography>
+            </>
+            <>
+              <Typography variant="label" textAlign="left">
+                {t("purchase.quantity")}
+              </Typography>
+              <Typography fontWeight="bold" textAlign="right">
+                {purchase.quantity}
+              </Typography>
+            </>
+          </Stack>
+        </Paper>
       </Grid>
     </Grid>
   );

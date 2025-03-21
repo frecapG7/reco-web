@@ -12,7 +12,7 @@ const getRequests = async (pageSize, pageNumber, filters) => {
       pageSize: pageSize || 1,
       pageNumber: pageNumber || 0,
       ...(filters?.search && { search: filters.search }),
-      ...(filters?.type && { type: filters.type }),
+      ...(filters?.requestType && { requestType: filters.requestType }),
       ...(filters?.status && { status: filters.status }),
     },
   });

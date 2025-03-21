@@ -1,31 +1,35 @@
 import {
   Avatar,
+  Badge,
   Box,
-  Divider,
   List,
   ListItem,
   ListItemButton,
+  ListItemIcon,
   ListItemText,
   Typography,
 } from "@mui/material";
 
-import EditIcon from "@mui/icons-material/Edit";
 import { EditPassword } from "../components/dialog/EditPassword";
 import { EditEmail } from "../components/dialog/EditEmail";
 import { EditAvatar } from "../components/dialog/EditAvatar";
 import { useOutletContext } from "react-router-dom";
-import { useFormContext } from "react-hook-form";
-import { FormLocale } from "../components/form/FormLocale";
 import { useState } from "react";
+import EditIcon from "@mui/icons-material/Edit";
+import ModeEditOutlineOutlinedIcon from "@mui/icons-material/ModeEditOutlineOutlined";
+
+import FaceRetouchingNaturalOutlinedIcon from "@mui/icons-material/FaceRetouchingNaturalOutlined";
+import EmailIcon from "@mui/icons-material/Email";
+import LockIcon from "@mui/icons-material/Lock";
+import { useTranslation } from "react-i18next";
 
 export const AccountSettings = () => {
   const { user } = useOutletContext();
 
+  const { t } = useTranslation();
   const [openEditPassword, setOpenEditPassword] = useState(false);
   const [openEditEmail, setOpenEditEmail] = useState(false);
   const [openEditAvatar, setOpenEditAvatar] = useState(false);
-
-  const { control } = useFormContext();
 
   return (
     <Box width="100%">
@@ -33,43 +37,57 @@ export const AccountSettings = () => {
         {/* Edit Avatar */}
         <ListItem divider>
           <ListItemButton onClick={() => setOpenEditAvatar(true)}>
-            <ListItemText primary="Avatar" secondary="Change your avatar" />
-            <Avatar src={user?.avatar} />
+            <ListItemIcon>
+              <FaceRetouchingNaturalOutlinedIcon />
+            </ListItemIcon>
+            <ListItemText
+              primary={t("settings.avatar.title")}
+              secondary={t("settings.avatar.description")}
+            />
+            <Badge
+              badgeContent={<ModeEditOutlineOutlinedIcon fontSize="small" />}
+              anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+            >
+              <Avatar src={user?.avatar} />
+            </Badge>
           </ListItemButton>
         </ListItem>
 
         <ListItem divider>
           <ListItemButton onClick={() => setOpenEditEmail(true)}>
+            <ListItemIcon>
+              <EmailIcon />
+            </ListItemIcon>
             <ListItemText
-              primary="Email"
-              secondary={
-                user?.email ? (
-                  user.email
-                ) : (
-                  <Typography color="error">
-                    You have not registered any email
-                  </Typography>
-                )
-              }
+              primary={t("settings.email.title")}
+              secondary={t("settings.email.description")}
             />
-            <EditIcon />
+            <Badge
+              badgeContent={<ModeEditOutlineOutlinedIcon fontSize="small" />}
+              anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+            >
+              <Typography
+                noWrap
+                sx={{ maxWidth: { xs: 75, md: 300, lg: 500 } }}
+              >
+                {user?.email
+                  ? user.email
+                  : " You have not registered any email"}
+              </Typography>
+            </Badge>
           </ListItemButton>
         </ListItem>
         {/* Edit password */}
-        <ListItem divider>
+        <ListItem>
           <ListItemButton onClick={() => setOpenEditPassword(true)}>
-            <ListItemText primary="Password" secondary="Change your password" />
+            <ListItemIcon>
+              <LockIcon />
+            </ListItemIcon>
+            <ListItemText
+              primary={t("settings.password.title")}
+              secondary={t("settings.password.description")}
+            />
             <EditIcon />
-          </ListItemButton>
-        </ListItem>
-
-        <Divider />
-
-        <ListItem
-          secondaryAction={<FormLocale control={control} name="lang" />}
-        >
-          <ListItemButton>
-            <ListItemText primary="Language" />
           </ListItemButton>
         </ListItem>
       </List>

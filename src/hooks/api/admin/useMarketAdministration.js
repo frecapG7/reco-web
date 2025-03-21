@@ -1,34 +1,33 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { get, post, put } from "../index";
 
-const getItems = async ({ value, type, page, pageSize }) => {
-  const response = await get("/api/admin/market/items", {
+const getItems = async (filters, pageNumber, pageSize) => {
+  const response = await get("/api/admin/market/products", {
     params: {
-      value,
-      type,
-      page: page + 1,
+      ...filters,
+      pageNumber,
       pageSize,
     },
   });
   return response;
 };
 
-export const useGetItems = ({ value, type, page, pageSize }, options) => {
+export const useGetItems = (filters, pageNumber, pageSize, options) => {
   return useQuery({
-    queryKey: ["admin", "market", "items", value, type, page, pageSize],
-    queryFn: () => getItems({ value, type, page, pageSize }),
+    queryKey: ["admin", "market", "items", filters, pageNumber, pageSize],
+    queryFn: () => getItems(filters, pageNumber, pageSize),
     ...options,
   });
 };
 
 const getItem = async (id) => {
-  const response = await get(`/api/admin/market/items/${id}`);
+  const response = await get(`/api/admin/market/products/${id}`);
   return response;
 };
 
 export const useGetItem = (id, options) => {
   return useQuery({
-    queryKey: ["admin", "market", "items", id],
+    queryKey: ["admin", "market", "products", id],
     queryFn: () => getItem(id),
     // enabled: id,
     ...options,
@@ -65,7 +64,7 @@ export const usePostItem = (options) => {
 };
 
 const updateItem = async ({ id, data }) => {
-  const response = await put(`/api/admin/market/items/${id}`, data);
+  const response = await put(`/api/admin/market/products/${id}`, data);
   return response;
 };
 

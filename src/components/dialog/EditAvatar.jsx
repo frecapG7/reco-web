@@ -5,7 +5,7 @@ import {
   DialogTitle,
   Stack,
 } from "@mui/material";
-import { useGetPurchases } from "../../hooks/api/users/useUsers";
+import { useGetPurchases } from "../../hooks/api/users/usePurchases";
 
 export const EditAvatar = ({ open, onClose, user }) => {
   const { data } = useGetPurchases(

@@ -8,17 +8,20 @@ import {
   List,
   ListItem,
   ListItemText,
+  Tooltip,
   Typography,
 } from "@mui/material";
 
+import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
-import { NotificationListItem } from "./NotificationListItem";
 import {
   useMarkAllAsRead,
-  // useMarkAsRead,
+  useMarkAsRead,
 } from "../../../hooks/api/users/useNotifications";
+import useI18nTime from "../../../hooks/i18n/useI18nTime";
 import { useAuthSession } from "../../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 export const NotificationList = ({
   notifications = [],
@@ -27,10 +30,18 @@ export const NotificationList = ({
   onShowMore = () => {},
 }) => {
   const { session } = useAuthSession();
-  // const markAsRead = useMarkAsRead({ userId: session.user?.id });
-  const markAllAsRead = useMarkAllAsRead({ userId: session.user?.id });
+  const markAsRead = useMarkAsRead(session.user?.id);
+  const markAllAsRead = useMarkAllAsRead(session.user?.id);
 
   const navigate = useNavigate();
+
+  const { t } = useTranslation();
+  const { relativeTime } = useI18nTime();
+
+  const handleNotificationClick = async (notification) => {
+    await markAsRead.mutateAsync(notification.id);
+    //TODO : navigate somewhere
+  };
 
   return (
     <Box>
@@ -83,7 +94,7 @@ export const NotificationList = ({
                   />
                 </>
               )}
-              <IconButton onClick={() => navigate("./account/settings")}>
+              <IconButton onClick={() => navigate("/settings/notifications")}>
                 <SettingsOutlinedIcon />
               </IconButton>
             </Box>
@@ -97,11 +108,35 @@ export const NotificationList = ({
         )}
 
         {notifications?.map((notification) => (
-          <NotificationListItem
+          <ListItem
             key={notification.id}
-            notification={notification}
-            onClick={() => console.log("clicked")}
-          />
+            divider
+            onClick={handleNotificationClick}
+            sx={{
+              "&:hover": {
+                backgroundColor: "rgba(0,0,0,0.1)",
+                cursor: "pointer",
+              },
+            }}
+            secondaryAction={
+              notification.read ? (
+                <></>
+              ) : (
+                <Tooltip title="Mark as read">
+                  <IconButton aria-label="mark-as-read">
+                    <FiberManualRecordIcon color="primary" />
+                  </IconButton>
+                </Tooltip>
+              )
+            }
+          >
+            <ListItemText
+              primary={t(`notifications.${notification.type}`, {
+                username: notification.from.name,
+              })}
+              secondary={relativeTime(notification.createdAt)}
+            />
+          </ListItem>
         ))}
 
         {hasMore && (

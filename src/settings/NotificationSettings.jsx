@@ -2,9 +2,12 @@ import { useFormContext } from "react-hook-form";
 
 import { List, ListItem, ListItemText, Stack } from "@mui/material";
 import { FormSwitch } from "../components/form/FormSwitch";
+import { useTranslation } from "react-i18next";
 
 export const NotificationSettings = () => {
   const { control } = useFormContext();
+
+  const { t } = useTranslation();
 
   return (
     <Stack width="100%">
@@ -16,8 +19,8 @@ export const NotificationSettings = () => {
       >
         <ListItem id="notifications-privacy">
           <ListItemText
-            primary="Allow the application to send you notifications"
-            secondary="Recoco will send you notifications about your requests and your recommendations activities"
+            primary={t("settings.notifications.title")}
+            secondary={t("settings.notifications.description")}
           />
           <FormSwitch control={control} name="notifications" />
         </ListItem>

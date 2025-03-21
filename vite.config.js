@@ -40,7 +40,7 @@ export default ({ mode }) => {
     },
     test: {
       globals: true,
-      //    environment: 'jsdom',
+      // environment: "jsdom",
       //    setupFiles: 'src/setupTests.js',
     },
   });

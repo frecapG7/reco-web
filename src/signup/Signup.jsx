@@ -15,7 +15,6 @@ import { SignupUsernameStep } from "./components/SignupUsernameStep";
 import { SignupTokenStep } from "./components/SignupTokenStep";
 import { SignupAvatarStep } from "./components/SignupAvatarStep";
 import { useNavigate } from "react-router-dom";
-import gate_illustration1 from "../../public/gate_illustration1.png";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { useTranslation } from "react-i18next";
 
@@ -46,12 +45,9 @@ export const Signup = () => {
   const signup = useSignup();
 
   const onSubmit = (data) => {
-    signup.mutate(
-      data,
-      {
-        onSuccess: () => console.log("Success"),
-      }
-    );
+    signup.mutate(data, {
+      onSuccess: () => console.log("Success"),
+    });
   };
 
   const navigate = useNavigate();
@@ -102,7 +98,7 @@ export const Signup = () => {
         >
           <Box
             component="img"
-            src={gate_illustration1}
+            src="gate_illustration1.png"
             alt="gate"
             sx={{
               width: { xs: "100%", sm: "100%%" },

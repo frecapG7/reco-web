@@ -6,7 +6,7 @@ import { Box, Typography } from "@mui/material";
 export const UserDetailsRequestTab = () => {
   const { user } = useOutletContext();
 
-  if (!user?.privacy?.showRequests)
+  if (user?.privacy?.privateRequests)
     return (
       <Box align="center">
         <LockOutlinedIcon color="primary.main" fontSize="large" />

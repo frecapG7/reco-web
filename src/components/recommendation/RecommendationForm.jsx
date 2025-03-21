@@ -3,16 +3,17 @@ import {
   List,
   ListItem,
   ListItemButton,
+  ListItemIcon,
   ListItemText,
   Skeleton,
   Zoom,
 } from "@mui/material";
 import { useForm, useWatch } from "react-hook-form";
 import { FormText } from "../form/FormText";
+import { RecommendationProvider } from "./RecommendationProvider";
 import { useSearchRecommendations } from "../../hooks/api/recommendations/recommendations";
 import { useTranslation } from "react-i18next";
-import { useEmbed } from "../../hooks/api/embed/useEmbed";
-import { useEffect } from "react";
+import { RequestType } from "../request/RequestType";
 
 export const RecommendationForm = ({
   requestType,
@@ -33,30 +34,14 @@ export const RecommendationForm = ({
 
   const { data: page } = useSearchRecommendations(requestType, search);
 
-  const { data: embed } = useEmbed(search, {
-    enabled: search?.startsWith("https://") && search?.length > 10,
-  });
-
   const recommendations = page?.results || [{}, {}];
 
-  useEffect(() => {
-    if (embed) {
-      onSubmit({
-        field1: embed.title,
-        field2: embed.author,
-        field3: embed.description,
-        html: embed.html,
-        url: embed.url,
-        provider: embed.provider,
-      });
-    }
-  }, [embed]);
   return (
     <Box>
       <FormText
         control={control}
         name="search"
-        placeholder="Search anything or paste a link"
+        placeholder="Search anything..."
         disabled={disabled}
       />
 
@@ -65,15 +50,22 @@ export const RecommendationForm = ({
           {recommendations?.map((recommendation, index) =>
             recommendation?.id ? (
               <ListItem key={index}>
+                <ListItemIcon>
+                  <RequestType requestType={recommendation.requestType} />
+                </ListItemIcon>
                 <ListItemButton onClick={() => onSubmit(recommendation)}>
                   <ListItemText
                     primary={recommendation.field1}
-                    secondary={`${recommendation.field2} - ${recommendation.provider.name}`}
+                    secondary={`${recommendation.field2}`}
                   />
+                  <RecommendationProvider provider={recommendation.provider} />
                 </ListItemButton>
               </ListItem>
             ) : (
               <ListItem key={index}>
+                <ListItemIcon>
+                  <Skeleton variant="circular" width={40} height={40} />
+                </ListItemIcon>
                 <ListItemText
                   primary={<Skeleton variant="text" width="50%" height={50} />}
                   secondary={

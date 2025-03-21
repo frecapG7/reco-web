@@ -1,26 +1,22 @@
-import { Badge, Box, Container, Typography } from "@mui/material";
+import { Badge, Box, Container, Paper, Typography } from "@mui/material";
 import { NotificationList } from "../components/user/notifications/NotificationList";
 import {
   useNotifications,
   useUnreadCount,
 } from "../hooks/api/users/useNotifications";
-import { useAuthSession } from "../context/AuthContext";
-
+import { useGetMe } from "../hooks/api/users/useUsers";
 export const Notifications = () => {
-  const { session } = useAuthSession();
-  const { data: unreadCount } = useUnreadCount({
-    userId: session?.user?.id,
+  const { data: user } = useGetMe();
+
+  const { data: unreadCount } = useUnreadCount(user?.id, {
+    enabled: Boolean(user?.id),
   });
   const {
     data: notifications,
     fetchNextPage,
     hasNextPage,
-  } = useNotifications({
-    id: session?.user?.id,
-    pageSize: 10,
-    options: {
-      enabled: true,
-    },
+  } = useNotifications(user?.id, 10, {
+    enabled: Boolean(user?.id),
   });
 
   return (
@@ -33,13 +29,13 @@ export const Notifications = () => {
         </Typography>
       </Box>
 
-      <Box p={2}>
+      <Paper variant="brutalist1">
         <NotificationList
           notifications={notifications?.pages?.flatMap((page) => page.results)}
           hasMore={hasNextPage}
           onShowMore={fetchNextPage}
         />
-      </Box>
+      </Paper>
     </Container>
   );
 };

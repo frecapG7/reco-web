@@ -10,7 +10,6 @@ export const useGetSettings = (id, options) => {
   return useQuery({
     queryKey: ["user", id, "settings"],
     queryFn: () => getSettings(id),
-    enabled: !!id,
     ...options,
   });
 };

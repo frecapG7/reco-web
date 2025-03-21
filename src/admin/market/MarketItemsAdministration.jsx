@@ -1,7 +1,7 @@
 import {
   Box,
+  Button,
   Container,
-  Fab,
   Paper,
   Table,
   TableBody,
@@ -10,13 +10,13 @@ import {
   TableHead,
   TablePagination,
   TableRow,
-  Typography,
   Zoom,
 } from "@mui/material";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useGetItems } from "../../hooks/api/admin/useMarketAdministration";
 import { MarketItemsFilters } from "./MarketItemsFilters";
+import { useForm, useWatch } from "react-hook-form";
 
 const Content = ({ results = [] }) => {
   const navigate = useNavigate();
@@ -50,18 +50,17 @@ const Content = ({ results = [] }) => {
 };
 
 export const MarketItemsAdministration = () => {
-  const [value, setValue] = useState("");
-  const [type, setType] = useState("");
-
-  const [pageNumber, setPageNumber] = useState(0);
+  const { control } = useForm();
+  const [pageNumber, setPageNumber] = useState(1);
   const [pageSize, setPageSize] = useState(10);
 
-  const { data: results, isLoading } = useGetItems({
-    value,
-    type,
-    page: pageNumber,
-    pageSize,
-  });
+  const filters = useWatch({ control });
+
+  const { data: results, isLoading } = useGetItems(
+    filters,
+    pageNumber,
+    pageSize
+  );
 
   const navigate = useNavigate();
 
@@ -72,16 +71,16 @@ export const MarketItemsAdministration = () => {
         aria-label="market-items-filters"
         sx={{ padding: 2, marginBottom: 2 }}
       >
-        <MarketItemsFilters
-          filters={{
-            value: "",
-            type: "",
-          }}
-          onValueChange={(data) => {
-            setValue(data?.value);
-            setType(data?.type);
-          }}
-        />
+        <MarketItemsFilters control={control} />
+        <Box display="flex" justifyContent="flex-end">
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={() => navigate("new")}
+          >
+            New
+          </Button>
+        </Box>
       </Paper>
 
       <Paper elevation={0} sx={{}} aria-label="market-items-search-table">
@@ -112,19 +111,10 @@ export const MarketItemsAdministration = () => {
           component="div"
           count={results?.pagination.totalCount || 0}
           rowsPerPage={pageSize}
-          page={pageNumber}
-          onPageChange={(event, newPage) => setPageNumber(newPage)}
+          page={pageNumber - 1}
+          onPageChange={(event, newPage) => setPageNumber(newPage + 1)}
           onRowsPerPageChange={(event) => setPageSize(event.target.value)}
         />
-
-        <Fab
-          color="success"
-          aria-label="add"
-          sx={{ position: "relative", bottom: 16, right: 50 }}
-          onClick={() => navigate("new")}
-        >
-          <Typography variant="h4">+</Typography>
-        </Fab>
       </Paper>
     </Container>
   );

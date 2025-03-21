@@ -5,50 +5,68 @@ import {
   CardActionArea,
   CardHeader,
   CardMedia,
+  Chip,
   CircularProgress,
   Divider,
-  Paper,
   Stack,
-  Typography,
 } from "@mui/material";
 import { useGetRecommendations } from "../../../hooks/api/users/useUsers";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { RequestType } from "../../request/RequestType";
-import { i18nDateTime } from "../../../i18n/i18nDate";
 import { IFramely } from "../../request/IFramely";
-import { useState } from "react";
-import { SortMenu } from "../../search/SortMenu";
-import { RequestTypeMenu } from "../../search/RequestTypeMenu";
 import { Logo } from "../../utils/Logo";
+import { useForm, useWatch } from "react-hook-form";
+import { FormSelectRequestType } from "../../form/FormSelectRequestType";
+import { FormSelect } from "../../form/FormSelect";
+import useI18nTime from "../../../hooks/i18n/useI18nTime";
+
+import LocalBarIcon from "@mui/icons-material/LocalBar";
 
 export const UserRecommendations = ({ user }) => {
-  const [sort, setSort] = useState("likes");
-  const [requestType, setRequestType] = useState("");
-
+  const { control } = useForm({
+    defaultValues: {
+      sort: "created",
+      requestType: "",
+    },
+  });
+  const filters = useWatch({ control });
   const { data, hasNextPage, refetch } = useGetRecommendations(
     user?.id,
     10,
-    {
-      sort,
-      type: requestType,
-    },
+    filters,
     { enabled: !!user }
   );
+
+  const { formatDate } = useI18nTime();
 
   const recommendations = data?.pages?.flatMap((page) => page.results);
 
   return (
     <Stack width="100%">
-      <Stack direction="row" spacing={1}>
-        <Typography variant="label"> Sort by </Typography>
-        <SortMenu value={sort} onChange={(sort) => setSort(sort)} />
-
-        <Divider orientation="vertical" />
-
-        <RequestTypeMenu
-          value={requestType}
-          onChange={(type) => setRequestType(type)}
+      <Stack
+        direction="row"
+        spacing={1}
+        alignItems="center"
+        justifyContent="flex-end"
+        display={{ xs: "none", sm: "flex" }}
+        maxWidth={250}
+      >
+        <FormSelect
+          control={control}
+          name="sort"
+          options={[
+            {
+              value: "likes",
+              label: "Likes",
+            },
+            {
+              value: "created",
+              label: "Nouvelles",
+            },
+          ]}
         />
+
+        <FormSelectRequestType control={control} name="requestType" />
       </Stack>
 
       <InfiniteScroll
@@ -75,9 +93,15 @@ export const UserRecommendations = ({ user }) => {
                       <RequestType requestType={recommendation?.requestType} />
                     </Avatar>
                   }
-                  title={recommendation?.displayName}
-                  subheader={i18nDateTime(recommendation?.createdAt)}
-                  action={<Paper>{recommendation?.likes} likes</Paper>}
+                  title={`${recommendation?.field2} - ${recommendation?.field1}`}
+                  subheader={formatDate(recommendation?.created_at)}
+                  action={
+                    <Chip
+                      label={recommendation?.likesCount}
+                      color="primary"
+                      icon={<LocalBarIcon />}
+                    />
+                  }
                 />
 
                 <CardMedia>

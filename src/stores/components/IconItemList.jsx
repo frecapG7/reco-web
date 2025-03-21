@@ -18,7 +18,7 @@ export const IconItemList = ({ icons, onClick }) => {
         img: icon.url,
         price: icon.price,
       }))}
-      onClick={onClick}
+      onClick={(onClick)}
     />
   );
 };

@@ -7,7 +7,8 @@
   "menu": {
     "home": "Home",
     "newRequest": "Create request",
-    "store": "Store"
+    "store": "Store",
+    "recommendations": "Archives"
   },
   "stores": {
     "title": "Bienvenue sur le magasinage",
@@ -19,6 +20,14 @@
     "consumables": {
       "title": "Consommables",
       "description": "Discover the consumables that will help you personalize your profile."
+    },
+    "products": {
+      "IconItem": {
+        "help": "You may use avatar icons to personalize your profile. Once bought, you will it able to use it in your profile settings."
+      },
+      "ConsumableItem": {
+        "help": "Consumable grant you a varieties of effects that you can use to enhance your interactions with other users. Once bought, you will be able to use it in your profile settings."
+      }
     }
   },
   "login": "Sign in",
@@ -57,7 +66,94 @@
   "form": {
     "errors": {
       "required": "This field is required",
-      "passwordFormat": "Password must contain at least 8 characters, including one uppercase letter, one lowercase letter and one number"
+      "passwordFormat": "Password must contain at least 8 characters, including one uppercase letter, one lowercase letter and one number",
+      "maxLength": "This field must contain at most {maxLength} characters"
     }
+  },
+
+  "archives": {
+    "add": "Add new",
+    "title": "Archives",
+    "shortDescription": "Explore the archives of RawKauKau",
+    "description": "Dans ce royaume enchanté, les utilisateurs partagent leurs trésors : livres envoûtants, mélodies captivantes et films fascinants. Plongez dans nos archives et découvrez des œuvres uniques. Utilisez la barre de recherche pour explorer et copier des liens vers des plateformes comme SoundCloud ou YouTube. Chaque lien partagé enrichit RawKauKau, faisant de notre site un refuge vivant où la créativité et la passion se rencontrent.",
+    "alreadyExists": "This archive already exists"
+  },
+
+  "request": {
+    "title": "Title",
+    "description": "Description",
+    "submit": "Send",
+    "success": "Request sent successfully"
+  },
+  "createRequest": {
+    "title": "Create a request",
+    "button": "Create request"
+  },
+  "recommendation": {
+    "createdBy": "Created by",
+    "createdAt": "Created at",
+    "field1": "Title",
+    "field2": "Author",
+    "field3": "Description"
+  },
+  "purchase": {
+    "paymentDetails": {
+      "title": "Payment details",
+      "date": "Date of purchase",
+      "price": "Price"
+    },
+    "quantity": "Quantity",
+    "redeem": "Redeem",
+    "createSuccess": "Thank you for your purchase!"
+  },
+
+  "account": {
+    "editAvatar": "Edit avatar",
+    "editSettings": "Edit settings"
+  },
+  "settings": {
+    "title": "Settings",
+    "edit": "Edit",
+    "save": "Save",
+    "cancel": "Cancel",
+    "success": "Settings saved successfully",
+    "tabs": {
+      "account": "Account",
+      "notifications": "Notifications",
+      "privacy": "Privacy"
+    },
+    "avatar": {
+      "title": "Edit avatar",
+      "description": "Choose a new avatar to personalize your profile",
+      "success": "Avatar updated successfully"
+    },
+    "email": {
+      "title": "Edit email address",
+      "description": "Modify your email address",
+      "success": "Email address updated successfully"
+    },
+    "password": {
+      "title": "Edit password",
+      "description": "Modify your password",
+      "success": "Password updated successfully"
+    },
+    "notifications": {
+      "title": "Allow notifications",
+      "description": "You will receive notifications for important activities on your account"
+    },
+    "privacy": {
+      "requests": {
+        "title": "Hide requests",
+        "description": "You can choose to hide your requests from other users. They will no longer be accessible in your profile to other users."
+      },
+      "recommendations": {
+        "title": "Hide recommendations",
+        "description": "You can choose to hide your recommendations from other users. They will no longer be accessible in your profile to other users."
+      }
+    }
+  },
+  "notifications": {
+    "like_request": "{{username}} recommended on your request",
+    "like_recommendation": "{{username}} liked your recommendation"
   }
 }

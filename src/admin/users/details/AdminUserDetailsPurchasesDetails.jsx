@@ -1,5 +1,5 @@
 import { useNavigate, useParams } from "react-router-dom";
-import { useGetPurchase } from "../../../hooks/api/users/useUsers";
+import { useGetPurchase } from "../../../hooks/api/users/usePurchases";
 import { PurchaseDetails } from "../../../components/purchase/PurchaseDetails";
 import { Box, Button } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";

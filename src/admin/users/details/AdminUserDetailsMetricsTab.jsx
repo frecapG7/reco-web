@@ -1,13 +1,5 @@
 import { useOutletContext } from "react-router-dom";
-import {
-  Box,
-  List,
-  ListItem,
-  ListItemText,
-  ListSubheader,
-  Stack,
-  Typography,
-} from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { useGetMetrics } from "../../../hooks/api/users/useUsers";
 import Grid from "@mui/material/Grid2";
 import { TypePieChart } from "../../../components/metrics/TypePieCharts";
@@ -17,11 +9,8 @@ import LocalPizzaOutlinedIcon from "@mui/icons-material/LocalPizzaOutlined";
 import InterestsOutlinedIcon from "@mui/icons-material/InterestsOutlined";
 import SendOutlinedIcon from "@mui/icons-material/SendOutlined";
 
-import WalletOutlinedIcon from "@mui/icons-material/WalletOutlined";
-import { i18nRelativeDate } from "../../../i18n/i18nTime";
 import { PurchaseMetrics } from "../../../components/metrics/PurchaseMetrics";
 import { MetricsItem } from "../../../components/metrics/MetricsItem";
-import { FollowingList } from "../../../components/user/follows/FollowingList";
 
 export const AdminUserDetailsMetricsTab = () => {
   const { user } = useOutletContext();
@@ -67,55 +56,6 @@ export const AdminUserDetailsMetricsTab = () => {
           <Typography variant="h5">Purchases</Typography>
           <PurchaseMetrics purchases={metrics?.purchases} />
         </Grid>
-      </Grid>
-
-      <Grid
-        size={{ xs: 12, md: 4 }}
-        container
-        aria-label="user-wallet-details-container"
-      >
-        <Stack spacing={2} width="100%">
-          <>
-            <Box display="flex" gap={2} alignItems="center"></Box>
-            <List
-              subheader={
-                <ListSubheader
-                  component="div"
-                  sx={{
-                    backgroundColor: "inherit",
-                  }}
-                >
-                  <Box
-                    display="flex"
-                    flexDirection="row"
-                    alignItems="center"
-                    gap={2}
-                  >
-                    <WalletOutlinedIcon fontSize="large" />
-                    <Typography variant="h6">156</Typography>
-                  </Box>
-                </ListSubheader>
-              }
-            >
-              <ListItem>
-                <ListItemText
-                  primary="Current balance"
-                  secondary="156 Piasse"
-                />
-              </ListItem>
-              <ListItem>
-                <ListItemText
-                  primary="Next refill"
-                  secondary={i18nRelativeDate(new Date("2024-12-01"))}
-                />
-              </ListItem>
-            </List>
-          </>
-
-          <>
-            <FollowingList user={user} />
-          </>
-        </Stack>
       </Grid>
 
       <Grid container size={{ xs: 12 }}>

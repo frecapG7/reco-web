@@ -1,5 +1,4 @@
-import { Stack, Typography } from "@mui/material";
-import Grid from "@mui/material/Grid2";
+import { Stack, Typography, Grid2 as Grid } from "@mui/material";
 export const MetricsItem = ({ icon, value, caption }) => {
   return (
     <Grid

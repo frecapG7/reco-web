@@ -24,19 +24,16 @@ export const HeaderNotification = () => {
   const { session } = useAuthSession();
   const notificationAnchorRef = useRef(null);
   const [openNotification, setOpenNotification] = useState(false);
-  const { data: unreadCount } = useUnreadCount({
-    userId: session?.user?.id,
-    options: {
-      enabled: !!session?.user?.id,
-    },
+  const { data: unreadCount } = useUnreadCount(session?.user?.id, {
+    enabled: Boolean(session?.user?.id),
   });
-  const { data: notifications, hasNextPage } = useNotifications({
-    id: session?.user?.id,
-    pageSize: 5,
-    options: {
+  const { data: notifications, hasNextPage } = useNotifications(
+    session?.user?.id,
+    5,
+    {
       enabled: openNotification,
-    },
-  });
+    }
+  );
 
   const navigate = useNavigate();
   return (

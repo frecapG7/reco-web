@@ -18,8 +18,7 @@ export const IFramely = ({ html }) => {
     <Box
       flexGrow={1}
       sx={{
-        borderRadius: "50px",
-        // width: "100%",
+        minWidth: 250,
       }}
     >
       <div dangerouslySetInnerHTML={innerHtml} />

@@ -1,13 +1,17 @@
-import { useGetUser } from "../hooks/api/users/useUsers";
+import { useGetMe } from "../hooks/api/users/useUsers";
 
-import { useAuthSession } from "../context/AuthContext";
 import {
   Avatar,
   Box,
-  CircularProgress,
   Container,
   Fade,
-  Stack,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+  Paper,
+  Skeleton,
   Tab,
   Tabs,
   Typography,
@@ -15,17 +19,16 @@ import {
 } from "@mui/material";
 import { Outlet, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import Grid from "@mui/material/Grid2";
-
-import AccessTimeOutlinedIcon from "@mui/icons-material/AccessTimeOutlined";
-import { i18nDateTime } from "../i18n/i18nDate";
-import { UserWallet } from "../components/user/wallet/UserWallet";
+import useI18nTime from "../hooks/i18n/useI18nTime";
+import PersonIcon from "@mui/icons-material/Person";
+import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
+import FaceRetouchingNaturalOutlinedIcon from "@mui/icons-material/FaceRetouchingNaturalOutlined";
+import { useTranslation } from "react-i18next";
 
 const tabs = ["my-metrics", "my-requests", "my-recommendations"];
 
 export const AccountHome = () => {
-  const { session } = useAuthSession();
-  const { data: user, isLoading } = useGetUser(session?.user.id);
+  const { data: user } = useGetMe();
 
   const [tab, setTab] = useState("my-metrics");
 
@@ -33,75 +36,96 @@ export const AccountHome = () => {
   const handleTabChange = (event, newValue) => {
     setTab(newValue);
   };
+  const { t } = useTranslation();
+  const { formatDate } = useI18nTime();
 
   useEffect(() => {
     if (tabs.includes(tab)) navigate(`./${tab}`);
   }, [tab, navigate]);
 
-  if (isLoading) {
-    return <CircularProgress />;
-  }
-
   return (
     <Container>
-      <Stack spacing={2} my={2}>
-        <Grid
-          container
-          spacing={2}
-          alignItems="center"
-          display="flex"
-          justifyContent="space-around"
-        >
-          <Grid container alignItems="center">
-            <Grid size={{ xs: 6 }}>
-              <Avatar
-                sx={{ width: "10rem", height: "10rem" }}
-                src={user?.avatar}
-                alt={user?.name}
-              />
-            </Grid>
-            <Grid size={{ xs: 6, md: 6 }}>
-              <Typography variant="h4">{user?.name}</Typography>
-              <Box display="flex" alignItems="center" gap={0.2}>
-                <AccessTimeOutlinedIcon fontSize="small" />
-                <Typography variant="subtitle2" textAlign="center">
-                  {i18nDateTime(user?.created)}
-                </Typography>
-              </Box>
-            </Grid>
-          </Grid>
-          <Grid size={{ xs: 6, md: 4 }}>
-            <UserWallet user={user} />
-          </Grid>
-        </Grid>
+      <Box
+        display="flex"
+        justifyContent="space-between"
+        alignItems="center"
+        my={2}
+      >
+        <Box display="flex" alignItems="center" gap={1}>
+          {user ? (
+            <Avatar
+              src={user?.avatar}
+              alt={user?.name}
+              sx={{
+                width: { xs: 50, sm: 100 },
+                height: { xs: 50, sm: 100 },
+              }}
+            />
+          ) : (
+            <Skeleton variant="circular" width={100} height={100} />
+          )}
+          <Box display="flex" alignItems="center" flexDirection="column">
+            {user ? (
+              <Typography variant="title">{user.name}</Typography>
+            ) : (
+              <Skeleton variant="text" width={150} />
+            )}
 
-        <Fade in={tabs.includes(tab)}>
-          <Box
-            aria-label="account-tabs"
-            sx={{ borderBottom: 1, borderColor: "divider" }}
-          >
-            <Tabs
-              value={tab}
-              textColor="primary"
-              indicatorColor="primary"
-              onChange={handleTabChange}
-            >
-              <Tab label="Metrics" value="my-metrics" />
-              <Tab label="Requests" value="my-requests" />
-              <Tab label="Recommendations" value="my-recommendations" />
-            </Tabs>
+            <Box alignItems="center" display="flex" gap={1}>
+              <PersonIcon />
+              {user ? (
+                <Typography>{formatDate(user?.created)}</Typography>
+              ) : (
+                <Skeleton variant="text" width={50} />
+              )}
+            </Box>
           </Box>
+        </Box>
+
+        <Fade in={Boolean(user)}>
+          <List>
+            <ListItem dense>
+              <ListItemButton>
+                <ListItemIcon aria-label="edit-profile">
+                  <FaceRetouchingNaturalOutlinedIcon />
+                </ListItemIcon>
+                <ListItemText primary={t("account.editAvatar")} />
+              </ListItemButton>
+            </ListItem>
+            <ListItem dense>
+              <ListItemButton onClick={() => navigate("/settings/account")}>
+                <ListItemIcon aria-label="edit-profile">
+                  <SettingsOutlinedIcon />
+                </ListItemIcon>
+                <ListItemText primary={t("account.editSettings")} />
+              </ListItemButton>
+            </ListItem>
+          </List>
         </Fade>
+      </Box>
+      <Paper variant="brutalist1">
+        <Box my={2}>
+          <Tabs
+            value={tab}
+            textColor="primary"
+            indicatorColor="primary"
+            onChange={handleTabChange}
+          >
+            <Tab label="Metrics" value="my-metrics" />
+            <Tab label="Requests" value="my-requests" />
+            <Tab label="Recommendations" value="my-recommendations" />
+          </Tabs>
+        </Box>
         <Zoom key={tab} in>
           <Box aria-label="account-tabs-content">
             <Outlet
               context={{
-                user: user,
+                user,
               }}
             />
           </Box>
         </Zoom>
-      </Stack>
+      </Paper>
     </Container>
   );
 };

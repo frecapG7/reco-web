@@ -1,25 +1,29 @@
-import { Box, Container } from "@mui/material";
-import { useParams } from "react-router-dom";
-import { useGetRequest } from "../hooks/api/requests/useRequests";
-import { Request } from "../components/request/Request";
+import { Box, Button, Stack } from "@mui/material";
+import { useNavigate, useOutletContext } from "react-router-dom";
 import { RequestDetailsRecommendations } from "./components/RequestDetailsRecommendations";
 
 export const RequestDetails = () => {
-  const { id } = useParams();
-
-  const { data: request } = useGetRequest(id);
+  const { request } = useOutletContext();
+  const navigate = useNavigate();
 
   return (
-    <Container>
-      <Box my={2} aria-label="request-detail-container">
-        <Request request={request} />
+    <Stack spacing={2}>
+      <Box>
+        <div dangerouslySetInnerHTML={{ __html: request.description }} />
       </Box>
+      <Button
+        variant="contained"
+        color="primary"
+        onClick={() => navigate("add-recommendation")}
+      >
+        Add recommendation
+      </Button>
 
       {request && (
         <Box my={2} aria-label="request-recocos-container">
           <RequestDetailsRecommendations request={request} />
         </Box>
       )}
-    </Container>
+    </Stack>
   );
 };
