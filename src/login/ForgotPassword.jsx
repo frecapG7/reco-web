@@ -28,10 +28,10 @@ export const ForgotPassword = () => {
 
   const forgotPassword = useForgotPassword();
   const onSubmit = async (data) => {
+    await forgotPassword.mutateAsync(data.email);
     toast("test", {
       type: "success",
     });
-    // await forgotPassword.mutateAsync(data.email);
   };
 
   return (
