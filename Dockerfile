@@ -1,11 +1,12 @@
 # Step 1 - Build React app
 FROM node:latest as build
 WORKDIR /app
-COPY package*.json .
+# COPY package*.json .
+# COPY postinstall.cjs .
+COPY . .
 
 RUN npm install
 
-COPY . .
 RUN npm run build
 
 

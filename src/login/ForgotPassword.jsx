@@ -16,6 +16,7 @@ import { useTranslation } from "react-i18next";
 import { useForm } from "react-hook-form";
 import { FormEmail } from "../components/form/FormEmail";
 import { useForgotPassword } from "../hooks/api/users/useUsers";
+import { toast } from "react-toastify";
 
 export const ForgotPassword = () => {
   const navigate = useNavigate();
