@@ -9,14 +9,10 @@ export const UpdateMarketItem = ({ marketItem, onSubmit }) => {
   useEffect(() => reset(marketItem), [marketItem, reset]);
 
   return (
-    <Box>
+    <Box component="form" noValidate onSubmit={handleSubmit(onSubmit)}>
       <StoreItemForm control={control} />
       <Box display="flex" justifyContent="center">
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={handleSubmit(onSubmit)}
-        >
+        <Button variant="contained" color="primary" type="submit">
           Save
         </Button>
       </Box>

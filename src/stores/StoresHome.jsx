@@ -55,11 +55,13 @@ export const StoresHome = () => {
                   alignItems="center"
                 >
                   <Button
-                    variant="contained"
-                    color="primary"
+                    variant="text"
+                    // color="primary"
                     onClick={() => navigate("./icons")}
                   >
-                    See all
+                    <Typography variant="link" >
+                      See all
+                    </Typography>
                   </Button>
                   <Stack>
                     <Typography variant="title" gutterBottom textAlign="right">

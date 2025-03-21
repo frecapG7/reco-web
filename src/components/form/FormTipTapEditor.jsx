@@ -36,6 +36,7 @@ export const FormTipTapEditor = ({ control, name }) => {
   return (
     <FormControl fullWidth>
       <TextField
+        component={EditorContent}
         slotProps={{
           input: (
             <EditorContent

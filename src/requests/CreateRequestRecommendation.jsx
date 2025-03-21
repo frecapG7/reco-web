@@ -24,7 +24,7 @@ export const CreateRequestRecommendation = () => {
       duplicate_from: recommendation.id,
     });
     toast.success(t("recommendationCreated"));
-    setTimeout(() => navigate(`/requests/${request.id}`), 1000);
+    navigate(`/requests/${request.id}`);
   };
 
   return (
@@ -61,6 +61,7 @@ export const CreateRequestRecommendation = () => {
               color="primary"
               endIcon={<CancelOutlinedIcon />}
               onClick={onSubmit}
+              loading={createRequestRecommendation.isPending}
             >
               {t("create")}
             </Button>

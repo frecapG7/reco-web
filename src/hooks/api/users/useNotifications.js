@@ -6,12 +6,12 @@ import {
 } from "@tanstack/react-query";
 import { get, put } from "../../api/index";
 
-const getNotifications = async ({
+const getNotifications = async (
   id,
   page = 1,
   pageSize = 10,
-  onlyUnread = false,
-}) => {
+  onlyUnread = false
+) => {
   const response = await get(`/api/users/${id}/notifications`, {
     params: {
       page,
@@ -22,16 +22,11 @@ const getNotifications = async ({
   return response;
 };
 
-export const useNotifications = ({ id, pageSize, onlyUnread, options }) => {
+export const useNotifications = (id, pageSize, onlyUnread, options) => {
   return useInfiniteQuery({
     queryKey: ["users", id, "notifications"],
     queryFn: ({ pageParam }) =>
-      getNotifications({
-        id,
-        page: pageParam,
-        pageSize,
-        onlyUnread,
-      }),
+      getNotifications(id, pageParam, pageSize, onlyUnread),
     initialPageParam: 1,
     getNextPageParam: (lastPage) => {
       if (lastPage.pagination.currentPage < lastPage.pagination.totalPages) {
@@ -43,34 +38,30 @@ export const useNotifications = ({ id, pageSize, onlyUnread, options }) => {
   });
 };
 
-const getUnreadCount = async ({ userId }) => {
+const getUnreadCount = async (userId) => {
   const response = await get(`/api/users/${userId}/notifications/unread`);
   return response;
 };
 
-export const useUnreadCount = ({ userId, options }) => {
+export const useUnreadCount = (userId, options) => {
   return useQuery({
     queryKey: ["users", userId, "notifications", "unread"],
-    queryFn: () => getUnreadCount({ userId }),
+    queryFn: () => getUnreadCount(userId),
     ...options,
   });
 };
 
-const markAsRead = async ({ userId, notificationId }) => {
+const markAsRead = async (userId, notificationId) => {
   const response = await put(
     `/api/users/${userId}/notifications/${notificationId}/read`
   );
   return response;
 };
 
-export const useMarkAsRead = ({ userId, options }) => {
+export const useMarkAsRead = (userId, options) => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: ({ notificationId }) =>
-      markAsRead({
-        userId,
-        notificationId,
-      }),
+    mutationFn: (notificationId) => markAsRead(userId, notificationId),
     onSuccess: () => {
       queryClient
         .invalidateQueries(["users", userId, "notifications"])
@@ -85,15 +76,15 @@ export const useMarkAsRead = ({ userId, options }) => {
   });
 };
 
-const markAllAsRead = async ({ userId }) => {
+const markAllAsRead = async (userId) => {
   const response = await put(`/api/users/${userId}/notifications/read/all`);
   return response;
 };
 
-export const useMarkAllAsRead = ({ userId, options }) => {
+export const useMarkAllAsRead = (userId, options) => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: () => markAllAsRead({ userId }),
+    mutationFn: () => markAllAsRead(userId),
     onSuccess: () => {
       queryClient
         .invalidateQueries(["users", userId, "notifications"])

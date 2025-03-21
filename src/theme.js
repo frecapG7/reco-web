@@ -346,7 +346,7 @@ theme = createTheme(theme, {
       styleOverrides: {
         root: {
           borderRadius: 10,
-          backgroundColor: theme.palette.primary.light,
+          backgroundColor: theme.palette.primary.default,
           "&:focus": {
             backgroundColor: theme.palette.primary.main,
           },

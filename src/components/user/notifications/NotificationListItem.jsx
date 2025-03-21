@@ -14,6 +14,7 @@ const buildLabel = (notification) => {
 };
 
 export const NotificationListItem = ({ notification, onClick }) => {
+
   return (
     <ListItem
       key={notification.id}

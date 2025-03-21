@@ -19,9 +19,9 @@ import { i18nDateTime } from "../../../i18n/i18nDate";
 import { Logo } from "../../utils/Logo";
 import { useForm, useWatch } from "react-hook-form";
 import { FormSelectRequestType } from "../../form/FormSelectRequestType";
-import { FormSelect } from "../../form/FormSelect";
 
 import LocalPizzaOutlinedIcon from "@mui/icons-material/LocalPizzaOutlined";
+import { FormSort } from "../../form/FormSort";
 
 export const UserRequests = ({ user }) => {
   const { control } = useForm({
@@ -49,21 +49,7 @@ export const UserRequests = ({ user }) => {
         display={{ xs: "none", sm: "flex" }}
         maxWidth={250}
       >
-        <FormSelect
-          control={control}
-          name="sort"
-          options={[
-            {
-              value: "likes",
-              label: "Likes",
-            },
-            {
-              value: "created",
-              label: "Nouvelles",
-            },
-          ]}
-        />
-
+        <FormSort control={control} name="sort" />
         <FormSelectRequestType control={control} name="requestType" />
       </Stack>
 

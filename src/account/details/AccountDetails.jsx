@@ -1,16 +1,14 @@
 import { useOutletContext } from "react-router-dom";
 import { useGetMetrics } from "../../hooks/api/users/useUsers";
-import Grid from "@mui/material/Grid2";
 import { MetricsItem } from "../../components/metrics/MetricsItem";
 
 import LocalFireDepartmentOutlinedIcon from "@mui/icons-material/LocalFireDepartmentOutlined";
 import LocalPizzaOutlinedIcon from "@mui/icons-material/LocalPizzaOutlined";
 import InterestsOutlinedIcon from "@mui/icons-material/InterestsOutlined";
 import SendOutlinedIcon from "@mui/icons-material/SendOutlined";
-import { Typography } from "@mui/material";
+import { Typography, Grid2 as Grid } from "@mui/material";
 import { PurchaseMetrics } from "../../components/metrics/PurchaseMetrics";
 
-import { FollowingList } from "../../components/user/follows/FollowingList";
 
 export const AccountDetails = () => {
   const { user } = useOutletContext();
@@ -67,9 +65,9 @@ export const AccountDetails = () => {
           <PurchaseMetrics purchases={metrics?.purchases} />
         </Grid>
       </Grid>
-      <Grid container size={{ xs: 12, md: 4 }}>
+      {/* <Grid container size={{ xs: 12, md: 4 }}>
         <FollowingList user={user} />
-      </Grid>
+      </Grid> */}
     </Grid>
   );
 };

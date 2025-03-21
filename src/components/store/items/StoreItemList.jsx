@@ -39,9 +39,8 @@ export const StoreItemList = ({ items = [], onClick }) => {
             padding: 2,
             flewWrap: "wrap",
             "&:hover": {
-              borderRadius: 5,
               transform: "scale(1.05)",
-              backgroundColor: "primary.light",
+              backgroundColor: "background.dark",
             },
           }}
           onClick={() => onClick(item)}

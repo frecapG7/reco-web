@@ -3,16 +3,19 @@ import {
   Box,
   Container,
   Icon,
+  IconButton,
   Paper,
   Skeleton,
   Stack,
   Typography,
+  useMediaQuery,
 } from "@mui/material";
 import { Outlet, useNavigate, useParams } from "react-router-dom";
 import { useGetRequest } from "../hooks/api/requests/useRequests";
 import { EnumIcon } from "../components/icons/EnumIcon";
 import { REQUEST_TYPE } from "../utils/enumUtils";
 import useI18nTime from "../hooks/i18n/useI18nTime";
+import { ArrowBack } from "@mui/icons-material";
 
 export const RequestDetailsPage = () => {
   const { id } = useParams();
@@ -21,28 +24,7 @@ export const RequestDetailsPage = () => {
   const navigate = useNavigate();
   const { data: request } = useGetRequest(id);
 
-  if (!request)
-    return (
-      <Container>
-        <Box
-          display="flex"
-          alignItems="center"
-          justifyContent="space-between"
-          mb={2}
-        >
-          <Stack>
-            <Box display="flex" alignItems="center" gap={2}>
-              <Skeleton variant="circular" width={40} height={40} />
-              <Skeleton variant="text" width={100} />
-            </Box>
-            <Skeleton variant="text" width={250} />
-          </Stack>
-        </Box>
-        <Paper variant="brutalist1">
-          <Skeleton variant="rectangular" height={200} />
-        </Paper>
-      </Container>
-    );
+  const isUpSm = useMediaQuery((theme) => theme.breakpoints.up("sm"));
 
   return (
     <Container>
@@ -53,52 +35,79 @@ export const RequestDetailsPage = () => {
         my={2}
         px={2}
       >
-        <Stack>
-          <Box
-            display="flex"
-            alignItems="center"
-            gap={1}
-            onClick={() => navigate(`/users/${request.author.name}`)}
-            sx={{
-              cursor: "pointer",
-            }}
-          >
-            <Avatar src={request.author.avatar} alt={request.author.name} />
-            <Typography
-              fontWeight="bold"
+        <Box display="flex" gap={1}>
+          {isUpSm && (
+            <IconButton onClick={() => navigate(-1)}>
+              <ArrowBack />
+            </IconButton>
+          )}
+          <Stack>
+            <Box
+              display="flex"
+              alignItems="center"
+              gap={1}
+              onClick={() => navigate(`/users/${request?.author.name}`)}
               sx={{
-                ":hover": {
-                  textDecoration: "underline",
-                },
+                cursor: "pointer",
               }}
             >
-              {request.author.name}
-            </Typography>
-            <Typography variant="caption">
-              {relativeTime(request.created)}
-            </Typography>
-          </Box>
-          <Typography variant="title">{request.title}</Typography>
-        </Stack>
+              {request ? (
+                <Avatar src={request.author.avatar} alt={request.author.name} />
+              ) : (
+                <Skeleton variant="circular" width={40} height={40} />
+              )}
+              {request ? (
+                <>
+                  <Typography
+                    fontWeight="bold"
+                    sx={{
+                      ":hover": {
+                        textDecoration: "underline",
+                      },
+                    }}
+                  >
+                    {request.author.name}
+                  </Typography>
+                  <Typography variant="caption">
+                    {relativeTime(request.created)}
+                  </Typography>
+                </>
+              ) : (
+                <Skeleton variant="text" width={150} />
+              )}
+            </Box>
+            {request ? (
+              <Typography variant="title">{request.title}</Typography>
+            ) : (
+              <Skeleton variant="text" width={150} />
+            )}
+          </Stack>
+        </Box>
 
         <Box display="flex" alignItems="center" gap={1}>
-          <Icon variant="contained">
-            <EnumIcon
-              value={request?.requestType}
-              values={REQUEST_TYPE}
-              fontSize="large"
-            />
-          </Icon>
+          {request ? (
+            <Icon variant="contained">
+              <EnumIcon
+                value={request?.requestType}
+                values={REQUEST_TYPE}
+                fontSize="large"
+              />
+            </Icon>
+          ) : (
+            <Skeleton variant="circular" width={150} />
+          )}
         </Box>
       </Box>
 
-      <Paper variant="brutalist1">
-        <Outlet
-          context={{
-            request,
-          }}
-        />
-      </Paper>
+      {request && (
+        <Paper variant="brutalist1">
+          <Outlet
+            context={{
+              request: request,
+            }}
+          />
+        </Paper>
+      )}
     </Container>
   );
 };

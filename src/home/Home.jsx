@@ -4,6 +4,7 @@ import {
   CardActionArea,
   CardActions,
   CardContent,
+  Chip,
   CircularProgress,
   Container,
   Paper,
@@ -14,10 +15,11 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import { Fragment } from "react";
 import { useNavigate } from "react-router-dom";
 import { Request } from "../components/request/Request";
-import { Recommendations } from "./components/Recommendations";
 import { useForm, useWatch } from "react-hook-form";
 import { SearchRequestFilterForm } from "./components/SearchRequestFilterForm";
 import { useTranslation } from "react-i18next";
+
+import LocalPizzaOutlinedIcon from "@mui/icons-material/LocalPizzaOutlined";
 
 export const Home = () => {
   const { control } = useForm();
@@ -90,10 +92,19 @@ export const Home = () => {
                     <CardContent>
                       <Request request={result} />
                     </CardContent>
+                    <CardActions justifyContent="flex-end">
+                      <Box
+                        display="flex"
+                        justifyContent="flex-end"
+                        width="100%"
+                      >
+                        <Chip
+                          label={result.recommendationsCount}
+                          icon={<LocalPizzaOutlinedIcon />}
+                        />
+                      </Box>
+                    </CardActions>
                   </CardActionArea>
-                  <CardActions>
-                    <Recommendations request={result} />
-                  </CardActions>
                 </Card>
               ))}
             </Fragment>

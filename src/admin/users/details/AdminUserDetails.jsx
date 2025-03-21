@@ -1,5 +1,5 @@
 import { Outlet, useNavigate, useParams } from "react-router-dom";
-import { useGetUser } from "../../../hooks/api/users/useUsers";
+import { useGetUser } from "../../../hooks/api/admin/useUserAdministration";
 import {
   Avatar,
   Box,

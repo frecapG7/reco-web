@@ -5,7 +5,14 @@ import globals from "globals";
 export default [
   js.configs.recommended,
   {
-    ignores: ["dist", "build", "plugins"],
+    ignores: [
+      "dist",
+      "build",
+      "plugins",
+      "public/tinymce",
+      "node_modules",
+      "postinstall.cjs",
+    ],
   },
   {
     files: ["**/*.js", "**/*.jsx"],

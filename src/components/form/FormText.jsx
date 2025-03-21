@@ -1,6 +1,7 @@
 import { FormControl, TextField } from "@mui/material";
 import { useController } from "react-hook-form";
 import { i18nFormError } from "../../i18n/i18nForm";
+import { useTranslation } from "react-i18next";
 export const FormText = ({
   name,
   label,
@@ -23,6 +24,8 @@ export const FormText = ({
     defaultValue: "",
   });
 
+  const { t } = useTranslation();
+
   return (
     <FormControl fullWidth disabled={disabled}>
       <TextField
@@ -35,7 +38,7 @@ export const FormText = ({
         onBlur={onBlur}
         disabled={disabled}
         error={!!error}
-        helperText={i18nFormError(error)}
+        helperText={t(i18nFormError(error))}
         required={required}
         multiline={multiline}
         rows={rows}

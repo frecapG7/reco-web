@@ -30,6 +30,6 @@ export const useSearchRecommendations = (
     queryKey: ["recommendations", requestType, search, pageSize, pageNumber],
     queryFn: () =>
       searchRecommencations(requestType, search, pageSize, pageNumber),
-    enabled: Boolean(requestType) && options?.enabled,
+    ...options,
   });
 };

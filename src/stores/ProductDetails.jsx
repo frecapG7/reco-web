@@ -3,11 +3,12 @@ import {
   Button,
   Chip,
   Container,
+  Divider,
   IconButton,
   Paper,
   Skeleton,
+  Stack,
   Typography,
-  useMediaQuery,
 } from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
@@ -28,7 +29,6 @@ export const ProductDetails = () => {
   const { data: product } = useGetMarketProduct(name);
 
   const { t } = useTranslation();
-  const isUpSm = useMediaQuery((theme) => theme.breakpoints.up("sm"));
 
   const { session } = useAuthSession();
 
@@ -42,66 +42,17 @@ export const ProductDetails = () => {
     toast.success(t("purchase.createSuccess"));
   };
 
-  if (!product)
-    return (
-      <Container>
-        <Box display="flex" alignItems="center" justifyContent="space-between">
-          <IconButton onClick={() => navigate("..")}>
-            <ArrowBackIcon />
-          </IconButton>
-
-          <Box display="flex" alignItems="center" gap={2}>
-            <Skeleton variant="text" width={100} />
-            <Skeleton variant="circular" width={50} />
-          </Box>
-        </Box>
-        <Paper variant="brutalist1">
-          <Box display="flex" flexWrap="wrap">
-            <Box
-              sx={{
-                backgroundColor: "primary.main",
-                borderRadius: 2,
-                padding: { xs: 4, md: 4 },
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                maxWidth: 250,
-                flexGrow: 1,
-              }}
-            >
-              <Skeleton variant="rectangular" width={200} height={200} />
-              <Skeleton variant="text" width={200} />
-            </Box>
-            <Box
-              display="flex"
-              justifyContent="center"
-              alignItems="center"
-              p={2}
-              maxWidth={500}
-            >
-              <Skeleton variant="text" width={500} />
-            </Box>
-          </Box>
-        </Paper>
-      </Container>
-    );
-
   return (
     <Container>
       <Box display="flex" alignItems="center" justifyContent="space-between">
-        <Box>
+        <Box display="flex" alignItems="center" gap={2}>
           <IconButton onClick={() => navigate("..")}>
             <ArrowBackIcon />
           </IconButton>
-          {isUpSm && (
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={handleBuy}
-              loading={createPurchase.isPending}
-            >
-              {t("buy")}
-            </Button>
+          {product ? (
+            <Typography variant="title">{product?.label}</Typography>
+          ) : (
+            <Skeleton variant="text" width={100} />
           )}
         </Box>
         <Box display="flex" alignItems="center" gap={2}>
@@ -111,18 +62,20 @@ export const ProductDetails = () => {
             </Typography>
             <DiamondOutlinedIcon color="diamond" fontSize="large" />
           </Box>
-          <Chip
-            size="medium"
-            color="primary"
-            label="Avatar"
-            icon={<EnumIcon value={product?.type} values={STORE_ITEM_TYPE} />}
-          />
-
-          <Typography variant="h1">{product?.label}</Typography>
+          {product ? (
+            <Chip
+              size="medium"
+              color="primary"
+              onClick={() => navigate(`/stores/icons`)}
+              icon={<EnumIcon value={product?.type} values={STORE_ITEM_TYPE} />}
+            />
+          ) : (
+            <Skeleton variant="circular" width={50} height={40} />
+          )}
         </Box>
       </Box>
       <Paper variant="brutalist1">
-        <Box display="flex" flexWrap="wrap">
+        <Box display="flex" flexWrap="wrap" gap={2}>
           <Box
             sx={{
               backgroundColor: "primary.main",
@@ -132,48 +85,62 @@ export const ProductDetails = () => {
               flexDirection: "column",
               alignItems: "center",
               maxWidth: 250,
+              maxHeight: 200,
               flexGrow: 1,
             }}
           >
-            <Box
-              component="img"
-              src={product.icon}
-              alt={product.name}
-              loading="lazy"
-              sx={{
-                display: "flex",
-                maxWidth: 200,
-                //  width: { xs: "4em", md: "7.5em" },
-              }}
-            />
-            <Typography variant="title" textAlign="center">
-              {product.label}
-            </Typography>
+            {product ? (
+              <Box
+                component="img"
+                src={product?.icon}
+                alt={product?.name}
+                loading="lazy"
+                sx={{
+                  display: "flex",
+                  maxWidth: 150,
+                }}
+              />
+            ) : (
+              <Skeleton variant="rectangular" width={200} height={200} />
+            )}
           </Box>
-          <Box
-            display="flex"
-            justifyContent="center"
-            alignItems="center"
-            p={2}
-            maxWidth={500}
-          >
-            <div dangerouslySetInnerHTML={{ __html: product.description }} />
-          </Box>
+          <Stack spacing={5} py={2} maxWidth={750}>
+            {product ? (
+              <Typography fontStyle="italic">
+                "{product?.description}"
+              </Typography>
+            ) : (
+              <Skeleton variant="text" width={500} />
+            )}
+            <Divider color="primary" />
+            <Box display="flex" alignItems="flex-end">
+              {product ? (
+                <Typography>
+                  {t(`stores.products.${product?.type}.help`)}
+                </Typography>
+              ) : (
+                <Skeleton variant="text" width={500} />
+              )}
+            </Box>
+          </Stack>
         </Box>
-
-        {!isUpSm && (
-          <Box display="flex" justifyContent="center" p={2}>
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={handleBuy}
-              fullWidth
-              loading={createPurchase.isPending}
-            >
-              {t("buy")}
-            </Button>
-          </Box>
-        )}
+        <Box
+          justifyContent="center"
+          alignItems="center"
+          p={2}
+          display="flex"
+          mt={5}
+        >
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={handleBuy}
+            endIcon={<DiamondOutlinedIcon />}
+            loading={createPurchase.isPending}
+          >
+            {t("buy")}
+          </Button>
+        </Box>
       </Paper>
     </Container>
   );

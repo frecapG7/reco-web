@@ -6,6 +6,7 @@ import {
   Button,
   CircularProgress,
   Container,
+  IconButton,
   Paper,
   Stack,
   Typography,
@@ -17,6 +18,8 @@ import { useEffect, useState } from "react";
 import { IFramely } from "../components/request/IFramely";
 import { useTranslation } from "react-i18next";
 import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
+
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { FormToggles } from "../components/form/FormToggles";
 import { RequestType } from "../components/request/RequestType";
 
@@ -76,118 +79,133 @@ export const CreateRecommendation = () => {
 
   return (
     <Container>
-      <Stack aria-label="recommendation-form" spacing={2}>
-        <FormToggles
-          control={control}
-          name="requestType"
-          options={[
-            {
-              value: "BOOK",
-              label: <RequestType requestType="BOOK" />,
-            },
-            {
-              value: "SONG",
-              label: <RequestType requestType="SONG" />,
-            },
-            {
-              value: "MOVIE",
-              label: <RequestType requestType="MOVIE" />,
-            },
-          ]}
-          enforceValue
-        />
-
-        <FormLink
-          control={control}
-          name="url"
-          label="URL"
-          placeholder="Paste a link"
-          required
-          rules={{
-            minLength: 2,
-          }}
-        />
-
-        <Zoom in={Boolean(recommendation)}>
-          <Badge
-            badgeContent="New (+1)"
-            color="primary"
-            sx={{
-              "& .MuiBadge-badge": {
-                padding: 2,
-                fontWeight: "bold",
+      <Box
+        display="flex"
+        justifyContent="space-between"
+        alignItems="center"
+        my={2}
+      >
+        <Box display="flex" alignItems="center" gap={1}>
+          <IconButton onClick={() => navigate("/archives")}>
+            <ArrowBackIcon />
+          </IconButton>
+        </Box>
+      </Box>
+      <Paper variant="brutalist1">
+        <Stack aria-label="recommendation-form" spacing={2}>
+          <FormToggles
+            control={control}
+            name="requestType"
+            options={[
+              {
+                value: "BOOK",
+                label: <RequestType requestType="BOOK" />,
               },
+              {
+                value: "SONG",
+                label: <RequestType requestType="SONG" />,
+              },
+              {
+                value: "MOVIE",
+                label: <RequestType requestType="MOVIE" />,
+              },
+            ]}
+            enforceValue
+          />
+
+          <FormLink
+            control={control}
+            name="url"
+            label="URL"
+            placeholder="Paste a link"
+            required
+            rules={{
+              minLength: 2,
             }}
-            invisible={recommendation?.id}
-          >
-            <Paper
-              elevation={3}
+          />
+
+          <Zoom in={Boolean(recommendation)}>
+            <Badge
+              badgeContent="New (+1)"
+              color="primary"
               sx={{
-                p: 5,
-                width: "100%",
+                "& .MuiBadge-badge": {
+                  padding: 2,
+                  fontWeight: "bold",
+                },
               }}
+              invisible={recommendation?.id}
             >
-              <Box
-                display="flex"
-                flexDirection="column"
-                alignItems="flex-start"
+              <Paper
+                elevation={3}
+                sx={{
+                  p: 5,
+                  width: "100%",
+                }}
               >
-                <Typography variant="title">
-                  {recommendation?.field1}
-                </Typography>
-                <Typography variant="subtitle">
-                  {recommendation?.field2}
-                </Typography>
                 <Box
                   display="flex"
-                  width="100%"
-                  sx={{
-                    bgcolor: "background.paper",
-                    my: 2,
-                  }}
+                  flexDirection="column"
+                  alignItems="flex-start"
                 >
-                  <IFramely html={recommendation?.html} />
+                  <Typography variant="title">
+                    {recommendation?.field1}
+                  </Typography>
+                  <Typography variant="subtitle">
+                    {recommendation?.field2}
+                  </Typography>
+                  <Box
+                    display="flex"
+                    width="100%"
+                    sx={{
+                      bgcolor: "background.paper",
+                      my: 2,
+                    }}
+                  >
+                    <IFramely html={recommendation?.html} />
+                  </Box>
                 </Box>
-              </Box>
-            </Paper>
-          </Badge>
-        </Zoom>
+              </Paper>
+            </Badge>
+          </Zoom>
 
-        <Zoom in={recommendation?.id} mountOnEnter unmountOnExit>
-          <Alert severity="warning">{t("archives.alreadyExists")}</Alert>
-        </Zoom>
+          <Zoom in={recommendation?.id} mountOnEnter unmountOnExit>
+            <Alert severity="warning">{t("archives.alreadyExists")}</Alert>
+          </Zoom>
 
-        <Zoom in={Boolean(recommendation)}>
-          <Box
-            display="flex"
-            justifyContent="space-around"
-            alignItems="center"
-            px={5}
-            gap={2}
-          >
-            <Button
-              variant="outlined"
-              color="secondary"
-              endIcon={<CancelOutlinedIcon />}
-              onClick={() => {
-                setValue("url", "");
-                setRecommendation(null);
-              }}
+          <Zoom in={Boolean(recommendation)}>
+            <Box
+              display="flex"
+              justifyContent="space-around"
+              alignItems="center"
+              px={5}
+              gap={2}
             >
-              {t("cancel")}
-            </Button>
-            <Button
-              variant="contained"
-              color="primary"
-              loading={createRecommendation.isPending}
-              onClick={onSubmit}
-              disabled={recommendation?.id}
-            >
-              {t("create")}
-            </Button>
-          </Box>
-        </Zoom>
-      </Stack>
+              <Button
+                variant="outlined"
+                color="secondary"
+                endIcon={<CancelOutlinedIcon />}
+                onClick={() => {
+                  setValue("url", "");
+                  setRecommendation(null);
+                }}
+              >
+                {t("cancel")}
+              </Button>
+              <Button
+                variant="contained"
+                color="primary"
+                loading={createRecommendation.isPending}
+                onClick={onSubmit}
+                disabled={recommendation?.id}
+                endIcon={<>1</>}
+              >
+                {t("create")}
+              </Button>
+            </Box>
+          </Zoom>
+        </Stack>
+      </Paper>
 
       <Backdrop open={isLoading}>
         <CircularProgress />
