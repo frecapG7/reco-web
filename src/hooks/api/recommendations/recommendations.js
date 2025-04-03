@@ -5,14 +5,14 @@ const searchRecommencations = async (
   requestType,
   search,
   pageSize,
-  pageNumber
+  provider
 ) => {
   const response = await get("/api/recommendations", {
     params: {
       requestType,
       search,
       pageSize: pageSize || 3,
-      pageNumber: pageNumber || 1,
+      ...(provider && { provider }),
     },
   });
 
@@ -21,15 +21,31 @@ const searchRecommencations = async (
 
 export const useSearchRecommendations = (
   requestType,
-  search,
+  search = "",
   pageSize,
-  pageNumber,
+  provider,
   options
 ) => {
   return useQuery({
-    queryKey: ["recommendations", requestType, search, pageSize, pageNumber],
+    queryKey: ["recommendations", requestType, search, pageSize, provider],
     queryFn: () =>
-      searchRecommencations(requestType, search, pageSize, pageNumber),
+      searchRecommencations(requestType, search, pageSize, provider),
     ...options,
+  });
+};
+
+const getProviders = async (requestType = "") => {
+  const response = await get("/api/recommendations/providers", {
+    params: {
+      requestType,
+    },
+  });
+  return response;
+};
+
+export const useGetProviders = (requestType) => {
+  return useQuery({
+    queryKey: ["recommendations", "providers", requestType],
+    queryFn: () => getProviders(requestType),
   });
 };

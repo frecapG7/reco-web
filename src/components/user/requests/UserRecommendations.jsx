@@ -15,25 +15,25 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import { RequestType } from "../../request/RequestType";
 import { IFramely } from "../../request/IFramely";
 import { Logo } from "../../utils/Logo";
-import { useForm, useWatch } from "react-hook-form";
-import { FormSelectRequestType } from "../../form/FormSelectRequestType";
-import { FormSelect } from "../../form/FormSelect";
 import useI18nTime from "../../../hooks/i18n/useI18nTime";
 
 import LocalBarIcon from "@mui/icons-material/LocalBar";
+import { useState } from "react";
+import { SortRecommendation } from "../../recommendation/SortRecommendation";
 
 export const UserRecommendations = ({ user }) => {
-  const { control } = useForm({
-    defaultValues: {
-      sort: "created",
-      requestType: "",
-    },
+  const [sorting, setSorting] = useState({
+    sort: "created_at",
+    order: "desc",
   });
-  const filters = useWatch({ control });
+
   const { data, hasNextPage, refetch } = useGetRecommendations(
     user?.id,
     10,
-    filters,
+    {
+      sort: sorting.sort,
+      order: sorting.order,
+    },
     { enabled: !!user }
   );
 
@@ -47,26 +47,11 @@ export const UserRecommendations = ({ user }) => {
         direction="row"
         spacing={1}
         alignItems="center"
-        justifyContent="flex-end"
+        justifyContent="flex-start"
         display={{ xs: "none", sm: "flex" }}
-        maxWidth={250}
       >
-        <FormSelect
-          control={control}
-          name="sort"
-          options={[
-            {
-              value: "likes",
-              label: "Likes",
-            },
-            {
-              value: "created",
-              label: "Nouvelles",
-            },
-          ]}
-        />
-
-        <FormSelectRequestType control={control} name="requestType" />
+        <SortRecommendation sorting={sorting} setSorting={setSorting} />
+        {/* <FormSelectRequestType control={control} name="requestType" /> */}
       </Stack>
 
       <InfiniteScroll
@@ -93,7 +78,7 @@ export const UserRecommendations = ({ user }) => {
                       <RequestType requestType={recommendation?.requestType} />
                     </Avatar>
                   }
-                  title={`${recommendation?.field2} - ${recommendation?.field1}`}
+                  title={`${recommendation?.title} - ${recommendation?.author}`}
                   subheader={formatDate(recommendation?.created_at)}
                   action={
                     <Chip

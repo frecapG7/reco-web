@@ -66,7 +66,7 @@ export const UserDetailsPage = () => {
         </Box>
 
         <Stack>
-          <Button variant="outlined" color="primary">
+          <Button variant="outlined" color="secondary">
             Follow
           </Button>
         </Stack>
@@ -77,12 +77,14 @@ export const UserDetailsPage = () => {
           justifyContent="space-between"
           alignItems="center"
           flexWrap="wrap-reverse"
-          mb={5}
           gap={2}
+          mb={2}
+          px={{ xs: 2, sm: 5 }}
         >
           <Box display="flex" alignItems="center" gap={1}>
             <Button
               variant={tab === "" ? "contained" : "outlined"}
+              color={tab === "" ? "primary" : "secondary"}
               onClick={() => navigate("")}
             >
               Requests
@@ -90,6 +92,7 @@ export const UserDetailsPage = () => {
             <Button
               variant={tab === "recommendations" ? "contained" : "outlined"}
               onClick={() => navigate("./recommendations")}
+              color={tab === "recommendations" ? "primary" : "secondary"}
             >
               Recommendations
             </Button>

@@ -95,7 +95,7 @@ export const StandardLayout = ({ children }) => {
         sx={{
           my: 10,
           flexGrow: 1,
-          p: 3,
+          p: { xs: 0, sm: 2 },
           ml: { sm: 10 },
           justifyContent: "center",
         }}

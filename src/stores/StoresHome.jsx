@@ -47,7 +47,7 @@ export const StoresHome = () => {
           </Box>
 
           <Paper variant="brutalist1">
-            <Stack gap={5}>
+            <Stack spacing={5}>
               <Paper aria-label="icon_items" variant="brutalist2">
                 <Box
                   display="flex"
@@ -55,13 +55,11 @@ export const StoresHome = () => {
                   alignItems="center"
                 >
                   <Button
-                    variant="text"
-                    // color="primary"
+                    variant="contained"
+                    color="primary"
                     onClick={() => navigate("./icons")}
                   >
-                    <Typography variant="link" >
-                      See all
-                    </Typography>
+                    <Typography variant="link">See all</Typography>
                   </Button>
                   <Stack>
                     <Typography variant="title" gutterBottom textAlign="right">

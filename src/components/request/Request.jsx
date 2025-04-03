@@ -56,7 +56,7 @@ export const Request = ({ request }) => {
             }}
           />
           <Stack>
-            <Typography variant="title">{request?.author.name}</Typography>
+            <Typography fontWeight="bold">{request?.author.name}</Typography>
             <Typography variant="subtitle">
               {relativeTime(request?.created)}
             </Typography>

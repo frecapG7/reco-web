@@ -2,7 +2,6 @@ import { Fade, FormControl, IconButton, Stack, TextField } from "@mui/material";
 import { useController } from "react-hook-form";
 import { i18nFormError } from "../../i18n/i18nForm";
 
-import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
 
 export const FormSearch = ({
@@ -47,9 +46,6 @@ export const FormSearch = ({
                     <CancelOutlinedIcon />
                   </IconButton>
                 </Fade>
-                <IconButton>
-                  <SearchOutlinedIcon />
-                </IconButton>
               </Stack>
             ),
           },

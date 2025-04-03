@@ -1,54 +1,55 @@
 import {
   FormControl,
-  FormHelperText,
-  Icon,
   ListItemIcon,
   ListItemText,
   MenuItem,
   Select,
 } from "@mui/material";
-import { useController } from "react-hook-form";
+
 import WhatshotOutlinedIcon from "@mui/icons-material/WhatshotOutlined";
 import ThumbUpOutlinedIcon from "@mui/icons-material/ThumbUpOutlined";
 import { useTranslation } from "react-i18next";
-import { i18nFormError } from "../../i18n/i18nForm";
 
-export const FormSort = ({ control, name, rules }) => {
-  const {
-    field: { value, onChange },
-    fieldState: { error },
-  } = useController({
-    defaultValue: "created",
-    control,
-    name,
-    rules,
-  });
-
+export const SortRecommendation = ({ sorting, setSorting }) => {
   const { t } = useTranslation();
 
   return (
-    <FormControl fullWidth size="small">
+    <FormControl size="small">
       <Select
-        component={Icon}
-        value={value}
+        value={sorting}
         variant="outlined"
-        onChange={(e) => onChange(e.target.value)}
-        renderValue={(value) => <pre>{JSON.stringify(value)}</pre>}
+        onChange={(e) => setSorting(e.target.value)}
+        renderValue={(value) =>
+          value.sort === "created_at" ? (
+            <WhatshotOutlinedIcon />
+          ) : (
+            <ThumbUpOutlinedIcon />
+          )
+        }
       >
-        <MenuItem value="created">
+        <MenuItem
+          value={{
+            sort: "created_at",
+            order: "desc",
+          }}
+        >
           <ListItemIcon>
             <WhatshotOutlinedIcon />
           </ListItemIcon>
           <ListItemText primary={t("Newest")} />
         </MenuItem>
-        <MenuItem value="likes">
+        <MenuItem
+          value={{
+            sort: "likesCount",
+            order: "desc",
+          }}
+        >
           <ListItemIcon>
             <ThumbUpOutlinedIcon />
           </ListItemIcon>
           <ListItemText primary={t("Likes")} />
         </MenuItem>
       </Select>
-      <FormHelperText error>{t(i18nFormError(error))}</FormHelperText>
     </FormControl>
   );
 };
