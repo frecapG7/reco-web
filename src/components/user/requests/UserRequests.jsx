@@ -9,7 +9,6 @@ import {
   CircularProgress,
   Divider,
   Stack,
-  Typography,
 } from "@mui/material";
 import { useGetRequests } from "../../../hooks/api/users/useUsers";
 import InfiniteScroll from "react-infinite-scroll-component";
@@ -21,20 +20,34 @@ import { useForm, useWatch } from "react-hook-form";
 import { FormSelectRequestType } from "../../form/FormSelectRequestType";
 
 import LocalPizzaOutlinedIcon from "@mui/icons-material/LocalPizzaOutlined";
-import { FormSort } from "../../form/FormSort";
+import { SortRequest } from "../../request/SortRequest";
+import { useState } from "react";
 
 export const UserRequests = ({ user }) => {
+  const [sorting, setSorting] = useState({
+    sort: "created",
+    order: "desc",
+  });
   const { control } = useForm({
     defaultValues: {
       sort: "created",
       requestType: "",
     },
   });
-  const filters = useWatch({ control });
+  const requestType = useWatch({ control, name: "requestType" });
 
-  const { data, hasNextPage, refetch } = useGetRequests(user?.id, 10, filters, {
-    enabled: !!user,
-  });
+  const { data, hasNextPage, refetch } = useGetRequests(
+    user?.id,
+    10,
+    {
+      sort: sorting.sort,
+      order: sorting.order,
+      requestType: requestType,
+    },
+    {
+      enabled: !!user,
+    }
+  );
 
   const navigate = useNavigate();
   const requests = data?.pages?.flatMap((page) => page.results);
@@ -46,10 +59,9 @@ export const UserRequests = ({ user }) => {
         spacing={1}
         alignItems="center"
         justifyContent="flex-end"
-        display={{ xs: "none", sm: "flex" }}
-        maxWidth={250}
+        // display={{ xs: "none", sm: "flex" }}
       >
-        <FormSort control={control} name="sort" />
+        <SortRequest sorting={sorting} setSorting={setSorting} />
         <FormSelectRequestType control={control} name="requestType" />
       </Stack>
 
@@ -67,9 +79,15 @@ export const UserRequests = ({ user }) => {
           </Box>
         }
       >
-        <Stack spacing={3} divider={<Divider />}>
-          {requests?.map((request, index) => (
-            <Card key={index} elevation={0}>
+        <Stack
+          spacing={1}
+          divider={<Divider />}
+          sx={{
+            pl: { xs: 2, sm: 5 },
+          }}
+        >
+          {requests?.map((request) => (
+            <Card key={request.id} elevation={0}>
               <CardActionArea
                 onClick={() => navigate(`/requests/${request.id}`)}
               >
@@ -90,9 +108,9 @@ export const UserRequests = ({ user }) => {
                   }
                 />
                 <CardContent>
-                  <Typography variant="body1">
-                    {request?.description}
-                  </Typography>
+                  <div
+                    dangerouslySetInnerHTML={{ __html: request.description }}
+                  />
                 </CardContent>
               </CardActionArea>
             </Card>

@@ -1,4 +1,4 @@
-import DiamondRoundedIcon from "@mui/icons-material/DiamondRounded";
+import DiamondOutlinedIcon from "@mui/icons-material/DiamondOutlined";
 export const CurrencyIcon = ({ ...props }) => {
-  return <DiamondRoundedIcon {...props} />;
+  return <DiamondOutlinedIcon {...props} />;
 };

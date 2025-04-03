@@ -1,27 +1,14 @@
 import { Box } from "@mui/material";
-import { useEffect, useState } from "react";
 
 export const IFramely = ({ html }) => {
-  const [innerHtml, setInnerHtml] = useState({
-    __html: "<div/>",
-  });
-
-  useEffect(() => {
-    if (html) setInnerHtml({ __html: html });
-  }, [html, setInnerHtml]);
-
-  useEffect(() => {
-    window.iframely && window.iframely.load();
-  }, []);
-
   return (
     <Box
-      flexGrow={1}
-      sx={{
-        minWidth: 250,
-      }}
-    >
-      <div dangerouslySetInnerHTML={innerHtml} />
-    </Box>
+      component="iframe"
+      src={html}
+      width="100%"
+      height="100%"
+      frameborder="0"
+      bgcolor="inherit"
+    />
   );
 };

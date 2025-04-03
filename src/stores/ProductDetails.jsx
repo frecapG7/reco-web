@@ -21,6 +21,7 @@ import { useTranslation } from "react-i18next";
 import { useAuthSession } from "../context/AuthContext";
 import { useCreatePurchase } from "../hooks/api/users/usePurchases";
 import { toast } from "react-toastify";
+import { CurrencyIcon } from "../components/icons/CurrencyIcon";
 
 export const ProductDetails = () => {
   const navigate = useNavigate();
@@ -84,8 +85,8 @@ export const ProductDetails = () => {
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
-              maxWidth: 250,
-              maxHeight: 200,
+              maxWidth: 200,
+              maxHeight: 250,
               flexGrow: 1,
             }}
           >
@@ -112,7 +113,7 @@ export const ProductDetails = () => {
             ) : (
               <Skeleton variant="text" width={500} />
             )}
-            <Divider color="primary" />
+            <Divider />
             <Box display="flex" alignItems="flex-end">
               {product ? (
                 <Typography>
@@ -135,7 +136,7 @@ export const ProductDetails = () => {
             variant="contained"
             color="primary"
             onClick={handleBuy}
-            endIcon={<DiamondOutlinedIcon />}
+            endIcon={<CurrencyIcon />}
             loading={createPurchase.isPending}
           >
             {t("buy")}

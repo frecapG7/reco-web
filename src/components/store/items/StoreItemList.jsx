@@ -1,13 +1,14 @@
 import {
   Box,
-  IconButton,
+  Chip,
   ImageList,
   ImageListItem,
   ImageListItemBar,
   Skeleton,
+  Typography,
 } from "@mui/material";
 
-import DiamondOutlinedIcon from "@mui/icons-material/DiamondOutlined";
+import { CurrencyIcon } from "../../icons/CurrencyIcon";
 export const StoreItemList = ({ items = [], onClick }) => {
   const skeletonItems = Array.from(new Array(5)).map((_, index) => ({
     id: `skeleton-${index}`,
@@ -39,8 +40,8 @@ export const StoreItemList = ({ items = [], onClick }) => {
             padding: 2,
             flewWrap: "wrap",
             "&:hover": {
-              transform: "scale(1.05)",
               backgroundColor: "background.dark",
+              transform: "scale(1.05)",
             },
           }}
           onClick={() => onClick(item)}
@@ -60,19 +61,26 @@ export const StoreItemList = ({ items = [], onClick }) => {
             <Skeleton variant="rectangular" width="100%" height="10em" />
           )}
           <ImageListItemBar
-            title={item.label || <Skeleton width="60%" />}
+            title={
+              item.label ? (
+                <Typography fontWeight="bold">{item.label}</Typography>
+              ) : (
+                <Skeleton width="60%" />
+              )
+            }
+            subtitle={
+              item.price ? (
+                <Chip
+                  color="diamond"
+                  label={item?.price}
+                  icon={<CurrencyIcon />}
+                />
+              ) : (
+                <Skeleton width="30%" />
+              )
+            }
             position="below"
             actionPosition="right"
-            actionIcon={
-              <IconButton
-                onClick={() => onClick(item)}
-                variant="contained"
-                size="small"
-              >
-                {item.price}
-                <DiamondOutlinedIcon />
-              </IconButton>
-            }
           />
         </ImageListItem>
       ))}

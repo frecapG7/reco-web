@@ -57,7 +57,7 @@ export const RequestDetailsPage = () => {
                 <Skeleton variant="circular" width={40} height={40} />
               )}
               {request ? (
-                <>
+                <Stack>
                   <Typography
                     fontWeight="bold"
                     sx={{
@@ -71,7 +71,7 @@ export const RequestDetailsPage = () => {
                   <Typography variant="caption">
                     {relativeTime(request.created)}
                   </Typography>
-                </>
+                </Stack>
               ) : (
                 <Skeleton variant="text" width={150} />
               )}

@@ -57,12 +57,12 @@ export const LikeRecommendation = ({ recommendation }) => {
       {liked ? (
         <>
           {likesCount}
-          <LocalBarIcon fontSize="large" />
+          <LocalBarIcon />
         </>
       ) : (
         <>
           {likesCount}
-          <LocalBarOutlinedIcon fontSize="large" />
+          <LocalBarOutlinedIcon />
         </>
       )}
     </IconButton>

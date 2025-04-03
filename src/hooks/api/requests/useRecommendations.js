@@ -6,10 +6,17 @@ import {
 } from "@tanstack/react-query";
 import { get, post, del } from "../index";
 
-const getRecommendations = async (requestId, sort, pageSize, pageNumber) => {
+const getRecommendations = async (
+  requestId,
+  sort,
+  order,
+  pageSize,
+  pageNumber
+) => {
   const response = await get(`/api/requests/${requestId}/recommendations`, {
     params: {
-      sort: sort || "likes",
+      ...(sort && { sort }),
+      ...(order && { order }),
       pageSize: pageSize || 1,
       pageNumber: pageNumber || 0,
     },
@@ -17,7 +24,7 @@ const getRecommendations = async (requestId, sort, pageSize, pageNumber) => {
   return response;
 };
 
-export const useGetRecommendations = (requestId, sort, pageSize) => {
+export const useGetRecommendations = (requestId, sort, order, pageSize) => {
   return useInfiniteQuery({
     queryKey: [
       "requests",
@@ -25,10 +32,11 @@ export const useGetRecommendations = (requestId, sort, pageSize) => {
       "recommendations",
       "sort",
       sort,
+      order,
       pageSize,
     ],
     queryFn: ({ pageParam }) =>
-      getRecommendations(requestId, sort, pageSize, pageParam),
+      getRecommendations(requestId, sort, order, pageSize, pageParam),
     initialPageParam: 1,
     getNextPageParam: (lastPage) => {
       if (lastPage.pagination?.currentPage < lastPage.pagination?.totalPages)
