@@ -50,9 +50,13 @@ export const ProductItem = ({ product }) => {
 
       <Stack spacing={5} py={2} maxWidth={550}>
         {product ? (
-          <Typography fontStyle="italic">
-            "{product?.description?.[i18n.language]}"
-          </Typography>
+          <Typography
+            fontStyle="italic"
+            component="div"
+            dangerouslySetInnerHTML={{
+              __html: product?.description?.[i18n.language],
+            }}
+          />
         ) : (
           <Skeleton variant="text" width={500} />
         )}

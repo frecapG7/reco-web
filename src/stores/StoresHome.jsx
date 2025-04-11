@@ -78,7 +78,6 @@ export const StoresHome = () => {
           </Box>
 
           <ImageList
-            variant="quilted"
             cols={{ xs: 2, sm: 4, md: 5 }}
             gap={10}
             sx={{

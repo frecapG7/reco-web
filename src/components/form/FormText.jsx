@@ -20,7 +20,10 @@ export const FormText = ({
   } = useController({
     name,
     control,
-    rules: { required: rules?.required || required, ...rules },
+    rules: {
+      required: rules?.required || required,
+      ...rules,
+    },
     defaultValue: "",
   });
 

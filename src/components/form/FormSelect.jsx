@@ -8,6 +8,7 @@ import {
 import { useController } from "react-hook-form";
 import { getFormatLabel } from "./formUtils";
 import { i18nFormError } from "../../i18n/i18nForm";
+import { useTranslation } from "react-i18next";
 
 export const FormSelect = ({
   name,
@@ -29,6 +30,7 @@ export const FormSelect = ({
     rules: { required, ...rules },
   });
 
+  const { t } = useTranslation();
   const formatLabel = label && getFormatLabel(label, required);
 
   return (
@@ -49,7 +51,7 @@ export const FormSelect = ({
         ))}
       </Select>
 
-      <FormHelperText error>{i18nFormError(error)}</FormHelperText>
+      <FormHelperText error>{t(i18nFormError(error))}</FormHelperText>
     </FormControl>
   );
 };
