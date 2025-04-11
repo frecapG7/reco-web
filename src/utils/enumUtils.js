@@ -7,6 +7,7 @@ import MovieOutlinedIcon from "@mui/icons-material/MovieOutlined";
 export const STORE_ITEM_TYPE = new Map([
   ["IconItem", { icon: FaceRetouchingNaturalOutlinedIcon, label: "Avatar" }],
   ["ConsumableItem", { icon: LocalDiningOutlinedIcon, label: "Consumable" }],
+  ["ProviderItem", { icon: LocalDiningOutlinedIcon, label: "Provider" }],
 ]);
 
 export const PURCHASE_TYPE = new Map([

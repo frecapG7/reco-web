@@ -1,4 +1,11 @@
-import { Box, Skeleton, Stack, Typography, Divider } from "@mui/material";
+import {
+  Box,
+  Skeleton,
+  Stack,
+  Typography,
+  Divider,
+  useTheme,
+} from "@mui/material";
 import { useTranslation } from "react-i18next";
 
 /**
@@ -6,29 +13,30 @@ import { useTranslation } from "react-i18next";
  * @param {*} param0
  * @returns
  */
-export const StoreItem = ({ item }) => {
-  const { t } = useTranslation();
+export const ProductItem = ({ product }) => {
+  const { t, i18n } = useTranslation();
+  const theme = useTheme();
 
   return (
     <Box display="flex" flexWrap="wrap" gap={2}>
       <Box
         sx={{
-          backgroundColor: "primary.main",
+          background: `linear-gradient(25deg, ${theme.palette.primary.main}, ${theme.palette.background.default})`,
           borderRadius: 2,
           padding: { xs: 4, md: 4 },
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
-          maxWidth: 250,
-          maxHeight: 200,
+          maxWidth: 200,
+          maxHeight: 250,
           flexGrow: 1,
         }}
       >
-        {item ? (
+        {product ? (
           <Box
             component="img"
-            src={item?.icon}
-            alt={item?.name}
+            src={product?.icon}
+            alt={product?.name}
             loading="lazy"
             sx={{
               display: "flex",
@@ -39,16 +47,25 @@ export const StoreItem = ({ item }) => {
           <Skeleton variant="rectangular" width={200} height={200} />
         )}
       </Box>
-      <Stack spacing={5} py={2} maxWidth={750}>
-        {item ? (
-          <Typography fontStyle="italic">"{item?.description}"</Typography>
+
+      <Stack spacing={5} py={2} maxWidth={550}>
+        {product ? (
+          <Typography
+            fontStyle="italic"
+            component="div"
+            dangerouslySetInnerHTML={{
+              __html: product?.description?.[i18n.language],
+            }}
+          />
         ) : (
           <Skeleton variant="text" width={500} />
         )}
-        <Divider color="primary" />
+        <Divider />
         <Box display="flex" alignItems="flex-end">
-          {item ? (
-            <Typography>{t(`stores.products.${item?.type}.help`)}</Typography>
+          {product ? (
+            <Typography>
+              {t(`stores.products.${product?.type}.help`)}
+            </Typography>
           ) : (
             <Skeleton variant="text" width={500} />
           )}

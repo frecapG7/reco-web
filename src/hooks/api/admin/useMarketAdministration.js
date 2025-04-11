@@ -79,3 +79,16 @@ export const useUpdateItem = (id) => {
     },
   });
 };
+
+const verifyUniqueName = async (name) => {
+  const response = await post("/api/admin/market/products/verify-name", {
+    value: name,
+  });
+  return response;
+};
+
+export const useVerifyUniqueName = () => {
+  return useMutation({
+    mutationFn: (name) => verifyUniqueName(name),
+  });
+};

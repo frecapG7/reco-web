@@ -51,7 +51,6 @@ export const UserRecommendations = ({ user }) => {
         display={{ xs: "none", sm: "flex" }}
       >
         <SortRecommendation sorting={sorting} setSorting={setSorting} />
-        {/* <FormSelectRequestType control={control} name="requestType" /> */}
       </Stack>
 
       <InfiniteScroll

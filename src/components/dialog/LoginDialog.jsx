@@ -50,6 +50,7 @@ export const LoginDialog = ({ open, onClose, onSuccess }) => {
       slotProps={{
         paper: {
           component: "form",
+          noValidate: true,
           onSubmit: handleSubmit(onSubmit),
         },
       }}

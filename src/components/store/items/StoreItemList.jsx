@@ -22,12 +22,12 @@ export const StoreItemList = ({ items = [], onClick }) => {
   return (
     <ImageList
       cols={5}
-      gap={8}
+      gap={6}
       sx={{
         width: "100%",
         scrollbarWidth: "none",
         gridTemplateColumns: {
-          xs: "repeat(auto-fill, minmax(130px, 1fr))!important",
+          xs: "repeat(auto-fill, minmax(120px, 1fr))!important",
           md: "repeat(auto-fill, minmax(180px, 1fr))!important",
         },
       }}
@@ -37,10 +37,10 @@ export const StoreItemList = ({ items = [], onClick }) => {
           key={index}
           sx={{
             cursor: "pointer",
-            padding: 2,
-            flewWrap: "wrap",
+            // flewWrap: "wrap",
+            backgroundColor: "primary.main",
+            borderRadius: 2,
             "&:hover": {
-              backgroundColor: "background.dark",
               transform: "scale(1.05)",
             },
           }}
@@ -61,6 +61,10 @@ export const StoreItemList = ({ items = [], onClick }) => {
             <Skeleton variant="rectangular" width="100%" height="10em" />
           )}
           <ImageListItemBar
+            sx={{
+              backgroundColor: "primary.dark",
+              px: 2,
+            }}
             title={
               item.label ? (
                 <Typography fontWeight="bold">{item.label}</Typography>
@@ -71,7 +75,7 @@ export const StoreItemList = ({ items = [], onClick }) => {
             subtitle={
               item.price ? (
                 <Chip
-                  color="diamond"
+                  color="info"
                   label={item?.price}
                   icon={<CurrencyIcon />}
                 />

@@ -14,9 +14,7 @@ const handleError = (error) => {
       // Redirect to not found
       toast("Redirect to not found");
     } else if (error.status === 500) {
-      toast("Internal server error", {
-        type: "error",
-      });
+      toast.error("Internal server error");
     }
   } else console.error(error);
 };

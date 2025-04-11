@@ -2,6 +2,7 @@ import { Fade, FormControl, IconButton, Stack, TextField } from "@mui/material";
 import { useController } from "react-hook-form";
 import { i18nFormError } from "../../i18n/i18nForm";
 
+import SearchIcon from "@mui/icons-material/Search";
 import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
 
 export const FormSearch = ({
@@ -41,7 +42,12 @@ export const FormSearch = ({
           input: {
             endAdornment: (
               <Stack direction="row" alignItems="center">
-                <Fade in={!!value}>
+                <Fade in={!value} mountOnEnter unmountOnExit>
+                  <IconButton>
+                    <SearchIcon />
+                  </IconButton>
+                </Fade>
+                <Fade in={!!value} mountOnEnter unmountOnExit>
                   <IconButton onClick={() => onChange("")}>
                     <CancelOutlinedIcon />
                   </IconButton>

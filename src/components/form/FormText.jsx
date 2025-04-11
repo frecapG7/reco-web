@@ -9,7 +9,7 @@ export const FormText = ({
   multiline,
   rows,
   rules,
-  required,
+  required = false,
   disabled,
   placeholder,
   ...rest
@@ -20,7 +20,10 @@ export const FormText = ({
   } = useController({
     name,
     control,
-    rules: { required, ...rules },
+    rules: {
+      required: rules?.required || required,
+      ...rules,
+    },
     defaultValue: "",
   });
 
@@ -39,7 +42,7 @@ export const FormText = ({
         disabled={disabled}
         error={!!error}
         helperText={t(i18nFormError(error))}
-        required={required}
+        required={rules?.required || required}
         multiline={multiline}
         rows={rows}
         minRows={rules?.minRows ? rules.minRows : 0}

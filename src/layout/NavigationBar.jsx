@@ -16,7 +16,6 @@ import WhatshotOutlinedIcon from "@mui/icons-material/WhatshotOutlined";
 import LoginOutlinedIcon from "@mui/icons-material/LoginOutlined";
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 import StorefrontOutlinedIcon from "@mui/icons-material/StorefrontOutlined";
-import CollectionsIcon from "@mui/icons-material/Collections";
 
 const NavigationItem = ({ icon, text, path }) => {
   return (
@@ -53,20 +52,11 @@ export const NavigationBar = () => {
           path="/requests/new"
         />
 
-        {session?.loggedIn && (
-          <NavigationItem
-            icon={<CollectionsIcon />}
-            text={t("menu.recommendations")}
-            path="/archives"
-          />
-        )}
-
         <NavigationItem
           icon={<StorefrontOutlinedIcon />}
           text={t("menu.store")}
           path="/stores"
         />
-        {/* {session?.user && <AccountMenuItem />} */}
 
         {session?.user?.role === "ADMIN" && <AdministrationItem />}
 

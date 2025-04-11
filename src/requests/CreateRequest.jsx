@@ -14,7 +14,6 @@ import SendIcon from "@mui/icons-material/Send";
 import { FormText } from "../components/form/FormText";
 import { useTranslation } from "react-i18next";
 import { FormEditor } from "../components/form/FormEditor";
-import { FormSelectRequestType } from "../components/form/FormSelectRequestType";
 
 export const CreateRequest = () => {
   const { control, handleSubmit } = useForm();
@@ -44,44 +43,31 @@ export const CreateRequest = () => {
             </Typography>
           </Box>
           <Paper variant="brutalist1">
-            <Box
-              display="flex"
-              justifyContent="center"
-              alignItems="center"
-              gap={2}
-            >
-              <Box flexGrow={1} mt={2}>
-                <FormText
-                  control={control}
-                  name="title"
-                  label={t("request.title")}
-                  required
-                  rules={{
-                    maxLength: 255,
-                  }}
-                />
-              </Box>
-              <Box flexShrink={1} mx={2}>
-                <FormSelectRequestType
-                  control={control}
-                  name="requestType"
-                  rules={{ required: true }}
-                />
-              </Box>
-            </Box>
-            <FormEditor control={control} name="description" />
+            <Stack spacing={2} mb={2}>
+              <FormText
+                control={control}
+                name="title"
+                label={t("request.title")}
+                required
+                rules={{
+                  maxLength: 255,
+                }}
+              />
 
-            <Box display="flex" justifyContent="flex-end" mt={2}>
-              <Button
-                variant="contained"
-                color="primary"
-                onClick={handleSubmit(onSubmit)}
-                endIcon={<SendIcon />}
-                loading={postRequest.isPending}
-              >
-                {t("request.submit")}
-              </Button>
-            </Box>
+              <FormEditor control={control} name="description" />
+
+              <Box display="flex" justifyContent="flex-end" mt={2}>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={handleSubmit(onSubmit)}
+                  endIcon={<SendIcon />}
+                  loading={postRequest.isPending}
+                >
+                  {t("request.submit")}
+                </Button>
+              </Box>
+            </Stack>
           </Paper>
         </Box>
         <Stack
