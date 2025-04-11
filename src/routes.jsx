@@ -36,10 +36,6 @@ import { PrivacySettings } from "./settings/PrivacySettings";
 import { ForgotPassword } from "./login/ForgotPassword";
 import { Redirection } from "./redirection/Redirection";
 import { ResetPassword } from "./login/ResetPassword";
-import { SearchRecommendations } from "./recommendations/SearchRecommendations";
-import { CreateRecommendation } from "./recommendations/CreateRecommendation";
-import { RecommendationPage } from "./recommendations/RecommendationPage";
-import { RecommendationDetails } from "./recommendations/RecommendationDetails";
 import { CreateRequestRecommendation } from "./requests/CreateRequestRecommendation";
 import { RequestDetailsPage } from "./requests/RequestDetailsPage";
 import { IconsStore } from "./stores/icons/IconsStore";
@@ -145,28 +141,6 @@ export const routes = [
                 element: <RequestDetails />,
               },
             ],
-          },
-        ],
-      },
-      {
-        path: "archives",
-        element: (
-          <AuthProtectedLayout>
-            <RecommendationPage />
-          </AuthProtectedLayout>
-        ),
-        children: [
-          {
-            path: "",
-            element: <SearchRecommendations />,
-          },
-          {
-            path: "new",
-            element: <CreateRecommendation />,
-          },
-          {
-            path: ":id",
-            element: <RecommendationDetails />,
           },
         ],
       },

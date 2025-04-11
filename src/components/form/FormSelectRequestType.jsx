@@ -2,6 +2,7 @@ import {
   FormControl,
   FormHelperText,
   Icon,
+  ListItemIcon,
   MenuItem,
   Select,
   Typography,
@@ -28,11 +29,11 @@ export const FormSelectRequestType = ({ control, name, rules }) => {
   const { t } = useTranslation();
 
   return (
-    <FormControl fullWidth>
+    <FormControl size="medium">
       <Select
         component={Icon}
         value={value}
-        variant="filled"
+        // variant="filled"
         onChange={(e) => onChange(e.target.value)}
       >
         {!rules?.required && (
@@ -41,19 +42,19 @@ export const FormSelectRequestType = ({ control, name, rules }) => {
           </MenuItem>
         )}
         <MenuItem value="BOOK">
-          <Icon variant="contained">
+          <ListItemIcon>
             <MenuBookOutlinedIcon />
-          </Icon>
+          </ListItemIcon>
         </MenuItem>
         <MenuItem value="SONG">
-          <Icon variant="contained">
+          <ListItemIcon>
             <MusicNoteOutlinedIcon />
-          </Icon>
+          </ListItemIcon>
         </MenuItem>
         <MenuItem value="MOVIE">
-          <Icon variant="contained">
+          <ListItemIcon>
             <MovieOutlinedIcon />
-          </Icon>
+          </ListItemIcon>
         </MenuItem>
       </Select>
       <FormHelperText error>{t(i18nFormError(error))}</FormHelperText>

@@ -17,7 +17,6 @@ import { RequestType } from "../../request/RequestType";
 import { i18nDateTime } from "../../../i18n/i18nDate";
 import { Logo } from "../../utils/Logo";
 import { useForm, useWatch } from "react-hook-form";
-import { FormSelectRequestType } from "../../form/FormSelectRequestType";
 
 import LocalPizzaOutlinedIcon from "@mui/icons-material/LocalPizzaOutlined";
 import { SortRequest } from "../../request/SortRequest";
@@ -58,11 +57,9 @@ export const UserRequests = ({ user }) => {
         direction="row"
         spacing={1}
         alignItems="center"
-        justifyContent="flex-end"
-        // display={{ xs: "none", sm: "flex" }}
+        justifyContent="flex-start"
       >
         <SortRequest sorting={sorting} setSorting={setSorting} />
-        <FormSelectRequestType control={control} name="requestType" />
       </Stack>
 
       <InfiniteScroll

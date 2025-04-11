@@ -3,11 +3,9 @@ import {
   Button,
   Chip,
   Container,
-  Divider,
   IconButton,
   Paper,
   Skeleton,
-  Stack,
   Typography,
 } from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom";
@@ -22,6 +20,7 @@ import { useAuthSession } from "../context/AuthContext";
 import { useCreatePurchase } from "../hooks/api/users/usePurchases";
 import { toast } from "react-toastify";
 import { CurrencyIcon } from "../components/icons/CurrencyIcon";
+import { ProductItem } from "../components/store/items/ProductItem";
 
 export const ProductDetails = () => {
   const navigate = useNavigate();
@@ -76,55 +75,7 @@ export const ProductDetails = () => {
         </Box>
       </Box>
       <Paper variant="brutalist1">
-        <Box display="flex" flexWrap="wrap" gap={2}>
-          <Box
-            sx={{
-              backgroundColor: "primary.main",
-              borderRadius: 2,
-              padding: { xs: 4, md: 4 },
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              maxWidth: 200,
-              maxHeight: 250,
-              flexGrow: 1,
-            }}
-          >
-            {product ? (
-              <Box
-                component="img"
-                src={product?.icon}
-                alt={product?.name}
-                loading="lazy"
-                sx={{
-                  display: "flex",
-                  maxWidth: 150,
-                }}
-              />
-            ) : (
-              <Skeleton variant="rectangular" width={200} height={200} />
-            )}
-          </Box>
-          <Stack spacing={5} py={2} maxWidth={750}>
-            {product ? (
-              <Typography fontStyle="italic">
-                "{product?.description}"
-              </Typography>
-            ) : (
-              <Skeleton variant="text" width={500} />
-            )}
-            <Divider />
-            <Box display="flex" alignItems="flex-end">
-              {product ? (
-                <Typography>
-                  {t(`stores.products.${product?.type}.help`)}
-                </Typography>
-              ) : (
-                <Skeleton variant="text" width={500} />
-              )}
-            </Box>
-          </Stack>
-        </Box>
+        <ProductItem product={product} />
         <Box
           justifyContent="center"
           alignItems="center"
@@ -136,7 +87,7 @@ export const ProductDetails = () => {
             variant="contained"
             color="primary"
             onClick={handleBuy}
-            endIcon={<CurrencyIcon />}
+            endIcon={<CurrencyIcon color="info" />}
             loading={createPurchase.isPending}
           >
             {t("buy")}

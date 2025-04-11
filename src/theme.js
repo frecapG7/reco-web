@@ -121,6 +121,8 @@ theme = createTheme(theme, {
   },
 });
 
+theme = responsiveFontSizes(theme);
+
 theme = createTheme(theme, {
   components: {
     MuiButton: {
@@ -252,8 +254,8 @@ theme = createTheme(theme, {
           style: {
             borderTop: "5px solid",
             borderColor: theme.palette.primary.main,
-            paddingTop: 20,
-            paddingRight: 20,
+            paddingTop: 15,
+            paddingRight: 15,
             paddingLeft: 0,
             borderRadius: 2,
             position: "relative",
@@ -275,7 +277,7 @@ theme = createTheme(theme, {
           style: {
             borderLeft: "2px solid",
             borderColor: theme.palette.primary.main,
-            paddingBottom: 5,
+            paddingBottom: 15,
             paddingLeft: 5,
             borderRadius: 2,
             position: "relative",
@@ -503,11 +505,34 @@ theme = createTheme(theme, {
         },
       },
     },
+    MuiImageList: {
+      styleOverrides: {
+        root: {
+          width: "100%",
+          scrollbarWidth: "none",
+          gridTemplateColumns: {
+            xs: "repeat(auto-fill, minmax(120px, 1fr))!important",
+            md: "repeat(auto-fill, minmax(180px, 1fr))!important",
+          },
+        },
+      },
+    },
+    MuiImageListItem: {
+      styleOverrides: {
+        root: {
+          cursor: "pointer",
+          background: `linear-gradient(15deg, ${theme.palette.primary.main}, ${theme.palette.background.default})`,
+          borderRadius: 5,
+          "&:hover": {
+            transform: "scale(1.05)",
+          },
+        },
+      },
+    },
   },
   tiptap: {
     margin: 10000,
   },
 });
 
-theme = responsiveFontSizes(theme);
 export default theme;

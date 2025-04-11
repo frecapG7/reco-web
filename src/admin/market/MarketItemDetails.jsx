@@ -3,11 +3,12 @@ import {
   Box,
   Chip,
   CircularProgress,
+  Collapse,
   Container,
   Divider,
-  Drawer,
   Fade,
   IconButton,
+  Paper,
   Stack,
   Typography,
   Zoom,
@@ -30,7 +31,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import { CurrencyIcon } from "../../components/icons/CurrencyIcon";
 import { UpdateMarketItem } from "./components/UpdateMarketItem";
 import { toast } from "react-toastify";
-import { StoreItem } from "../../components/store/items/StoreItem";
+import { ProductItem } from "../../components/store/items/ProductItem";
 
 export const MarketItemDetails = () => {
   const { id } = useParams();
@@ -127,52 +128,56 @@ export const MarketItemDetails = () => {
         </Stack>
       </Box>
 
-      <Box>
-        <StoreItem item={marketItem} />
-        <Drawer anchor="right" variant="permanent" open>
-          <Box
-            display="flex"
-            justifyContent="space-between"
-            alignItems="center"
-            px={5}
-          >
-            <Fade in={!edit}>
-              <Chip
-                color="primary"
-                label={marketItem?.price}
-                icon={<CurrencyIcon />}
-              >
-                <CurrencyIcon />
-              </Chip>
-            </Fade>
-            <IconButton variant="outlined" onClick={() => setEdit(!edit)}>
-              {edit ? <CancelOutlinedIcon /> : <EditIcon />}
-            </IconButton>
-          </Box>
-          <Zoom in={!edit} mountOnEnter unmountOnExit>
-            <Stack divider={<Divider />} spacing={2} p={1}>
-              <Stack>
-                <Typography variant="caption">Label</Typography>
-                <Typography variant="subtitle">{marketItem?.label}</Typography>
+      <Box display="flex" gap={2}>
+        <ProductItem product={marketItem} />
+        <Collapse orientation="horizontal" collapsedSize={300}>
+          <Paper variant="outlined">
+            <Box
+              display="flex"
+              justifyContent="space-between"
+              alignItems="center"
+              px={5}
+            >
+              <Fade in={!edit}>
+                <Chip
+                  color="primary"
+                  label={marketItem?.price}
+                  icon={<CurrencyIcon />}
+                >
+                  <CurrencyIcon />
+                </Chip>
+              </Fade>
+              <IconButton variant="outlined" onClick={() => setEdit(!edit)}>
+                {edit ? <CancelOutlinedIcon /> : <EditIcon />}
+              </IconButton>
+            </Box>
+            <Zoom in={!edit} mountOnEnter unmountOnExit>
+              <Stack divider={<Divider />} spacing={2} p={1}>
+                <Stack>
+                  <Typography variant="caption">Label</Typography>
+                  <Typography variant="subtitle">
+                    {marketItem?.label}
+                  </Typography>
+                </Stack>
+                <Stack>
+                  <Typography variant="caption">Name</Typography>
+                  <Typography variant="body1">{marketItem?.name}</Typography>
+                </Stack>
+                <Stack>
+                  <Typography variant="caption">Icon</Typography>
+                  <Typography noWrap maxWidth={200}>
+                    {marketItem?.icon}
+                  </Typography>
+                </Stack>
               </Stack>
-              <Stack>
-                <Typography variant="caption">Name</Typography>
-                <Typography variant="body1">{marketItem?.name}</Typography>
+            </Zoom>
+            <Zoom in={edit} mountOnEnter unmountOnExit>
+              <Stack divider={<Divider />} spacing={2} p={1}>
+                <UpdateMarketItem marketItem={marketItem} onSubmit={onSubmit} />
               </Stack>
-              <Stack>
-                <Typography variant="caption">Icon</Typography>
-                <Typography noWrap maxWidth={200}>
-                  {marketItem?.icon}
-                </Typography>
-              </Stack>
-            </Stack>
-          </Zoom>
-          <Zoom in={edit} mountOnEnter unmountOnExit>
-            <Stack divider={<Divider />} spacing={2} p={1}>
-              <UpdateMarketItem marketItem={marketItem} onSubmit={onSubmit} />
-            </Stack>
-          </Zoom>
-        </Drawer>
+            </Zoom>
+          </Paper>
+        </Collapse>
       </Box>
 
       <Backdrop open={updateItem.isPending}>

@@ -7,6 +7,7 @@ import {
 import { useController } from "react-hook-form";
 import { NumericFormat } from "react-number-format";
 import { i18nFormError } from "../../i18n/i18nForm";
+import { useTranslation } from "react-i18next";
 
 export const FormNumber = ({
   control,
@@ -30,6 +31,8 @@ export const FormNumber = ({
     defaultValue: "",
   });
 
+  const { t } = useTranslation();
+
   return (
     <FormControl fullWidth>
       <FormLabel required={rules?.required}>{label}</FormLabel>
@@ -43,7 +46,7 @@ export const FormNumber = ({
         required={required}
         suffix={suffix}
       />
-      <FormHelperText error>{i18nFormError(error)}</FormHelperText>
+      <FormHelperText error>{t(i18nFormError(error))}</FormHelperText>
     </FormControl>
   );
 };
