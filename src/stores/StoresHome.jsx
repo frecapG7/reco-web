@@ -12,6 +12,7 @@ import { useNavigate } from "react-router-dom";
 import { useGetMarketProducts } from "../hooks/api/market/useMarketProducts";
 import { StoreItemList } from "../components/store/items/StoreItemList";
 import { ProductsListItem } from "../components/store/items/ProductsListItem";
+import { ProductCard } from "../components/store/items/ProductCard";
 
 export const StoresHome = () => {
   const { t } = useTranslation();
@@ -95,6 +96,22 @@ export const StoresHome = () => {
               />
             ))}
           </ImageList>
+
+          <Box
+            display="flex"
+            gap={2}
+            sx={{
+              overflowX: "hidden",
+            }}
+          >
+            {icons?.results.map((item) => (
+              <ProductCard
+                product={item}
+                key={item.id}
+                onClick={() => navigate(`icons/${item.name}`)}
+              />
+            ))}
+          </Box>
         </Paper>
 
         <Paper variant="brutalist2">
